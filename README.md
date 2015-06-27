@@ -39,6 +39,10 @@ Telegram::Bot::Runner.run(token) do |bot|
 end
 ```
 
+Note that `bot.api` object implements [Telegram Bot API methods](https://core.telegram.org/bots/api#available-methods) as is. So you can invoke any method inside the block without any problems.
+
+Same thing about `message` object - it implements [Message](https://core.telegram.org/bots/api#message) spec, so you always know what to expect from it.
+
 ## Contributing
 
 1. Fork it
