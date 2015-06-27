@@ -1,6 +1,6 @@
 module Telegram
   module Bot
-    class Runner
+    class Client
       attr_reader :api, :offset
 
       def self.run(*args, &block)

@@ -27,9 +27,11 @@ $ gem install telegram-bot-ruby
 First things first, you need to [obtain a token](https://core.telegram.org/bots#botfather) for your bot. Then create your Telegram bot like this:
 
 ```ruby
+require 'telegram/bot'
+
 token = 'YOUR_TELEGRAM_BOT_API_TOKEN'
 
-Telegram::Bot::Runner.run(token) do |bot|
+Telegram::Bot::Client.run(token) do |bot|
   bot.listen do |message|
     case message.text
     when /^hello/
