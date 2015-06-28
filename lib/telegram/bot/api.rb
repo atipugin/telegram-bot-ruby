@@ -23,7 +23,8 @@ module Telegram
       end
 
       def call(endpoint, params = {})
-        self.class.get("/bot#{token}/#{endpoint}", query: params).to_h
+        response = self.class.get("/bot#{token}/#{endpoint}", query: params)
+        response.code == 200 ? response.to_h : {}
       end
     end
   end
