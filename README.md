@@ -2,6 +2,7 @@
 
 Ruby wrapper for [Telegram's Bot API](https://core.telegram.org/bots/api).
 
+[![Gem Version](https://badge.fury.io/rb/telegram-bot-ruby.svg)](http://badge.fury.io/rb/telegram-bot-ruby)
 [![Code Climate](https://codeclimate.com/github/atipugin/telegram-bot-ruby/badges/gpa.svg)](https://codeclimate.com/github/atipugin/telegram-bot-ruby)
 
 ## Installation
