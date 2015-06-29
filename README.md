@@ -37,8 +37,10 @@ token = 'YOUR_TELEGRAM_BOT_API_TOKEN'
 Telegram::Bot::Client.run(token) do |bot|
   bot.listen do |message|
     case message.text
-    when /^hello/
+    when /^\/start$/
       bot.api.sendMessage(chat_id: message.chat.id, text: "Hello, #{message.from.username}")
+    when /^\/stop$/
+      bot.api.sendMessage(chat_id: message.chat.id, text: "Bye, #{message.from.username}")
     end
   end
 end
@@ -47,6 +49,28 @@ end
 Note that `bot.api` object implements [Telegram Bot API methods](https://core.telegram.org/bots/api#available-methods) as is. So you can invoke any method inside the block without any problems.
 
 Same thing about `message` object - it implements [Message](https://core.telegram.org/bots/api#message) spec, so you always know what to expect from it.
+
+## Custom keyboards
+
+You can use your own [custom keyboards](https://core.telegram.org/bots#keyboards). Here is an example:
+
+```ruby
+bot.listen do |message|
+  case message.text
+  when /^\/start$/
+    question = 'London is a capital of which country?'
+    # See more: https://core.telegram.org/bots/api#replykeyboardmarkup
+    answers =
+      Telegram::Bot::Types::ReplyKeyboardMarkup
+      .new(keyboard: [%w(A B), %w(C D)], one_time_keyboard: true)
+    bot.api.sendMessage(chat_id: message.chat.id, text: question, reply_markup: answers)
+  when /^\/stop$/
+    # See more: https://core.telegram.org/bots/api#replykeyboardhide
+    kb = Telegram::Bot::Types::ReplyKeyboardHide.new(hide_keyboard: true)
+    bot.api.sendMessage(chat_id: message.chat.id, text: 'Sorry to see you go :(', reply_markup: kb)
+  end
+end
+```
 
 ## Contributing
 
