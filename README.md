@@ -72,6 +72,19 @@ bot.listen do |message|
 end
 ```
 
+## File upload
+
+Your bot can even upload files to Telegram servers (i.e. https://core.telegram.org/bots/api#sendphoto). Just like this:
+
+```ruby
+bot.listen do |message|
+  case message.text
+  when /^\/photo$/
+    bot.api.sendPhoto(chat_id: message.chat.id, photo: File.new('~/Desktop/jennifer.jpg'))
+  end
+end
+```
+
 ## Contributing
 
 1. Fork it

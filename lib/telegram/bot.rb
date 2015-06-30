@@ -1,4 +1,4 @@
-require 'httparty'
+require 'httmultiparty'
 require 'persistent_httparty'
 require 'virtus'
 

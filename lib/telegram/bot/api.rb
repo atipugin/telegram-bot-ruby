@@ -1,7 +1,7 @@
 module Telegram
   module Bot
     class Api
-      include HTTParty
+      include HTTMultiParty
 
       ENDPOINTS = %w(
         getMe sendMessage forwardMessage sendPhoto sendAudio sendDocument
@@ -29,7 +29,7 @@ module Telegram
 
       def call(endpoint, raw_params = {})
         params = build_params(raw_params)
-        response = self.class.get("/bot#{token}/#{endpoint}", query: params)
+        response = self.class.post("/bot#{token}/#{endpoint}", query: params)
         if response.code == 200
           response.to_h
         else
