@@ -1,15 +1,16 @@
 module Telegram
   module Bot
     class Client
-      attr_reader :api, :offset
+      attr_reader :api, :offset, :timeout
 
       def self.run(*args, &block)
         new(*args).run(&block)
       end
 
-      def initialize(token)
+      def initialize(token, timeout = 20)
         @api = Api.new(token)
         @offset = 0
+        @timeout = timeout
       end
 
       def run
@@ -18,7 +19,7 @@ module Telegram
 
       def listen
         loop do
-          response = api.getUpdates(offset: offset)
+          response = api.getUpdates(offset: offset, timeout: timeout)
           next unless response['ok']
 
           response['result'].each do |data|
