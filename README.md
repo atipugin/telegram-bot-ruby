@@ -74,7 +74,7 @@ end
 
 ## File upload
 
-Your bot can even upload files to Telegram servers (i.e. https://core.telegram.org/bots/api#sendphoto). Just like this:
+Your bot can even upload files ([photos](https://core.telegram.org/bots/api#sendphoto), [audio](https://core.telegram.org/bots/api#sendaudio), [documents](https://core.telegram.org/bots/api#senddocument), [stickers](https://core.telegram.org/bots/api#sendsticker), [video](https://core.telegram.org/bots/api#sendvideo)) to Telegram servers. Just like this:
 
 ```ruby
 bot.listen do |message|
