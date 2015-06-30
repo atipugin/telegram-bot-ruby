@@ -30,7 +30,12 @@ module Telegram
       def call(endpoint, raw_params = {})
         params = build_params(raw_params)
         response = self.class.get("/bot#{token}/#{endpoint}", query: params)
-        response.code == 200 ? response.to_h : {}
+        if response.code == 200
+          response.to_h
+        else
+          fail Exceptions::ResponseError.new(response),
+               'Telegram API has returned the error.'
+        end
       end
 
       private
