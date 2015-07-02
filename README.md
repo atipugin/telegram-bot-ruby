@@ -37,9 +37,9 @@ token = 'YOUR_TELEGRAM_BOT_API_TOKEN'
 Telegram::Bot::Client.run(token) do |bot|
   bot.listen do |message|
     case message.text
-    when /^\/start$/
+    when '/start'
       bot.api.sendMessage(chat_id: message.chat.id, text: "Hello, #{message.from.username}")
-    when /^\/stop$/
+    when '/stop'
       bot.api.sendMessage(chat_id: message.chat.id, text: "Bye, #{message.from.username}")
     end
   end
@@ -57,14 +57,14 @@ You can use your own [custom keyboards](https://core.telegram.org/bots#keyboards
 ```ruby
 bot.listen do |message|
   case message.text
-  when /^\/start$/
+  when '/start'
     question = 'London is a capital of which country?'
     # See more: https://core.telegram.org/bots/api#replykeyboardmarkup
     answers =
       Telegram::Bot::Types::ReplyKeyboardMarkup
       .new(keyboard: [%w(A B), %w(C D)], one_time_keyboard: true)
     bot.api.sendMessage(chat_id: message.chat.id, text: question, reply_markup: answers)
-  when /^\/stop$/
+  when '/stop'
     # See more: https://core.telegram.org/bots/api#replykeyboardhide
     kb = Telegram::Bot::Types::ReplyKeyboardHide.new(hide_keyboard: true)
     bot.api.sendMessage(chat_id: message.chat.id, text: 'Sorry to see you go :(', reply_markup: kb)
@@ -79,7 +79,7 @@ Your bot can even upload files ([photos](https://core.telegram.org/bots/api#send
 ```ruby
 bot.listen do |message|
   case message.text
-  when /^\/photo$/
+  when '/photo'
     bot.api.sendPhoto(chat_id: message.chat.id, photo: File.new('~/Desktop/jennifer.jpg'))
   end
 end
