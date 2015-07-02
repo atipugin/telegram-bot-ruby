@@ -27,7 +27,7 @@ module Telegram
 
         def chat=(value)
           @chat =
-          if value.key?('username')
+          if value.key?('first_name')
             User.new(value)
           elsif value.key?('title')
             GroupChat.new(value)
