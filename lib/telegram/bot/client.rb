@@ -28,6 +28,8 @@ module Telegram
             yield update.message
           end
         end
+      rescue Net::ReadTimeout
+        retry
       end
     end
   end
