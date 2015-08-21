@@ -5,7 +5,7 @@ module Telegram
     module Botan
       attr_reader :botan
 
-      def enable_botan(token)
+      def enable_botan!(token)
         @botan ||= Botan::Api.new(token)
       end
 
