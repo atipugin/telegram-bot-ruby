@@ -85,6 +85,46 @@ bot.listen do |message|
 end
 ```
 
+## Logging
+
+By default, bot doesn't log anything (uses `NullLoger`). You can change this behavior and provide your own logger class. See example below:
+
+```ruby
+Telegram::Bot::Client.run(token, logger: Logger.new($stdout)) do |bot|
+  bot.logger.info('Bot has been started')
+  bot.listen do |message|
+    # ...
+  end
+end
+```
+
+## Botan.io support
+
+Gem provides support of [Botan.io](http://botan.io/) analytics out of box. All you need is to obtain a token (follow the instructions from http://botan.io/). To track events you're interested in just call `#track` method. See example below:
+
+```ruby
+require 'telegram/bot'
+require 'telegram/bot/botan' # Botan.io extension isn't loaded by default, so make sure you required it.
+
+token = 'YOUR_TELEGRAM_BOT_API_TOKEN'
+
+Telegram::Bot::Client.run(token) do |bot|
+  bot.enable_botan!('YOUR_BOTAN_TOKEN')
+  bot.listen do |message|
+    case message.text
+    when '/start'
+      bot.track('Started', message.from.id, type_of_chat: message.chat.class.name)
+      # ...
+    end
+  end
+end
+```
+
+`#track` method accepts 3 arguments:
+- name of event (required)
+- Telegram's user id (required)
+- hash of additional properties (optional)
+
 ## Contributing
 
 1. Fork it
