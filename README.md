@@ -100,7 +100,7 @@ end
 
 ## Botan.io support
 
-Gem provides support of [Botan.io](http://botan.io/) analytics out of box. All you need is to obtain a token (follow the instructions from http://botan.io/). To track events you're interested in just call `#track` method. See example below:
+Gem provides support of [Botan.io](http://botan.io/) analytics out of box. All you need is to obtain a token (follow the instructions from https://github.com/botanio/sdk). To track events you're interested in just call `#track` method. See example below:
 
 ```ruby
 require 'telegram/bot'
