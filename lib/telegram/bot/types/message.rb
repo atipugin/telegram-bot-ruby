@@ -16,6 +16,7 @@ module Telegram
         attribute :photo, Array[PhotoSize]
         attribute :sticker, Sticker
         attribute :video, Video
+        attribute :voice, Voice
         attribute :caption, String
         attribute :contact, Contact
         attribute :location, Location
