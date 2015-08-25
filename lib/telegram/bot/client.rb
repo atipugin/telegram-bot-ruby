@@ -1,6 +1,9 @@
 module Telegram
   module Bot
     class Client
+      TIMEOUT_EXCEPTIONS = [Timeout::Error]
+      TIMEOUT_EXCEPTIONS << Net::ReadTimeout if Net.const_defined?(:ReadTimeout)
+
       attr_reader :api, :offset, :timeout, :logger
 
       def self.run(*args, &block)
@@ -31,7 +34,7 @@ module Telegram
             yield update.message
           end
         end
-      rescue Net::ReadTimeout
+      rescue *TIMEOUT_EXCEPTIONS
         retry
       end
 
