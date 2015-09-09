@@ -16,6 +16,7 @@ module Telegram
         @offset = options[:offset]
         @timeout = options[:timeout]
         @logger = options[:logger]
+        @scheduler = options[:scheduler] || DefaultScheduler.new
       end
 
       def run
@@ -23,15 +24,16 @@ module Telegram
       end
 
       def listen
-        loop do
+        @scheduler.run do
           response = api.getUpdates(offset: offset, timeout: timeout)
-          next unless response['ok']
 
-          response['result'].each do |data|
-            update = Types::Update.new(data)
-            @offset = update.update_id.next
-            log_incoming_message(update.message)
-            yield update.message
+          if response['ok']
+            response['result'].each do |data|
+              update = Types::Update.new(data)
+              @offset = update.update_id.next
+              log_incoming_message(update.message)
+              yield update.message
+            end
           end
         end
       rescue *TIMEOUT_EXCEPTIONS
