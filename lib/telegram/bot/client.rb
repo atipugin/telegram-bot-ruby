@@ -13,10 +13,12 @@ module Telegram
       def initialize(token, h = {})
         options = default_options.merge(h)
         @api = Api.new(token)
-        @offset = options[:offset]
-        @timeout = options[:timeout]
-        @logger = options[:logger]
-        @scheduler = options[:scheduler] || DefaultScheduler.new
+        @offset = options.delete(:offset)
+        @timeout = options.delete(:timeout)
+        @logger = options.delete(:logger)
+        @scheduler = options.delete(:scheduler) || DefaultScheduler.new
+
+        raise "Unknown arguments passed: #{options.keys.join(', ')}." unless options.empty?
       end
 
       def run
