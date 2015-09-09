@@ -13,9 +13,12 @@ module Telegram
       def initialize(token, h = {})
         options = default_options.merge(h)
         @api = Api.new(token)
-        @offset = options[:offset]
-        @timeout = options[:timeout]
-        @logger = options[:logger]
+        @offset = options.delete(:offset)
+        @timeout = options.delete(:timeout)
+        @logger = options.delete(:logger)
+        @scheduler = options.delete(:scheduler) || DefaultScheduler.new
+
+        raise "Unknown arguments passed: #{options.keys.join(', ')}." unless options.empty?
       end
 
       def run
@@ -23,15 +26,16 @@ module Telegram
       end
 
       def listen
-        loop do
+        @scheduler.run do
           response = api.getUpdates(offset: offset, timeout: timeout)
-          next unless response['ok']
 
-          response['result'].each do |data|
-            update = Types::Update.new(data)
-            @offset = update.update_id.next
-            log_incoming_message(update.message)
-            yield update.message
+          if response['ok']
+            response['result'].each do |data|
+              update = Types::Update.new(data)
+              @offset = update.update_id.next
+              log_incoming_message(update.message)
+              yield update.message
+            end
           end
         end
       rescue *TIMEOUT_EXCEPTIONS
