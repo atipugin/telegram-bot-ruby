@@ -22,17 +22,19 @@ module Telegram
         yield self
       end
 
-      def listen
-        loop do
-          response = api.getUpdates(offset: offset, timeout: timeout)
-          next unless response['ok']
+      def listen(&block)
+        loop { fetch_updates(&block) }
+      end
 
-          response['result'].each do |data|
-            update = Types::Update.new(data)
-            @offset = update.update_id.next
-            log_incoming_message(update.message)
-            yield update.message
-          end
+      def fetch_updates
+        response = api.getUpdates(offset: offset, timeout: timeout)
+        return unless response['ok']
+
+        response['result'].each do |data|
+          update = Types::Update.new(data)
+          @offset = update.update_id.next
+          log_incoming_message(update.message)
+          yield update.message
         end
       rescue *TIMEOUT_EXCEPTIONS
         retry
