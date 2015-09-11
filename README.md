@@ -125,6 +125,10 @@ end
 - Telegram's user id (required)
 - hash of additional properties (optional)
 
+## Connection pool size
+
+Sometimes you need to do some heavy work in another thread and send response from where.
+
 ## Contributing
 
 1. Fork it
