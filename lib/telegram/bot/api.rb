@@ -25,10 +25,10 @@ module Telegram
       end
 
       def method_missing(method_name, *args, &block)
-        method_string = method_name.to_s
-        method_name = camelize(method_string) if method_string.include?('_')
+        endpoint = method_name.to_s
+        endpoint = camelize(endpoint) if endpoint.include?('_')
 
-        ENDPOINTS.include?(method_string) ? call(method_name, *args) : super
+        ENDPOINTS.include?(endpoint) ? call(endpoint, *args) : super
       end
 
       def call(endpoint, raw_params = {})
@@ -61,8 +61,8 @@ module Telegram
 
       def camelize(method_name)
         words = method_name.split('_')
-        words.drop(1).each { |word| word.capitalize! }
-        words.join.to_sym
+        words.drop(1).map(&:capitalize!)
+        words.join
       end
     end
   end
