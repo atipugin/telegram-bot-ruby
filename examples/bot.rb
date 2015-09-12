@@ -7,11 +7,11 @@ Telegram::Bot::Client.run(token) do |bot|
   bot.listen do |message|
     case message.text
     when '/start'
-      bot.api.sendMessage(chat_id: message.chat.id, text: "Hello, #{message.from.first_name}!")
+      bot.api.send_message(chat_id: message.chat.id, text: "Hello, #{message.from.first_name}!")
     when '/end'
-      bot.api.sendMessage(chat_id: message.chat.id, text: "Bye, #{message.from.first_name}!")
+      bot.api.send_message(chat_id: message.chat.id, text: "Bye, #{message.from.first_name}!")
     else
-      bot.api.sendMessage(chat_id: message.chat.id, text: "I don't understand you :(")
+      bot.api.send_message(chat_id: message.chat.id, text: "I don't understand you :(")
     end
   end
 end
