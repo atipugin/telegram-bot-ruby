@@ -46,7 +46,7 @@ Telegram::Bot::Client.run(token) do |bot|
 end
 ```
 
-Note that `bot.api` object implements [Telegram Bot API methods](https://core.telegram.org/bots/api#available-methods) as is. So you can invoke any method inside the block without any problems.
+Note that `bot.api` object implements [Telegram Bot API methods](https://core.telegram.org/bots/api#available-methods) as is. So you can invoke any method inside the block without any problems. All methods are available in both *snake_case* and *camelCase* notations.
 
 Same thing about `message` object - it implements [Message](https://core.telegram.org/bots/api#message) spec, so you always know what to expect from it.
 
@@ -80,7 +80,7 @@ Your bot can even upload files ([photos](https://core.telegram.org/bots/api#send
 bot.listen do |message|
   case message.text
   when '/photo'
-    bot.api.sendPhoto(chat_id: message.chat.id, photo: File.new('~/Desktop/jennifer.jpg'))
+    bot.api.send_photo(chat_id: message.chat.id, photo: File.new('~/Desktop/jennifer.jpg'))
   end
 end
 ```
