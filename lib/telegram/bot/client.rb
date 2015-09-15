@@ -23,7 +23,11 @@ module Telegram
       end
 
       def listen(&block)
-        loop { fetch_updates(&block) }
+        logger.info('Starting bot')
+        running = true
+        Signal.trap('INT') { running = false }
+        fetch_updates(&block) while running
+        exit
       end
 
       def fetch_updates
