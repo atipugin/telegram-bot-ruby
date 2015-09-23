@@ -6,7 +6,7 @@ module Telegram
       ENDPOINTS = %w(
         getMe sendMessage forwardMessage sendPhoto sendAudio sendDocument
         sendSticker sendVideo sendVoice sendLocation sendChatAction
-        getUserProfilePhotos getUpdates setWebhook
+        getUserProfilePhotos getUpdates setWebhook getFile
       ).freeze
       REPLY_MARKUP_TYPES = [
         Telegram::Bot::Types::ReplyKeyboardMarkup,
