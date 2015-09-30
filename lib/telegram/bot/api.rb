@@ -18,7 +18,9 @@ module Telegram
       attr_reader :token
 
       base_uri 'https://api.telegram.org'
-      persistent_connection_adapter pool_size: POOL_SIZE, keep_alive: 0
+      persistent_connection_adapter pool_size: POOL_SIZE,
+                                    keep_alive: 30,
+                                    force_retry: true
 
       def initialize(token)
         @token = token
