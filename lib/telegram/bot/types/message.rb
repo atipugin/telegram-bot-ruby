@@ -2,8 +2,6 @@ module Telegram
   module Bot
     module Types
       class Message < Base
-        attr_accessor :chat
-
         attribute :message_id, Integer
         attribute :from, User
         attribute :date, Integer
@@ -26,15 +24,7 @@ module Telegram
         attribute :new_chat_photo, Array[PhotoSize]
         attribute :delete_chat_photo, Boolean
         attribute :group_chat_created, Boolean
-
-        def chat=(value)
-          @chat =
-          if value.key?('first_name')
-            User.new(value)
-          elsif value.key?('title')
-            GroupChat.new(value)
-          end
-        end
+        attribute :chat, Chat
       end
     end
   end
