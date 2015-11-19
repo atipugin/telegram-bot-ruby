@@ -13,6 +13,10 @@ module Telegram
             format(' (%s)', data.map { |k, v| %(#{k}: "#{v}") }.join(', '))
         end
 
+        def error_code
+          data[:error_code] || data["error_code"]
+        end
+
         private
 
         def data
