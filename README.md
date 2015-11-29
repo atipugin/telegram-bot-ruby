@@ -50,6 +50,10 @@ Note that `bot.api` object implements [Telegram Bot API methods](https://core.te
 
 Same thing about `message` object - it implements [Message](https://core.telegram.org/bots/api#message) spec, so you always know what to expect from it.
 
+## Webhooks
+
+If you are going to use [webhooks](https://core.telegram.org/bots/api#setwebhook) instead of [long polling](https://core.telegram.org/bots/api#getupdates), you need to implement your own webhook callbacks server. Take a look at [this repo](https://github.com/solyaris/BOTServer) as an example.
+
 ## Custom keyboards
 
 You can use your own [custom keyboards](https://core.telegram.org/bots#keyboards). Here is an example:
