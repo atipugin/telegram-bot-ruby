@@ -137,6 +137,11 @@ Sometimes you need to do some heavy work in another thread and send response fro
 $ TELEGRAM_BOT_POOL_SIZE=4 ruby bot.rb
 ```
 
+## Boilerplates
+
+If you don't know how to setup database for your bot or how to use it with different languages here are some boilerplates which can help you to start faster:
+- [Ruby Telegram Bot boilerplate](https://github.com/telegram-bots/ruby-telegram-bot-boilerplate)
+
 ## Contributing
 
 1. Fork it
