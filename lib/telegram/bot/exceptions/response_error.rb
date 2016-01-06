@@ -14,7 +14,7 @@ module Telegram
         end
 
         def error_code
-          data[:error_code] || data["error_code"]
+          data[:error_code] || data['error_code']
         end
 
         private
