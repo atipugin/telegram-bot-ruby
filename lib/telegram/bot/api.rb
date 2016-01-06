@@ -6,12 +6,19 @@ module Telegram
       ENDPOINTS = %w(
         getMe sendMessage forwardMessage sendPhoto sendAudio sendDocument
         sendSticker sendVideo sendVoice sendLocation sendChatAction
-        getUserProfilePhotos getUpdates setWebhook getFile
+        getUserProfilePhotos getUpdates setWebhook getFile answerInlineQuery
       ).freeze
       REPLY_MARKUP_TYPES = [
         Telegram::Bot::Types::ReplyKeyboardMarkup,
         Telegram::Bot::Types::ReplyKeyboardHide,
         Telegram::Bot::Types::ForceReply
+      ].freeze
+      INLINE_QUERY_RESULT_TYPES = [
+        Telegram::Bot::Types::InlineQueryResultArticle,
+        Telegram::Bot::Types::InlineQueryResultGif,
+        Telegram::Bot::Types::InlineQueryResultMpeg4Gif,
+        Telegram::Bot::Types::InlineQueryResultPhoto,
+        Telegram::Bot::Types::InlineQueryResultVideo
       ].freeze
       POOL_SIZE = ENV.fetch('TELEGRAM_BOT_POOL_SIZE', 1).to_i.freeze
 
@@ -53,12 +60,17 @@ module Telegram
       end
 
       def sanitize_value(value)
-        jsonify_reply_markup(value)
+        jsonify_inline_query_results(jsonify_reply_markup(value))
       end
 
       def jsonify_reply_markup(value)
         return value unless REPLY_MARKUP_TYPES.include?(value.class)
         value.to_h.to_json
+      end
+
+      def jsonify_inline_query_results(value)
+        return value unless Array(value).all? { |i| INLINE_QUERY_RESULT_TYPES.include?(i.class) }
+        value.map { |i| i.to_h.select { |_, v| v } }.to_json
       end
 
       def camelize(method_name)

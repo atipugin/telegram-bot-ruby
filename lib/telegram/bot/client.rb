@@ -37,8 +37,9 @@ module Telegram
         response['result'].each do |data|
           update = Types::Update.new(data)
           @offset = update.update_id.next
-          log_incoming_message(update.message)
-          yield update.message
+          message = extract_message(update)
+          log_incoming_message(message)
+          yield message
         end
       rescue *TIMEOUT_EXCEPTIONS
         retry
@@ -50,13 +51,13 @@ module Telegram
         { offset: 0, timeout: 20, logger: NullLogger.new }
       end
 
+      def extract_message(update)
+        update.inline_query || update.chosen_inline_result || update.message
+      end
+
       def log_incoming_message(message)
         logger.info(
-          format(
-            'Incoming message: text="%s" uid=%i',
-            message.text,
-            message.from.id
-          )
+          format('Incoming message: text="%s" uid=%i', message, message.from.id)
         )
       end
     end

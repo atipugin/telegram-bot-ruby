@@ -25,6 +25,8 @@ module Telegram
         attribute :delete_chat_photo, Boolean
         attribute :group_chat_created, Boolean
         attribute :chat, Chat
+
+        alias_method :to_s, :text
       end
     end
   end
