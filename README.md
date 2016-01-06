@@ -76,6 +76,31 @@ bot.listen do |message|
 end
 ```
 
+## Inline bots
+
+If you are going to create [inline bot](https://core.telegram.org/bots/inline), check the example below:
+
+```ruby
+bot.listen do |message|
+  case message
+  when Telegram::Bot::Types::InlineQuery
+    results = [
+      Telegram::Bot::Types::InlineQueryResultArticle
+        .new(id: 1, title: 'First article', message_text: 'Very interesting text goes here.'),
+      Telegram::Bot::Types::InlineQueryResultArticle
+        .new(id: 2, title: 'Second article', message_text: 'Another interesting text here.')
+    ]
+    bot.api.answer_inline_query(inline_query_id: message.id, results: results)
+  when Telegram::Bot::Types::Message
+    bot.api.send_message(chat_id: message.chat.id, text: "Hello, #{message.from.first_name}!")
+  end
+end
+```
+
+Using `answer_inline_query` you can send query results to user. `results` field must be an array of [query result objects](https://core.telegram.org/bots/api#inlinequeryresult).
+
+Don't forgot to enable `inline` mode for your bot.
+
 ## File upload
 
 Your bot can even upload files ([photos](https://core.telegram.org/bots/api#sendphoto), [audio](https://core.telegram.org/bots/api#sendaudio), [documents](https://core.telegram.org/bots/api#senddocument), [stickers](https://core.telegram.org/bots/api#sendsticker), [video](https://core.telegram.org/bots/api#sendvideo)) to Telegram servers. Just like this:
