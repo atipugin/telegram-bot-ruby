@@ -97,9 +97,9 @@ bot.listen do |message|
 end
 ```
 
-Using `answer_inline_query` you can send query results to user. `results` field must be an array of [query result objects](https://core.telegram.org/bots/api#inlinequeryresult).
+Now, with `inline` mode enabled, your `message` object can be an instance of [Message](https://core.telegram.org/bots/api#message), [InlineQuery](https://core.telegram.org/bots/api#inlinequery) or [ChosenInlineResult](https://core.telegram.org/bots/api#choseninlineresult). That's why you need to check type of each message and decide how to handle it.
 
-Don't forgot to enable `inline` mode for your bot.
+Using `answer_inline_query` you can send query results to user. `results` field must be an array of [query result objects](https://core.telegram.org/bots/api#inlinequeryresult).
 
 ## File upload
 
