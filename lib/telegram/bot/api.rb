@@ -40,6 +40,13 @@ module Telegram
         ENDPOINTS.include?(endpoint) ? call(endpoint, *args) : super
       end
 
+      def respond_to_missing?(*args)
+        method_name = args[0].to_s
+        method_name = camelize(method_name) if method_name.include?('_')
+
+        ENDPOINTS.include?(method_name) || super
+      end
+
       def call(endpoint, raw_params = {})
         params = build_params(raw_params)
         response = self.class.post("/bot#{token}/#{endpoint}", query: params)
