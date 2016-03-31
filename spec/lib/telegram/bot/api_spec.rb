@@ -4,6 +4,21 @@ RSpec.describe Telegram::Bot::Api do
 
   subject { described_class.new(token) }
 
+  describe '::ENDPOINTS' do
+    let(:available_methods) do
+      src = open('https://core.telegram.org/bots/api').read
+      doc = Nokogiri::HTML(src)
+      xpath = '//h3[descendant::a[@href="#available-methods"]]' \
+              '//following-sibling::ul[1]//li//a//text()'
+
+      doc.xpath(xpath).map(&:to_s)
+    end
+
+    it 'contains all available methods' do
+      expect(described_class::ENDPOINTS).to eq(available_methods)
+    end
+  end
+
   describe '#call' do
     it 'returns hash' do
       expect(subject.call(endpoint)).to be_a(Hash)
