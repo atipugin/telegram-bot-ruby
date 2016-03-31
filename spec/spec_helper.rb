@@ -1,0 +1,1 @@
+require 'telegram/bot'
