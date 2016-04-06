@@ -4,7 +4,8 @@ module Telegram
       TIMEOUT_EXCEPTIONS = [Timeout::Error]
       TIMEOUT_EXCEPTIONS << Net::ReadTimeout if Net.const_defined?(:ReadTimeout)
 
-      attr_reader :api, :offset, :timeout, :logger
+      attr_reader :api, :offset, :timeout
+      attr_accessor :logger
 
       def self.run(*args, &block)
         new(*args).run(&block)
