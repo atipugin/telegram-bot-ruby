@@ -9,7 +9,8 @@ module Telegram
       REPLY_MARKUP_TYPES = [
         Telegram::Bot::Types::ReplyKeyboardMarkup,
         Telegram::Bot::Types::ReplyKeyboardHide,
-        Telegram::Bot::Types::ForceReply
+        Telegram::Bot::Types::ForceReply,
+        Telegram::Bot::Types::InlineKeyboardMarkup
       ].freeze
       INLINE_QUERY_RESULT_TYPES = [
         Telegram::Bot::Types::InlineQueryResultArticle,
@@ -41,7 +42,8 @@ module Telegram
 
       def call(endpoint, raw_params = {})
         params = build_params(raw_params)
-        response = http.post("/bot#{token}/#{endpoint}", URI.encode_www_form(params))
+        response = http.post("/bot#{token}/#{endpoint}",
+                             URI.encode_www_form(params))
         if response.code == '200'
           JSON.parse(response.body)
         else
@@ -64,7 +66,17 @@ module Telegram
 
       def jsonify_reply_markup(value)
         return value unless REPLY_MARKUP_TYPES.include?(value.class)
-        value.to_h.to_json
+        arr = value.to_h.map do |key, val|
+          val = if val.is_a?(Array)
+            Telegram::Bot::Util.deep_array_send(val, :compact_attributes)
+          else
+            val
+          end
+
+          [key, val]
+        end
+
+        JSON.generate(Hash[arr])
       end
 
       def jsonify_inline_query_results(value)
