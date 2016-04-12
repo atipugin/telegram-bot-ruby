@@ -67,17 +67,7 @@ module Telegram
 
       def jsonify_reply_markup(value)
         return value unless REPLY_MARKUP_TYPES.include?(value.class)
-        arr = value.to_h.map do |key, val|
-          val = if val.is_a?(Array)
-            Telegram::Bot::Util.deep_array_send(val, :compact_attributes)
-          else
-            val
-          end
-
-          [key, val]
-        end
-
-        JSON.generate(Hash[arr])
+        value.to_h.to_json
       end
 
       def jsonify_inline_query_results(value)

@@ -4,7 +4,6 @@ require 'json'
 
 require 'telegram/bot/types'
 require 'telegram/bot/exceptions'
-require 'telegram/bot/util'
 require 'telegram/bot/api'
 require 'telegram/bot/null_logger'
 require 'telegram/bot/client'
