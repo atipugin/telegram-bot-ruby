@@ -10,9 +10,8 @@ module Telegram
         attribute :thumb_url, String
         attribute :title, String
         attribute :caption, String
-        attribute :message_text, String
-        attribute :parse_mode, String
-        attribute :disable_web_page_preview, Boolean
+        attribute :reply_markup, InlineKeyboardMarkup
+        attribute :input_message_content, InputMessageContent
       end
     end
   end

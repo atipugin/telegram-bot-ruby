@@ -1,13 +1,10 @@
 module Telegram
   module Bot
     module Types
-      class InlineQueryResultGif < Base
-        attribute :type, String, default: 'gif'
+      class InlineQueryResultCachedMpeg4Gif < Base
+        attribute :type, String, default: 'mpeg4_gif'
         attribute :id, String
-        attribute :gif_url, String
-        attribute :gif_width, Integer
-        attribute :gif_height, Integer
-        attribute :thumb_url, String
+        attribute :mpeg4_file_id, String
         attribute :title, String
         attribute :caption, String
         attribute :reply_markup, InlineKeyboardMarkup
