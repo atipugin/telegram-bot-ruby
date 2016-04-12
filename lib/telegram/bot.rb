@@ -1,6 +1,6 @@
-require 'httmultiparty'
-require 'persistent_httparty'
 require 'virtus'
+require 'logger'
+require 'json'
 
 require 'telegram/bot/types'
 require 'telegram/bot/exceptions'

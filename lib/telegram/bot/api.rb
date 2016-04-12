@@ -1,8 +1,6 @@
 module Telegram
   module Bot
     class Api
-      include HTTMultiParty
-
       ENDPOINTS = %w(
         getMe sendMessage forwardMessage sendPhoto sendAudio sendDocument
         sendSticker sendVideo sendVoice sendLocation sendChatAction
@@ -20,14 +18,8 @@ module Telegram
         Telegram::Bot::Types::InlineQueryResultPhoto,
         Telegram::Bot::Types::InlineQueryResultVideo
       ].freeze
-      POOL_SIZE = ENV.fetch('TELEGRAM_BOT_POOL_SIZE', 1).to_i.freeze
 
       attr_reader :token
-
-      base_uri 'https://api.telegram.org'
-      persistent_connection_adapter pool_size: POOL_SIZE,
-                                    keep_alive: 30,
-                                    force_retry: true
 
       def initialize(token)
         @token = token
@@ -49,9 +41,9 @@ module Telegram
 
       def call(endpoint, raw_params = {})
         params = build_params(raw_params)
-        response = self.class.post("/bot#{token}/#{endpoint}", query: params)
-        if response.code == 200
-          response.to_hash
+        response = http.post("/bot#{token}/#{endpoint}", URI.encode_www_form(params))
+        if response.code == '200'
+          JSON.parse(response.body)
         else
           fail Exceptions::ResponseError.new(response),
                'Telegram API has returned the error.'
@@ -84,6 +76,16 @@ module Telegram
         words = method_name.split('_')
         words.drop(1).map(&:capitalize!)
         words.join
+      end
+
+      def http
+        @http ||= begin
+          uri = URI.parse('https://api.telegram.org')
+          http = Net::HTTP.new(uri.host, uri.port)
+          http.use_ssl = true
+
+          http
+        end
       end
     end
   end
