@@ -27,5 +27,4 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop'
   spec.add_development_dependency 'rspec', '~> 3.4'
   spec.add_development_dependency 'rubocop-rspec', '~> 1.4'
-  spec.add_development_dependency 'nokogiri', '~> 1.6'
 end
