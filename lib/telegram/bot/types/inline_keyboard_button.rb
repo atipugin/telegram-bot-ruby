@@ -6,6 +6,10 @@ module Telegram
         attribute :url, String
         attribute :callback_data, String
         attribute :switch_inline_query, String
+
+        def to_h
+          super.delete_if { |_, v| v.nil? }
+        end
       end
     end
   end
