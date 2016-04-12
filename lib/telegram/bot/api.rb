@@ -5,7 +5,8 @@ module Telegram
         getUpdates setWebhook getMe sendMessage forwardMessage sendPhoto
         sendAudio sendDocument sendSticker sendVideo sendVoice sendLocation
         sendVenue sendContact sendChatAction getUserProfilePhotos getFile
-        kickChatMember unbanChatMember answerCallbackQuery answerInlineQuery
+        kickChatMember unbanChatMember answerCallbackQuery editMessageText
+        editMessageCaption editMessageReplyMarkup answerInlineQuery
       ).freeze
       REPLY_MARKUP_TYPES = [
         Telegram::Bot::Types::ReplyKeyboardMarkup,
