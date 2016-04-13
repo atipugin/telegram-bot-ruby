@@ -1,15 +1,16 @@
 module Telegram
   module Bot
     module Types
-      class InlineQueryResultArticle < Base
-        attribute :type, String, default: 'article'
+      class InlineQueryResultVenue < Base
+        attribute :type, String, default: 'venue'
         attribute :id, String
+        attribute :latitude, Float
+        attribute :longitude, Float
         attribute :title, String
-        attribute :input_message_content, InputMessageContent
+        attribute :address, String
+        attribute :foursquare_id, String
         attribute :reply_markup, InlineKeyboardMarkup
-        attribute :url, String
-        attribute :hide_url, Boolean
-        attribute :description, String
+        attribute :input_message_content, InputMessageContent
         attribute :thumb_url, String
         attribute :thumb_width, Integer
         attribute :thumb_height, Integer

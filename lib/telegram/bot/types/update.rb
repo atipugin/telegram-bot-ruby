@@ -6,6 +6,7 @@ module Telegram
         attribute :message, Message
         attribute :inline_query, InlineQuery
         attribute :chosen_inline_result, ChosenInlineResult
+        attribute :callback_query, CallbackQuery
       end
     end
   end

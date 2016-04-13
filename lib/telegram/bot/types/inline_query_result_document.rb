@@ -1,20 +1,19 @@
 module Telegram
   module Bot
     module Types
-      class InlineQueryResultVideo < Base
-        attribute :type, String, default: 'video'
+      class InlineQueryResultDocument < Base
+        attribute :type, String, default: 'document'
         attribute :id, String
-        attribute :video_url, String
-        attribute :mime_type, String
-        attribute :thumb_url, String
         attribute :title, String
         attribute :caption, String
-        attribute :video_width, Integer
-        attribute :video_height, Integer
-        attribute :video_duration, Integer
+        attribute :document_url, String
+        attribute :mime_type, String
         attribute :description, String
         attribute :reply_markup, InlineKeyboardMarkup
         attribute :input_message_content, InputMessageContent
+        attribute :thumb_url, String
+        attribute :thumb_width, Integer
+        attribute :thumb_height, Integer
       end
     end
   end

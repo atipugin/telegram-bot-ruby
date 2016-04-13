@@ -1,33 +1,42 @@
 module Telegram
   module Bot
     class Api
-      include HTTMultiParty
-
       ENDPOINTS = %w(
-        getMe sendMessage forwardMessage sendPhoto sendAudio sendDocument
-        sendSticker sendVideo sendVoice sendLocation sendChatAction
-        getUserProfilePhotos getUpdates setWebhook getFile answerInlineQuery
+        getUpdates setWebhook getMe sendMessage forwardMessage sendPhoto
+        sendAudio sendDocument sendSticker sendVideo sendVoice sendLocation
+        sendVenue sendContact sendChatAction getUserProfilePhotos getFile
+        kickChatMember unbanChatMember answerCallbackQuery editMessageText
+        editMessageCaption editMessageReplyMarkup answerInlineQuery
       ).freeze
       REPLY_MARKUP_TYPES = [
         Telegram::Bot::Types::ReplyKeyboardMarkup,
         Telegram::Bot::Types::ReplyKeyboardHide,
-        Telegram::Bot::Types::ForceReply
+        Telegram::Bot::Types::ForceReply,
+        Telegram::Bot::Types::InlineKeyboardMarkup
       ].freeze
       INLINE_QUERY_RESULT_TYPES = [
         Telegram::Bot::Types::InlineQueryResultArticle,
+        Telegram::Bot::Types::InlineQueryResultPhoto,
         Telegram::Bot::Types::InlineQueryResultGif,
         Telegram::Bot::Types::InlineQueryResultMpeg4Gif,
-        Telegram::Bot::Types::InlineQueryResultPhoto,
-        Telegram::Bot::Types::InlineQueryResultVideo
+        Telegram::Bot::Types::InlineQueryResultVideo,
+        Telegram::Bot::Types::InlineQueryResultAudio,
+        Telegram::Bot::Types::InlineQueryResultVoice,
+        Telegram::Bot::Types::InlineQueryResultDocument,
+        Telegram::Bot::Types::InlineQueryResultLocation,
+        Telegram::Bot::Types::InlineQueryResultVenue,
+        Telegram::Bot::Types::InlineQueryResultContact,
+        Telegram::Bot::Types::InlineQueryResultCachedPhoto,
+        Telegram::Bot::Types::InlineQueryResultCachedGif,
+        Telegram::Bot::Types::InlineQueryResultCachedMpeg4Gif,
+        Telegram::Bot::Types::InlineQueryResultCachedSticker,
+        Telegram::Bot::Types::InlineQueryResultCachedDocument,
+        Telegram::Bot::Types::InlineQueryResultCachedVideo,
+        Telegram::Bot::Types::InlineQueryResultCachedVoice,
+        Telegram::Bot::Types::InlineQueryResultCachedAudio
       ].freeze
-      POOL_SIZE = ENV.fetch('TELEGRAM_BOT_POOL_SIZE', 1).to_i.freeze
 
       attr_reader :token
-
-      base_uri 'https://api.telegram.org'
-      persistent_connection_adapter pool_size: POOL_SIZE,
-                                    keep_alive: 30,
-                                    force_retry: true
 
       def initialize(token)
         @token = token
@@ -49,12 +58,12 @@ module Telegram
 
       def call(endpoint, raw_params = {})
         params = build_params(raw_params)
-        response = self.class.post("/bot#{token}/#{endpoint}", query: params)
-        if response.code == 200
-          response.to_hash
+        response = conn.post("/bot#{token}/#{endpoint}", params)
+        if response.status == 200
+          JSON.parse(response.body)
         else
-          fail Exceptions::ResponseError.new(response),
-               'Telegram API has returned the error.'
+          raise Exceptions::ResponseError.new(response),
+                'Telegram API has returned the error.'
         end
       end
 
@@ -72,18 +81,26 @@ module Telegram
 
       def jsonify_reply_markup(value)
         return value unless REPLY_MARKUP_TYPES.include?(value.class)
-        value.to_h.to_json
+        value.to_compact_hash.to_json
       end
 
       def jsonify_inline_query_results(value)
         return value unless value.is_a?(Array) && value.all? { |i| INLINE_QUERY_RESULT_TYPES.include?(i.class) }
-        value.map { |i| i.to_h.select { |_, v| v } }.to_json
+        value.map { |i| i.to_compact_hash.select { |_, v| v } }.to_json
       end
 
       def camelize(method_name)
         words = method_name.split('_')
         words.drop(1).map(&:capitalize!)
         words.join
+      end
+
+      def conn
+        @conn ||= Faraday.new(url: 'https://api.telegram.org') do |faraday|
+          faraday.request :multipart
+          faraday.request :url_encoded
+          faraday.adapter Telegram::Bot.configuration.adapter
+        end
       end
     end
   end

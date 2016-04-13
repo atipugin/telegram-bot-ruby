@@ -77,6 +77,43 @@ bot.listen do |message|
 end
 ```
 
+Furthermore, you can ask user to share location or phone number using `KeyboardButton`:
+
+```ruby
+bot.listen do |message|
+    kb = [
+      Telegram::Bot::Types::KeyboardButton.new(text: 'Give me your phone number', request_contact: true),
+      Telegram::Bot::Types::KeyboardButton.new(text: 'Show me your location', request_location: true)
+    ]
+    markup = Telegram::Bot::Types::ReplyKeyboardMarkup.new(keyboard: kb)
+    bot.api.send_message(chat_id: message.chat.id, text: 'Hey!', reply_markup: markup)
+  end
+```
+
+## Inline keyboards
+
+[Bot API 2.0](https://core.telegram.org/bots/2-0-intro) brought us new inline keyboards. Example:
+
+```ruby
+bot.listen do |message|
+  case message
+  when Telegram::Bot::Types::CallbackQuery
+    # Here you can handle your callbacks from inline buttons
+    if message.data == 'touch'
+      bot.api.send_message(chat_id: message.from.id, text: "Don't touch me!")
+    end
+  when Telegram::Bot::Types::Message
+    kb = [
+      Telegram::Bot::Types::InlineKeyboardButton.new(text: 'Go to Google', url: 'https://google.com'),
+      Telegram::Bot::Types::InlineKeyboardButton.new(text: 'Touch me', callback_data: 'touch'),
+      Telegram::Bot::Types::InlineKeyboardButton.new(text: 'Switch to inline', switch_inline_query: 'some text')
+    ]
+    markup = Telegram::Bot::Types::InlineKeyboardMarkup.new(inline_keyboard: kb)
+    bot.api.send_message(chat_id: message.chat.id, text: 'Make a choice', reply_markup: markup)
+  end
+end
+```
+
 ## Inline bots
 
 If you are going to create [inline bot](https://core.telegram.org/bots/inline), check the example below:
@@ -110,7 +147,7 @@ Your bot can even upload files ([photos](https://core.telegram.org/bots/api#send
 bot.listen do |message|
   case message.text
   when '/photo'
-    bot.api.send_photo(chat_id: message.chat.id, photo: File.new('~/Desktop/jennifer.jpg'))
+    bot.api.send_photo(chat_id: message.chat.id, photo: Faraday::UploadIO.new('~/Desktop/jennifer.jpg', 'image/jpeg'))
   end
 end
 ```
@@ -120,7 +157,7 @@ end
 By default, bot doesn't log anything (uses `NullLoger`). You can change this behavior and provide your own logger class. See example below:
 
 ```ruby
-Telegram::Bot::Client.run(token, logger: Logger.new($stdout)) do |bot|
+Telegram::Bot::Client.run(token, logger: Logger.new($stderr)) do |bot|
   bot.logger.info('Bot has been started')
   bot.listen do |message|
     # ...
@@ -155,12 +192,16 @@ end
 - Telegram's user id (required)
 - hash of additional properties (optional)
 
-## Connection pool size
+## Connection adapters
 
-Sometimes you need to do some heavy work in another thread and send response from there. In this case you have to increase your connection pool size (by default it's *1*). You can do it by setting env variable `TELEGRAM_BOT_POOL_SIZE`:
+Since version `0.5.0` we rely on [faraday](https://github.com/lostisland/faraday) under the hood. You can use any of supported adapters (for example, `net/http/persistent`):
 
-```shell
-$ TELEGRAM_BOT_POOL_SIZE=4 ruby bot.rb
+```ruby
+require 'net/http/persistent'
+
+Telegram::Bot.configure do |config|
+  config.adapter = :net_http_persistent
+end
 ```
 
 ## Boilerplates
