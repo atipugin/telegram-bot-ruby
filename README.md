@@ -81,13 +81,13 @@ Furthermore, you can ask user to share location or phone number using `KeyboardB
 
 ```ruby
 bot.listen do |message|
-    kb = [
-      Telegram::Bot::Types::KeyboardButton.new(text: 'Give me your phone number', request_contact: true),
-      Telegram::Bot::Types::KeyboardButton.new(text: 'Show me your location', request_location: true)
-    ]
-    markup = Telegram::Bot::Types::ReplyKeyboardMarkup.new(keyboard: kb)
-    bot.api.send_message(chat_id: message.chat.id, text: 'Hey!', reply_markup: markup)
-  end
+  kb = [
+    Telegram::Bot::Types::KeyboardButton.new(text: 'Give me your phone number', request_contact: true),
+    Telegram::Bot::Types::KeyboardButton.new(text: 'Show me your location', request_location: true)
+  ]
+  markup = Telegram::Bot::Types::ReplyKeyboardMarkup.new(keyboard: kb)
+  bot.api.send_message(chat_id: message.chat.id, text: 'Hey!', reply_markup: markup)
+end
 ```
 
 ## Inline keyboards
