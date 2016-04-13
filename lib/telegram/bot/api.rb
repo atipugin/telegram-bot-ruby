@@ -16,10 +16,24 @@ module Telegram
       ].freeze
       INLINE_QUERY_RESULT_TYPES = [
         Telegram::Bot::Types::InlineQueryResultArticle,
+        Telegram::Bot::Types::InlineQueryResultPhoto,
         Telegram::Bot::Types::InlineQueryResultGif,
         Telegram::Bot::Types::InlineQueryResultMpeg4Gif,
-        Telegram::Bot::Types::InlineQueryResultPhoto,
-        Telegram::Bot::Types::InlineQueryResultVideo
+        Telegram::Bot::Types::InlineQueryResultVideo,
+        Telegram::Bot::Types::InlineQueryResultAudio,
+        Telegram::Bot::Types::InlineQueryResultVoice,
+        Telegram::Bot::Types::InlineQueryResultDocument,
+        Telegram::Bot::Types::InlineQueryResultLocation,
+        Telegram::Bot::Types::InlineQueryResultVenue,
+        Telegram::Bot::Types::InlineQueryResultContact,
+        Telegram::Bot::Types::InlineQueryResultCachedPhoto,
+        Telegram::Bot::Types::InlineQueryResultCachedGif,
+        Telegram::Bot::Types::InlineQueryResultCachedMpeg4Gif,
+        Telegram::Bot::Types::InlineQueryResultCachedSticker,
+        Telegram::Bot::Types::InlineQueryResultCachedDocument,
+        Telegram::Bot::Types::InlineQueryResultCachedVideo,
+        Telegram::Bot::Types::InlineQueryResultCachedVoice,
+        Telegram::Bot::Types::InlineQueryResultCachedAudio
       ].freeze
 
       attr_reader :token
