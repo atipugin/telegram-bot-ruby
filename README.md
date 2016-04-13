@@ -77,6 +77,43 @@ bot.listen do |message|
 end
 ```
 
+Furthermore, you can ask user to share location or phone number using `KeyboardButton`:
+
+```ruby
+bot.listen do |message|
+    kb = [
+      Telegram::Bot::Types::KeyboardButton.new(text: 'Give me your phone number', request_contact: true),
+      Telegram::Bot::Types::KeyboardButton.new(text: 'Show me your location', request_location: true)
+    ]
+    markup = Telegram::Bot::Types::ReplyKeyboardMarkup.new(keyboard: kb)
+    bot.api.send_message(chat_id: message.chat.id, text: 'Hey!', reply_markup: markup)
+  end
+```
+
+## Inline keyboards
+
+[Bot API 2.0](https://core.telegram.org/bots/2-0-intro) brought us new inline keyboards. Example:
+
+```ruby
+bot.listen do |message|
+  case message
+  when Telegram::Bot::Types::CallbackQuery
+    # Here you can handle your callbacks from inline buttons
+    if message.data == 'touch'
+      bot.api.send_message(chat_id: message.from.id, text: "Don't touch me!")
+    end
+  when Telegram::Bot::Types::Message
+    kb = [
+      Telegram::Bot::Types::InlineKeyboardButton.new(text: 'Go to Google', url: 'https://google.com'),
+      Telegram::Bot::Types::InlineKeyboardButton.new(text: 'Touch me', callback_data: 'touch'),
+      Telegram::Bot::Types::InlineKeyboardButton.new(text: 'Switch to inline', switch_inline_query: 'some text')
+    ]
+    markup = Telegram::Bot::Types::InlineKeyboardMarkup.new(inline_keyboard: kb)
+    bot.api.send_message(chat_id: message.chat.id, text: 'Make a choice', reply_markup: markup)
+  end
+end
+```
+
 ## Inline bots
 
 If you are going to create [inline bot](https://core.telegram.org/bots/inline), check the example below:
@@ -154,6 +191,18 @@ end
 - name of event (required)
 - Telegram's user id (required)
 - hash of additional properties (optional)
+
+## Connection adapters
+
+Since version `0.5.0` we rely on [faraday](https://github.com/lostisland/faraday) under the hood. You can use any of supported adapters (for example, `net/http/persistent`):
+
+```ruby
+require 'net/http/persistent'
+
+Telegram::Bot.configure do |config|
+  config.adapter = :net_http_persistent
+end
+```
 
 ## Boilerplates
 
