@@ -4,7 +4,7 @@ module Telegram
       class Base
         include Virtus.model
 
-        def compact_attributes
+        def to_compact_hash
           attributes.dup.delete_if { |_, v| v.nil? }
         end
       end

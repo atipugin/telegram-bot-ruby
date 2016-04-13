@@ -7,10 +7,12 @@ module Telegram
         attribute :one_time_keyboard, Boolean, default: false
         attribute :selective, Boolean, default: false
 
-        def to_h
+        def to_compact_hash
           hsh = super
           hsh[:keyboard].map! do |arr|
-            arr.map { |i| i.is_a?(KeyboardButton) ? i.to_h : i }
+            arr.map do |item|
+              item.is_a?(KeyboardButton) ? item.to_compact_hash : item
+            end
           end
 
           hsh

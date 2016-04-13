@@ -81,12 +81,12 @@ module Telegram
 
       def jsonify_reply_markup(value)
         return value unless REPLY_MARKUP_TYPES.include?(value.class)
-        value.to_h.to_json
+        value.to_compact_hash.to_json
       end
 
       def jsonify_inline_query_results(value)
         return value unless value.is_a?(Array) && value.all? { |i| INLINE_QUERY_RESULT_TYPES.include?(i.class) }
-        value.map { |i| i.to_h.select { |_, v| v } }.to_json
+        value.map { |i| i.to_compact_hash.select { |_, v| v } }.to_json
       end
 
       def camelize(method_name)
