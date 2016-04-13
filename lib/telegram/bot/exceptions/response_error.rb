@@ -23,7 +23,7 @@ module Telegram
           @data ||= begin
             JSON.parse(response.body)
           rescue JSON::ParserError
-            { error_code: response.code, uri: response.request.last_uri.to_s }
+            { error_code: response.status, uri: response.request.last_uri.to_s }
           end
         end
       end
