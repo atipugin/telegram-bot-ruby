@@ -8,7 +8,7 @@ module Telegram
         attribute :query, String
         attribute :offset, String
 
-        alias_method :to_s, :query
+        alias to_s query
       end
     end
   end

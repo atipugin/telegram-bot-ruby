@@ -62,8 +62,8 @@ module Telegram
         if response.status == 200
           JSON.parse(response.body)
         else
-          fail Exceptions::ResponseError.new(response),
-               'Telegram API has returned the error.'
+          raise Exceptions::ResponseError.new(response),
+                'Telegram API has returned the error.'
         end
       end
 

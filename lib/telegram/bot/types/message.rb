@@ -33,7 +33,7 @@ module Telegram
         attribute :migrate_from_chat_id, Integer
         attribute :pinned_message, Message
 
-        alias_method :to_s, :text
+        alias to_s text
       end
     end
   end

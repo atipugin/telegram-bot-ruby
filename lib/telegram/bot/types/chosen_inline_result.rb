@@ -8,7 +8,7 @@ module Telegram
         attribute :inline_message_id, String
         attribute :query, String
 
-        alias_method :to_s, :query
+        alias to_s query
       end
     end
   end
