@@ -123,11 +123,16 @@ bot.listen do |message|
   case message
   when Telegram::Bot::Types::InlineQuery
     results = [
-      Telegram::Bot::Types::InlineQueryResultArticle
-        .new(id: 1, title: 'First article', message_text: 'Very interesting text goes here.'),
-      Telegram::Bot::Types::InlineQueryResultArticle
-        .new(id: 2, title: 'Second article', message_text: 'Another interesting text here.')
-    ]
+      [1, 'First article', 'Very interesting text goes here.'],
+      [2, 'Second article', 'Another interesting text here.']
+    ].map do |arr|
+      Telegram::Bot::Types::InlineQueryResultArticle.new(
+        id: arr[0],
+        title: arr[1],
+        input_message_content: Telegram::Bot::Types::InputTextMessageContent.new(message_text: arr[2])
+      )
+    end
+
     bot.api.answer_inline_query(inline_query_id: message.id, results: results)
   when Telegram::Bot::Types::Message
     bot.api.send_message(chat_id: message.chat.id, text: "Hello, #{message.from.first_name}!")
