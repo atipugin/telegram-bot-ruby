@@ -53,7 +53,10 @@ module Telegram
       end
 
       def extract_message(update)
-        update.inline_query || update.chosen_inline_result || update.message
+        update.inline_query ||
+          update.chosen_inline_result ||
+          update.callback_query ||
+          update.message
       end
 
       def log_incoming_message(message)
