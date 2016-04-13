@@ -11,7 +11,7 @@ Ruby wrapper for [Telegram's Bot API](https://core.telegram.org/bots/api).
 Add following line to your Gemfile:
 
 ```ruby
-gem 'telegram-bot-ruby', '~> 0.5.0.beta2'
+gem 'telegram-bot-ruby', '~> 0.5.0.beta3'
 ```
 
 And then execute:
