@@ -10,18 +10,15 @@ module Telegram
 
         def track(event, uid, properties = {})
           query_str = URI.encode_www_form(token: token, name: event, uid: uid)
-          http.post("/track?#{query_str}", URI.encode_www_form(properties))
+          conn.post("/track?#{query_str}", properties.to_json)
         end
 
         private
 
-        def http
-          @http ||= begin
-            uri = URI.parse('https://api.botan.io')
-            http = Net::HTTP.new(uri.host, uri.port)
-            http.use_ssl = true
-
-            http
+        def conn
+          @conn ||= Faraday.new(url: 'https://api.botan.io') do |faraday|
+            faraday.request :url_encoded
+            faraday.adapter Faraday.default_adapter
           end
         end
       end

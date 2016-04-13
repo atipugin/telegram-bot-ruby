@@ -44,9 +44,8 @@ module Telegram
 
       def call(endpoint, raw_params = {})
         params = build_params(raw_params)
-        response = http.post("/bot#{token}/#{endpoint}",
-                             URI.encode_www_form(params))
-        if response.code == '200'
+        response = conn.post("/bot#{token}/#{endpoint}", params)
+        if response.status == 200
           JSON.parse(response.body)
         else
           fail Exceptions::ResponseError.new(response),
@@ -82,13 +81,10 @@ module Telegram
         words.join
       end
 
-      def http
-        @http ||= begin
-          uri = URI.parse('https://api.telegram.org')
-          http = Net::HTTP.new(uri.host, uri.port)
-          http.use_ssl = true
-
-          http
+      def conn
+        @conn ||= Faraday.new(url: 'https://api.telegram.org') do |faraday|
+          faraday.request :url_encoded
+          faraday.adapter Faraday.default_adapter
         end
       end
     end
