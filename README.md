@@ -110,7 +110,7 @@ Your bot can even upload files ([photos](https://core.telegram.org/bots/api#send
 bot.listen do |message|
   case message.text
   when '/photo'
-    bot.api.send_photo(chat_id: message.chat.id, photo: File.new('~/Desktop/jennifer.jpg'))
+    bot.api.send_photo(chat_id: message.chat.id, photo: Faraday::UploadIO.new('~/Desktop/jennifer.jpg', 'image/jpeg'))
   end
 end
 ```
@@ -120,7 +120,7 @@ end
 By default, bot doesn't log anything (uses `NullLoger`). You can change this behavior and provide your own logger class. See example below:
 
 ```ruby
-Telegram::Bot::Client.run(token, logger: Logger.new($stdout)) do |bot|
+Telegram::Bot::Client.run(token, logger: Logger.new($stderr)) do |bot|
   bot.logger.info('Bot has been started')
   bot.listen do |message|
     # ...
@@ -154,14 +154,6 @@ end
 - name of event (required)
 - Telegram's user id (required)
 - hash of additional properties (optional)
-
-## Connection pool size
-
-Sometimes you need to do some heavy work in another thread and send response from there. In this case you have to increase your connection pool size (by default it's *1*). You can do it by setting env variable `TELEGRAM_BOT_POOL_SIZE`:
-
-```shell
-$ TELEGRAM_BOT_POOL_SIZE=4 ruby bot.rb
-```
 
 ## Boilerplates
 
