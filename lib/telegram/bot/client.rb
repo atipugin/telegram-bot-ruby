@@ -39,7 +39,7 @@ module Telegram
           log_incoming_message(message)
           yield message
         end
-      rescue Faraday::TimeoutError
+      rescue Faraday::Error::TimeoutError
         retry
       end
 
