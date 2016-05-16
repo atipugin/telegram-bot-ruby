@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.1
+
+- Update `Sticker` and `Message` objects (May 6, 2016 API update)
+
 ## 0.5.0
 
 - Replace [httparty](https://github.com/jnunemaker/httparty) with [faraday](https://github.com/lostisland/faraday)
