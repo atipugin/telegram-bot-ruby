@@ -7,6 +7,7 @@ module Telegram
         attribute :date, Integer
         attribute :chat, Chat
         attribute :forward_from, User
+        attribute :forward_from_chat, Chat
         attribute :forward_date, Integer
         attribute :reply_to_message, Message
         attribute :text, String
