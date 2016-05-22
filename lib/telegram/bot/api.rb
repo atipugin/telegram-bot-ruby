@@ -6,7 +6,8 @@ module Telegram
         sendAudio sendDocument sendSticker sendVideo sendVoice sendLocation
         sendVenue sendContact sendChatAction getUserProfilePhotos getFile
         kickChatMember unbanChatMember answerCallbackQuery editMessageText
-        editMessageCaption editMessageReplyMarkup answerInlineQuery
+        editMessageCaption editMessageReplyMarkup answerInlineQuery getChat
+        leaveChat getChatAdministrators getChatMember getChatMembersCount
       ).freeze
       REPLY_MARKUP_TYPES = [
         Telegram::Bot::Types::ReplyKeyboardMarkup,
