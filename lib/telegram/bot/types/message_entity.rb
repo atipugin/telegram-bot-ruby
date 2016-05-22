@@ -6,6 +6,7 @@ module Telegram
         attribute :offset, Integer
         attribute :length, Integer
         attribute :url, String
+        attribute :user, User
       end
     end
   end
