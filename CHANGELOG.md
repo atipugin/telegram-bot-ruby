@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.2
+
+- Implement Bot API 2.1 changes
+
 ## 0.5.1
 
 - Update `Sticker` and `Message` objects (May 6, 2016 API update)
