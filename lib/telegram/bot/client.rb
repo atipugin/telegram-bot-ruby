@@ -53,6 +53,7 @@ module Telegram
         update.inline_query ||
           update.chosen_inline_result ||
           update.callback_query ||
+          update.edited_message ||
           update.message
       end
 
