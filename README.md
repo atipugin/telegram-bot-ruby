@@ -96,7 +96,7 @@ end
 
 ```ruby
 bot.listen do |message|
-  case message
+  case message.class
   when Telegram::Bot::Types::CallbackQuery
     # Here you can handle your callbacks from inline buttons
     if message.data == 'touch'
@@ -120,7 +120,7 @@ If you are going to create [inline bot](https://core.telegram.org/bots/inline), 
 
 ```ruby
 bot.listen do |message|
-  case message
+  case message.class
   when Telegram::Bot::Types::InlineQuery
     results = [
       [1, 'First article', 'Very interesting text goes here.'],
