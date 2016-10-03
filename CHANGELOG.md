@@ -1,8 +1,8 @@
 # Changelog
 
-## 0.5.4
+## 0.6.0
 
-- Add support for [Gaming Platform](https://telegram.org/blog/games)
+- Implement Bot API changes (October 3, 2016 API update)
 
 ## 0.5.2
 
