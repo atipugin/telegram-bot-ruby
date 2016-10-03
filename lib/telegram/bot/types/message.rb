@@ -15,6 +15,7 @@ module Telegram
         attribute :entities, Array[MessageEntity]
         attribute :audio, Audio
         attribute :document, Document
+        attribute :game, Game
         attribute :photo, Array[PhotoSize]
         attribute :sticker, Sticker
         attribute :video, Video

@@ -8,6 +8,7 @@ module Telegram
         kickChatMember unbanChatMember answerCallbackQuery editMessageText
         editMessageCaption editMessageReplyMarkup answerInlineQuery getChat
         leaveChat getChatAdministrators getChatMember getChatMembersCount
+        sendGame setGameScore getGameHighScores
       ).freeze
       REPLY_MARKUP_TYPES = [
         Telegram::Bot::Types::ReplyKeyboardMarkup,
