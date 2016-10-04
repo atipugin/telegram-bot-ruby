@@ -28,6 +28,7 @@ module Telegram
         Telegram::Bot::Types::InlineQueryResultLocation,
         Telegram::Bot::Types::InlineQueryResultVenue,
         Telegram::Bot::Types::InlineQueryResultContact,
+        Telegram::Bot::Types::InlineQueryResultGame,
         Telegram::Bot::Types::InlineQueryResultCachedPhoto,
         Telegram::Bot::Types::InlineQueryResultCachedGif,
         Telegram::Bot::Types::InlineQueryResultCachedMpeg4Gif,
