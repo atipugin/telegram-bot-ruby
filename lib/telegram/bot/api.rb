@@ -103,6 +103,7 @@ module Telegram
           faraday.request :multipart
           faraday.request :url_encoded
           faraday.adapter Telegram::Bot.configuration.adapter
+          Telegram::Bot.configuration.faraday.try(:call, faraday)
         end
       end
     end

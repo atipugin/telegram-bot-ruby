@@ -205,7 +205,11 @@ Since version `0.5.0` we rely on [faraday](https://github.com/lostisland/faraday
 require 'net/http/persistent'
 
 Telegram::Bot.configure do |config|
-  config.adapter = :net_http_persistent
+  config.configure_faraday do |faraday|
+    faraday.adapter :net_http_persistent
+    faraday.options[:open_timeout] = 1.0
+    faraday.options[:timeout] = 5.0
+  end
 end
 ```
 
