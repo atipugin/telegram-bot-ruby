@@ -70,8 +70,8 @@ bot.listen do |message|
       .new(keyboard: [%w(A B), %w(C D)], one_time_keyboard: true)
     bot.api.send_message(chat_id: message.chat.id, text: question, reply_markup: answers)
   when '/stop'
-    # See more: https://core.telegram.org/bots/api#replykeyboardhide
-    kb = Telegram::Bot::Types::ReplyKeyboardHide.new(hide_keyboard: true)
+    # See more: https://core.telegram.org/bots/api#replykeyboardremove
+    kb = Telegram::Bot::Types::ReplyKeyboardRemove.new(remove_keyboard: true)
     bot.api.send_message(chat_id: message.chat.id, text: 'Sorry to see you go :(', reply_markup: kb)
   end
 end

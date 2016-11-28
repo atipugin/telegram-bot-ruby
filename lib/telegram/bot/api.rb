@@ -12,7 +12,7 @@ module Telegram
       ).freeze
       REPLY_MARKUP_TYPES = [
         Telegram::Bot::Types::ReplyKeyboardMarkup,
-        Telegram::Bot::Types::ReplyKeyboardHide,
+        Telegram::Bot::Types::ReplyKeyboardRemove,
         Telegram::Bot::Types::ForceReply,
         Telegram::Bot::Types::InlineKeyboardMarkup
       ].freeze
