@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.0
+
+- Implement [Bot API 2.3](https://core.telegram.org/bots/api-changelog#november-21-2016) (thx [@ivanovaleksey](https://github.com/ivanovaleksey))
+
 ## 0.6.0
 
 - Implement Bot API changes (October 3, 2016 API update)

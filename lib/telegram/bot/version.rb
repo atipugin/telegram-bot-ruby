@@ -1,5 +1,5 @@
 module Telegram
   module Bot
-    VERSION = '0.6.0.2'.freeze
+    VERSION = '0.7.0'.freeze
   end
 end
