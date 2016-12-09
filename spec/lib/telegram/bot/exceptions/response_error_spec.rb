@@ -10,6 +10,6 @@ RSpec.describe Telegram::Bot::Exceptions::ResponseError do
   end
 
   it 'has error code' do
-    expect(subject).to respond_to(:error_code)
+    is_expected.to respond_to(:error_code)
   end
 end
