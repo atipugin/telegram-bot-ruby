@@ -2,7 +2,7 @@ RSpec.describe Telegram::Bot::Exceptions::ResponseError do
   subject do
     begin
       described_class.new(response)
-    rescue Exception => error
+    rescue StandardError => error
       error
     end
   end
