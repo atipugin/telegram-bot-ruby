@@ -5,6 +5,9 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
+Metrics/MethodLength:
+  Max: 11
+
 # Offense count: 15
 Style/Documentation:
   Enabled: false
