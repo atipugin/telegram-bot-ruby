@@ -5,3 +5,6 @@ Metrics/LineLength:
   Exclude:
     - telegram-bot-ruby.gemspec
     - examples/*.rb
+
+Style/EmptyMethod:
+  EnforcedStyle: expanded
