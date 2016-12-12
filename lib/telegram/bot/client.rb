@@ -1,7 +1,7 @@
 module Telegram
   module Bot
     class Client
-      attr_reader :api, :offset, :timeout
+      attr_reader :api, :options
       attr_accessor :logger
 
       def self.run(*args, &block)
@@ -9,11 +9,9 @@ module Telegram
       end
 
       def initialize(token, h = {})
-        options = default_options.merge(h)
+        @options = default_options.merge(h)
         @api = Api.new(token)
-        @offset = options[:offset]
-        @timeout = options[:timeout]
-        @logger = options[:logger]
+        @logger = options.delete(:logger)
       end
 
       def run
@@ -29,12 +27,12 @@ module Telegram
       end
 
       def fetch_updates
-        response = api.getUpdates(offset: offset, timeout: timeout)
+        response = api.getUpdates(options)
         return unless response['ok']
 
         response['result'].each do |data|
           update = Types::Update.new(data)
-          @offset = update.update_id.next
+          @options[:offset] = update.update_id.next
           message = extract_message(update)
           log_incoming_message(message)
           yield message
