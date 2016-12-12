@@ -2,13 +2,14 @@ module Telegram
   module Bot
     class Api
       ENDPOINTS = %w(
-        getUpdates setWebhook getMe sendMessage forwardMessage sendPhoto
-        sendAudio sendDocument sendSticker sendVideo sendVoice sendLocation
-        sendVenue sendContact sendChatAction getUserProfilePhotos getFile
-        kickChatMember unbanChatMember answerCallbackQuery editMessageText
-        editMessageCaption editMessageReplyMarkup answerInlineQuery getChat
-        leaveChat getChatAdministrators getChatMember getChatMembersCount
-        sendGame setGameScore getGameHighScores getWebhookInfo
+        getUpdates setWebhook deleteWebhook getWebhookInfo getMe sendMessage
+        forwardMessage sendPhoto sendAudio sendDocument sendSticker sendVideo
+        sendVoice sendLocation sendVenue sendContact sendChatAction
+        getUserProfilePhotos getFile kickChatMember leaveChat unbanChatMember
+        getChat getChatAdministrators getChatMembersCount getChatMember
+        answerCallbackQuery editMessageText editMessageCaption
+        editMessageReplyMarkup answerInlineQuery sendGame setGameScore
+        getGameHighScores
       ).freeze
       REPLY_MARKUP_TYPES = [
         Telegram::Bot::Types::ReplyKeyboardMarkup,
