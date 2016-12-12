@@ -6,7 +6,13 @@ RSpec.describe Telegram::Bot::Client do
     subject { client.options }
 
     context 'with any options' do
-      let(:options) { { offset: 1, timeout: 30, something: true } }
+      let(:options) do
+        {
+          offset: 1,
+          timeout: 30,
+          something: true
+        }
+      end
 
       it 'accepts any option' do
         is_expected.to eql(options)
@@ -14,7 +20,14 @@ RSpec.describe Telegram::Bot::Client do
     end
 
     context 'with logger option' do
-      let(:options) { { offset: 1, timeout: 30, something: true, logger: Logger.new('/dev/null') } }
+      let(:options) do
+        {
+          offset: 1,
+          timeout: 30,
+          something: true,
+          logger: Logger.new('/dev/null')
+        }
+      end
 
       it 'removes logger from options' do
         is_expected.not_to include(:logger)
