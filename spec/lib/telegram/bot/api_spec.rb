@@ -1,42 +1,45 @@
 RSpec.describe Telegram::Bot::Api do
   let(:token) { '180956132:AAHU0_CeyQWOd6baBc9TibTPybxY9p1P8xo' }
   let(:endpoint) { 'getMe' }
-
-  subject { described_class.new(token) }
+  let(:api) { described_class.new(token) }
 
   describe '#call' do
+    subject(:api_call) { api.call(endpoint) }
+
     it 'returns hash' do
-      expect(subject.call(endpoint)).to be_a(Hash)
+      is_expected.to be_a(Hash)
     end
 
     it 'has status' do
-      expect(subject.call(endpoint)).to have_key('ok')
+      is_expected.to have_key('ok')
     end
 
     it 'has result' do
-      expect(subject.call(endpoint)).to have_key('result')
+      is_expected.to have_key('result')
     end
 
     context 'when token is invalid' do
       let(:token) { '123456:wrongtoken' }
 
       it 'raises an error' do
-        expect { subject.call(endpoint) }
+        expect { api_call }
           .to raise_error(Telegram::Bot::Exceptions::ResponseError)
       end
     end
   end
 
   describe '#method_missing' do
+    subject { api }
+
     it 'responds to endpoints' do
-      expect(subject).to respond_to(endpoint)
+      is_expected.to respond_to(endpoint)
     end
 
     context 'when method name is in snake case' do
       let(:endpoint) { 'get_me' }
 
       it 'responds to snake-cased endpoints' do
-        expect(subject).to respond_to(endpoint)
+        is_expected.to respond_to(endpoint)
       end
     end
   end
