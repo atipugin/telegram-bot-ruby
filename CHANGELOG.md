@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.2
+
+- Bug fixes
+
 ## 0.7.1
 
 - Implement [Bot API 2.3.1](https://core.telegram.org/bots/api-changelog#december-4-2016)
