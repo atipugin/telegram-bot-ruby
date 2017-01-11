@@ -48,11 +48,14 @@ module Telegram
       end
 
       def extract_message(update)
-        update.inline_query ||
-          update.chosen_inline_result ||
-          update.callback_query ||
-          update.edited_message ||
-          update.message
+        types = %w(inline_query
+                   chosen_inline_result
+                   callback_query
+                   edited_message
+                   message
+                   channel_post
+                   edited_channel_post)
+        types.inject(nil) { |acc, elem| acc || update.send(elem) }
       end
 
       def log_incoming_message(message)
