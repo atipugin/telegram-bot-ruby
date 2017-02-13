@@ -214,6 +214,8 @@ end
 If you don't know how to setup database for your bot or how to use it with different languages here are some boilerplates which can help you to start faster:
 - [Ruby Telegram Bot boilerplate](https://github.com/telegram-bots/ruby-telegram-bot-boilerplate)
 
+Test on [RapidAPI](https://rapidapi.com/package/TelegramBot/functions?utm_source=TelegramGitHub&utm_medium=button)
+
 ## Contributing
 
 1. Fork it
