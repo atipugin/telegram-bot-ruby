@@ -1,6 +1,10 @@
 inherit_from: .rubocop_todo.yml
 require: rubocop-rspec
 
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*.rb
+
 Metrics/LineLength:
   Exclude:
     - telegram-bot-ruby.gemspec
@@ -8,3 +12,7 @@ Metrics/LineLength:
 
 Style/EmptyMethod:
   EnforcedStyle: expanded
+
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    '%w': '()'
