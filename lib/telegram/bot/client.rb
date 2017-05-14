@@ -55,7 +55,7 @@ module Telegram
                    message
                    channel_post
                    edited_channel_post)
-        types.inject(nil) { |acc, elem| acc || update.send(elem) }
+        types.inject(nil) { |acc, elem| acc || update.public_send(elem) }
       end
 
       def log_incoming_message(message)
