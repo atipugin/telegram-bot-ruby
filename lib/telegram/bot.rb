@@ -2,6 +2,7 @@ require 'virtus'
 require 'logger'
 require 'json'
 require 'faraday'
+require 'open-uri'
 
 require 'telegram/bot/types'
 require 'telegram/bot/exceptions'
