@@ -14,8 +14,8 @@ Telegram::Bot::Client.run(token) do |bot|
       profile_photos = message.from.profile_photos(bot.api)
       if profile_photos.total_count > 0
         file = profile_photos.photos[0].get_file(bot.api)
-        #Sending photo by file_id
-        #bot.api.sendPhoto(chat_id: message.chat.id, photo: profile_photos.photos[0].file_id)
+        # Sending photo by file_id
+        # bot.api.sendPhoto(chat_id: message.chat.id, photo: profile_photos.photos[0].file_id)
         File.open("/tmp/#{profile_photos.photos[0].file_id}", 'wb') { |f| f.write(file) }
         bot.api.send_photo(chat_id: message.chat.id, photo: Faraday::UploadIO.new("/tmp/#{profile_photos.photos[0].file_id}", 'image/jpeg'))
       else
