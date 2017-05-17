@@ -7,8 +7,6 @@ module Telegram
         attribute :height, Integer
         attribute :file_size, Integer
 
-        attr_accessor :file_id
-
         def get_file(api)
           response = api.get_file(file_id: file_id)
           return unless response['ok']
