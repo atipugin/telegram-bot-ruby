@@ -40,7 +40,7 @@ module Telegram
         Telegram::Bot::Types::InlineQueryResultCachedAudio
       ].freeze
 
-      attr_reader :token
+      attr_reader :token, :url
 
       def initialize(token)
         @token = token
@@ -102,7 +102,8 @@ module Telegram
       end
 
       def conn
-        @conn ||= Faraday.new(url: 'https://api.telegram.org') do |faraday|
+        @url = 'https://api.telegram.org'
+        @conn ||= Faraday.new(url: @url) do |faraday|
           faraday.request :multipart
           faraday.request :url_encoded
           faraday.adapter Telegram::Bot.configuration.adapter
