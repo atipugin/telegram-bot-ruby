@@ -7,6 +7,7 @@ module Telegram
         attribute :gif_url, String
         attribute :gif_width, Integer
         attribute :gif_height, Integer
+        attribute :gif_duration, Integer
         attribute :thumb_url, String
         attribute :title, String
         attribute :caption, String

@@ -25,7 +25,7 @@ module Telegram
         attribute :contact, Contact
         attribute :location, Location
         attribute :venue, Venue
-        attribute :new_chat_member, User
+        attribute :new_chat_members, Array[User]
         attribute :left_chat_member, User
         attribute :new_chat_title, String
         attribute :new_chat_photo, Array[PhotoSize]
