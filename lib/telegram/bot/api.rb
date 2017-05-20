@@ -4,12 +4,12 @@ module Telegram
       ENDPOINTS = %w(
         getUpdates setWebhook deleteWebhook getWebhookInfo getMe sendMessage
         forwardMessage sendPhoto sendAudio sendDocument sendSticker sendVideo
-        sendVoice sendLocation sendVenue sendContact sendChatAction
-        getUserProfilePhotos getFile kickChatMember leaveChat unbanChatMember
-        getChat getChatAdministrators getChatMembersCount getChatMember
-        answerCallbackQuery editMessageText editMessageCaption
-        editMessageReplyMarkup deleteMessage answerInlineQuery sendGame
-        setGameScore getGameHighScores
+        sendVoice sendVideoNote sendLocation sendVenue sendContact
+        sendChatAction getUserProfilePhotos getFile kickChatMember
+        unbanChatMember leaveChat getChat getChatAdministrators
+        getChatMembersCount getChatMember answerCallbackQuery editMessageText
+        editMessageCaption editMessageReplyMarkup deleteMessage
+        answerInlineQuery sendGame setGameScore getGameHighScores
       ).freeze
       REPLY_MARKUP_TYPES = [
         Telegram::Bot::Types::ReplyKeyboardMarkup,

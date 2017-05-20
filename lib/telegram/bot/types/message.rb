@@ -21,6 +21,7 @@ module Telegram
         attribute :sticker, Sticker
         attribute :video, Video
         attribute :voice, Voice
+        attribute :video_note, VideoNote
         attribute :caption, String
         attribute :contact, Contact
         attribute :location, Location
