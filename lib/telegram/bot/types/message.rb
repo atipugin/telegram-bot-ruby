@@ -37,6 +37,8 @@ module Telegram
         attribute :migrate_to_chat_id, Integer
         attribute :migrate_from_chat_id, Integer
         attribute :pinned_message, Message
+        attribute :invoice, Invoice
+        attribute :successful_payment, SuccessfulPayment
 
         alias to_s text
       end
