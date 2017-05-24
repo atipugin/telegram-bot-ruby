@@ -8,7 +8,7 @@ module Telegram
         attribute :username, String
         attribute :first_name, String
         attribute :last_name, String
-        attribute :all_members_are_admins, Boolean
+        attribute :all_members_are_administrators, Boolean
       end
     end
   end
