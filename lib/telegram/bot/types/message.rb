@@ -21,11 +21,12 @@ module Telegram
         attribute :sticker, Sticker
         attribute :video, Video
         attribute :voice, Voice
+        attribute :video_note, VideoNote
         attribute :caption, String
         attribute :contact, Contact
         attribute :location, Location
         attribute :venue, Venue
-        attribute :new_chat_member, User
+        attribute :new_chat_members, Array[User]
         attribute :left_chat_member, User
         attribute :new_chat_title, String
         attribute :new_chat_photo, Array[PhotoSize]
@@ -36,6 +37,8 @@ module Telegram
         attribute :migrate_to_chat_id, Integer
         attribute :migrate_from_chat_id, Integer
         attribute :pinned_message, Message
+        attribute :invoice, Invoice
+        attribute :successful_payment, SuccessfulPayment
 
         alias to_s text
       end

@@ -6,6 +6,7 @@ module Telegram
         attribute :first_name, String
         attribute :last_name, String
         attribute :username, String
+        attribute :language_code, String
       end
     end
   end

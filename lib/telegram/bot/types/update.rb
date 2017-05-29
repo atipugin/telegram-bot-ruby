@@ -10,6 +10,8 @@ module Telegram
         attribute :inline_query, InlineQuery
         attribute :chosen_inline_result, ChosenInlineResult
         attribute :callback_query, CallbackQuery
+        attribute :shipping_query, ShippingQuery
+        attribute :pre_checkout_query, PreCheckoutQuery
       end
     end
   end
