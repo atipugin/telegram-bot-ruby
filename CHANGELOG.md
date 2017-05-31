@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.1
+
+- Add [missing methods](https://github.com/atipugin/telegram-bot-ruby/pull/127) from earlier versions earlier
+
 ## 0.8.0
 
 - Implement [Bot API 3.0](https://core.telegram.org/bots/api#may-18-2017) (thx [@ivanovaleksey](https://github.com/ivanovaleksey))
