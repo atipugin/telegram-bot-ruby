@@ -66,10 +66,16 @@ module Telegram
         response = conn.post("/bot#{token}/#{endpoint}", params)
         if response.status == 200
           JSON.parse(response.body)
-        else
+        elsif response.finished?
           raise Exceptions::ResponseError.new(response),
                 'Telegram API has returned the error.'
+        else
+          response
         end
+      end
+
+      def in_parallel(&block)
+        conn.in_parallel(&block)
       end
 
       private
