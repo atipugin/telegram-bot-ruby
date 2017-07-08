@@ -6,7 +6,9 @@ module Telegram
         forwardMessage sendPhoto sendAudio sendDocument sendSticker sendVideo
         sendVoice sendVideoNote sendLocation sendVenue sendContact
         sendChatAction getUserProfilePhotos getFile kickChatMember
-        unbanChatMember leaveChat getChat getChatAdministrators
+        unbanChatMember restrictChatMember promoteChatMember leaveChat getChat
+        getChatAdministrators exportChatInviteLink setChatPhoto deleteChatPhoto
+        setChatTitle setChatDescription pinChatMessage unpinChatMessage
         getChatMembersCount getChatMember answerCallbackQuery editMessageText
         editMessageCaption editMessageReplyMarkup deleteMessage
         answerInlineQuery sendInvoice answerShippingQuery answerPreCheckoutQuery
