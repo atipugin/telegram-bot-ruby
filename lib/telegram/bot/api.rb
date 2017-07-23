@@ -3,14 +3,16 @@ module Telegram
     class Api
       ENDPOINTS = %w(
         getUpdates setWebhook deleteWebhook getWebhookInfo getMe sendMessage
-        forwardMessage sendPhoto sendAudio sendDocument sendSticker sendVideo
-        sendVoice sendVideoNote sendLocation sendVenue sendContact
-        sendChatAction getUserProfilePhotos getFile kickChatMember
-        unbanChatMember restrictChatMember promoteChatMember leaveChat getChat
+        forwardMessage sendPhoto sendAudio sendDocument sendVideo sendVoice
+        sendVideoNote sendLocation sendVenue sendContact sendChatAction
+        getUserProfilePhotos getFile kickChatMember unbanChatMember
+        restrictChatMember promoteChatMember leaveChat getChat
         getChatAdministrators exportChatInviteLink setChatPhoto deleteChatPhoto
         setChatTitle setChatDescription pinChatMessage unpinChatMessage
         getChatMembersCount getChatMember answerCallbackQuery editMessageText
         editMessageCaption editMessageReplyMarkup deleteMessage
+        sendSticker getStickerSet uploadStickerFile createNewStickerSet
+        addStickerToSet setStickerPositionInSet deleteStickerFromSet
         answerInlineQuery sendInvoice answerShippingQuery answerPreCheckoutQuery
         sendGame setGameScore getGameHighScores
       ).freeze
