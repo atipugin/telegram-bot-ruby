@@ -7,6 +7,8 @@ module Telegram
         attribute :height, Integer
         attribute :thumb, PhotoSize
         attribute :emoji, String
+        attribute :set_name, String
+        attribute :mask_position, MaskPosition
         attribute :file_size, Integer
       end
     end
