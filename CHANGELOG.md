@@ -2,7 +2,7 @@
 
 ## 0.8.2
 
-- Implement [Bot API 3.1](https://core.telegram.org/bots/api#june-30-2017) (thx [@ivanovaleksey](https://github.com/ivanovaleksey))
+- Implement [Bot API 3.1](https://core.telegram.org/bots/api#june-30-2017) (thx [@ivanovaleksey][])
 
 ## 0.8.1
 
@@ -10,7 +10,7 @@
 
 ## 0.8.0
 
-- Implement [Bot API 3.0](https://core.telegram.org/bots/api#may-18-2017) (thx [@ivanovaleksey](https://github.com/ivanovaleksey))
+- Implement [Bot API 3.0](https://core.telegram.org/bots/api#may-18-2017) (thx [@ivanovaleksey][])
 
 ## 0.7.2
 
@@ -22,7 +22,7 @@
 
 ## 0.7.0
 
-- Implement [Bot API 2.3](https://core.telegram.org/bots/api-changelog#november-21-2016) (thx [@ivanovaleksey](https://github.com/ivanovaleksey))
+- Implement [Bot API 2.3](https://core.telegram.org/bots/api-changelog#november-21-2016) (thx [@ivanovaleksey][])
 
 ## 0.6.0
 
@@ -44,3 +44,5 @@
 ## 0.4.2
 
 - Let `Client#logger` be overwritten later (use `attr_accessor` instead of `attr_reader`)
+
+[@ivanovaleksey]: https://github.com/ivanovaleksey
