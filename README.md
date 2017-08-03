@@ -171,33 +171,6 @@ Telegram::Bot::Client.run(token, logger: Logger.new($stderr)) do |bot|
 end
 ```
 
-## Botan.io support
-
-Gem provides support of [Botan.io](http://botan.io/) analytics out of box. All you need is to obtain a token (follow the instructions from https://github.com/botanio/sdk). To track events you're interested in just call `#track` method. See example below:
-
-```ruby
-require 'telegram/bot'
-require 'telegram/bot/botan' # Botan.io extension isn't loaded by default, so make sure you required it.
-
-token = 'YOUR_TELEGRAM_BOT_API_TOKEN'
-
-Telegram::Bot::Client.run(token) do |bot|
-  bot.enable_botan!('YOUR_BOTAN_TOKEN')
-  bot.listen do |message|
-    case message.text
-    when '/start'
-      bot.track('Started', message.from.id, type_of_chat: message.chat.class.name)
-      # ...
-    end
-  end
-end
-```
-
-`#track` method accepts 3 arguments:
-- name of event (required)
-- Telegram's user id (required)
-- hash of additional properties (optional)
-
 ## Connection adapters
 
 Since version `0.5.0` we rely on [faraday](https://github.com/lostisland/faraday) under the hood. You can use any of supported adapters (for example, `net/http/persistent`):
