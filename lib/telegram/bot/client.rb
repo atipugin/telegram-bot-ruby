@@ -1,6 +1,10 @@
+require 'telegram/bot/client/extractable'
+
 module Telegram
   module Bot
     class Client
+      include Extractable
+
       attr_reader :api, :options
       attr_accessor :logger
 
@@ -45,17 +49,6 @@ module Telegram
 
       def default_options
         { offset: 0, timeout: 20, logger: NullLogger.new }
-      end
-
-      def extract_message(update)
-        types = %w(inline_query
-                   chosen_inline_result
-                   callback_query
-                   edited_message
-                   message
-                   channel_post
-                   edited_channel_post)
-        types.inject(nil) { |acc, elem| acc || update.public_send(elem) }
       end
 
       def log_incoming_message(message)
