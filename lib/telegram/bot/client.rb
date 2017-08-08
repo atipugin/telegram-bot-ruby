@@ -33,7 +33,7 @@ module Telegram
         response['result'].each do |data|
           update = Types::Update.new(data)
           @options[:offset] = update.update_id.next
-          message = extract_message(update)
+          message = update.current_message
           log_incoming_message(message)
           yield message
         end
@@ -45,17 +45,6 @@ module Telegram
 
       def default_options
         { offset: 0, timeout: 20, logger: NullLogger.new }
-      end
-
-      def extract_message(update)
-        types = %w(inline_query
-                   chosen_inline_result
-                   callback_query
-                   edited_message
-                   message
-                   channel_post
-                   edited_channel_post)
-        types.inject(nil) { |acc, elem| acc || update.public_send(elem) }
       end
 
       def log_incoming_message(message)

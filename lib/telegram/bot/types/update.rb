@@ -12,6 +12,11 @@ module Telegram
         attribute :callback_query, CallbackQuery
         attribute :shipping_query, ShippingQuery
         attribute :pre_checkout_query, PreCheckoutQuery
+
+        def current_message
+          @current_message ||=
+            Hash[*attributes.find { |k, v| k != :update_id && v }].values.first
+        end
       end
     end
   end
