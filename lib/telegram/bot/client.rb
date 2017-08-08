@@ -1,6 +1,10 @@
+require 'telegram/bot/client/extractable'
+
 module Telegram
   module Bot
     class Client
+      include Extractable
+
       attr_reader :api, :options
       attr_accessor :logger
 
