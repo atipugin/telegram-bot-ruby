@@ -1,4 +1,5 @@
 require 'virtus'
+require 'inflecto'
 require 'logger'
 require 'json'
 require 'faraday'

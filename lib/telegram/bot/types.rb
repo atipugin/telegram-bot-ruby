@@ -66,3 +66,5 @@ require 'telegram/bot/types/labeled_price'
 require 'telegram/bot/types/shipping_option'
 require 'telegram/bot/types/chat_member'
 require 'telegram/bot/types/user_profile_photos'
+
+Virtus.finalize

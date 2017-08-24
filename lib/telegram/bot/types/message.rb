@@ -9,9 +9,11 @@ module Telegram
         attribute :forward_from, User
         attribute :forward_from_chat, Chat
         attribute :forward_from_message_id, Integer
+        attribute :forward_signature, String
         attribute :forward_date, Integer
         attribute :reply_to_message, Message
         attribute :edit_date, Integer
+        attribute :author_signature, String
         attribute :text, String
         attribute :entities, Array[MessageEntity]
         attribute :audio, Audio
