@@ -1,8 +1,9 @@
 module Telegram
   module Bot
     module Types
-      class Chat < Base
+      class Chat
         include Virtus.model(finalize: false)
+        include Compactable
 
         attribute :id, Integer
         attribute :type, String

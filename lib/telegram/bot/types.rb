@@ -1,3 +1,4 @@
+require 'telegram/bot/types/compactable'
 require 'telegram/bot/types/base'
 require 'telegram/bot/types/user'
 require 'telegram/bot/types/audio'
