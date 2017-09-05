@@ -1,7 +1,10 @@
 module Telegram
   module Bot
     module Types
-      class Chat < Base
+      class Chat
+        include Virtus.model(finalize: false)
+        include Compactable
+
         attribute :id, Integer
         attribute :type, String
         attribute :title, String
@@ -12,6 +15,7 @@ module Telegram
         attribute :photo, ChatPhoto
         attribute :description, String
         attribute :invite_link, String
+        attribute :pinned_message, 'Telegram::Bot::Types::Message'
       end
     end
   end
