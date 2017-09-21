@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.4
+
+- Implement [Bot API 3.3](https://core.telegram.org/bots/api#august-23-2017) (thx [@ivanovaleksey][])
+
 ## 0.8.3
 
 - Implement [Bot API 3.2](https://core.telegram.org/bots/api#july-21-2017) (thx [@ivanovaleksey][])
