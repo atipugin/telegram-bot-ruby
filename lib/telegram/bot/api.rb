@@ -4,16 +4,18 @@ module Telegram
       ENDPOINTS = %w(
         getUpdates setWebhook deleteWebhook getWebhookInfo getMe sendMessage
         forwardMessage sendPhoto sendAudio sendDocument sendVideo sendVoice
-        sendVideoNote sendLocation sendVenue sendContact sendChatAction
+        sendVideoNote sendLocation editMessageLiveLocation
+        stopMessageLiveLocation sendVenue sendContact sendChatAction
         getUserProfilePhotos getFile kickChatMember unbanChatMember
         restrictChatMember promoteChatMember leaveChat getChat
         getChatAdministrators exportChatInviteLink setChatPhoto deleteChatPhoto
         setChatTitle setChatDescription pinChatMessage unpinChatMessage
-        getChatMembersCount getChatMember answerCallbackQuery editMessageText
-        editMessageCaption editMessageReplyMarkup deleteMessage
-        sendSticker getStickerSet uploadStickerFile createNewStickerSet
-        addStickerToSet setStickerPositionInSet deleteStickerFromSet
-        answerInlineQuery sendInvoice answerShippingQuery answerPreCheckoutQuery
+        getChatMembersCount getChatMember setChatStickerSet deleteChatStickerSet
+        answerCallbackQuery editMessageText editMessageCaption
+        editMessageReplyMarkup deleteMessage sendSticker getStickerSet
+        uploadStickerFile createNewStickerSet addStickerToSet
+        setStickerPositionInSet deleteStickerFromSet answerInlineQuery
+        sendInvoice answerShippingQuery answerPreCheckoutQuery
         sendGame setGameScore getGameHighScores
       ).freeze
       REPLY_MARKUP_TYPES = [

@@ -16,6 +16,7 @@ module Telegram
         attribute :author_signature, String
         attribute :text, String
         attribute :entities, Array[MessageEntity]
+        attribute :caption_entities, Array[MessageEntity]
         attribute :audio, Audio
         attribute :document, Document
         attribute :game, Game
