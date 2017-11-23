@@ -4,7 +4,7 @@ module Telegram
       ENDPOINTS = %w(
         getUpdates setWebhook deleteWebhook getWebhookInfo getMe sendMessage
         forwardMessage sendPhoto sendAudio sendDocument sendVideo sendVoice
-        sendVideoNote sendLocation editMessageLiveLocation
+        sendVideoNote sendMediaGroup sendLocation editMessageLiveLocation
         stopMessageLiveLocation sendVenue sendContact sendChatAction
         getUserProfilePhotos getFile kickChatMember unbanChatMember
         restrictChatMember promoteChatMember leaveChat getChat
