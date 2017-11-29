@@ -99,6 +99,7 @@ post '/telegram' do
     end    
     status 200
 end
+```
 
 Take a look at [this repo](https://github.com/solyaris/BOTServer) for a more complex example.
 
