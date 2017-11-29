@@ -54,7 +54,53 @@ Same thing about `message` object - it implements [Message](https://core.telegra
 
 ## Webhooks
 
-If you are going to use [webhooks](https://core.telegram.org/bots/api#setwebhook) instead of [long polling](https://core.telegram.org/bots/api#getupdates), you need to implement your own webhook callbacks server. Take a look at [this repo](https://github.com/solyaris/BOTServer) as an example.
+If you are going to use [webhooks](https://core.telegram.org/bots/api#setwebhook) (and you should!) instead of [long polling](https://core.telegram.org/bots/api#getupdates), you need to implement your own webhook callbacks server.
+
+A Sinatra quick start example:
+
+1. Rake task for setting the webhook url for your bot:
+
+```ruby
+task :telegramwebhook do
+    require 'telegram/bot'
+    HOOK_URL = "https://<your server url>/telegram"
+    bot = Telegram::Bot::Api.new(ENV['TELEGRAM_BOT_API_TOKEN'])
+    puts bot.set_webhook(url: HOOK_URL)
+end
+```
+
+2. Post route for receiving the JSON data from Telegram
+
+```ruby
+API = "https://api.telegram.org/file/bot"
+
+post '/telegram' do
+    request.body.rewind
+    data = JSON.parse(request.body.read)
+    @bot = Telegram::Bot::Api.new(ENV['TELEGRAM_BOT_API_TOKEN'])
+    @message = Telegram::Bot::Types::Update.new(data).message
+    puts "Message received: #{@message.inspect}"
+    case @message.text
+        when '/start'
+            @bot.send_message(chat_id: @message.chat.id, text: "Hi, #{@message.from.first_name}, nice to see you")
+        when '/stop'
+            @bot.send_message(chat_id: @message.chat.id, text: "Bye, #{@message.from.first_name}")
+        when '/help'
+            @bot.send_message(chat_id: @message.chat.id, text: "some help...")
+        else
+            # do something with the message
+            # maybe check for attachment
+            if @message.photo.any? then
+                result = @bot.getFile(file_id: @message.photo.last.file_id)
+                telegramurl = "#{API}#{ENV['TELEGRAM_BOT_API_TOKEN']}/#{result["result"]["file_path"]}" if result["ok"]
+                # download photo and process
+            end
+            @bot.send_message(chat_id: @message.chat.id, text: "Thank you, #{@message.from.first_name}")
+    end    
+    status 200
+end
+
+Take a look at [this repo](https://github.com/solyaris/BOTServer) for a more complex example.
 
 ## Custom keyboards
 
