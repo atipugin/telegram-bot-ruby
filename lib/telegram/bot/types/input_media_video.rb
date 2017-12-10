@@ -2,7 +2,7 @@ module Telegram
   module Bot
     module Types
       class InputMediaVideo < Base
-        attribute :type, String
+        attribute :type, String, default: 'video'
         attribute :media, String
         attribute :caption, String
         attribute :width, Integer
