@@ -2,7 +2,7 @@ module Telegram
   module Bot
     module Types
       class InputMediaPhoto < Base
-        attribute :type, String
+        attribute :type, String, default: 'photo'
         attribute :media, String
         attribute :caption, String
       end
