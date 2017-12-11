@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.6.1
+
+- Fix #163
+
 ## 0.8.6
 
 - Implement [Bot API 3.5](https://core.telegram.org/bots/api#november-17-2017)
