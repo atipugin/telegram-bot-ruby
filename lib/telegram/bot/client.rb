@@ -34,8 +34,10 @@ module Telegram
           update = Types::Update.new(data)
           @options[:offset] = update.update_id.next
           message = update.current_message
-          log_incoming_message(message)
-          yield message
+          unless message.test.nil?
+            log_incoming_message(message)
+            yield message
+          end
         end
       rescue Faraday::Error::TimeoutError
         retry
