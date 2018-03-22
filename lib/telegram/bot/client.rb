@@ -34,7 +34,7 @@ module Telegram
           update = Types::Update.new(data)
           @options[:offset] = update.update_id.next
           message = update.current_message
-          unless message.test.nil?
+          unless message.text.nil?
             log_incoming_message(message)
             yield message
           end
