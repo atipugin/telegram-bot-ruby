@@ -20,6 +20,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'faraday'
   spec.add_dependency 'virtus'
   spec.add_dependency 'inflecto'
+  spec.add_dependency 'socksify'
 
   spec.add_development_dependency 'bundler', '~> 1.9'
   spec.add_development_dependency 'rake', '~> 10.0'

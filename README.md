@@ -183,6 +183,34 @@ Telegram::Bot.configure do |config|
 end
 ```
 
+## Use Proxy
+
+You can use socks5 or another proxy, for this, create the `telegram.rb` file in the initializers and set the proxy server settings.
+
+```ruby
+
+# https proxy example
+Telegram::Bot.configure do |config|
+  config.ssl_opts = {verify: true}
+  config.proxy_opts = {
+    uri:  'https://your_proxy_ip:port',
+    socks: false
+  }
+end
+
+# sock5 proxy example
+Telegram::Bot.configure do |config|
+  config.ssl_opts = {verify: false}
+  config.proxy_opts = {
+    uri:  'https://your_proxy_ip:port',
+    user: 'your login',
+    password: 'your pass',
+    socks: true
+  }
+end
+
+```
+
 ## Boilerplates
 
 If you don't know how to setup database for your bot or how to use it with different languages here are some boilerplates which can help you to start faster:
