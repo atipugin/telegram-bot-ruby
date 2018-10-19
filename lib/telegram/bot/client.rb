@@ -20,7 +20,8 @@ module Telegram
 
       def listen(&block)
         logger.info('Starting bot')
-        fetch_updates(&block)
+        running = true
+        fetch_updates(&block) while running
       end
 
       def fetch_updates
