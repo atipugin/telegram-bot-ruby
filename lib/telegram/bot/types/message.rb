@@ -13,6 +13,7 @@ module Telegram
         attribute :forward_date, Integer
         attribute :reply_to_message, Message
         attribute :edit_date, Integer
+        attribute :media_group_id, String
         attribute :author_signature, String
         attribute :text, String
         attribute :entities, Array[MessageEntity]
