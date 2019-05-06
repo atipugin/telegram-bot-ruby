@@ -98,7 +98,7 @@ module Telegram
       def jsonify_inline_query_results(value)
         return value unless
           value.is_a?(Array) &&
-          value.all? { |i| INLINE_QUERY_RESULT_TYPES.any? { |type| i.is_a?(type) } }
+          value.all? { |i| INLINE_QUERY_RESULT_TYPES.any? { |t| i.is_a?(t) } }
         value.map { |i| i.to_compact_hash.select { |_, v| v } }.to_json
       end
 
