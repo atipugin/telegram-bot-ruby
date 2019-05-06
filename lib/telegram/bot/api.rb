@@ -91,14 +91,14 @@ module Telegram
       end
 
       def jsonify_reply_markup(value)
-        return value unless REPLY_MARKUP_TYPES.include?(value.class)
+        return value unless REPLY_MARKUP_TYPES.any? { |type| value.is_a?(type) }
         value.to_compact_hash.to_json
       end
 
       def jsonify_inline_query_results(value)
         return value unless
           value.is_a?(Array) &&
-          value.all? { |i| INLINE_QUERY_RESULT_TYPES.include?(i.class) }
+          value.all? { |i| INLINE_QUERY_RESULT_TYPES.any? { |type| i.is_a?(type) } }
         value.map { |i| i.to_compact_hash.select { |_, v| v } }.to_json
       end
 
