@@ -82,5 +82,8 @@ require 'telegram/bot/types/passport_element_error_files'
 require 'telegram/bot/types/passport_element_error_translation_file'
 require 'telegram/bot/types/passport_element_error_translation_files'
 require 'telegram/bot/types/passport_element_error_unspecified'
+require 'telegram/bot/types/input_media_animation'
+require 'telegram/bot/types/input_media_audio'
+require 'telegram/bot/types/input_media_document'
 
 Virtus.finalize
