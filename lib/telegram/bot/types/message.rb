@@ -20,6 +20,7 @@ module Telegram
         attribute :caption_entities, Array[MessageEntity]
         attribute :audio, Audio
         attribute :document, Document
+        attribute :animation, Animation
         attribute :game, Game
         attribute :photo, Array[PhotoSize]
         attribute :sticker, Sticker

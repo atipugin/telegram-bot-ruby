@@ -6,6 +6,7 @@ module Telegram
         attribute :first_name, String
         attribute :last_name, String
         attribute :user_id, Integer
+        attribute :vcard, String
       end
     end
   end

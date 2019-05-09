@@ -17,7 +17,7 @@ module Telegram
         setStickerPositionInSet deleteStickerFromSet answerInlineQuery
         sendInvoice answerShippingQuery answerPreCheckoutQuery
         sendGame setGameScore getGameHighScores setPassportDataErrors
-        editMessageMedia
+        editMessageMedia sendAnimation
       ).freeze
       REPLY_MARKUP_TYPES = [
         Telegram::Bot::Types::ReplyKeyboardMarkup,

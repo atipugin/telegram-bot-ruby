@@ -8,6 +8,7 @@ module Telegram
         attribute :title, String
         attribute :mime_type, String
         attribute :file_size, Integer
+        attribute :thumb, PhotoSize
       end
     end
   end
