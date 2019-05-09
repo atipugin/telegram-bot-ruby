@@ -14,6 +14,7 @@ module Telegram
         attribute :can_restrict_members, Boolean
         attribute :can_pin_messages, Boolean
         attribute :can_promote_members, Boolean
+        attribute :is_member, Boolean
         attribute :can_send_messages, Boolean
         attribute :can_send_media_messages, Boolean
         attribute :can_send_other_messages, Boolean

@@ -10,6 +10,7 @@ module Telegram
         attribute :forward_from_chat, Chat
         attribute :forward_from_message_id, Integer
         attribute :forward_signature, String
+        attribute :forward_sender_name, String
         attribute :forward_date, Integer
         attribute :reply_to_message, Message
         attribute :edit_date, Integer
@@ -31,6 +32,7 @@ module Telegram
         attribute :contact, Contact
         attribute :location, Location
         attribute :venue, Venue
+        attribute :poll, Poll
         attribute :new_chat_members, Array[User]
         attribute :left_chat_member, User
         attribute :new_chat_title, String
