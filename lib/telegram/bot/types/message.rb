@@ -43,6 +43,7 @@ module Telegram
         attribute :pinned_message, Message
         attribute :invoice, Invoice
         attribute :successful_payment, SuccessfulPayment
+        attribute :connected_website, String
 
         alias to_s text
       end

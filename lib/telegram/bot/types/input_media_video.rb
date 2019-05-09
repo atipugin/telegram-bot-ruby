@@ -8,6 +8,7 @@ module Telegram
         attribute :width, Integer
         attribute :height, Integer
         attribute :duration, Integer
+        attribute :supports_streaming, Boolean
       end
     end
   end
