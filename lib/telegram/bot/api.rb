@@ -16,7 +16,7 @@ module Telegram
         uploadStickerFile createNewStickerSet addStickerToSet
         setStickerPositionInSet deleteStickerFromSet answerInlineQuery
         sendInvoice answerShippingQuery answerPreCheckoutQuery
-        sendGame setGameScore getGameHighScores
+        sendGame setGameScore getGameHighScores setPassportDataErrors
       ).freeze
       REPLY_MARKUP_TYPES = [
         Telegram::Bot::Types::ReplyKeyboardMarkup,

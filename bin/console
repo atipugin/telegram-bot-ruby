@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 require 'bundler/setup'
-require 'telegram/bot'
-
 require 'pry'
+
+require File.expand_path('../lib/telegram/bot', __dir__)
+
 Pry.start
