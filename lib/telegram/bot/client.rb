@@ -8,9 +8,9 @@ module Telegram
         new(*args).run(&block)
       end
 
-      def initialize(token, h = {})
-        @options = default_options.merge(h)
-        @api = Api.new(token)
+      def initialize(token, hash = {})
+        @options = default_options.merge(hash)
+        @api = Api.new(token, url: options.delete(:url))
         @logger = options.delete(:logger)
       end
 
@@ -44,7 +44,12 @@ module Telegram
       private
 
       def default_options
-        { offset: 0, timeout: 20, logger: NullLogger.new }
+        {
+          offset: 0,
+          timeout: 20,
+          logger: NullLogger.new,
+          url: 'https://api.telegram.org'
+        }
       end
 
       def log_incoming_message(message)

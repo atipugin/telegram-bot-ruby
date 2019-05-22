@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.1
+
+- Made configurable url
+
 ## 0.9.0
 
 - Implement [Bot API 4.2](https://core.telegram.org/bots/api-changelog#april-14-2019)
