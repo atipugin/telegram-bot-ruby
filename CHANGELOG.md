@@ -2,7 +2,7 @@
 
 ## 0.9.1
 
-- Made configurable url
+- Allow to configure API URL (thx [@markfrst][])
 
 ## 0.9.0
 
@@ -77,3 +77,4 @@
 - Let `Client#logger` be overwritten later (use `attr_accessor` instead of `attr_reader`)
 
 [@ivanovaleksey]: https://github.com/ivanovaleksey
+[@markfrst]: https://github.com/markfrst

@@ -52,11 +52,19 @@ Note that `bot.api` object implements [Telegram Bot API methods](https://core.te
 
 Same thing about `message` object - it implements [Message](https://core.telegram.org/bots/api#message) spec, so you always know what to expect from it.
 
-Client has url params that set custom address `Telegram::Bot::Client.run(token, url: 'custom address')`
-
 ## Webhooks
 
 If you are going to use [webhooks](https://core.telegram.org/bots/api#setwebhook) instead of [long polling](https://core.telegram.org/bots/api#getupdates), you need to implement your own webhook callbacks server. Take a look at [this repo](https://github.com/solyaris/BOTServer) as an example.
+
+## Proxy
+
+As some countries block access to Telegram, you can set up your own proxy and use it to access Telegram API. In this case you need to configure API url:
+
+```ruby
+Telegram::Bot::Client.run(token, url: 'https://proxy.example.com') do |bot|
+  # ...
+end
+```
 
 ## Custom keyboards
 
