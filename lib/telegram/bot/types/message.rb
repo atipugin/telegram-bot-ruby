@@ -47,6 +47,8 @@ module Telegram
         attribute :invoice, Invoice
         attribute :successful_payment, SuccessfulPayment
         attribute :connected_website, String
+        attribute :passport_data, PassportData
+        attribute :reply_markup, InlineKeyboardMarkup
 
         alias to_s text
       end
