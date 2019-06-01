@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.10.0
+
+- Implement [Bot API 4.3](https://core.telegram.org/bots/api#may-31-2019)
+
 ## 0.9.1
 
 - Allow to configure API URL (thx [@markfrst][])
