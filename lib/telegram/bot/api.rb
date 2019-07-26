@@ -45,7 +45,9 @@ module Telegram
         Telegram::Bot::Types::InlineQueryResultCachedDocument,
         Telegram::Bot::Types::InlineQueryResultCachedVideo,
         Telegram::Bot::Types::InlineQueryResultCachedVoice,
-        Telegram::Bot::Types::InlineQueryResultCachedAudio
+        Telegram::Bot::Types::InlineQueryResultCachedAudio,
+        Telegram::Bot::Types::InputMediaPhoto,
+        Telegram::Bot::Types::InputMediaVideo
       ].freeze
 
       attr_reader :token, :url
