@@ -16,6 +16,7 @@ module Telegram
         attribute :description, String
         attribute :invite_link, String
         attribute :pinned_message, 'Telegram::Bot::Types::Message'
+        attribute :permissions, ChatPermissions
       end
     end
   end
