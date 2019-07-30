@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.11.0
+
+- Implement [Bot API 4.4](https://core.telegram.org/bots/api#july-29-2019)
+
 ## 0.10.1
 
 - Fix issue #202 with `Poll` messages and logging
