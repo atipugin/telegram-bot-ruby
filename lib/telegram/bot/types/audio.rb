@@ -3,6 +3,7 @@ module Telegram
     module Types
       class Audio < Base
         attribute :file_id, String
+        attribute :file_unique_id, String
         attribute :duration, Integer
         attribute :performer, String
         attribute :title, String

@@ -4,6 +4,7 @@ module Telegram
       class ChatMember < Base
         attribute :user, User
         attribute :status, String
+        attribute :custom_title, String
         attribute :until_date, Integer
         attribute :can_be_edited, Boolean
         attribute :can_post_messages, Boolean

@@ -17,6 +17,9 @@ module Telegram
         attribute :invite_link, String
         attribute :pinned_message, 'Telegram::Bot::Types::Message'
         attribute :permissions, ChatPermissions
+        attribute :slow_mode_delay, Integer
+        attribute :sticker_set_name, String
+        attribute :can_set_sticker_set, Boolean
       end
     end
   end
