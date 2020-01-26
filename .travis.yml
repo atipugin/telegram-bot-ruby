@@ -1,6 +1,7 @@
 language: ruby
 rvm:
-  - 2.3.0
+  - 2.6.5
+  - 2.7.0
 script:
   - bundle exec rubocop
   - bundle exec rspec
