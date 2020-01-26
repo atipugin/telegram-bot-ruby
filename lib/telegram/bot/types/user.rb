@@ -8,6 +8,9 @@ module Telegram
         attribute :last_name, String
         attribute :username, String
         attribute :language_code, String
+        attribute :can_join_groups, Boolean
+        attribute :can_read_all_group_messages, Boolean
+        attribute :supports_inline_queries, Boolean
       end
     end
   end

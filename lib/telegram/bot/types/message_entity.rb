@@ -7,6 +7,7 @@ module Telegram
         attribute :length, Integer
         attribute :url, String
         attribute :user, User
+        attribute :language, String
       end
     end
   end

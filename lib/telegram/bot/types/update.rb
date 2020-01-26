@@ -13,6 +13,7 @@ module Telegram
         attribute :shipping_query, ShippingQuery
         attribute :pre_checkout_query, PreCheckoutQuery
         attribute :poll, Poll
+        attribute :poll_answer, PollAnswer
 
         def current_message
           @current_message ||=
