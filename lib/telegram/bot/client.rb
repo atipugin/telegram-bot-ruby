@@ -30,7 +30,7 @@ module Telegram
         response = api.getUpdates(options)
         return unless response['ok']
 
-        response['result'].each do |data|
+        response['res']['result'].each do |data|
           update = Types::Update.new(data)
           @options[:offset] = update.update_id.next
           message = update.current_message
