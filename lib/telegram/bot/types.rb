@@ -1,5 +1,6 @@
 require 'telegram/bot/types/compactable'
 require 'telegram/bot/types/base'
+require 'telegram/bot/types/bot_command'
 require 'telegram/bot/types/user'
 require 'telegram/bot/types/photo_size'
 require 'telegram/bot/types/audio'
