@@ -18,9 +18,10 @@ module Telegram
         sendInvoice answerShippingQuery answerPreCheckoutQuery
         sendGame setGameScore getGameHighScores setPassportDataErrors
         editMessageMedia sendAnimation sendPoll stopPoll setChatPermissions
-        setChatAdministratorCustomTitle
+        setChatAdministratorCustomTitle getMyCommands setMyCommands
       ).freeze
       REPLY_MARKUP_TYPES = [
+        Telegram::Bot::Types::BotCommand,
         Telegram::Bot::Types::ReplyKeyboardMarkup,
         Telegram::Bot::Types::ReplyKeyboardRemove,
         Telegram::Bot::Types::ForceReply,
@@ -94,8 +95,13 @@ module Telegram
       end
 
       def jsonify_reply_markup(value)
-        return value unless REPLY_MARKUP_TYPES.any? { |type| value.is_a?(type) }
-        value.to_compact_hash.to_json
+        if value.is_a? Array
+          return value unless value.all? { |v| REPLY_MARKUP_TYPES.any? { |type| v.is_a?(type) } }
+          value.map { |v| v.to_compact_hash }.to_json
+        else
+          return value unless REPLY_MARKUP_TYPES.any? { |type| value.is_a?(type) }
+          value.to_compact_hash.to_json
+        end
       end
 
       def jsonify_inline_query_results(value)
