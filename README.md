@@ -58,7 +58,7 @@ If you are going to use [webhooks](https://core.telegram.org/bots/api#setwebhook
 
 ## Proxy
 
-As some countries block access to Telegram, you can set up your own proxy and use it to access Telegram API. In this case you need to configure API url:
+As some countries block access to Telegram, you can set up your own proxy and use it to access Telegram API. In this case, you need to configure API url:
 
 ```ruby
 Telegram::Bot::Client.run(token, url: 'https://proxy.example.com') do |bot|
@@ -151,7 +151,7 @@ bot.listen do |message|
 end
 ```
 
-Now, with `inline` mode enabled, your `message` object can be an instance of [Message](https://core.telegram.org/bots/api#message), [InlineQuery](https://core.telegram.org/bots/api#inlinequery) or [ChosenInlineResult](https://core.telegram.org/bots/api#choseninlineresult). That's why you need to check type of each message and decide how to handle it.
+Now, with `inline` mode enabled, your `message` object can be an instance of [Message](https://core.telegram.org/bots/api#message), [InlineQuery](https://core.telegram.org/bots/api#inlinequery) or [ChosenInlineResult](https://core.telegram.org/bots/api#choseninlineresult). That's why you need to check the type of each message and decide how to handle it.
 
 Using `answer_inline_query` you can send query results to user. `results` field must be an array of [query result objects](https://core.telegram.org/bots/api#inlinequeryresult).
 
@@ -183,7 +183,7 @@ end
 
 ## Connection adapters
 
-Since version `0.5.0` we rely on [faraday](https://github.com/lostisland/faraday) under the hood. You can use any of supported adapters (for example, `net/http/persistent`):
+Since version `0.5.0` we rely on [faraday](https://github.com/lostisland/faraday) under the hood. You can use any of the supported adapters (for example, `net/http/persistent`):
 
 ```ruby
 require 'net/http/persistent'
@@ -195,13 +195,13 @@ end
 
 ## Boilerplates
 
-If you don't know how to setup database for your bot or how to use it with different languages here are some boilerplates which can help you to start faster:
+If you don't know how to setup a database for your bot or how to use it with different languages here are some boilerplates which can help you to start faster:
 - [Ruby Telegram Bot boilerplate](https://github.com/telegram-bots/ruby-telegram-bot-boilerplate)
 
 ## Contributing
 
 1. Fork it
-2. Create your feature branch (git checkout -b my-new-feature)
-3. Commit your changes (git commit -am 'Add some feature')
-4. Push to the branch (git push origin my-new-feature)
+2. Create your feature branch `git checkout -b my-new-feature`
+3. Commit your changes `git commit -am 'Add some feature'`
+4. Push to the branch `git push origin my-new-feature`
 5. Create new Pull Request
