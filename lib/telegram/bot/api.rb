@@ -18,7 +18,8 @@ module Telegram
         sendInvoice answerShippingQuery answerPreCheckoutQuery
         sendGame setGameScore getGameHighScores setPassportDataErrors
         editMessageMedia sendAnimation sendPoll stopPoll setChatPermissions
-        setChatAdministratorCustomTitle
+        setChatAdministratorCustomTitle sendDice getMyCommands setMyCommands
+        setStickerSetThumb
       ).freeze
       REPLY_MARKUP_TYPES = [
         Telegram::Bot::Types::ReplyKeyboardMarkup,

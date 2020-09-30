@@ -7,6 +7,7 @@ module Telegram
         attribute :is_animated, Boolean
         attribute :contains_masks, Boolean
         attribute :stickers, Array[Sticker]
+        attribute :thumb, PhotoSize
       end
     end
   end

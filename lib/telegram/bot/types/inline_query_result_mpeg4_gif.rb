@@ -9,6 +9,7 @@ module Telegram
         attribute :mpeg4_height, Integer
         attribute :mpeg4_duration, Integer
         attribute :thumb_url, String
+        attribute :thumb_mime_type, String
         attribute :title, String
         attribute :caption, String
         attribute :reply_markup, InlineKeyboardMarkup

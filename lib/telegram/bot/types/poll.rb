@@ -11,6 +11,10 @@ module Telegram
         attribute :type, String
         attribute :allows_multiple_answers, Boolean
         attribute :correct_option_id, Integer
+        attribute :explanation, String
+        attribute :explanation_entities, Array[MessageEntity]
+        attribute :open_period, Integer
+        attribute :close_date, Integer
       end
     end
   end
