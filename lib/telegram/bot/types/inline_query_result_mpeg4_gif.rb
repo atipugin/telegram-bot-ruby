@@ -12,6 +12,7 @@ module Telegram
         attribute :thumb_mime_type, String
         attribute :title, String
         attribute :caption, String
+        attribute :parse_mode, String
         attribute :reply_markup, InlineKeyboardMarkup
         attribute :input_message_content, InputMessageContent
       end

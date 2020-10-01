@@ -7,6 +7,7 @@ module Telegram
         attribute :audio_url, String
         attribute :title, String
         attribute :caption, String
+        attribute :parse_mode, String
         attribute :performer, String
         attribute :audio_duration, Integer
         attribute :reply_markup, InlineKeyboardMarkup

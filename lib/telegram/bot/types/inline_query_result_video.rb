@@ -9,6 +9,7 @@ module Telegram
         attribute :thumb_url, String
         attribute :title, String
         attribute :caption, String
+        attribute :parse_mode, String
         attribute :video_width, Integer
         attribute :video_height, Integer
         attribute :video_duration, Integer

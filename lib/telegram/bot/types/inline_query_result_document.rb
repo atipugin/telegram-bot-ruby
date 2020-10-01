@@ -6,6 +6,7 @@ module Telegram
         attribute :id, String
         attribute :title, String
         attribute :caption, String
+        attribute :parse_mode, String
         attribute :document_url, String
         attribute :mime_type, String
         attribute :description, String
