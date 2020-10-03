@@ -13,3 +13,5 @@ end
 RSpec::Core::RakeTask.new(:spec)
 
 task default: :spec
+
+load 'telegram/tasks/bot.rake'

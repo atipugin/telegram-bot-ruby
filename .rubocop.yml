@@ -4,6 +4,7 @@ require: rubocop-rspec
 Metrics/BlockLength:
   Exclude:
     - spec/**/*.rb
+    - lib/telegram/tasks/bot.rake
 
 Metrics/LineLength:
   Exclude:
