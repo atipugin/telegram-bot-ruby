@@ -51,6 +51,7 @@ module Telegram
         attribute :connected_website, String
         attribute :passport_data, PassportData
         attribute :reply_markup, InlineKeyboardMarkup
+        attribute :parse_mode, String
 
         alias to_s text
       end
