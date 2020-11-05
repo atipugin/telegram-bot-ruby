@@ -7,6 +7,7 @@ module Telegram
         attribute :duration, Integer
         attribute :performer, String
         attribute :title, String
+        attribute :file_name, String
         attribute :mime_type, String
         attribute :file_size, Integer
         attribute :thumb, PhotoSize

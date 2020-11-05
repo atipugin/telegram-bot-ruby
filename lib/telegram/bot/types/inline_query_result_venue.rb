@@ -10,6 +10,8 @@ module Telegram
         attribute :address, String
         attribute :foursquare_id, String
         attribute :foursquare_type, String
+        attribute :google_place_id, String
+        attribute :google_place_type, String
         attribute :reply_markup, InlineKeyboardMarkup
         attribute :input_message_content, InputMessageContent
         attribute :thumb_url, String

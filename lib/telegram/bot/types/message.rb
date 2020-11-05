@@ -4,6 +4,7 @@ module Telegram
       class Message < Base
         attribute :message_id, Integer
         attribute :from, User
+        attribute :sender_chat, Chat
         attribute :date, Integer
         attribute :chat, Chat
         attribute :forward_from, User
@@ -50,6 +51,7 @@ module Telegram
         attribute :successful_payment, SuccessfulPayment
         attribute :connected_website, String
         attribute :passport_data, PassportData
+        attribute :proximity_alert_triggered, ProximityAlertTriggered
         attribute :reply_markup, InlineKeyboardMarkup
 
         alias to_s text

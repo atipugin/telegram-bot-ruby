@@ -8,6 +8,8 @@ module Telegram
         attribute :address, String
         attribute :foursquare_id, String
         attribute :foursquare_type, String
+        attribute :google_place_id, String
+        attribute :google_place_type, String
       end
     end
   end

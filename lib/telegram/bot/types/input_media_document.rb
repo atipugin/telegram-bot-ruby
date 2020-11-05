@@ -7,6 +7,8 @@ module Telegram
         attribute :thumb, String
         attribute :caption, String
         attribute :parse_mode, String
+        attribute :caption_entities, Array[MessageEntity]
+        attribute :disable_content_type_detection, Boolean
       end
     end
   end

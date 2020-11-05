@@ -7,6 +7,10 @@ module Telegram
         attribute :latitude, Float
         attribute :longitude, Float
         attribute :title, String
+        attribute :horizontal_accuracy, Float
+        attribute :live_period, Integer
+        attribute :heading, Integer
+        attribute :proximity_alert_radius, Integer
         attribute :reply_markup, InlineKeyboardMarkup
         attribute :input_message_content, InputMessageContent
         attribute :thumb_url, String

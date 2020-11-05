@@ -5,7 +5,7 @@ module Telegram
         attribute :user, User
         attribute :status, String
         attribute :custom_title, String
-        attribute :until_date, Integer
+        attribute :is_anonymous, Boolean
         attribute :can_be_edited, Boolean
         attribute :can_post_messages, Boolean
         attribute :can_edit_messages, Boolean
@@ -21,6 +21,7 @@ module Telegram
         attribute :can_send_polls, Boolean
         attribute :can_send_other_messages, Boolean
         attribute :can_add_web_page_previews, Boolean
+        attribute :until_date, Integer
       end
     end
   end

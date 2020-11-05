@@ -19,7 +19,7 @@ module Telegram
         sendGame setGameScore getGameHighScores setPassportDataErrors
         editMessageMedia sendAnimation sendPoll stopPoll setChatPermissions
         setChatAdministratorCustomTitle sendDice getMyCommands setMyCommands
-        setStickerSetThumb
+        setStickerSetThumb logOut close copyMessage
       ).freeze
       REPLY_MARKUP_TYPES = [
         Telegram::Bot::Types::ReplyKeyboardMarkup,
