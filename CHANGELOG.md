@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.14.0
+
+- Implement [Bot API 5.0](https://core.telegram.org/bots/api#november-4-2020)
+
 ## 0.13.0
 
 - Implement [Bot API 4.9](https://core.telegram.org/bots/api-changelog#june-4-2020)
