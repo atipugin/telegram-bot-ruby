@@ -31,14 +31,18 @@ module Telegram
         return unless response['ok']
 
         response['result'].each do |data|
-          update = Types::Update.new(data)
-          @options[:offset] = update.update_id.next
-          message = update.current_message
-          log_incoming_message(message)
-          yield message
+          yield handle_update(Types::Update.new(data))
         end
       rescue Faraday::TimeoutError
         retry
+      end
+
+      def handle_update(update)
+        @options[:offset] = update.update_id.next
+        message = update.current_message
+        log_incoming_message(message)
+
+        message
       end
 
       private

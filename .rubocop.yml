@@ -1,9 +1,13 @@
-inherit_from: .rubocop_todo.yml
+---
 require: rubocop-rspec
 
+Style/Documentation:
+  Enabled: false
+
 Metrics/BlockLength:
-  Exclude:
-    - spec/**/*.rb
+  ExcludedMethods:
+    - context
+    - describe
 
 Metrics/LineLength:
   Exclude:
