@@ -1,7 +1,7 @@
 module Telegram
   module Bot
     class Api # rubocop:disable ClassLength
-      ENDPOINTS = %w(
+      ENDPOINTS = %w[
         getUpdates setWebhook deleteWebhook getWebhookInfo getMe sendMessage
         forwardMessage sendPhoto sendAudio sendDocument sendVideo sendVoice
         sendVideoNote sendMediaGroup sendLocation editMessageLiveLocation
@@ -20,7 +20,7 @@ module Telegram
         editMessageMedia sendAnimation sendPoll stopPoll setChatPermissions
         setChatAdministratorCustomTitle sendDice getMyCommands setMyCommands
         setStickerSetThumb logOut close copyMessage
-      ).freeze
+      ].freeze
       REPLY_MARKUP_TYPES = [
         Telegram::Bot::Types::ReplyKeyboardMarkup,
         Telegram::Bot::Types::ReplyKeyboardRemove,
