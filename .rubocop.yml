@@ -10,6 +10,7 @@ Metrics/BlockLength:
     - describe
 
 Metrics/LineLength:
+  Max: 120
   Exclude:
     - telegram-bot-ruby.gemspec
     - examples/*.rb
