@@ -44,6 +44,7 @@ module Telegram
         attribute :group_chat_created, Boolean
         attribute :supergroup_chat_created, Boolean
         attribute :channel_chat_created, Boolean
+        attribute :message_auto_delete_timer_changed, MessageAutoDeleteTimerChanged
         attribute :migrate_to_chat_id, Integer
         attribute :migrate_from_chat_id, Integer
         attribute :pinned_message, Message
@@ -52,6 +53,9 @@ module Telegram
         attribute :connected_website, String
         attribute :passport_data, PassportData
         attribute :proximity_alert_triggered, ProximityAlertTriggered
+        attribute :voice_chat_started, VoiceChatStarted
+        attribute :voice_chat_ended, VoiceChatEnded
+        attribute :voice_chat_participants_invited, VoiceChatParticipantsInvited
         attribute :reply_markup, InlineKeyboardMarkup
 
         alias to_s text
