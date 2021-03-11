@@ -14,6 +14,8 @@ module Telegram
         attribute :pre_checkout_query, PreCheckoutQuery
         attribute :poll, Poll
         attribute :poll_answer, PollAnswer
+        attribute :my_chat_member, ChatMemberUpdated
+        attribute :chat_member, ChatMemberUpdated
 
         def current_message
           @current_message ||=
