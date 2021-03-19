@@ -4,6 +4,7 @@ module Telegram
       class Chat
         include Virtus.model(finalize: false)
         include Compactable
+        include PatternMatching
 
         attribute :id, Integer
         attribute :type, String
