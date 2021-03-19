@@ -4,6 +4,7 @@ module Telegram
       class Base
         include Virtus.model
         include Compactable
+        include PatternMatching
       end
     end
   end

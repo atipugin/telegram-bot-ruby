@@ -1,4 +1,5 @@
 require 'telegram/bot/types/compactable'
+require 'telegram/bot/types/pattern_matching'
 require 'telegram/bot/types/base'
 require 'telegram/bot/types/user'
 require 'telegram/bot/types/photo_size'
