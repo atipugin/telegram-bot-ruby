@@ -5,7 +5,7 @@ module Telegram
         def to_compact_hash
           Hash[attributes.dup.delete_if { |_, v| v.nil? }.map do |key, value|
             value =
-              if value.class.ancestors.include?(Telegram::Bot::Types::Base)
+              if value.respond_to?(:to_compact_hash)
                 value.to_compact_hash
               else
                 value
