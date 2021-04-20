@@ -118,6 +118,8 @@ module Telegram
           faraday.request :multipart
           faraday.request :url_encoded
           faraday.adapter Telegram::Bot.configuration.adapter
+          faraday_configuration = Telegram::Bot.configuration.faraday
+          faraday_configuration && faraday_configuration.call(faraday)
         end
       end
     end
