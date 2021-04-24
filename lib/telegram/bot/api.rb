@@ -1,6 +1,6 @@
 module Telegram
   module Bot
-    class Api # rubocop:disable ClassLength
+    class Api
       ENDPOINTS = %w[
         getUpdates setWebhook deleteWebhook getWebhookInfo getMe sendMessage
         forwardMessage sendPhoto sendAudio sendDocument sendVideo sendVoice
@@ -21,34 +21,6 @@ module Telegram
         setChatAdministratorCustomTitle sendDice getMyCommands setMyCommands
         setStickerSetThumb logOut close copyMessage createChatInviteLink
         editChatInviteLink revokeChatInviteLink
-      ].freeze
-      REPLY_MARKUP_TYPES = [
-        Telegram::Bot::Types::ReplyKeyboardMarkup,
-        Telegram::Bot::Types::ReplyKeyboardRemove,
-        Telegram::Bot::Types::ForceReply,
-        Telegram::Bot::Types::InlineKeyboardMarkup
-      ].freeze
-      INLINE_QUERY_RESULT_TYPES = [
-        Telegram::Bot::Types::InlineQueryResultArticle,
-        Telegram::Bot::Types::InlineQueryResultPhoto,
-        Telegram::Bot::Types::InlineQueryResultGif,
-        Telegram::Bot::Types::InlineQueryResultMpeg4Gif,
-        Telegram::Bot::Types::InlineQueryResultVideo,
-        Telegram::Bot::Types::InlineQueryResultAudio,
-        Telegram::Bot::Types::InlineQueryResultVoice,
-        Telegram::Bot::Types::InlineQueryResultDocument,
-        Telegram::Bot::Types::InlineQueryResultLocation,
-        Telegram::Bot::Types::InlineQueryResultVenue,
-        Telegram::Bot::Types::InlineQueryResultContact,
-        Telegram::Bot::Types::InlineQueryResultGame,
-        Telegram::Bot::Types::InlineQueryResultCachedPhoto,
-        Telegram::Bot::Types::InlineQueryResultCachedGif,
-        Telegram::Bot::Types::InlineQueryResultCachedMpeg4Gif,
-        Telegram::Bot::Types::InlineQueryResultCachedSticker,
-        Telegram::Bot::Types::InlineQueryResultCachedDocument,
-        Telegram::Bot::Types::InlineQueryResultCachedVideo,
-        Telegram::Bot::Types::InlineQueryResultCachedVoice,
-        Telegram::Bot::Types::InlineQueryResultCachedAudio
       ].freeze
 
       attr_reader :token, :url
@@ -92,19 +64,15 @@ module Telegram
       end
 
       def sanitize_value(value)
-        jsonify_inline_query_results(jsonify_reply_markup(value))
+        jsonify_value(value)
       end
 
-      def jsonify_reply_markup(value)
-        return value unless REPLY_MARKUP_TYPES.any? { |type| value.is_a?(type) }
-        value.to_compact_hash.to_json
+      def jsonify_value(value)
+        jsonify_value?(value) ? value.to_json : value
       end
 
-      def jsonify_inline_query_results(value)
-        return value unless
-          value.is_a?(Array) &&
-          value.all? { |i| INLINE_QUERY_RESULT_TYPES.any? { |t| i.is_a?(t) } }
-        value.map { |i| i.to_compact_hash.select { |_, v| v } }.to_json
+      def jsonify_value?(value)
+        value.respond_to?(:to_compact_hash) || value.is_a?(Array)
       end
 
       def camelize(method_name)

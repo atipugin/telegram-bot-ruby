@@ -14,6 +14,10 @@ module Telegram
             [key, value]
           end]
         end
+
+        def to_json(*args)
+          to_compact_hash.select { |_, v| v }.to_json(*args)
+        end
       end
     end
   end
