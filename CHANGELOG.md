@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.16.0
+
+- Replace `inflecto` with `dry-inflector`
+- Update `virtus` up to 2.0
+
 ## 0.15.0
 
 - Implement [Bot API 5.1](https://core.telegram.org/bots/api#march-9-2021)
