@@ -18,8 +18,8 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'faraday'
-  spec.add_dependency 'virtus'
-  spec.add_dependency 'inflecto'
+  spec.add_dependency 'virtus', '~> 2.0'
+  spec.add_dependency 'dry-inflector'
 
   spec.add_development_dependency 'rake', '~> 13.0'
   spec.add_development_dependency 'pry'
