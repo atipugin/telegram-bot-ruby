@@ -57,6 +57,7 @@ module Telegram
         attribute :voice_chat_ended, VoiceChatEnded
         attribute :voice_chat_participants_invited, VoiceChatParticipantsInvited
         attribute :reply_markup, InlineKeyboardMarkup
+        attribute :parse_mode, String
 
         alias to_s text
       end
