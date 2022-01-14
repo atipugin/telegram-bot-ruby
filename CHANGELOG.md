@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.17.0
+
+- Pin `faraday` to 1.0
+
 ## 0.16.0
 
 - Replace `inflecto` with `dry-inflector`
