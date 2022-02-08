@@ -1,7 +1,9 @@
+#!/usr/bin/env ruby
+
 require 'rubygems'
 require 'telegram/bot'
 
-token = 'replace-me-with-your-real-token'
+token = File.read('private.token').strip
 
 Telegram::Bot::Client.run(token) do |bot|
   bot.listen do |message|
