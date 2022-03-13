@@ -13,29 +13,31 @@ module Telegram
         attribute :forward_signature, String
         attribute :forward_sender_name, String
         attribute :forward_date, Integer
+        attribute :is_automatic_forward, Boolean
         attribute :reply_to_message, Message
         attribute :via_bot, User
         attribute :edit_date, Integer
+        attribute :has_protected_content, Boolean
         attribute :media_group_id, String
         attribute :author_signature, String
         attribute :text, String
         attribute :entities, Array[MessageEntity]
-        attribute :caption_entities, Array[MessageEntity]
+        attribute :animation, Animation
         attribute :audio, Audio
         attribute :document, Document
-        attribute :animation, Animation
-        attribute :game, Game
         attribute :photo, Array[PhotoSize]
         attribute :sticker, Sticker
         attribute :video, Video
-        attribute :voice, Voice
         attribute :video_note, VideoNote
+        attribute :voice, Voice
         attribute :caption, String
+        attribute :caption_entities, Array[MessageEntity]
         attribute :contact, Contact
         attribute :dice, Dice
-        attribute :location, Location
-        attribute :venue, Venue
+        attribute :game, Game
         attribute :poll, Poll
+        attribute :venue, Venue
+        attribute :location, Location
         attribute :new_chat_members, Array[User]
         attribute :left_chat_member, User
         attribute :new_chat_title, String
@@ -53,6 +55,7 @@ module Telegram
         attribute :connected_website, String
         attribute :passport_data, PassportData
         attribute :proximity_alert_triggered, ProximityAlertTriggered
+        attribute :voice_chat_scheduled, VoiceChatScheduled
         attribute :voice_chat_started, VoiceChatStarted
         attribute :voice_chat_ended, VoiceChatEnded
         attribute :voice_chat_participants_invited, VoiceChatParticipantsInvited

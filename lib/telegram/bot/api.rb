@@ -21,7 +21,8 @@ module Telegram
         setChatAdministratorCustomTitle sendDice getMyCommands setMyCommands
         deleteMyCommands setStickerSetThumb logOut close copyMessage
         createChatInviteLink editChatInviteLink revokeChatInviteLink
-        approveChatJoinRequest declineChatJoinRequest
+        approveChatJoinRequest declineChatJoinRequest banChatSenderChat
+        unbanChatSenderChat
       ].freeze
 
       attr_reader :token, :url
