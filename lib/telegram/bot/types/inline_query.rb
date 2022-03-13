@@ -4,9 +4,10 @@ module Telegram
       class InlineQuery < Base
         attribute :id, String
         attribute :from, User
-        attribute :location, Location
         attribute :query, String
         attribute :offset, String
+        attribute :chat_type, String
+        attribute :location, Location
 
         alias to_s query
       end
