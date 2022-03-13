@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.18.0
+
+- Implement [Bot API 5.2](https://core.telegram.org/bots/api-changelog#april-26-2021)
+- Implement [Bot API 5.3](https://core.telegram.org/bots/api-changelog#june-25-2021)
+- Implement [Bot API 5.4](https://core.telegram.org/bots/api-changelog#november-5-2021)
+- Implement [Bot API 5.5](https://core.telegram.org/bots/api-changelog#december-7-2021)
+- Implement [Bot API 5.6](https://core.telegram.org/bots/api-changelog#december-30-2021)
+- Implement [Bot API 5.7](https://core.telegram.org/bots/api-changelog#january-31-2022)
+
 ## 0.17.0
 
 - Pin `faraday` to 1.0
