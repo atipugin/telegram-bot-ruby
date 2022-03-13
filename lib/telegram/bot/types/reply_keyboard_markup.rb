@@ -5,6 +5,7 @@ module Telegram
         attribute :keyboard, Array[Array[KeyboardButton]]
         attribute :resize_keyboard, Boolean, default: false
         attribute :one_time_keyboard, Boolean, default: false
+        attribute :input_field_placeholder, String
         attribute :selective, Boolean, default: false
 
         def to_compact_hash
