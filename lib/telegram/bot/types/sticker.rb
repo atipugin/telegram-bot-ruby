@@ -7,6 +7,7 @@ module Telegram
         attribute :width, Integer
         attribute :height, Integer
         attribute :is_animated, Boolean
+        attribute :is_video, Boolean
         attribute :thumb, PhotoSize
         attribute :emoji, String
         attribute :set_name, String
