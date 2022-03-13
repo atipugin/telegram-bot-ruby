@@ -16,6 +16,7 @@ module Telegram
         attribute :poll_answer, PollAnswer
         attribute :my_chat_member, ChatMemberUpdated
         attribute :chat_member, ChatMemberUpdated
+        attribute :chat_join_request, ChatJoinRequest
 
         def current_message
           @current_message ||=

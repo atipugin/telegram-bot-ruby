@@ -19,8 +19,9 @@ module Telegram
         sendGame setGameScore getGameHighScores setPassportDataErrors
         editMessageMedia sendAnimation sendPoll stopPoll setChatPermissions
         setChatAdministratorCustomTitle sendDice getMyCommands setMyCommands
-        setStickerSetThumb logOut close copyMessage createChatInviteLink
-        editChatInviteLink revokeChatInviteLink
+        deleteMyCommands setStickerSetThumb logOut close copyMessage
+        createChatInviteLink editChatInviteLink revokeChatInviteLink
+        approveChatJoinRequest declineChatJoinRequest
       ].freeze
 
       attr_reader :token, :url
