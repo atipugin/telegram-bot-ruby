@@ -33,7 +33,7 @@ module Telegram
         response['result'].each do |data|
           yield handle_update(Types::Update.new(data))
         end
-      rescue Faraday::TimeoutError
+      rescue Faraday::TimeoutError, Faraday::ConnectionFailed
         retry
       end
 
@@ -50,7 +50,6 @@ module Telegram
       def default_options
         {
           offset: 0,
-          timeout: 20,
           logger: NullLogger.new,
           url: 'https://api.telegram.org'
         }
