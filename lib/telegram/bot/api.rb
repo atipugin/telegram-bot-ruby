@@ -88,6 +88,8 @@ module Telegram
           faraday.request :multipart
           faraday.request :url_encoded
           faraday.adapter Telegram::Bot.configuration.adapter
+          faraday.options.timeout = Telegram::Bot.configuration.timeout
+          faraday.options.open_timeout = Telegram::Bot.configuration.open_timeout
         end
       end
     end

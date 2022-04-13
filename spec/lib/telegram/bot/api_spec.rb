@@ -26,6 +26,38 @@ RSpec.describe Telegram::Bot::Api do
           .to raise_error(Telegram::Bot::Exceptions::ResponseError)
       end
     end
+
+    context 'with global timeout' do
+      context 'with low timeout' do
+        before do
+          Telegram::Bot.configure { |config| config.timeout = 0.001 }
+        end
+
+        after do
+          Telegram::Bot.configure { |config| config.timeout = 30 }
+        end
+
+        it 'raises an error' do
+          expect { api_call }
+            .to raise_error(Faraday::TimeoutError)
+        end
+      end
+
+      context 'with low open_timeout' do
+        before do
+          Telegram::Bot.configure { |config| config.open_timeout = 0.001 }
+        end
+
+        after do
+          Telegram::Bot.configure { |config| config.open_timeout = 30 }
+        end
+
+        it 'raises an error' do
+          expect { api_call }
+            .to raise_error(Faraday::ConnectionFailed)
+        end
+      end
+    end
   end
 
   describe '#method_missing' do
