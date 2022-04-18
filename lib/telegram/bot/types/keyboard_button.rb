@@ -6,6 +6,7 @@ module Telegram
         attribute :request_contact, Boolean
         attribute :request_location, Boolean
         attribute :request_poll, KeyboardButtonPollType
+        attribute :web_app, WebAppInfo
       end
     end
   end

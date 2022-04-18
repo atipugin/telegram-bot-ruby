@@ -55,10 +55,11 @@ module Telegram
         attribute :connected_website, String
         attribute :passport_data, PassportData
         attribute :proximity_alert_triggered, ProximityAlertTriggered
-        attribute :voice_chat_scheduled, VoiceChatScheduled
-        attribute :voice_chat_started, VoiceChatStarted
-        attribute :voice_chat_ended, VoiceChatEnded
-        attribute :voice_chat_participants_invited, VoiceChatParticipantsInvited
+        attribute :video_chat_scheduled, VideoChatScheduled
+        attribute :video_chat_started, VideoChatStarted
+        attribute :video_chat_ended, VideoChatEnded
+        attribute :video_chat_participants_invited, VideoChatParticipantsInvited
+        attribute :web_app_data, WebAppData
         attribute :reply_markup, InlineKeyboardMarkup
 
         alias to_s text

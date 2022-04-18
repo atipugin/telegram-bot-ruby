@@ -1,7 +1,7 @@
 module Telegram
   module Bot
     module Types
-      class VoiceChatScheduled < Base
+      class VideoChatScheduled < Base
         attribute :start_date, Integer
       end
     end

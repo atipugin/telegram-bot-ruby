@@ -1,7 +1,7 @@
 module Telegram
   module Bot
     module Types
-      class VoiceChatParticipantsInvited < Base
+      class VideoChatParticipantsInvited < Base
         attribute :users, Array[User]
       end
     end

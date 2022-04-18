@@ -1,7 +1,8 @@
 module Telegram
   module Bot
     module Types
-      class VoiceChatStarted < Base
+      class VideoChatEnded < Base
+        attribute :duration, Integer
       end
     end
   end
