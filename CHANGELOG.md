@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.19.0
+
+- Implement [Bot API 6.0](https://core.telegram.org/bots/api-changelog#april-16-2022)
+- Update rubocop
+
 ## 0.18.0
 
 - Implement [Bot API 5.2](https://core.telegram.org/bots/api-changelog#april-26-2021)
