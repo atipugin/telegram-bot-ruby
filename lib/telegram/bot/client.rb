@@ -60,7 +60,7 @@ module Telegram
       def log_incoming_message(message)
         uid = message.respond_to?(:from) && message.from ? message.from.id : nil
         logger.info(
-          format('Incoming message: text="%<text>s" uid=%<uid>s', message: message, uid: uid)
+          format('Incoming message: text="%<message>s" uid=%<uid>s', message: message, uid: uid)
         )
       end
     end
