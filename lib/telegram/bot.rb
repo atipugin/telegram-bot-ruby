@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'virtus'
 require 'logger'
 require 'json'

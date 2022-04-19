@@ -1,15 +1,20 @@
 ---
-require: rubocop-rspec
+require:
+  - rubocop-rake
+  - rubocop-rspec
+
+AllCops:
+  NewCops: enable
 
 Style/Documentation:
   Enabled: false
 
 Metrics/BlockLength:
-  ExcludedMethods:
+  IgnoredMethods:
     - context
     - describe
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 120
   Exclude:
     - telegram-bot-ruby.gemspec

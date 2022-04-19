@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Telegram
   module Bot
     class Api
@@ -59,9 +61,9 @@ module Telegram
 
       private
 
-      def build_params(h)
-        h.each_with_object({}) do |(key, value), params|
-          params[key] = sanitize_value(value)
+      def build_params(params)
+        params.transform_values do |value|
+          sanitize_value(value)
         end
       end
 

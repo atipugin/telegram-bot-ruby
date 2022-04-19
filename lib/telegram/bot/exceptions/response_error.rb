@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Telegram
   module Bot
     module Exceptions
@@ -6,6 +8,7 @@ module Telegram
 
         def initialize(response)
           @response = response
+          super
         end
 
         def to_s

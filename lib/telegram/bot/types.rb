@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'telegram/bot/types/compactable'
 require 'telegram/bot/types/pattern_matching'
 require 'telegram/bot/types/base'

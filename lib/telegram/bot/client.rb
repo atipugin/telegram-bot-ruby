@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Telegram
   module Bot
     class Client
@@ -58,7 +60,7 @@ module Telegram
       def log_incoming_message(message)
         uid = message.respond_to?(:from) && message.from ? message.from.id : nil
         logger.info(
-          format('Incoming message: text="%s" uid=%s', message, uid)
+          format('Incoming message: text="%<text>s" uid=%<uid>s', message: message, uid: uid)
         )
       end
     end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Telegram::Bot::Api do
   let(:token) { '180956132:AAHU0_CeyQWOd6baBc9TibTPybxY9p1P8xo' }
   let(:endpoint) { 'getMe' }
@@ -7,15 +9,15 @@ RSpec.describe Telegram::Bot::Api do
     subject(:api_call) { api.call(endpoint) }
 
     it 'returns hash' do
-      is_expected.to be_a(Hash)
+      expect(api_call).to be_a(Hash)
     end
 
     it 'has status' do
-      is_expected.to have_key('ok')
+      expect(api_call).to have_key('ok')
     end
 
     it 'has result' do
-      is_expected.to have_key('result')
+      expect(api_call).to have_key('result')
     end
 
     context 'when token is invalid' do
@@ -27,35 +29,33 @@ RSpec.describe Telegram::Bot::Api do
       end
     end
 
-    context 'with global timeout' do
-      context 'with low timeout' do
-        before do
-          Telegram::Bot.configure { |config| config.timeout = 0.001 }
-        end
-
-        after do
-          Telegram::Bot.configure { |config| config.timeout = 30 }
-        end
-
-        it 'raises an error' do
-          expect { api_call }
-            .to raise_error(Faraday::TimeoutError)
-        end
+    context 'with low timeout' do
+      before do
+        Telegram::Bot.configure { |config| config.timeout = 0.001 }
       end
 
-      context 'with low open_timeout' do
-        before do
-          Telegram::Bot.configure { |config| config.open_timeout = 0.001 }
-        end
+      after do
+        Telegram::Bot.configure { |config| config.timeout = 30 }
+      end
 
-        after do
-          Telegram::Bot.configure { |config| config.open_timeout = 30 }
-        end
+      it 'raises an error' do
+        expect { api_call }
+          .to raise_error(Faraday::TimeoutError)
+      end
+    end
 
-        it 'raises an error' do
-          expect { api_call }
-            .to raise_error(Faraday::ConnectionFailed)
-        end
+    context 'with low open_timeout' do
+      before do
+        Telegram::Bot.configure { |config| config.open_timeout = 0.001 }
+      end
+
+      after do
+        Telegram::Bot.configure { |config| config.open_timeout = 30 }
+      end
+
+      it 'raises an error' do
+        expect { api_call }
+          .to raise_error(Faraday::ConnectionFailed)
       end
     end
   end
@@ -64,14 +64,14 @@ RSpec.describe Telegram::Bot::Api do
     subject { api }
 
     it 'responds to endpoints' do
-      is_expected.to respond_to(endpoint)
+      expect(api).to respond_to(endpoint)
     end
 
     context 'when method name is in snake case' do
       let(:endpoint) { 'get_me' }
 
       it 'responds to snake-cased endpoints' do
-        is_expected.to respond_to(endpoint)
+        expect(api).to respond_to(endpoint)
       end
     end
   end

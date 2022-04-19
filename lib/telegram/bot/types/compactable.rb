@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 module Telegram
   module Bot
     module Types
       module Compactable
         def to_compact_hash
-          Hash[attributes.dup.delete_if { |_, v| v.nil? }.map do |key, value|
+          attributes.dup.delete_if { |_, v| v.nil? }.map do |key, value|
             value =
               if value.respond_to?(:to_compact_hash)
                 value.to_compact_hash
@@ -12,7 +14,7 @@ module Telegram
               end
 
             [key, value]
-          end]
+          end.to_h
         end
 
         def to_json(*args)
