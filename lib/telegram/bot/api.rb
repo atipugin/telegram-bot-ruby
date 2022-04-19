@@ -24,7 +24,9 @@ module Telegram
         deleteMyCommands setStickerSetThumb logOut close copyMessage
         createChatInviteLink editChatInviteLink revokeChatInviteLink
         approveChatJoinRequest declineChatJoinRequest banChatSenderChat
-        unbanChatSenderChat
+        unbanChatSenderChat answerWebAppQuery setChatMenuButton
+        getChatMenuButton setMyDefaultAdministratorRights
+        getMyDefaultAdministratorRights
       ].freeze
 
       attr_reader :token, :url
