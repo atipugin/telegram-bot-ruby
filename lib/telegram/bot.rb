@@ -4,6 +4,7 @@ require 'virtus'
 require 'logger'
 require 'json'
 require 'faraday'
+require 'faraday/multipart'
 
 require 'telegram/bot/types'
 require 'telegram/bot/exceptions'
