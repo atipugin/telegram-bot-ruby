@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.20.0
+
+- Update `faraday` up to `2.0`
+
 ## 0.19.0
 
 - Implement [Bot API 6.0](https://core.telegram.org/bots/api-changelog#april-16-2022)
