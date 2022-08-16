@@ -10,6 +10,7 @@ module Telegram
         attribute :url, String
         attribute :user, User
         attribute :language, String
+        attribute :custom_emoji_id, String
       end
     end
   end

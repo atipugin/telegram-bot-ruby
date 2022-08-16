@@ -6,6 +6,7 @@ module Telegram
       class StickerSet < Base
         attribute :name, String
         attribute :title, String
+        attribute :sticker_type, String
         attribute :is_animated, Boolean
         attribute :is_video, Boolean
         attribute :contains_masks, Boolean

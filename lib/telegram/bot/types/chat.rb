@@ -17,6 +17,9 @@ module Telegram
         attribute :photo, ChatPhoto
         attribute :bio, String
         attribute :has_private_forwards, Boolean
+        attribute :has_restricted_voice_and_video_messages, Boolean
+        attribute :join_to_send_messages, Boolean
+        attribute :join_by_request, Boolean
         attribute :description, String
         attribute :invite_link, String
         attribute :pinned_message, 'Telegram::Bot::Types::Message'
@@ -26,7 +29,6 @@ module Telegram
         attribute :has_protected_content, Boolean
         attribute :sticker_set_name, String
         attribute :can_set_sticker_set, Boolean
-        attribute :all_members_are_administrators, Boolean
         attribute :linked_chat_id, Integer
         attribute :location, ChatLocation
       end
