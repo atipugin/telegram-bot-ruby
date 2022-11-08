@@ -29,11 +29,12 @@ module Telegram
         getMyDefaultAdministratorRights createInvoiceLink
       ].freeze
 
-      attr_reader :token, :url
+      attr_reader :token, :url, :environment
 
-      def initialize(token, url: 'https://api.telegram.org')
+      def initialize(token, url: 'https://api.telegram.org', environment: :production)
         @token = token
         @url = url
+        @environment = environment.downcase.to_sym
       end
 
       def method_missing(method_name, *args, &block)
@@ -52,13 +53,13 @@ module Telegram
 
       def call(endpoint, raw_params = {})
         params = build_params(raw_params)
-        response = conn.post("/bot#{token}/#{endpoint}", params)
-        if response.status == 200
-          JSON.parse(response.body)
-        else
-          raise Exceptions::ResponseError.new(response),
-                'Telegram API has returned the error.'
+        path = build_path(endpoint)
+        response = conn.post(path, params)
+        unless response.status == 200
+          raise Exceptions::ResponseError.new(response), 'Telegram API has returned the error.'
         end
+
+        JSON.parse(response.body)
       end
 
       private
@@ -67,6 +68,12 @@ module Telegram
         params.transform_values do |value|
           sanitize_value(value)
         end
+      end
+
+      def build_path(endpoint)
+        path = "/bot#{token}/"
+        path += 'test/' if environment == :test
+        path + endpoint
       end
 
       def sanitize_value(value)
