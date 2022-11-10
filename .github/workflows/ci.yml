@@ -7,7 +7,7 @@ on:
   pull_request:
 
 jobs:
-  lint:
+  lint-and-test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -25,5 +25,7 @@ jobs:
         run: gem install bundler
       - name: Install gems
         run: bundle install
-      - name: Run Rubocop
+      - name: Lint
         run: bundle exec rubocop
+      - name: Test
+        run: bundle exec rspec
