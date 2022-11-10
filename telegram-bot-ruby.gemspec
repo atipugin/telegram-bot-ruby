@@ -19,6 +19,9 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
+  spec.required_ruby_version = '>= 2.7'
+  spec.metadata['rubygems_mfa_required'] = 'true'
+
   spec.add_dependency 'dry-inflector'
   spec.add_dependency 'faraday', '~> 2.0'
   spec.add_dependency 'faraday-multipart', '~> 1.0'

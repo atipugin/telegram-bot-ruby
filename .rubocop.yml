@@ -5,9 +5,14 @@ require:
 
 AllCops:
   NewCops: enable
+  TargetRubyVersion: 2.7
 
 Style/Documentation:
   Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Exclude:
+    - bin/console
 
 Metrics/BlockLength:
   IgnoredMethods:

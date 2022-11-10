@@ -5,7 +5,7 @@ module Telegram
     module Types
       module Compactable
         def to_compact_hash
-          attributes.dup.delete_if { |_, v| v.nil? }.map do |key, value|
+          attributes.dup.delete_if { |_, v| v.nil? }.to_h do |key, value|
             value =
               if value.respond_to?(:to_compact_hash)
                 value.to_compact_hash
@@ -14,7 +14,7 @@ module Telegram
               end
 
             [key, value]
-          end.to_h
+          end
         end
 
         def to_json(*args)
