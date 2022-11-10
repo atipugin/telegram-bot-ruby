@@ -1,0 +1,29 @@
+---
+name: CI
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby:
+          - 2.7
+          - 3.1
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: ${{matrix.ruby}}
+      - name: Install bundler
+        run: gem install bundler
+      - name: Install gems
+        run: bundle install
+      - name: Run Rubocop
+        run: bundle exec rubocop
