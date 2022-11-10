@@ -1,17 +1,14 @@
 # frozen_string_literal: true
 
 RSpec.describe Telegram::Bot::Client do
+  subject(:client) { described_class.new(token, environment: environment) }
+
   let(:token) { ENV.fetch('BOT_API_TOKEN') }
   let(:environment) { ENV.fetch('BOT_API_ENV', :test) }
 
   describe '#run' do
     it 'returns hash' do
-      Telegram::Bot::Client.run(token, environment: environment) do |bot|
-        result = bot.api.getMe
-        expect(result).to be_a(Hash)
-        expect(result).to have_key('result')
-        expect(result).to have_key('ok')
-      end
+      expect(client.api.getMe).to include('ok', 'result')
     end
   end
 end
