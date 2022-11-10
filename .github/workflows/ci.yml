@@ -20,7 +20,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: ${{matrix.ruby}}
+          ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
       - name: Run Rubocop
         run: bundle exec rubocop
@@ -32,6 +32,9 @@ jobs:
         ruby:
           - 2.7
           - 3.1
+    env:
+      BOT_API_ENV: test
+      BOT_API_TOKEN: ${{ secrets.BOT_API_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
