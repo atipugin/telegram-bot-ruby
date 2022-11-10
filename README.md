@@ -3,8 +3,8 @@
 Ruby wrapper for [Telegram's Bot API](https://core.telegram.org/bots/api).
 
 [![Gem Version](https://badge.fury.io/rb/telegram-bot-ruby.svg)](http://badge.fury.io/rb/telegram-bot-ruby)
+[![Build Status](https://github.com/atipugin/telegram-bot-ruby/actions/workflows/ci.yml/badge.svg)](https://github.com/atipugin/telegram-bot-ruby/actions)
 [![Maintainability](https://api.codeclimate.com/v1/badges/7e61fbf5bec86e118fb1/maintainability)](https://codeclimate.com/github/atipugin/telegram-bot-ruby/maintainability)
-[![Build Status](https://travis-ci.org/atipugin/telegram-bot-ruby.svg?branch=master)](https://travis-ci.org/atipugin/telegram-bot-ruby)
 [![Say Thanks!](https://img.shields.io/badge/Say%20Thanks!-🦉-1EAEDB.svg)](https://saythanks.io/to/atipugin)
 
 ## Installation
