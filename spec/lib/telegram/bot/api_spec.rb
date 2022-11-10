@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 RSpec.describe Telegram::Bot::Api do
-  let(:token) { '180956132:AAHU0_CeyQWOd6baBc9TibTPybxY9p1P8xo' }
+  let(:token) { ENV.fetch('BOT_API_TOKEN') }
+  let(:environment) { ENV.fetch('BOT_API_ENV', :test) }
   let(:endpoint) { 'getMe' }
-  let(:api) { described_class.new(token) }
+  let(:api) { described_class.new(token, environment: environment) }
 
   describe '#call' do
     subject(:api_call) { api.call(endpoint) }

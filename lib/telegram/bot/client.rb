@@ -12,7 +12,7 @@ module Telegram
 
       def initialize(token, hash = {})
         @options = default_options.merge(hash)
-        @api = Api.new(token, url: options.delete(:url))
+        @api = Api.new(token, url: options.delete(:url), environment: options.delete(:environment))
         @logger = options.delete(:logger)
       end
 
@@ -53,7 +53,8 @@ module Telegram
         {
           offset: 0,
           logger: NullLogger.new,
-          url: 'https://api.telegram.org'
+          url: 'https://api.telegram.org',
+          environment: :production
         }
       end
 
