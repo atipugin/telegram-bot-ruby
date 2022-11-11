@@ -5,14 +5,11 @@ require 'logger'
 require 'json'
 require 'faraday'
 require 'faraday/multipart'
+require 'zeitwerk'
 
-require 'telegram/bot/types'
-require 'telegram/bot/exceptions'
-require 'telegram/bot/api'
-require 'telegram/bot/null_logger'
-require 'telegram/bot/client'
-require 'telegram/bot/version'
-require 'telegram/bot/configuration'
+loader = Zeitwerk::Loader.new
+loader.push_dir("#{__dir__}/bot", namespace: Telegram::Bot)
+loader.setup
 
 module Telegram
   module Bot
