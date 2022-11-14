@@ -4,7 +4,7 @@ module Telegram
   module Bot
     module Types
       class WebAppInfo < Base
-        attribute :url, String
+        attribute :url, Types::String
       end
     end
   end

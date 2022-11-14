@@ -3,10 +3,11 @@
 module Telegram
   module Bot
     module Types
-      class Base
-        include Virtus.model
+      class Base < Dry::Struct
         include Compactable
         include PatternMatching
+
+        transform_keys(&:to_sym)
       end
     end
   end

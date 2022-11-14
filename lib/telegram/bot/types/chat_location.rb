@@ -5,7 +5,7 @@ module Telegram
     module Types
       class ChatLocation < Base
         attribute :location, Location
-        attribute :address, String
+        attribute :address, Types::String
       end
     end
   end

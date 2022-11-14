@@ -4,10 +4,10 @@ module Telegram
   module Bot
     module Types
       class PassportElementErrorUnspecified < Base
-        attribute :source, String, default: 'unspecified'
-        attribute :type, String
-        attribute :element_hash, String
-        attribute :message, String
+        attribute :source, Types::String.default('unspecified')
+        attribute :type, Types::String
+        attribute :element_hash, Types::String
+        attribute :message, Types::String
       end
     end
   end

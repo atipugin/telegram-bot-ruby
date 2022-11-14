@@ -4,9 +4,9 @@ module Telegram
   module Bot
     module Types
       class ShippingQuery < Base
-        attribute :id, String
+        attribute :id, Types::String
         attribute :from, User
-        attribute :invoice_payload, String
+        attribute :invoice_payload, Types::String
         attribute :shipping_address, ShippingAddress
       end
     end

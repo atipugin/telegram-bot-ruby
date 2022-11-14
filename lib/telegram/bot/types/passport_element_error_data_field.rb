@@ -4,11 +4,11 @@ module Telegram
   module Bot
     module Types
       class PassportElementErrorDataField < Base
-        attribute :source, String, default: 'data'
-        attribute :type, String
-        attribute :field_name, String
-        attribute :data_hash, String
-        attribute :message, String
+        attribute :source, Types::String.default('data')
+        attribute :type, Types::String
+        attribute :field_name, Types::String
+        attribute :data_hash, Types::String
+        attribute :message, Types::String
       end
     end
   end

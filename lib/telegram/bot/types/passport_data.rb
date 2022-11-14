@@ -4,7 +4,7 @@ module Telegram
   module Bot
     module Types
       class PassportData < Base
-        attribute :data, Array[EncryptedPassportElement]
+        attribute :data, Types::Array.of(EncryptedPassportElement)
         attribute :credentials, EncryptedCredentials
       end
     end

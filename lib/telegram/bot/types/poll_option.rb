@@ -4,8 +4,8 @@ module Telegram
   module Bot
     module Types
       class PollOption < Base
-        attribute :text, String
-        attribute :voter_count, Integer
+        attribute :text, Types::String
+        attribute :voter_count, Types::Integer
       end
     end
   end

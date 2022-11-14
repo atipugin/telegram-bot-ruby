@@ -4,19 +4,19 @@ module Telegram
   module Bot
     module Types
       class Poll < Base
-        attribute :id, String
-        attribute :question, String
-        attribute :options, Array[PollOption]
-        attribute :total_voter_count, Integer
-        attribute :is_closed, Boolean
-        attribute :is_anonymous, Boolean
-        attribute :type, String
-        attribute :allows_multiple_answers, Boolean
-        attribute :correct_option_id, Integer
-        attribute :explanation, String
-        attribute :explanation_entities, Array[MessageEntity]
-        attribute :open_period, Integer
-        attribute :close_date, Integer
+        attribute :id, Types::String
+        attribute :question, Types::String
+        attribute :options, Types::Array.of(PollOption)
+        attribute :total_voter_count, Types::Integer
+        attribute :is_closed, Types::Bool
+        attribute :is_anonymous, Types::Bool
+        attribute :type, Types::String
+        attribute :allows_multiple_answers, Types::Bool
+        attribute? :correct_option_id, Types::Integer
+        attribute? :explanation, Types::String
+        attribute? :explanation_entities, Types::Array.of(MessageEntity)
+        attribute? :open_period, Types::Integer
+        attribute? :close_date, Types::Integer
       end
     end
   end

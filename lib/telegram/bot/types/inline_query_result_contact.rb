@@ -4,17 +4,17 @@ module Telegram
   module Bot
     module Types
       class InlineQueryResultContact < Base
-        attribute :type, String, default: 'contact'
-        attribute :id, String
-        attribute :phone_number, String
-        attribute :first_name, String
-        attribute :last_name, String
-        attribute :vcard, String
-        attribute :reply_markup, InlineKeyboardMarkup
-        attribute :input_message_content, InputMessageContent
-        attribute :thumb_url, String
-        attribute :thumb_width, Integer
-        attribute :thumb_height, Integer
+        attribute :type, Types::String.default('contact')
+        attribute :id, Types::String
+        attribute :phone_number, Types::String
+        attribute :first_name, Types::String
+        attribute? :last_name, Types::String
+        attribute? :vcard, Types::String
+        attribute? :reply_markup, InlineKeyboardMarkup
+        attribute? :input_message_content, InputMessageContent
+        attribute? :thumb_url, Types::String
+        attribute? :thumb_width, Types::Integer
+        attribute? :thumb_height, Types::Integer
       end
     end
   end

@@ -4,9 +4,9 @@ module Telegram
   module Bot
     module Types
       class PollAnswer < Base
-        attribute :poll_id, String
+        attribute :poll_id, Types::String
         attribute :user, User
-        attribute :option_ids, Array[Integer]
+        attribute :option_ids, Types::Array.of(Types::Integer)
       end
     end
   end

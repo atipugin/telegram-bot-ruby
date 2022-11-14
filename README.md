@@ -51,7 +51,7 @@ end
 Note that `bot.api` object implements [Telegram Bot API methods](https://core.telegram.org/bots/api#available-methods) as is. So you can invoke any method inside the block without any problems. All methods are available in both *snake_case* and *camelCase* notations.
 
 If you need to start a bot on development mode you have to pass `enviroment: :test` <br>
-example: `Telegram::Bot::Client.run(token, enviroment: :test)` 
+example: `Telegram::Bot::Client.run(token, enviroment: :test)`
 
 Same thing about `message` object - it implements [Message](https://core.telegram.org/bots/api#message) spec, so you always know what to expect from it.
 
@@ -80,8 +80,13 @@ bot.listen do |message|
     question = 'London is a capital of which country?'
     # See more: https://core.telegram.org/bots/api#replykeyboardmarkup
     answers =
-      Telegram::Bot::Types::ReplyKeyboardMarkup
-      .new(keyboard: [%w(A B), %w(C D)], one_time_keyboard: true)
+        Telegram::Bot::Types::ReplyKeyboardMarkup.new(
+          keyboard: [
+            [{ text: 'A' }, { text: 'B' }],
+            [{ text: 'C' }, { text: 'D' }]
+          ],
+          one_time_keyboard: true
+        )
     bot.api.send_message(chat_id: message.chat.id, text: question, reply_markup: answers)
   when '/stop'
     # See more: https://core.telegram.org/bots/api#replykeyboardremove
@@ -117,11 +122,11 @@ bot.listen do |message|
       bot.api.send_message(chat_id: message.from.id, text: "Don't touch me!")
     end
   when Telegram::Bot::Types::Message
-    kb = [
+    kb = [[
       Telegram::Bot::Types::InlineKeyboardButton.new(text: 'Go to Google', url: 'https://google.com'),
       Telegram::Bot::Types::InlineKeyboardButton.new(text: 'Touch me', callback_data: 'touch'),
       Telegram::Bot::Types::InlineKeyboardButton.new(text: 'Switch to inline', switch_inline_query: 'some text')
-    ]
+    ]]
     markup = Telegram::Bot::Types::InlineKeyboardMarkup.new(inline_keyboard: kb)
     bot.api.send_message(chat_id: message.chat.id, text: 'Make a choice', reply_markup: markup)
   end
@@ -137,8 +142,8 @@ bot.listen do |message|
   case message
   when Telegram::Bot::Types::InlineQuery
     results = [
-      [1, 'First article', 'Very interesting text goes here.'],
-      [2, 'Second article', 'Another interesting text here.']
+      ['1', 'First article', 'Very interesting text goes here.'],
+      ['2', 'Second article', 'Another interesting text here.']
     ].map do |arr|
       Telegram::Bot::Types::InlineQueryResultArticle.new(
         id: arr[0],
@@ -166,7 +171,8 @@ Your bot can even upload files ([photos](https://core.telegram.org/bots/api#send
 bot.listen do |message|
   case message.text
   when '/photo'
-    bot.api.send_photo(chat_id: message.chat.id, photo: Faraday::UploadIO.new('~/Desktop/jennifer.jpg', 'image/jpeg'))
+    path_to_photo = File.expand_path('~/Desktop/jennifer.jpg')
+    bot.api.send_photo(chat_id: message.chat.id, photo: Faraday::UploadIO.new(path_to_photo, 'image/jpeg'))
   end
 end
 ```

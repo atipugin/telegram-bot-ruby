@@ -4,8 +4,8 @@ module Telegram
   module Bot
     module Types
       class LabeledPrice < Base
-        attribute :label, String
-        attribute :amount, Integer
+        attribute :label, Types::String
+        attribute :amount, Types::Integer
       end
     end
   end

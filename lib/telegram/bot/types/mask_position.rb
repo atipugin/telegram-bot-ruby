@@ -4,10 +4,10 @@ module Telegram
   module Bot
     module Types
       class MaskPosition < Base
-        attribute :point, String
-        attribute :x_shift, Float
-        attribute :y_shift, Float
-        attribute :zoom, Float
+        attribute :point, Types::String
+        attribute :x_shift, Types::Float
+        attribute :y_shift, Types::Float
+        attribute :scale, Types::Float
       end
     end
   end
