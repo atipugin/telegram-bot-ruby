@@ -4,20 +4,20 @@ module Telegram
   module Bot
     module Types
       class Sticker < Base
-        attribute :file_id, String
-        attribute :file_unique_id, String
-        attribute :type, String
-        attribute :width, Integer
-        attribute :height, Integer
-        attribute :is_animated, Boolean
-        attribute :is_video, Boolean
-        attribute :thumb, PhotoSize
-        attribute :emoji, String
-        attribute :set_name, String
-        attribute :premium_animation, File
-        attribute :mask_position, MaskPosition
-        attribute :custom_emoji_id, String
-        attribute :file_size, Integer
+        attribute :file_id, Types::String
+        attribute :file_unique_id, Types::String
+        attribute :type, Types::String
+        attribute :width, Types::Integer
+        attribute :height, Types::Integer
+        attribute :is_animated, Types::Bool
+        attribute :is_video, Types::Bool
+        attribute? :thumb, PhotoSize
+        attribute? :emoji, Types::String
+        attribute? :set_name, Types::String
+        attribute? :premium_animation, File
+        attribute? :mask_position, MaskPosition
+        attribute? :custom_emoji_id, Types::String
+        attribute? :file_size, Types::Integer
       end
     end
   end

@@ -1,5 +1,6 @@
 Gemfile.lock
 
 .bundle/
+.env
 pkg/
 vendor/bundle/

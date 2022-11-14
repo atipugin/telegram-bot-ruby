@@ -4,7 +4,7 @@ module Telegram
   module Bot
     module Types
       class MenuButtonDefault < Base
-        attribute :type, String, default: 'default'
+        attribute :type, Types::String.default('default')
       end
     end
   end

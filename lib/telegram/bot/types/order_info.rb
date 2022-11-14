@@ -4,10 +4,10 @@ module Telegram
   module Bot
     module Types
       class OrderInfo < Base
-        attribute :name, String
-        attribute :phone_number, String
-        attribute :email, String
-        attribute :shipping_address, ShippingAddress
+        attribute? :name, Types::String
+        attribute? :phone_number, Types::String
+        attribute? :email, Types::String
+        attribute? :shipping_address, ShippingAddress
       end
     end
   end

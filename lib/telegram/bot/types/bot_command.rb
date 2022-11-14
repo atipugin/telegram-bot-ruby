@@ -4,8 +4,8 @@ module Telegram
   module Bot
     module Types
       class BotCommand < Base
-        attribute :command, String
-        attribute :description, String
+        attribute :command, Types::String
+        attribute :description, Types::String
       end
     end
   end

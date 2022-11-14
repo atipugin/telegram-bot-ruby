@@ -4,15 +4,15 @@ module Telegram
   module Bot
     module Types
       class WebhookInfo < Base
-        attribute :url, String
-        attribute :has_custom_certificate, Boolean
-        attribute :pending_update_count, Integer
-        attribute :ip_address, String
-        attribute :last_error_date, Integer
-        attribute :last_error_message, String
-        attribute :last_synchronization_error_date, Integer
-        attribute :max_connections, Integer
-        attribute :allowed_updates, Array[String]
+        attribute :url, Types::String
+        attribute :has_custom_certificate, Types::Bool
+        attribute :pending_update_count, Types::Integer
+        attribute? :ip_address, Types::String
+        attribute? :last_error_date, Types::Integer
+        attribute? :last_error_message, Types::String
+        attribute? :last_synchronization_error_date, Types::Integer
+        attribute? :max_connections, Types::Integer
+        attribute? :allowed_updates, Types::Array.of(String)
       end
     end
   end

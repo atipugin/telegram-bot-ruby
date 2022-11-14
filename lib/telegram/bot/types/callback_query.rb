@@ -4,13 +4,13 @@ module Telegram
   module Bot
     module Types
       class CallbackQuery < Base
-        attribute :id, String
+        attribute :id, Types::String
         attribute :from, User
-        attribute :message, Message
-        attribute :inline_message_id, String
-        attribute :chat_instance, String
-        attribute :data, String
-        attribute :game_short_name, String
+        attribute? :message, Message
+        attribute? :inline_message_id, Types::String
+        attribute :chat_instance, Types::String
+        attribute? :data, Types::String
+        attribute? :game_short_name, Types::String
       end
     end
   end

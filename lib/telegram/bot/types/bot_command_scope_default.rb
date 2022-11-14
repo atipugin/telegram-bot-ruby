@@ -4,7 +4,7 @@ module Telegram
   module Bot
     module Types
       class BotCommandScopeDefault < Base
-        attribute :type, String, default: 'default'
+        attribute :type, Types::String.default('default')
       end
     end
   end

@@ -4,14 +4,15 @@ module Telegram
   module Bot
     module Types
       class InlineQueryResultCachedMpeg4Gif < Base
-        attribute :type, String, default: 'mpeg4_gif'
-        attribute :id, String
-        attribute :mpeg4_file_id, String
-        attribute :title, String
-        attribute :caption, String
-        attribute :parse_mode, String
-        attribute :reply_markup, InlineKeyboardMarkup
-        attribute :input_message_content, InputMessageContent
+        attribute :type, Types::String.default('mpeg4_gif')
+        attribute :id, Types::String
+        attribute :mpeg4_file_id, Types::String
+        attribute? :title, Types::String
+        attribute? :caption, Types::String
+        attribute? :parse_mode, Types::String
+        attribute? :caption_entities, Types::Array.of(MessageEntity)
+        attribute? :reply_markup, InlineKeyboardMarkup
+        attribute? :input_message_content, InputMessageContent
       end
     end
   end

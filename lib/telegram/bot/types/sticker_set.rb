@@ -4,14 +4,13 @@ module Telegram
   module Bot
     module Types
       class StickerSet < Base
-        attribute :name, String
-        attribute :title, String
-        attribute :sticker_type, String
-        attribute :is_animated, Boolean
-        attribute :is_video, Boolean
-        attribute :contains_masks, Boolean
-        attribute :stickers, Array[Sticker]
-        attribute :thumb, PhotoSize
+        attribute :name, Types::String
+        attribute :title, Types::String
+        attribute :sticker_type, Types::String
+        attribute :is_animated, Types::Bool
+        attribute :is_video, Types::Bool
+        attribute :stickers, Types::Array.of(Sticker)
+        attribute? :thumb, PhotoSize
       end
     end
   end

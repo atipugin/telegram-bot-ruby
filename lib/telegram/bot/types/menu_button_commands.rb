@@ -4,7 +4,7 @@ module Telegram
   module Bot
     module Types
       class MenuButtonCommands < Base
-        attribute :type, String, default: 'commands'
+        attribute :type, Types::String.default('commands')
       end
     end
   end
