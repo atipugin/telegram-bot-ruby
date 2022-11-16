@@ -2,6 +2,6 @@
 
 module Telegram
   module Bot
-    VERSION = '0.21.1'
+    VERSION = '1.0.0.pre'
   end
 end
