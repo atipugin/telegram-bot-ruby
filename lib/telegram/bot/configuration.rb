@@ -3,12 +3,12 @@
 module Telegram
   module Bot
     class Configuration
-      attr_accessor :adapter, :open_timeout, :timeout
+      attr_accessor :adapter, :connection_open_timeout, :connection_timeout
 
       def initialize
         @adapter = Faraday.default_adapter
-        @open_timeout = 20
-        @timeout = 20
+        @connection_open_timeout = 20
+        @connection_timeout = 20
       end
     end
   end

@@ -52,6 +52,7 @@ module Telegram
       def default_options
         {
           offset: 0,
+          timeout: 20,
           logger: NullLogger.new,
           url: 'https://api.telegram.org',
           environment: :production
