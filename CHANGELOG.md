@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.23.0
+
+- Rename `Telegram::Bot.configuration` options:
+  - `timeout` to `connection_timeout`
+  - `open_timeout` to `connection_open_timeout`
+- Fix issue with missing default value for long-polling timeout
+
 ## 0.21.0
 
 - Implement [Bot API 6.1](https://core.telegram.org/bots/api#june-20-2022)
