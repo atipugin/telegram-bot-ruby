@@ -4,7 +4,6 @@ require 'bundler/gem_tasks'
 require 'bundler/setup'
 require 'rubocop/rake_task'
 require 'rspec/core/rake_task'
-require 'dotenv/load'
 
 RuboCop::RakeTask.new(:rubocop) do |task|
   task.fail_on_error = false
