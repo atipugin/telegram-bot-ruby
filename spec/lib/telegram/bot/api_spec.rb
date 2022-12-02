@@ -32,11 +32,11 @@ RSpec.describe Telegram::Bot::Api do
 
     context 'with low timeout' do
       before do
-        Telegram::Bot.configure { |config| config.timeout = 0.001 }
+        Telegram::Bot.configure { |config| config.connection_timeout = 0.001 }
       end
 
       after do
-        Telegram::Bot.configure { |config| config.timeout = 30 }
+        Telegram::Bot.configure { |config| config.connection_timeout = 30 }
       end
 
       it 'raises an error' do
@@ -47,11 +47,11 @@ RSpec.describe Telegram::Bot::Api do
 
     context 'with low open_timeout' do
       before do
-        Telegram::Bot.configure { |config| config.open_timeout = 0.001 }
+        Telegram::Bot.configure { |config| config.connection_open_timeout = 0.001 }
       end
 
       after do
-        Telegram::Bot.configure { |config| config.open_timeout = 30 }
+        Telegram::Bot.configure { |config| config.connection_open_timeout = 30 }
       end
 
       it 'raises an error' do
