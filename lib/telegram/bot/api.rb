@@ -62,6 +62,15 @@ module Telegram
         JSON.parse(response.body)
       end
 
+      def file(file_path)
+        response = conn.get("/file/bot#{token}/#{file_path}")
+        unless response.status == 200
+          raise Exceptions::ResponseError.new(response), 'Telegram API has returned an error.'
+        end
+
+        response.body
+      end
+
       private
 
       def build_params(params)
