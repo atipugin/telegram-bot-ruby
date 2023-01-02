@@ -54,7 +54,7 @@ task :dump_type_attributes do
 
   # Write everything to fixture file
   File.write(
-    File.expand_path('spec/fixtures/type_attributes.yml', __dir__),
+    File.expand_path('spec/support/type_attributes.yml', __dir__),
     result.to_yaml
   )
 end

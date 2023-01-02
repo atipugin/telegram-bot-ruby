@@ -25,6 +25,8 @@ module Telegram
         attribute? :permissions, ChatPermissions
         attribute? :slow_mode_delay, Types::Integer
         attribute? :message_auto_delete_time, Types::Integer
+        attribute? :has_aggressive_anti_spam_enabled, Types::Bool
+        attribute? :has_hidden_members, Types::Bool
         attribute? :has_protected_content, Types::Bool
         attribute? :sticker_set_name, Types::String
         attribute? :can_set_sticker_set, Types::Bool

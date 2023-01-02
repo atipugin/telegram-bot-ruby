@@ -13,6 +13,7 @@ module Telegram
         attribute? :width, Types::Integer
         attribute? :height, Types::Integer
         attribute? :duration, Types::Integer
+        attribute? :has_spoiler, Types::Bool
       end
     end
   end
