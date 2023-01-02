@@ -36,6 +36,7 @@ module Telegram
         attribute? :voice, Voice
         attribute? :caption, Types::String
         attribute? :caption_entities, Types::Array.of(MessageEntity)
+        attribute? :has_media_spoiler, Types::Bool
         attribute? :contact, Contact
         attribute? :dice, Dice
         attribute? :game, Game
@@ -57,11 +58,15 @@ module Telegram
         attribute? :invoice, Invoice
         attribute? :successful_payment, SuccessfulPayment
         attribute? :connected_website, Types::String
+        attribute? :write_access_allowed, WriteAccessAllowed
         attribute? :passport_data, PassportData
         attribute? :proximity_alert_triggered, ProximityAlertTriggered
         attribute? :forum_topic_created, ForumTopicCreated
+        attribute? :forum_topic_edited, ForumTopicEdited
         attribute? :forum_topic_closed, ForumTopicClosed
         attribute? :forum_topic_reopened, ForumTopicReopened
+        attribute? :general_forum_topic_hidden, GeneralForumTopicHidden
+        attribute? :general_forum_topic_unhidden, GeneralForumTopicUnhidden
         attribute? :video_chat_scheduled, VideoChatScheduled
         attribute? :video_chat_started, VideoChatStarted
         attribute? :video_chat_ended, VideoChatEnded

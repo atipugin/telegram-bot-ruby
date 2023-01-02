@@ -96,6 +96,8 @@ ReplyKeyboardRemove:
 ReplyKeyboardMarkup:
 - name: keyboard
   required: true
+- name: is_persistent
+  required: false
 - name: resize_keyboard
   required: false
 - name: one_time_keyboard
@@ -283,6 +285,8 @@ InputMediaVideo:
   required: false
 - name: supports_streaming
   required: false
+- name: has_spoiler
+  required: false
 InputMediaPhoto:
 - name: type
   required: true
@@ -293,6 +297,8 @@ InputMediaPhoto:
 - name: parse_mode
   required: false
 - name: caption_entities
+  required: false
+- name: has_spoiler
   required: false
 InputMediaDocument:
 - name: type
@@ -346,6 +352,8 @@ InputMediaAnimation:
 - name: height
   required: false
 - name: duration
+  required: false
+- name: has_spoiler
   required: false
 InputLocationMessageContent:
 - name: latitude
@@ -1119,8 +1127,15 @@ VideoChatStarted: []
 VideoChatScheduled:
 - name: start_date
   required: true
+GeneralForumTopicUnhidden: []
+GeneralForumTopicHidden: []
 ForumTopicReopened: []
 ForumTopicClosed: []
+ForumTopicEdited:
+- name: name
+  required: false
+- name: icon_custom_emoji_id
+  required: false
 ForumTopicCreated:
 - name: name
   required: true
@@ -1177,6 +1192,7 @@ PassportData:
   required: true
 - name: credentials
   required: true
+WriteAccessAllowed: []
 ShippingAddress:
 - name: country_code
   required: true
@@ -1511,6 +1527,10 @@ Chat:
   required: false
 - name: message_auto_delete_time
   required: false
+- name: has_aggressive_anti_spam_enabled
+  required: false
+- name: has_hidden_members
+  required: false
 - name: has_protected_content
   required: false
 - name: sticker_set_name
@@ -1586,6 +1606,8 @@ Message:
   required: false
 - name: caption_entities
   required: false
+- name: has_media_spoiler
+  required: false
 - name: contact
   required: false
 - name: dice
@@ -1628,15 +1650,23 @@ Message:
   required: false
 - name: connected_website
   required: false
+- name: write_access_allowed
+  required: false
 - name: passport_data
   required: false
 - name: proximity_alert_triggered
   required: false
 - name: forum_topic_created
   required: false
+- name: forum_topic_edited
+  required: false
 - name: forum_topic_closed
   required: false
 - name: forum_topic_reopened
+  required: false
+- name: general_forum_topic_hidden
+  required: false
+- name: general_forum_topic_unhidden
   required: false
 - name: video_chat_scheduled
   required: false

@@ -3,7 +3,7 @@
 require 'yaml'
 
 type_attributes = YAML.safe_load(
-  File.read(File.expand_path('../../../fixtures/type_attributes.yml', __dir__))
+  File.read(File.expand_path('../../../support/type_attributes.yml', __dir__))
 )
 
 RSpec.describe Telegram::Bot::Types do
@@ -18,7 +18,7 @@ RSpec.describe Telegram::Bot::Types do
       attributes.each do |attribute|
         describe "##{attribute['name']}" do
           it 'has correct optionality' do
-            expect(klass.schema.name_key_map[attribute['name'].to_sym].required?).to eq(attribute['required'])
+            expect(klass.schema.name_key_map[attribute['name'].to_sym]&.required?).to eq(attribute['required'])
           end
         end
       end

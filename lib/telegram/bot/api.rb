@@ -26,7 +26,9 @@ module Telegram
         approveChatJoinRequest declineChatJoinRequest banChatSenderChat
         unbanChatSenderChat answerWebAppQuery setChatMenuButton
         getChatMenuButton setMyDefaultAdministratorRights
-        getMyDefaultAdministratorRights createInvoiceLink
+        getMyDefaultAdministratorRights createInvoiceLink editGeneralForumTopic
+        closeGeneralForumTopic reopenGeneralForumTopic hideGeneralForumTopic
+        unhideGeneralForumTopic
       ].freeze
 
       attr_reader :token, :url, :environment
