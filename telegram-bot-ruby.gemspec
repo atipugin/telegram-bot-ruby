@@ -26,13 +26,4 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'faraday', '~> 2.0'
   spec.add_dependency 'faraday-multipart', '~> 1.0'
   spec.add_dependency 'zeitwerk', '~> 2.6'
-
-  spec.add_development_dependency 'dotenv', '~> 2.8'
-  spec.add_development_dependency 'nokogiri', '~> 1.13'
-  spec.add_development_dependency 'pry'
-  spec.add_development_dependency 'rake', '~> 13.0'
-  spec.add_development_dependency 'rspec', '~> 3.4'
-  spec.add_development_dependency 'rubocop', '~> 1.27'
-  spec.add_development_dependency 'rubocop-rake'
-  spec.add_development_dependency 'rubocop-rspec', '~> 2.10'
 end
