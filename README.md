@@ -27,7 +27,7 @@ Please make sure it doesn't break your existing code before upgrading to 1.0.
 Add following line to your Gemfile:
 
 ```ruby
-gem 'telegram-bot-ruby'
+gem 'telegram-bot-ruby', '~> 1.0'
 ```
 
 And then execute:
