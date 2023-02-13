@@ -4,7 +4,7 @@ module Telegram
   module Bot
     module Types
       class VideoChatParticipantsInvited < Base
-        attribute :users, Array[User]
+        attribute :users, Types::Array.of(User)
       end
     end
   end

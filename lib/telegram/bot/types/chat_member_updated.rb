@@ -6,10 +6,10 @@ module Telegram
       class ChatMemberUpdated < Base
         attribute :chat, Chat
         attribute :from, User
-        attribute :date, Integer
+        attribute :date, Types::Integer
         attribute :old_chat_member, ChatMember
         attribute :new_chat_member, ChatMember
-        attribute :invite_link, ChatInviteLink
+        attribute? :invite_link, ChatInviteLink
       end
     end
   end

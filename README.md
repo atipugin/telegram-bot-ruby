@@ -7,6 +7,21 @@ Ruby wrapper for [Telegram's Bot API](https://core.telegram.org/bots/api).
 [![Maintainability](https://api.codeclimate.com/v1/badges/7e61fbf5bec86e118fb1/maintainability)](https://codeclimate.com/github/atipugin/telegram-bot-ruby/maintainability)
 [![Say Thanks!](https://img.shields.io/badge/Say%20Thanks!-🦉-1EAEDB.svg)](https://saythanks.io/to/atipugin)
 
+## 🚧 Upgrading to 1.0
+
+Since v1.0 telegram-bot-ruby uses [dry-struct](https://github.com/dry-rb/dry-struct) instead of [virtus](https://github.com/solnic/virtus). This means that type objects are now immutable and you can't change them after initialization:
+
+```ruby
+# This won't work
+kb = Telegram::Bot::Types::ReplyKeyboardRemove.new
+kb.remove_keyboard = true
+
+# You have to set attributes in constructor instead
+kb = Telegram::Bot::Types::ReplyKeyboardRemove.new(remove_keyboard: true)
+```
+
+Please make sure it doesn't break your existing code before upgrading to 1.0.
+
 ## Installation
 
 Add following line to your Gemfile:
@@ -18,13 +33,13 @@ gem 'telegram-bot-ruby'
 And then execute:
 
 ```shell
-$ bundle
+bundle
 ```
 
 Or install it system-wide:
 
 ```shell
-$ gem install telegram-bot-ruby
+gem install telegram-bot-ruby
 ```
 
 ## Usage
@@ -50,8 +65,13 @@ end
 
 Note that `bot.api` object implements [Telegram Bot API methods](https://core.telegram.org/bots/api#available-methods) as is. So you can invoke any method inside the block without any problems. All methods are available in both *snake_case* and *camelCase* notations.
 
-If you need to start a bot on development mode you have to pass `enviroment: :test` <br>
-example: `Telegram::Bot::Client.run(token, enviroment: :test)` 
+If you need to start a bot in development mode you have to pass `environment: :test`:
+
+```ruby
+Telegram::Bot::Client.run(token, environment: :test) do |bot|
+  # ...
+end
+```
 
 Same thing about `message` object - it implements [Message](https://core.telegram.org/bots/api#message) spec, so you always know what to expect from it.
 
@@ -80,8 +100,13 @@ bot.listen do |message|
     question = 'London is a capital of which country?'
     # See more: https://core.telegram.org/bots/api#replykeyboardmarkup
     answers =
-      Telegram::Bot::Types::ReplyKeyboardMarkup
-      .new(keyboard: [%w(A B), %w(C D)], one_time_keyboard: true)
+        Telegram::Bot::Types::ReplyKeyboardMarkup.new(
+          keyboard: [
+            [{ text: 'A' }, { text: 'B' }],
+            [{ text: 'C' }, { text: 'D' }]
+          ],
+          one_time_keyboard: true
+        )
     bot.api.send_message(chat_id: message.chat.id, text: question, reply_markup: answers)
   when '/stop'
     # See more: https://core.telegram.org/bots/api#replykeyboardremove
@@ -95,10 +120,10 @@ Furthermore, you can ask user to share location or phone number using `KeyboardB
 
 ```ruby
 bot.listen do |message|
-  kb = [
+  kb = [[
     Telegram::Bot::Types::KeyboardButton.new(text: 'Give me your phone number', request_contact: true),
     Telegram::Bot::Types::KeyboardButton.new(text: 'Show me your location', request_location: true)
-  ]
+  ]]
   markup = Telegram::Bot::Types::ReplyKeyboardMarkup.new(keyboard: kb)
   bot.api.send_message(chat_id: message.chat.id, text: 'Hey!', reply_markup: markup)
 end
@@ -117,11 +142,11 @@ bot.listen do |message|
       bot.api.send_message(chat_id: message.from.id, text: "Don't touch me!")
     end
   when Telegram::Bot::Types::Message
-    kb = [
+    kb = [[
       Telegram::Bot::Types::InlineKeyboardButton.new(text: 'Go to Google', url: 'https://google.com'),
       Telegram::Bot::Types::InlineKeyboardButton.new(text: 'Touch me', callback_data: 'touch'),
       Telegram::Bot::Types::InlineKeyboardButton.new(text: 'Switch to inline', switch_inline_query: 'some text')
-    ]
+    ]]
     markup = Telegram::Bot::Types::InlineKeyboardMarkup.new(inline_keyboard: kb)
     bot.api.send_message(chat_id: message.chat.id, text: 'Make a choice', reply_markup: markup)
   end
@@ -137,8 +162,8 @@ bot.listen do |message|
   case message
   when Telegram::Bot::Types::InlineQuery
     results = [
-      [1, 'First article', 'Very interesting text goes here.'],
-      [2, 'Second article', 'Another interesting text here.']
+      ['1', 'First article', 'Very interesting text goes here.'],
+      ['2', 'Second article', 'Another interesting text here.']
     ].map do |arr|
       Telegram::Bot::Types::InlineQueryResultArticle.new(
         id: arr[0],
@@ -166,7 +191,8 @@ Your bot can even upload files ([photos](https://core.telegram.org/bots/api#send
 bot.listen do |message|
   case message.text
   when '/photo'
-    bot.api.send_photo(chat_id: message.chat.id, photo: Faraday::UploadIO.new('~/Desktop/jennifer.jpg', 'image/jpeg'))
+    path_to_photo = File.expand_path('~/Desktop/jennifer.jpg')
+    bot.api.send_photo(chat_id: message.chat.id, photo: Faraday::UploadIO.new(path_to_photo, 'image/jpeg'))
   end
 end
 ```
@@ -199,6 +225,7 @@ end
 ## Boilerplates
 
 If you don't know how to setup database for your bot or how to use it with different languages here are some boilerplates which can help you to start faster:
+
 - [Ruby Telegram Bot boilerplate](https://github.com/telegram-bots/ruby-telegram-bot-boilerplate)
 
 ## Contributing

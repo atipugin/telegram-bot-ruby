@@ -4,8 +4,8 @@ module Telegram
   module Bot
     module Types
       class BotCommandScopeChatAdministrators < Base
-        attribute :type, String, default: 'chat_administrators'
-        attribute :chat_id, String
+        attribute :type, Types::String.default('chat_administrators')
+        attribute :chat_id, Types::String
       end
     end
   end

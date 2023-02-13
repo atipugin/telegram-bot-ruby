@@ -1,18 +1,11 @@
 # frozen_string_literal: true
 
-require 'virtus'
 require 'logger'
 require 'json'
 require 'faraday'
 require 'faraday/multipart'
-
-require 'telegram/bot/types'
-require 'telegram/bot/exceptions'
-require 'telegram/bot/api'
-require 'telegram/bot/null_logger'
-require 'telegram/bot/client'
-require 'telegram/bot/version'
-require 'telegram/bot/configuration'
+require 'zeitwerk'
+require 'dry-struct'
 
 module Telegram
   module Bot
@@ -29,3 +22,8 @@ module Telegram
     end
   end
 end
+
+loader = Zeitwerk::Loader.new
+loader.inflector = Zeitwerk::GemInflector.new(__FILE__)
+loader.push_dir("#{__dir__}/bot", namespace: Telegram::Bot)
+loader.setup

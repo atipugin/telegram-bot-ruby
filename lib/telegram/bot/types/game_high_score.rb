@@ -4,9 +4,9 @@ module Telegram
   module Bot
     module Types
       class GameHighScore < Base
-        attribute :position, Integer
+        attribute :position, Types::Integer
         attribute :user, User
-        attribute :score, Integer
+        attribute :score, Types::Integer
       end
     end
   end

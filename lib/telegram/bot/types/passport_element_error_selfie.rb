@@ -4,10 +4,10 @@ module Telegram
   module Bot
     module Types
       class PassportElementErrorSelfie < Base
-        attribute :source, String, default: 'selfie'
-        attribute :type, String
-        attribute :file_hash, String
-        attribute :message, String
+        attribute :source, Types::String.default('selfie')
+        attribute :type, Types::String
+        attribute :file_hash, Types::String
+        attribute :message, Types::String
       end
     end
   end

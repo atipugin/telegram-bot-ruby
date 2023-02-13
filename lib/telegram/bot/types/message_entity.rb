@@ -4,13 +4,13 @@ module Telegram
   module Bot
     module Types
       class MessageEntity < Base
-        attribute :type, String
-        attribute :offset, Integer
-        attribute :length, Integer
-        attribute :url, String
-        attribute :user, User
-        attribute :language, String
-        attribute :custom_emoji_id, String
+        attribute :type, Types::String
+        attribute :offset, Types::Integer
+        attribute :length, Types::Integer
+        attribute? :url, Types::String
+        attribute? :user, User
+        attribute? :language, Types::String
+        attribute? :custom_emoji_id, Types::String
       end
     end
   end

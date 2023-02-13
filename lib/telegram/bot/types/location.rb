@@ -4,12 +4,12 @@ module Telegram
   module Bot
     module Types
       class Location < Base
-        attribute :longitude, Float
-        attribute :latitude, Float
-        attribute :horizontal_accuracy, Float
-        attribute :live_period, Integer
-        attribute :heading, Integer
-        attribute :proximity_alert_radius, Integer
+        attribute :longitude, Types::Float
+        attribute :latitude, Types::Float
+        attribute? :horizontal_accuracy, Types::Float
+        attribute? :live_period, Types::Integer
+        attribute? :heading, Types::Integer
+        attribute? :proximity_alert_radius, Types::Integer
       end
     end
   end

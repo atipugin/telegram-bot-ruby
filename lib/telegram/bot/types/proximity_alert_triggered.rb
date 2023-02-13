@@ -6,7 +6,7 @@ module Telegram
       class ProximityAlertTriggered < Base
         attribute :traveler, User
         attribute :watcher, User
-        attribute :distance, Integer
+        attribute :distance, Types::Integer
       end
     end
   end

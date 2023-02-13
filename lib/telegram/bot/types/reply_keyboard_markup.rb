@@ -4,11 +4,12 @@ module Telegram
   module Bot
     module Types
       class ReplyKeyboardMarkup < Base
-        attribute :keyboard, Array[Array[KeyboardButton]]
-        attribute :resize_keyboard, Boolean, default: false
-        attribute :one_time_keyboard, Boolean, default: false
-        attribute :input_field_placeholder, String
-        attribute :selective, Boolean, default: false
+        attribute :keyboard, Types::Array.of(Types::Array.of(KeyboardButton))
+        attribute? :is_persistent, Types::Bool.default(false)
+        attribute? :resize_keyboard, Types::Bool.default(false)
+        attribute? :one_time_keyboard, Types::Bool.default(false)
+        attribute? :input_field_placeholder, Types::String
+        attribute? :selective, Types::Bool.default(false)
 
         def to_compact_hash
           hsh = super

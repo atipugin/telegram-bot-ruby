@@ -4,7 +4,7 @@ module Telegram
   module Bot
     module Types
       class KeyboardButtonPollType < Base
-        attribute :type, String
+        attribute? :type, Types::String
       end
     end
   end

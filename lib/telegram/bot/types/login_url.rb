@@ -4,10 +4,10 @@ module Telegram
   module Bot
     module Types
       class LoginUrl < Base
-        attribute :url, String
-        attribute :forward_text, String
-        attribute :bot_username, String
-        attribute :request_write_access, Boolean
+        attribute :url, Types::String
+        attribute? :forward_text, Types::String
+        attribute? :bot_username, Types::String
+        attribute? :request_write_access, Types::Bool
       end
     end
   end

@@ -15,9 +15,10 @@ Style/FrozenStringLiteralComment:
     - bin/console
 
 Metrics/BlockLength:
-  IgnoredMethods:
+  AllowedMethods:
     - context
     - describe
+    - task
 
 Layout/LineLength:
   Max: 120

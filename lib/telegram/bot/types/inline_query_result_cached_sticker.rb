@@ -4,11 +4,11 @@ module Telegram
   module Bot
     module Types
       class InlineQueryResultCachedSticker < Base
-        attribute :type, String, default: 'sticker'
-        attribute :id, String
-        attribute :sticker_file_id, String
-        attribute :reply_markup, InlineKeyboardMarkup
-        attribute :input_message_content, InputMessageContent
+        attribute :type, Types::String.default('sticker')
+        attribute :id, Types::String
+        attribute :sticker_file_id, Types::String
+        attribute? :reply_markup, InlineKeyboardMarkup
+        attribute? :input_message_content, InputMessageContent
       end
     end
   end

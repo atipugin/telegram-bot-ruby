@@ -4,10 +4,12 @@ module Telegram
   module Bot
     module Types
       class InputMediaPhoto < Base
-        attribute :type, String, default: 'photo'
-        attribute :media, String
-        attribute :caption, String
-        attribute :parse_mode, String
+        attribute :type, Types::String.default('photo')
+        attribute :media, Types::String
+        attribute? :caption, Types::String
+        attribute? :parse_mode, Types::String
+        attribute? :caption_entities, Types::Array.of(MessageEntity)
+        attribute? :has_spoiler, Types::Bool
       end
     end
   end

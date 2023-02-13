@@ -6,9 +6,10 @@ module Telegram
       class ChatJoinRequest < Base
         attribute :chat, Chat
         attribute :from, User
-        attribute :date, Integer
-        attribute :bio, String
-        attribute :invite_link, ChatInviteLink
+        attribute :user_chat_id, Types::Integer
+        attribute :date, Types::Integer
+        attribute? :bio, Types::String
+        attribute? :invite_link, ChatInviteLink
       end
     end
   end

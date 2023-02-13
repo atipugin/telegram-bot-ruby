@@ -4,18 +4,19 @@ module Telegram
   module Bot
     module Types
       class InlineQueryResultPhoto < Base
-        attribute :type, String, default: 'photo'
-        attribute :id, String
-        attribute :photo_url, String
-        attribute :thumb_url, String
-        attribute :photo_width, Integer
-        attribute :photo_height, Integer
-        attribute :title, String
-        attribute :description, String
-        attribute :caption, String
-        attribute :parse_mode, String
-        attribute :reply_markup, InlineKeyboardMarkup
-        attribute :input_message_content, InputMessageContent
+        attribute :type, Types::String.default('photo')
+        attribute :id, Types::String
+        attribute :photo_url, Types::String
+        attribute :thumb_url, Types::String
+        attribute? :photo_width, Types::Integer
+        attribute? :photo_height, Types::Integer
+        attribute? :title, Types::String
+        attribute? :description, Types::String
+        attribute? :caption, Types::String
+        attribute? :parse_mode, Types::String
+        attribute? :caption_entities, Types::Array.of(MessageEntity)
+        attribute? :reply_markup, InlineKeyboardMarkup
+        attribute? :input_message_content, InputMessageContent
       end
     end
   end

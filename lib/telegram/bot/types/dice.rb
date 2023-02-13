@@ -4,8 +4,8 @@ module Telegram
   module Bot
     module Types
       class Dice < Base
-        attribute :emoji, String
-        attribute :value, Integer
+        attribute :emoji, Types::String
+        attribute :value, Types::Integer
       end
     end
   end

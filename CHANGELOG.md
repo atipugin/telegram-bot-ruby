@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.0
+
+- Replace [virtus](https://github.com/solnic/virtus) with [dry-struct](https://github.com/dry-rb/dry-struct)
+- Use [zeitwerk](https://github.com/fxn/zeitwerk) for code loading
+- Implement [Bot API 6.4](https://core.telegram.org/bots/api#december-30-2022)
+- Implement [Bot API 6.5](https://core.telegram.org/bots/api#february-3-2023)
+
 ## 0.23.0
 
 - Rename `Telegram::Bot.configuration` options:

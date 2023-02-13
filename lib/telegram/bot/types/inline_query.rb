@@ -4,12 +4,12 @@ module Telegram
   module Bot
     module Types
       class InlineQuery < Base
-        attribute :id, String
+        attribute :id, Types::String
         attribute :from, User
-        attribute :query, String
-        attribute :offset, String
-        attribute :chat_type, String
-        attribute :location, Location
+        attribute :query, Types::String
+        attribute :offset, Types::String
+        attribute? :chat_type, Types::String
+        attribute? :location, Location
 
         alias to_s query
       end

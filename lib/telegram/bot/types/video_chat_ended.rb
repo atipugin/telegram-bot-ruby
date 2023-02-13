@@ -4,7 +4,7 @@ module Telegram
   module Bot
     module Types
       class VideoChatEnded < Base
-        attribute :duration, Integer
+        attribute :duration, Types::Integer
       end
     end
   end
