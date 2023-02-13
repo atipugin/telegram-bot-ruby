@@ -20,6 +20,8 @@ kb.remove_keyboard = true
 kb = Telegram::Bot::Types::ReplyKeyboardRemove.new(remove_keyboard: true)
 ```
 
+Please make sure it doesn't break your existing code before upgrading to 1.0.
+
 ## Installation
 
 Add following line to your Gemfile:
