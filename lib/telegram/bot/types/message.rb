@@ -57,6 +57,8 @@ module Telegram
         attribute? :pinned_message, Message
         attribute? :invoice, Invoice
         attribute? :successful_payment, SuccessfulPayment
+        attribute? :user_shared, UserShared
+        attribute? :chat_shared, ChatShared
         attribute? :connected_website, Types::String
         attribute? :write_access_allowed, WriteAccessAllowed
         attribute? :passport_data, PassportData

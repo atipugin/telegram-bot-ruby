@@ -7,6 +7,19 @@ Ruby wrapper for [Telegram's Bot API](https://core.telegram.org/bots/api).
 [![Maintainability](https://api.codeclimate.com/v1/badges/7e61fbf5bec86e118fb1/maintainability)](https://codeclimate.com/github/atipugin/telegram-bot-ruby/maintainability)
 [![Say Thanks!](https://img.shields.io/badge/Say%20Thanks!-🦉-1EAEDB.svg)](https://saythanks.io/to/atipugin)
 
+## 🚧 Upgrading to 1.0
+
+Since v1.0 telegram-bot-ruby uses [dry-struct](https://github.com/dry-rb/dry-struct) instead of [virtus](https://github.com/solnic/virtus). This means that type objects are now immutable and you can't change them after initialization:
+
+```ruby
+# This won't work
+kb = Telegram::Bot::Types::ReplyKeyboardRemove.new
+kb.remove_keyboard = true
+
+# You have to set attributes in constructor instead
+kb = Telegram::Bot::Types::ReplyKeyboardRemove.new(remove_keyboard: true)
+```
+
 ## Installation
 
 Add following line to your Gemfile:

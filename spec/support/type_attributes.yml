@@ -18,6 +18,11 @@ WebhookInfo:
   required: false
 - name: allowed_updates
   required: false
+UserShared:
+- name: request_id
+  required: true
+- name: user_id
+  required: true
 UserProfilePhotos:
 - name: total_count
   required: true
@@ -224,12 +229,40 @@ MenuButtonDefault:
 MenuButtonCommands:
 - name: type
   required: true
+KeyboardButtonRequestUser:
+- name: request_id
+  required: true
+- name: user_is_bot
+  required: false
+- name: user_is_premium
+  required: false
+KeyboardButtonRequestChat:
+- name: request_id
+  required: true
+- name: chat_is_channel
+  required: true
+- name: chat_is_forum
+  required: false
+- name: chat_has_username
+  required: false
+- name: chat_is_created
+  required: false
+- name: user_administrator_rights
+  required: false
+- name: bot_administrator_rights
+  required: false
+- name: bot_is_member
+  required: false
 KeyboardButtonPollType:
 - name: type
   required: false
 KeyboardButton:
 - name: text
   required: true
+- name: request_user
+  required: false
+- name: request_chat
+  required: false
 - name: request_contact
   required: false
 - name: request_location
@@ -923,6 +956,11 @@ ChosenInlineResult:
   required: false
 - name: query
   required: true
+ChatShared:
+- name: request_id
+  required: true
+- name: chat_id
+  required: true
 ChatMemberUpdated:
 - name: chat
   required: true
@@ -943,6 +981,26 @@ ChatMemberRestricted:
   required: true
 - name: is_member
   required: true
+- name: can_send_messages
+  required: true
+- name: can_send_audios
+  required: true
+- name: can_send_documents
+  required: true
+- name: can_send_photos
+  required: true
+- name: can_send_videos
+  required: true
+- name: can_send_video_notes
+  required: true
+- name: can_send_voice_notes
+  required: true
+- name: can_send_polls
+  required: true
+- name: can_send_other_messages
+  required: true
+- name: can_add_web_page_previews
+  required: true
 - name: can_change_info
   required: true
 - name: can_invite_users
@@ -950,16 +1008,6 @@ ChatMemberRestricted:
 - name: can_pin_messages
   required: true
 - name: can_manage_topics
-  required: true
-- name: can_send_messages
-  required: true
-- name: can_send_media_messages
-  required: true
-- name: can_send_polls
-  required: true
-- name: can_send_other_messages
-  required: true
-- name: can_add_web_page_previews
   required: true
 - name: until_date
   required: true
@@ -1027,6 +1075,8 @@ ChatJoinRequest:
 - name: chat
   required: true
 - name: from
+  required: true
+- name: user_chat_id
   required: true
 - name: date
   required: true
@@ -1459,7 +1509,17 @@ ChatLocation:
 ChatPermissions:
 - name: can_send_messages
   required: false
-- name: can_send_media_messages
+- name: can_send_audios
+  required: false
+- name: can_send_documents
+  required: false
+- name: can_send_photos
+  required: false
+- name: can_send_videos
+  required: false
+- name: can_send_video_notes
+  required: false
+- name: can_send_voice_notes
   required: false
 - name: can_send_polls
   required: false
@@ -1647,6 +1707,10 @@ Message:
 - name: invoice
   required: false
 - name: successful_payment
+  required: false
+- name: user_shared
+  required: false
+- name: chat_shared
   required: false
 - name: connected_website
   required: false
