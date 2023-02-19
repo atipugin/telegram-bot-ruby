@@ -2,7 +2,7 @@
 name: Close stale issues and PRs
 on:
   schedule:
-    - cron: 30 * * * *
+    - cron: 40 * * * *
 
 jobs:
   stale:
@@ -16,3 +16,4 @@ jobs:
           stale-issue-message: This issue is stale because it has been open 60 days with no activity. Remove stale label or comment or this will be closed in 7 days.
           stale-pr-label: stale
           stale-pr-message: This PR is stale because it has been open 60 days with no activity. Remove stale label or comment or this will be closed in 7 days.
+          operations-per-run: 500
