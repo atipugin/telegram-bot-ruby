@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'async'
+
 module Telegram
   module Bot
     class Client
@@ -24,7 +26,9 @@ module Telegram
         logger.info('Starting bot')
         running = true
         Signal.trap('INT') { running = false }
-        fetch_updates(&block) while running
+        Async do
+          fetch_updates(&block) while running
+        end
         exit
       end
 
@@ -32,8 +36,10 @@ module Telegram
         response = api.getUpdates(options)
         return unless response['ok']
 
-        response['result'].each do |data|
-          yield handle_update(Types::Update.new(data))
+        Async do
+          response['result'].each do |data|
+            yield handle_update(Types::Update.new(data))
+          end
         end
       rescue Faraday::TimeoutError, Faraday::ConnectionFailed
         retry
