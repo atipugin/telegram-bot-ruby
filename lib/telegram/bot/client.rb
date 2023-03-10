@@ -3,7 +3,7 @@
 module Telegram
   module Bot
     class Client
-      attr_reader :api, :options
+      attr_reader :api, :options, :poll_interval
       attr_accessor :logger
 
       def self.run(*args, &block)
@@ -13,6 +13,7 @@ module Telegram
       def initialize(token, hash = {})
         @options = default_options.merge(hash)
         @api = Api.new(token, url: options.delete(:url), environment: options.delete(:environment))
+        @poll_interval = options.delete(:poll_interval)
         @logger = options.delete(:logger)
       end
 
@@ -35,6 +36,8 @@ module Telegram
         response['result'].each do |data|
           yield handle_update(Types::Update.new(data))
         end
+
+        sleep(poll_interval) if poll_interval
       rescue Faraday::TimeoutError, Faraday::ConnectionFailed
         retry
       end
