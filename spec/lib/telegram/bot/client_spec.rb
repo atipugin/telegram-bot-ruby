@@ -12,11 +12,12 @@ RSpec.describe Telegram::Bot::Client do
     end
   end
 
+  # rubocop:disable RSpec/SubjectStub
   describe '#listen' do
     subject(:listen) { client.listen }
 
     let(:api) { double }
-    let(:response) { { "ok" => true, "result" => [] } }
+    let(:response) { { 'ok' => true, 'result' => [] } }
 
     before do
       allow(client).to receive(:running).and_return(true, true, false)
@@ -29,4 +30,5 @@ RSpec.describe Telegram::Bot::Client do
       expect(api).to have_received(:getUpdates).exactly(2).times
     end
   end
+  # rubocop:enable RSpec/SubjectStub
 end
