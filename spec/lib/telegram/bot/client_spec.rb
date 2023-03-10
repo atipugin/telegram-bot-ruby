@@ -25,7 +25,7 @@ RSpec.describe Telegram::Bot::Client do
       allow(api).to receive(:getUpdates).and_return(response)
     end
 
-    it 'returns hash' do
+    it 'calls api' do
       listen
       expect(api).to have_received(:getUpdates).exactly(2).times
     end
