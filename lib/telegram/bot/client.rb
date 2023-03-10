@@ -3,7 +3,7 @@
 module Telegram
   module Bot
     class Client
-      attr_reader :api, :options
+      attr_reader :api, :options, :running
       attr_accessor :logger
 
       def self.run(*args, &block)
@@ -22,10 +22,9 @@ module Telegram
 
       def listen(&block)
         logger.info('Starting bot')
-        running = true
-        Signal.trap('INT') { running = false }
+        @running = true
+        Signal.trap('INT') { @running = false }
         fetch_updates(&block) while running
-        exit
       end
 
       def fetch_updates

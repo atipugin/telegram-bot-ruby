@@ -11,4 +11,22 @@ RSpec.describe Telegram::Bot::Client do
       expect(client.api.getMe).to include('ok', 'result')
     end
   end
+
+  describe '#listen' do
+    subject(:listen) { client.listen }
+
+    let(:api) { double }
+    let(:response) { { "ok" => true, "result" => [] } }
+
+    before do
+      allow(client).to receive(:running).and_return(true, true, false)
+      allow(client).to receive(:api).and_return(api)
+      allow(api).to receive(:getUpdates).and_return(response)
+    end
+
+    it 'returns hash' do
+      listen
+      expect(api).to have_received(:getUpdates).exactly(2).times
+    end
+  end
 end
