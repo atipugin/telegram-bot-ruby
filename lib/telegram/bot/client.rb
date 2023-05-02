@@ -12,7 +12,11 @@ module Telegram
 
       def initialize(token, hash = {})
         @options = default_options.merge(hash)
-        @api = Api.new(token, url: options.delete(:url), environment: options.delete(:environment))
+		cnn_options = {}
+		[:proxy, :ssl].each do |k|
+			cnn_options[k] = options.delete(k) if options.has_key?(k)
+		end
+        @api = Api.new(token, url: options.delete(:url), environment: options.delete(:environment), options: cnn_options.empty? ? nil : cnn_options)
         @logger = options.delete(:logger)
       end
 

@@ -33,10 +33,11 @@ module Telegram
 
       attr_reader :token, :url, :environment
 
-      def initialize(token, url: 'https://api.telegram.org', environment: :production)
+      def initialize(token, url: 'https://api.telegram.org', environment: :production, options: nil)
         @token = token
         @url = url
         @environment = environment.downcase.to_sym
+		@cnn_options = options
       end
 
       def method_missing(method_name, *args, &block)
@@ -97,7 +98,7 @@ module Telegram
       end
 
       def conn
-        @conn ||= Faraday.new(url: url) do |faraday|
+        @conn ||= Faraday.new({url: url}, @cnn_options) do |faraday|
           faraday.request :multipart
           faraday.request :url_encoded
           faraday.adapter Telegram::Bot.configuration.adapter
