@@ -2,6 +2,7 @@
 require:
   - rubocop-rake
   - rubocop-rspec
+  - rubocop-performance
 
 AllCops:
   NewCops: enable
