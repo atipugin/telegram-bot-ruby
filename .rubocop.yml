@@ -11,10 +11,6 @@ AllCops:
 Style/Documentation:
   Enabled: false
 
-Style/FrozenStringLiteralComment:
-  Exclude:
-    - bin/console
-
 Metrics/BlockLength:
   AllowedMethods:
     - context
