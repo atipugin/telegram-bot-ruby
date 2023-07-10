@@ -9,7 +9,9 @@ Ruby wrapper for [Telegram's Bot API](https://core.telegram.org/bots/api).
 
 ## 🚧 Upgrading to 1.0
 
-Since v1.0 telegram-bot-ruby uses [dry-struct](https://github.com/dry-rb/dry-struct) instead of [virtus](https://github.com/solnic/virtus). This means that type objects are now immutable and you can't change them after initialization:
+Since v1.0 `telegram-bot-ruby` uses [`dry-struct`](https://github.com/dry-rb/dry-struct)
+instead of [`virtus`](https://github.com/solnic/virtus).
+This means that type objects are now immutable and you can't change them after initialization:
 
 ```ruby
 # This won't work
@@ -44,7 +46,8 @@ gem install telegram-bot-ruby
 
 ## Usage
 
-First things first, you need to [obtain a token](https://core.telegram.org/bots#6-botfather) for your bot. Then create your Telegram bot like this:
+First things first, you need to [obtain a token](https://core.telegram.org/bots#6-botfather) for your bot.
+Then create your Telegram bot like this:
 
 ```ruby
 require 'telegram/bot'
@@ -63,7 +66,10 @@ Telegram::Bot::Client.run(token) do |bot|
 end
 ```
 
-Note that `bot.api` object implements [Telegram Bot API methods](https://core.telegram.org/bots/api#available-methods) as is. So you can invoke any method inside the block without any problems. All methods are available in both *snake_case* and *camelCase* notations.
+Note that `bot.api` object implements
+[Telegram Bot API methods](https://core.telegram.org/bots/api#available-methods) as is.
+So you can invoke any method inside the block without any problems.
+All methods are available in both *snake_case* and *camelCase* notations.
 
 If you need to start a bot in development mode you have to pass `environment: :test`:
 
@@ -73,15 +79,20 @@ Telegram::Bot::Client.run(token, environment: :test) do |bot|
 end
 ```
 
-Same thing about `message` object - it implements [Message](https://core.telegram.org/bots/api#message) spec, so you always know what to expect from it.
+Same thing about `message` object: it implements [Message](https://core.telegram.org/bots/api#message) spec,
+so you always know what to expect from it.
 
 ## Webhooks
 
-If you are going to use [webhooks](https://core.telegram.org/bots/api#setwebhook) instead of [long polling](https://core.telegram.org/bots/api#getupdates), you need to implement your own webhook callbacks server. Take a look at [this repo](https://github.com/solyaris/BOTServer) as an example.
+If you are going to use [webhooks](https://core.telegram.org/bots/api#setwebhook)
+instead of [long polling](https://core.telegram.org/bots/api#getupdates),
+you need to implement your own webhook callbacks server.
+Take a look at [this repo](https://github.com/solyaris/BOTServer) as an example.
 
 ## Proxy
 
-As some countries block access to Telegram, you can set up your own proxy and use it to access Telegram API. In this case you need to configure API url:
+As some countries block access to Telegram, you can set up your own proxy and use it to access Telegram API.
+In this case you need to configure API URL:
 
 ```ruby
 Telegram::Bot::Client.run(token, url: 'https://proxy.example.com') do |bot|
@@ -91,7 +102,8 @@ end
 
 ## Custom keyboards
 
-You can use your own [custom keyboards](https://core.telegram.org/bots#keyboards). Here is an example:
+You can use your own [custom keyboards](https://core.telegram.org/bots#keyboards).
+Here is an example:
 
 ```ruby
 bot.listen do |message|
@@ -131,7 +143,8 @@ end
 
 ## Inline keyboards
 
-[Bot API 2.0](https://core.telegram.org/bots/2-0-intro) brought us new inline keyboards. Example:
+[Bot API 2.0](https://core.telegram.org/bots/2-0-intro) brought us new inline keyboards.
+Example:
 
 ```ruby
 bot.listen do |message|
@@ -179,13 +192,25 @@ bot.listen do |message|
 end
 ```
 
-Now, with `inline` mode enabled, your `message` object can be an instance of [Message](https://core.telegram.org/bots/api#message), [InlineQuery](https://core.telegram.org/bots/api#inlinequery) or [ChosenInlineResult](https://core.telegram.org/bots/api#choseninlineresult). That's why you need to check type of each message and decide how to handle it.
+Now, with `inline` mode enabled, your `message` object can be an instance of
+[Message](https://core.telegram.org/bots/api#message),
+[InlineQuery](https://core.telegram.org/bots/api#inlinequery) or
+[ChosenInlineResult](https://core.telegram.org/bots/api#choseninlineresult).
+That's why you need to check type of each message and decide how to handle it.
 
-Using `answer_inline_query` you can send query results to user. `results` field must be an array of [query result objects](https://core.telegram.org/bots/api#inlinequeryresult).
+Using `answer_inline_query` you can send query results to user.
+`results` field must be an array of [query result objects](https://core.telegram.org/bots/api#inlinequeryresult).
 
 ## File upload
 
-Your bot can even upload files ([photos](https://core.telegram.org/bots/api#sendphoto), [audio](https://core.telegram.org/bots/api#sendaudio), [documents](https://core.telegram.org/bots/api#senddocument), [stickers](https://core.telegram.org/bots/api#sendsticker), [video](https://core.telegram.org/bots/api#sendvideo)) to Telegram servers. Just like this:
+Your bot can even upload files
+([photos](https://core.telegram.org/bots/api#sendphoto),
+[audio](https://core.telegram.org/bots/api#sendaudio),
+[documents](https://core.telegram.org/bots/api#senddocument),
+[stickers](https://core.telegram.org/bots/api#sendsticker),
+[video](https://core.telegram.org/bots/api#sendvideo))
+to Telegram servers.
+Just like this:
 
 ```ruby
 bot.listen do |message|
@@ -199,7 +224,9 @@ end
 
 ## Logging
 
-By default, bot doesn't log anything (uses `NullLoger`). You can change this behavior and provide your own logger class. See example below:
+By default, bot doesn't log anything (uses `NullLoger`).
+You can change this behavior and provide your own logger class.
+See example below:
 
 ```ruby
 Telegram::Bot::Client.run(token, logger: Logger.new($stderr)) do |bot|
@@ -212,7 +239,8 @@ end
 
 ## Connection adapters
 
-Since version `0.5.0` we rely on [faraday](https://github.com/lostisland/faraday) under the hood. You can use any of supported adapters (for example, `net/http/persistent`):
+Since version `0.5.0` we rely on [faraday](https://github.com/lostisland/faraday) under the hood.
+You can use any of supported adapters (for example, `net/http/persistent`):
 
 ```ruby
 require 'net/http/persistent'
@@ -224,14 +252,15 @@ end
 
 ## Boilerplates
 
-If you don't know how to setup database for your bot or how to use it with different languages here are some boilerplates which can help you to start faster:
+If you don't know how to setup database for your bot or how to use it with different languages
+here are some boilerplates which can help you to start faster:
 
 - [Ruby Telegram Bot boilerplate](https://github.com/telegram-bots/ruby-telegram-bot-boilerplate)
 
 ## Contributing
 
-1. Fork it
-2. Create your feature branch (git checkout -b my-new-feature)
-3. Commit your changes (git commit -am 'Add some feature')
-4. Push to the branch (git push origin my-new-feature)
-5. Create new Pull Request
+1. Fork it.
+2. Create your feature branch (`git checkout -b my-new-feature`).
+3. Commit your changes (`git commit -am 'Add some feature'`).
+4. Push to the branch (`git push origin my-new-feature`).
+5. Create a new Pull Request.
