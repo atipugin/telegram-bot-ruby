@@ -2,6 +2,6 @@
 require 'bundler/setup'
 require 'pry'
 
-require File.expand_path('../lib/telegram/bot', __dir__)
+require_relative '../lib/telegram/bot'
 
 Pry.start
