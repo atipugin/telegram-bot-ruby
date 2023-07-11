@@ -2,6 +2,7 @@
 require:
   - rubocop-rake
   - rubocop-rspec
+  - rubocop-performance
 
 AllCops:
   NewCops: enable
@@ -9,10 +10,6 @@ AllCops:
 
 Style/Documentation:
   Enabled: false
-
-Style/FrozenStringLiteralComment:
-  Exclude:
-    - bin/console
 
 Metrics/BlockLength:
   AllowedMethods:
@@ -22,6 +19,3 @@ Metrics/BlockLength:
 
 Layout/LineLength:
   Max: 120
-  Exclude:
-    - telegram-bot-ruby.gemspec
-    - examples/*.rb

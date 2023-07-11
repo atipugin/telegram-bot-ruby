@@ -30,6 +30,8 @@ task :dump_type_attributes do
   # Fetch and parse docs
   doc = Nokogiri::HTML(URI.open('https://core.telegram.org/bots/api').read)
 
+  next_type_element_names = %w[table h4]
+
   result = types.to_h do |type|
     # This is very hacky but working way to find table containing attributes for
     # given type. Basic idea is to find heading with type and then iterate until
@@ -38,7 +40,7 @@ task :dump_type_attributes do
     element = doc.at_xpath(%{//h4[text() = "#{type}"]})
     loop do
       element = element.next_element
-      break if %w[table h4].include?(element.name)
+      break if next_type_element_names.include?(element.name)
     end
 
     attributes = element.xpath('.//tbody//tr').map do |el|

@@ -5,13 +5,8 @@ module Telegram
     module Types
       module Compactable
         def to_compact_hash
-          attributes.dup.delete_if { |_, v| v.nil? }.to_h do |key, value|
-            value =
-              if value.respond_to?(:to_compact_hash)
-                value.to_compact_hash
-              else
-                value
-              end
+          attributes.dup.compact.to_h do |key, value|
+            value = value.to_compact_hash if value.respond_to?(:to_compact_hash)
 
             [key, value]
           end
