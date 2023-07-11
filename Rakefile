@@ -18,7 +18,7 @@ task default: :spec
 
 desc 'Dump type definitions from docs to YAML'
 task :dump_type_attributes do
-  require File.expand_path('lib/telegram/bot', __dir__)
+  require_relative 'lib/telegram/bot'
   require 'nokogiri'
   require 'open-uri'
   require 'yaml'
