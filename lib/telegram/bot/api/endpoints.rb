@@ -4,7 +4,6 @@ module Telegram
   module Bot
     class Api
       ENDPOINTS = {
-        ## `nil` for raw `result`
         'getUpdates' => Types::Array.of(Types::Update),
         'setWebhook' => Types::Bool,
         'deleteWebhook' => Types::Bool,
