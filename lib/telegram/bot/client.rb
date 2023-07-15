@@ -29,11 +29,8 @@ module Telegram
       end
 
       def fetch_updates
-        response = api.getUpdates(options)
-        return unless response['ok']
-
-        response['result'].each do |data|
-          yield handle_update(Types::Update.new(data))
+        api.getUpdates(options).each do |update|
+          yield handle_update(update)
         end
       rescue Faraday::TimeoutError, Faraday::ConnectionFailed
         retry

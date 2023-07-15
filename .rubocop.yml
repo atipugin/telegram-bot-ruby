@@ -16,6 +16,9 @@ Metrics/BlockLength:
     - context
     - describe
     - task
+Metrics/ClassLength:
+  Exclude:
+    - lib/telegram/bot/api/endpoints.rb
 
 Layout/LineLength:
   Max: 120

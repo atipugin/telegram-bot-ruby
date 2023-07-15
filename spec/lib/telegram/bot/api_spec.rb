@@ -76,4 +76,16 @@ RSpec.describe Telegram::Bot::Api do
       end
     end
   end
+
+  describe '#getMe' do
+    subject { api.getMe }
+
+    it { is_expected.to be_an_instance_of(Telegram::Bot::Types::User) }
+  end
+
+  describe '#getMyCommands' do
+    subject { api.getMyCommands }
+
+    it { is_expected.to all be_an_instance_of(Telegram::Bot::Types::BotCommand) }
+  end
 end

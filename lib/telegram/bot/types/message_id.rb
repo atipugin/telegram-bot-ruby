@@ -3,8 +3,8 @@
 module Telegram
   module Bot
     module Types
-      class MenuButtonDefault < Base
-        attribute :type, Types::String.constrained(eql: 'default')
+      class MessageId < Base
+        attribute :message_id, Types::Integer
       end
     end
   end

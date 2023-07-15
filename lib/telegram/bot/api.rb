@@ -3,34 +3,6 @@
 module Telegram
   module Bot
     class Api
-      ENDPOINTS = %w[
-        getUpdates setWebhook deleteWebhook getWebhookInfo getMe sendMessage
-        forwardMessage sendPhoto sendAudio sendDocument sendVideo sendVoice
-        sendVideoNote sendMediaGroup sendLocation editMessageLiveLocation
-        stopMessageLiveLocation sendVenue sendContact sendChatAction
-        getUserProfilePhotos getFile kickChatMember unbanChatMember
-        restrictChatMember promoteChatMember leaveChat getChat
-        getChatAdministrators exportChatInviteLink setChatPhoto deleteChatPhoto
-        setChatTitle setChatDescription pinChatMessage unpinChatMessage
-        getChatMembersCount getChatMember setChatStickerSet deleteChatStickerSet
-        answerCallbackQuery editMessageText editMessageCaption
-        editMessageReplyMarkup deleteMessage sendSticker getStickerSet
-        uploadStickerFile createNewStickerSet addStickerToSet
-        setStickerPositionInSet deleteStickerFromSet answerInlineQuery
-        sendInvoice answerShippingQuery answerPreCheckoutQuery
-        sendGame setGameScore getGameHighScores setPassportDataErrors
-        editMessageMedia sendAnimation sendPoll stopPoll setChatPermissions
-        setChatAdministratorCustomTitle sendDice getMyCommands setMyCommands
-        deleteMyCommands setStickerSetThumb logOut close copyMessage
-        createChatInviteLink editChatInviteLink revokeChatInviteLink
-        approveChatJoinRequest declineChatJoinRequest banChatSenderChat
-        unbanChatSenderChat answerWebAppQuery setChatMenuButton
-        getChatMenuButton setMyDefaultAdministratorRights
-        getMyDefaultAdministratorRights createInvoiceLink editGeneralForumTopic
-        closeGeneralForumTopic reopenGeneralForumTopic hideGeneralForumTopic
-        unhideGeneralForumTopic
-      ].freeze
-
       attr_reader :token, :url, :environment
 
       def initialize(token, url: 'https://api.telegram.org', environment: :production)
@@ -43,14 +15,20 @@ module Telegram
         endpoint = method_name.to_s
         endpoint = camelize(endpoint) if endpoint.include?('_')
 
-        ENDPOINTS.include?(endpoint) ? call(endpoint, *args) : super
+        return super unless ENDPOINTS.key?(endpoint)
+
+        result = call(endpoint, *args)
+
+        return result['ok'] unless (result = result['result'])
+
+        ENDPOINTS[endpoint].call(result)
       end
 
       def respond_to_missing?(*args)
         method_name = args[0].to_s
         method_name = camelize(method_name) if method_name.include?('_')
 
-        ENDPOINTS.include?(method_name) || super
+        ENDPOINTS.key?(method_name) || super
       end
 
       def call(endpoint, raw_params = {})
