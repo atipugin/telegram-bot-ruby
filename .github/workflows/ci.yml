@@ -32,9 +32,6 @@ jobs:
         ruby:
           - 2.7
           - 3.2
-    env:
-      BOT_API_ENV: test
-      BOT_API_TOKEN: ${{ secrets.BOT_API_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
