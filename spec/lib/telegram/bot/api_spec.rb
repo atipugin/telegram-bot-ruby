@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Telegram::Bot::Api do
+RSpec.describe Telegram::Bot::Api, :vcr do
   let(:token) { ENV.fetch('BOT_API_TOKEN') }
   let(:environment) { ENV.fetch('BOT_API_ENV', :test) }
   let(:endpoint) { 'getMe' }
