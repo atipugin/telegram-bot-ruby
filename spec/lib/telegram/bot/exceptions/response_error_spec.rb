@@ -9,7 +9,9 @@ RSpec.describe Telegram::Bot::Exceptions::ResponseError do
 
   let(:response) { Telegram::Bot::Api.new('123456:wrongtoken').call('getMe') }
 
-  it 'has error code' do
-    expect(error).to respond_to(:error_code)
+  describe '#error_code' do
+    subject { super().error_code }
+
+    it { is_expected.to eq 401 }
   end
 end
