@@ -14,4 +14,16 @@ RSpec.describe Telegram::Bot::Exceptions::ResponseError do
 
     it { is_expected.to eq 401 }
   end
+
+  describe '#to_s' do
+    subject { super().to_s }
+
+    let(:expected_result) do
+      <<~STRING.chomp
+        Telegram API has returned the error. (ok: false, error_code: 401, description: "Unauthorized")
+      STRING
+    end
+
+    it { is_expected.to eq expected_result }
+  end
 end

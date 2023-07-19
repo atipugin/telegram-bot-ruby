@@ -13,7 +13,7 @@ module Telegram
 
         def to_s
           super +
-            format(' (%s)', data.map { |k, v| %(#{k}: "#{v}") }.join(', '))
+            format(' (%s)', data.map { |k, v| %(#{k}: #{v.inspect}) }.join(', '))
         end
 
         def error_code
