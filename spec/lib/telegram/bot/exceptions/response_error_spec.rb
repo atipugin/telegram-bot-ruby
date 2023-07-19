@@ -26,4 +26,10 @@ RSpec.describe Telegram::Bot::Exceptions::ResponseError do
 
     it { is_expected.to eq expected_result }
   end
+
+  describe '#data' do
+    subject { super().data }
+
+    it { is_expected.to eq({ 'ok' => false, 'error_code' => 401, 'description' => 'Unauthorized' }) }
+  end
 end

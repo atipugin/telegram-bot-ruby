@@ -20,8 +20,6 @@ module Telegram
           data[:error_code] || data['error_code']
         end
 
-        private
-
         def data
           @data ||= begin
             JSON.parse(response.body)
