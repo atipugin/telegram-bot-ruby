@@ -15,6 +15,25 @@ RSpec.describe Telegram::Bot::Client, :vcr do
     end
   end
 
+  describe '#stop' do
+    before do
+      allow(client.api).to receive(:getUpdates).and_return [Telegram::Bot::Types::Update.new(update_id: 111_111)]
+
+      current_times = 0
+
+      client.listen do |_message|
+        current_times += 1
+        client.stop if current_times == expected_times
+      end
+    end
+
+    let(:expected_times) { 3 }
+
+    specify do
+      expect(client.api).to have_received(:getUpdates).exactly(expected_times).times
+    end
+  end
+
   describe '#fetch_updates' do
     before do
       allow(client.api).to receive(:call).with('getUpdates', hash_including(offset: 0)).and_return(
