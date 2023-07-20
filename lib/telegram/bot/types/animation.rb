@@ -9,7 +9,7 @@ module Telegram
         attribute :width, Types::Integer
         attribute :height, Types::Integer
         attribute :duration, Types::Integer
-        attribute? :thumb, PhotoSize
+        attribute? :thumbnail, PhotoSize
         attribute? :file_name, Types::String
         attribute? :mime_type, Types::String
         attribute? :file_size, Types::Integer

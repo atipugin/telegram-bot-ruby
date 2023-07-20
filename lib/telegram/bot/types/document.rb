@@ -6,7 +6,7 @@ module Telegram
       class Document < Base
         attribute :file_id, Types::String
         attribute :file_unique_id, Types::String
-        attribute? :thumb, PhotoSize
+        attribute? :thumbnail, PhotoSize
         attribute? :file_name, Types::String
         attribute? :mime_type, Types::String
         attribute? :file_size, Types::Integer

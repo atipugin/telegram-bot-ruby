@@ -6,7 +6,7 @@ module Telegram
       class InputMediaDocument < Base
         attribute :type, Types::String.default('document')
         attribute :media, Types::String
-        attribute? :thumb, Types::String
+        attribute? :thumbnail, Types::String
         attribute? :caption, Types::String
         attribute? :parse_mode, Types::String
         attribute? :caption_entities, Types::Array.of(MessageEntity)

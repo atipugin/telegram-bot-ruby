@@ -12,9 +12,9 @@ module Telegram
         attribute? :url, Types::String
         attribute? :hide_url, Types::Bool
         attribute? :description, Types::String
-        attribute? :thumb_url, Types::String
-        attribute? :thumb_width, Types::Integer
-        attribute? :thumb_height, Types::Integer
+        attribute? :thumbnail_url, Types::String
+        attribute? :thumbnail_width, Types::Integer
+        attribute? :thumbnail_height, Types::Integer
       end
     end
   end

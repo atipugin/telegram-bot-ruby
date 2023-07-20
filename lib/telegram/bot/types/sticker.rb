@@ -11,12 +11,13 @@ module Telegram
         attribute :height, Types::Integer
         attribute :is_animated, Types::Bool
         attribute :is_video, Types::Bool
-        attribute? :thumb, PhotoSize
+        attribute? :thumbnail, PhotoSize
         attribute? :emoji, Types::String
         attribute? :set_name, Types::String
         attribute? :premium_animation, File
         attribute? :mask_position, MaskPosition
         attribute? :custom_emoji_id, Types::String
+        attribute? :needs_repainting, Types::Bool
         attribute? :file_size, Types::Integer
       end
     end

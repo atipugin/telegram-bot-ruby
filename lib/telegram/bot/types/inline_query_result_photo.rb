@@ -7,7 +7,7 @@ module Telegram
         attribute :type, Types::String.default('photo')
         attribute :id, Types::String
         attribute :photo_url, Types::String
-        attribute :thumb_url, Types::String
+        attribute :thumbnail_url, Types::String
         attribute? :photo_width, Types::Integer
         attribute? :photo_height, Types::Integer
         attribute? :title, Types::String

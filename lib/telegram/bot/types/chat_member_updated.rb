@@ -10,6 +10,7 @@ module Telegram
         attribute :old_chat_member, CHAT_MEMBER
         attribute :new_chat_member, CHAT_MEMBER
         attribute? :invite_link, ChatInviteLink
+        attribute? :via_chat_folder_invite_link, Types::Bool
       end
     end
   end

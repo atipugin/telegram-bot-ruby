@@ -12,7 +12,7 @@ module Telegram
         attribute? :file_name, Types::String
         attribute? :mime_type, Types::String
         attribute? :file_size, Types::Integer
-        attribute? :thumb, PhotoSize
+        attribute? :thumbnail, PhotoSize
       end
     end
   end

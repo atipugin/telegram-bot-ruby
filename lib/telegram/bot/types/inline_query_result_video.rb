@@ -8,7 +8,7 @@ module Telegram
         attribute :id, Types::String
         attribute :video_url, Types::String
         attribute :mime_type, Types::String
-        attribute :thumb_url, Types::String
+        attribute :thumbnail_url, Types::String
         attribute :title, Types::String
         attribute? :caption, Types::String
         attribute? :parse_mode, Types::String

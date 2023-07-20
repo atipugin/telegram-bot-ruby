@@ -1,88 +1,4 @@
 ---
-WebhookInfo:
-- name: url
-  required: true
-- name: has_custom_certificate
-  required: true
-- name: pending_update_count
-  required: true
-- name: ip_address
-  required: false
-- name: last_error_date
-  required: false
-- name: last_error_message
-  required: false
-- name: last_synchronization_error_date
-  required: false
-- name: max_connections
-  required: false
-- name: allowed_updates
-  required: false
-UserShared:
-- name: request_id
-  required: true
-- name: user_id
-  required: true
-UserProfilePhotos:
-- name: total_count
-  required: true
-- name: photos
-  required: true
-Update:
-- name: update_id
-  required: true
-- name: message
-  required: false
-- name: edited_message
-  required: false
-- name: channel_post
-  required: false
-- name: edited_channel_post
-  required: false
-- name: inline_query
-  required: false
-- name: chosen_inline_result
-  required: false
-- name: callback_query
-  required: false
-- name: shipping_query
-  required: false
-- name: pre_checkout_query
-  required: false
-- name: poll
-  required: false
-- name: poll_answer
-  required: false
-- name: my_chat_member
-  required: false
-- name: chat_member
-  required: false
-- name: chat_join_request
-  required: false
-StickerSet:
-- name: name
-  required: true
-- name: title
-  required: true
-- name: sticker_type
-  required: true
-- name: is_animated
-  required: true
-- name: is_video
-  required: true
-- name: stickers
-  required: true
-- name: thumb
-  required: false
-ShippingQuery:
-- name: id
-  required: true
-- name: from
-  required: true
-- name: invoice_payload
-  required: true
-- name: shipping_address
-  required: true
 ShippingOption:
 - name: id
   required: true
@@ -90,9 +6,6 @@ ShippingOption:
   required: true
 - name: prices
   required: true
-SentWebAppMessage:
-- name: inline_message_id
-  required: false
 ReplyKeyboardRemove:
 - name: remove_keyboard
   required: true
@@ -111,28 +24,6 @@ ReplyKeyboardMarkup:
   required: false
 - name: selective
   required: false
-PreCheckoutQuery:
-- name: id
-  required: true
-- name: from
-  required: true
-- name: currency
-  required: true
-- name: total_amount
-  required: true
-- name: invoice_payload
-  required: true
-- name: shipping_option_id
-  required: false
-- name: order_info
-  required: false
-PollAnswer:
-- name: poll_id
-  required: true
-- name: user
-  required: true
-- name: option_ids
-  required: true
 PassportElementErrorUnspecified:
 - name: source
   required: true
@@ -216,25 +107,8 @@ PassportElementErrorDataField:
   required: true
 - name: message
   required: true
-MenuButtonWebApp:
+KeyboardButtonPollType:
 - name: type
-  required: true
-- name: text
-  required: true
-- name: web_app
-  required: true
-MenuButtonDefault:
-- name: type
-  required: true
-MenuButtonCommands:
-- name: type
-  required: true
-KeyboardButtonRequestUser:
-- name: request_id
-  required: true
-- name: user_is_bot
-  required: false
-- name: user_is_premium
   required: false
 KeyboardButtonRequestChat:
 - name: request_id
@@ -253,8 +127,12 @@ KeyboardButtonRequestChat:
   required: false
 - name: bot_is_member
   required: false
-KeyboardButtonPollType:
-- name: type
+KeyboardButtonRequestUser:
+- name: request_id
+  required: true
+- name: user_is_bot
+  required: false
+- name: user_is_premium
   required: false
 KeyboardButton:
 - name: text
@@ -302,7 +180,7 @@ InputMediaVideo:
   required: true
 - name: media
   required: true
-- name: thumb
+- name: thumbnail
   required: false
 - name: caption
   required: false
@@ -338,7 +216,7 @@ InputMediaDocument:
   required: true
 - name: media
   required: true
-- name: thumb
+- name: thumbnail
   required: false
 - name: caption
   required: false
@@ -353,7 +231,7 @@ InputMediaAudio:
   required: true
 - name: media
   required: true
-- name: thumb
+- name: thumbnail
   required: false
 - name: caption
   required: false
@@ -372,7 +250,7 @@ InputMediaAnimation:
   required: true
 - name: media
   required: true
-- name: thumb
+- name: thumbnail
   required: false
 - name: caption
   required: false
@@ -486,7 +364,7 @@ InlineQueryResultVideo:
   required: true
 - name: mime_type
   required: true
-- name: thumb_url
+- name: thumbnail_url
   required: true
 - name: title
   required: true
@@ -533,11 +411,11 @@ InlineQueryResultVenue:
   required: false
 - name: input_message_content
   required: false
-- name: thumb_url
+- name: thumbnail_url
   required: false
-- name: thumb_width
+- name: thumbnail_width
   required: false
-- name: thumb_height
+- name: thumbnail_height
   required: false
 InlineQueryResultPhoto:
 - name: type
@@ -546,7 +424,7 @@ InlineQueryResultPhoto:
   required: true
 - name: photo_url
   required: true
-- name: thumb_url
+- name: thumbnail_url
   required: true
 - name: photo_width
   required: false
@@ -579,9 +457,9 @@ InlineQueryResultMpeg4Gif:
   required: false
 - name: mpeg4_duration
   required: false
-- name: thumb_url
+- name: thumbnail_url
   required: true
-- name: thumb_mime_type
+- name: thumbnail_mime_type
   required: false
 - name: title
   required: false
@@ -618,11 +496,11 @@ InlineQueryResultLocation:
   required: false
 - name: input_message_content
   required: false
-- name: thumb_url
+- name: thumbnail_url
   required: false
-- name: thumb_width
+- name: thumbnail_width
   required: false
-- name: thumb_height
+- name: thumbnail_height
   required: false
 InlineQueryResultGif:
 - name: type
@@ -637,9 +515,9 @@ InlineQueryResultGif:
   required: false
 - name: gif_duration
   required: false
-- name: thumb_url
+- name: thumbnail_url
   required: true
-- name: thumb_mime_type
+- name: thumbnail_mime_type
   required: false
 - name: title
   required: false
@@ -685,11 +563,11 @@ InlineQueryResultDocument:
   required: false
 - name: input_message_content
   required: false
-- name: thumb_url
+- name: thumbnail_url
   required: false
-- name: thumb_width
+- name: thumbnail_width
   required: false
-- name: thumb_height
+- name: thumbnail_height
   required: false
 InlineQueryResultContact:
 - name: type
@@ -708,11 +586,11 @@ InlineQueryResultContact:
   required: false
 - name: input_message_content
   required: false
-- name: thumb_url
+- name: thumbnail_url
   required: false
-- name: thumb_width
+- name: thumbnail_width
   required: false
-- name: thumb_height
+- name: thumbnail_height
   required: false
 InlineQueryResultCachedVoice:
 - name: type
@@ -903,32 +781,12 @@ InlineQueryResultArticle:
   required: false
 - name: description
   required: false
-- name: thumb_url
+- name: thumbnail_url
   required: false
-- name: thumb_width
+- name: thumbnail_width
   required: false
-- name: thumb_height
+- name: thumbnail_height
   required: false
-InlineQuery:
-- name: id
-  required: true
-- name: from
-  required: true
-- name: query
-  required: true
-- name: offset
-  required: true
-- name: chat_type
-  required: false
-- name: location
-  required: false
-GameHighScore:
-- name: position
-  required: true
-- name: user
-  required: true
-- name: score
-  required: true
 ForumTopic:
 - name: message_thread_id
   required: true
@@ -945,34 +803,170 @@ ForceReply:
   required: false
 - name: selective
   required: false
-ChosenInlineResult:
-- name: result_id
+BotShortDescription:
+- name: short_description
   required: true
-- name: from
+BotName:
+- name: name
   required: true
-- name: location
-  required: false
-- name: inline_message_id
-  required: false
-- name: query
+BotDescription:
+- name: description
   required: true
-ChatShared:
-- name: request_id
+BotCommandScopeDefault:
+- name: type
+  required: true
+BotCommandScopeChatMember:
+- name: type
   required: true
 - name: chat_id
   required: true
-ChatMemberUpdated:
+- name: user_id
+  required: true
+BotCommandScopeChatAdministrators:
+- name: type
+  required: true
+- name: chat_id
+  required: true
+BotCommandScopeChat:
+- name: type
+  required: true
+- name: chat_id
+  required: true
+BotCommandScopeAllPrivateChats:
+- name: type
+  required: true
+BotCommandScopeAllGroupChats:
+- name: type
+  required: true
+BotCommandScopeAllChatAdministrators:
+- name: type
+  required: true
+ChatAdministratorRights:
+- name: is_anonymous
+  required: true
+- name: can_manage_chat
+  required: true
+- name: can_delete_messages
+  required: true
+- name: can_manage_video_chats
+  required: true
+- name: can_restrict_members
+  required: true
+- name: can_promote_members
+  required: true
+- name: can_change_info
+  required: true
+- name: can_invite_users
+  required: true
+- name: can_post_messages
+  required: false
+- name: can_edit_messages
+  required: false
+- name: can_pin_messages
+  required: false
+- name: can_manage_topics
+  required: false
+MenuButtonWebApp:
+- name: type
+  required: true
+- name: text
+  required: true
+- name: web_app
+  required: true
+MenuButtonCommands:
+- name: type
+  required: true
+MenuButtonDefault:
+- name: type
+  required: true
+SentWebAppMessage:
+- name: inline_message_id
+  required: false
+MessageId:
+- name: message_id
+  required: true
+BotCommand:
+- name: command
+  required: true
+- name: description
+  required: true
+GameHighScore:
+- name: position
+  required: true
+- name: user
+  required: true
+- name: score
+  required: true
+StickerSet:
+- name: name
+  required: true
+- name: title
+  required: true
+- name: sticker_type
+  required: true
+- name: is_animated
+  required: true
+- name: is_video
+  required: true
+- name: stickers
+  required: true
+- name: thumbnail
+  required: false
+UserProfilePhotos:
+- name: total_count
+  required: true
+- name: photos
+  required: true
+WebhookInfo:
+- name: url
+  required: true
+- name: has_custom_certificate
+  required: true
+- name: pending_update_count
+  required: true
+- name: ip_address
+  required: false
+- name: last_error_date
+  required: false
+- name: last_error_message
+  required: false
+- name: last_synchronization_error_date
+  required: false
+- name: max_connections
+  required: false
+- name: allowed_updates
+  required: false
+ChatJoinRequest:
 - name: chat
   required: true
 - name: from
   required: true
+- name: user_chat_id
+  required: true
 - name: date
   required: true
-- name: old_chat_member
-  required: true
-- name: new_chat_member
-  required: true
+- name: bio
+  required: false
 - name: invite_link
+  required: false
+ChatInviteLink:
+- name: invite_link
+  required: true
+- name: creator
+  required: true
+- name: creates_join_request
+  required: true
+- name: is_primary
+  required: true
+- name: is_revoked
+  required: true
+- name: name
+  required: false
+- name: expire_date
+  required: false
+- name: member_limit
+  required: false
+- name: pending_join_request_count
   required: false
 ChatMemberRestricted:
 - name: status
@@ -1070,64 +1064,92 @@ ChatMemberAdministrator:
   required: false
 - name: custom_title
   required: false
-ChatMember: []
-ChatJoinRequest:
+ChatMemberUpdated:
 - name: chat
   required: true
 - name: from
   required: true
-- name: user_chat_id
-  required: true
 - name: date
   required: true
-- name: bio
-  required: false
+- name: old_chat_member
+  required: true
+- name: new_chat_member
+  required: true
 - name: invite_link
   required: false
-ChatInviteLink:
-- name: invite_link
-  required: true
-- name: creator
-  required: true
-- name: creates_join_request
-  required: true
-- name: is_primary
-  required: true
-- name: is_revoked
-  required: true
-- name: name
+- name: via_chat_folder_invite_link
   required: false
-- name: expire_date
+PollAnswer:
+- name: poll_id
+  required: true
+- name: user
+  required: true
+- name: option_ids
+  required: true
+PreCheckoutQuery:
+- name: id
+  required: true
+- name: from
+  required: true
+- name: currency
+  required: true
+- name: total_amount
+  required: true
+- name: invoice_payload
+  required: true
+- name: shipping_option_id
   required: false
-- name: member_limit
+- name: order_info
   required: false
-- name: pending_join_request_count
+ShippingQuery:
+- name: id
+  required: true
+- name: from
+  required: true
+- name: invoice_payload
+  required: true
+- name: shipping_address
+  required: true
+CallbackQuery:
+- name: id
+  required: true
+- name: from
+  required: true
+- name: message
   required: false
-ChatAdministratorRights:
-- name: is_anonymous
-  required: true
-- name: can_manage_chat
-  required: true
-- name: can_delete_messages
-  required: true
-- name: can_manage_video_chats
-  required: true
-- name: can_restrict_members
-  required: true
-- name: can_promote_members
-  required: true
-- name: can_change_info
-  required: true
-- name: can_invite_users
-  required: true
-- name: can_post_messages
+- name: inline_message_id
   required: false
-- name: can_edit_messages
+- name: chat_instance
+  required: true
+- name: data
   required: false
-- name: can_pin_messages
+- name: game_short_name
   required: false
-- name: can_manage_topics
+ChosenInlineResult:
+- name: result_id
+  required: true
+- name: from
+  required: true
+- name: location
   required: false
+- name: inline_message_id
+  required: false
+- name: query
+  required: true
+InlineQuery:
+- name: id
+  required: true
+- name: from
+  required: true
+- name: query
+  required: true
+- name: offset
+  required: true
+- name: chat_type
+  required: false
+- name: location
+  required: false
+CallbackGame: []
 LoginUrl:
 - name: url
   required: true
@@ -1154,6 +1176,8 @@ InlineKeyboardButton:
 - name: switch_inline_query
   required: false
 - name: switch_inline_query_current_chat
+  required: false
+- name: switch_inline_query_chosen_chat
   required: false
 - name: callback_game
   required: false
@@ -1242,7 +1266,19 @@ PassportData:
   required: true
 - name: credentials
   required: true
-WriteAccessAllowed: []
+WriteAccessAllowed:
+- name: web_app_name
+  required: false
+ChatShared:
+- name: request_id
+  required: true
+- name: chat_id
+  required: true
+UserShared:
+- name: request_id
+  required: true
+- name: user_id
+  required: true
 ShippingAddress:
 - name: country_code
   required: true
@@ -1390,7 +1426,7 @@ VideoNote:
   required: true
 - name: duration
   required: true
-- name: thumb
+- name: thumbnail
   required: false
 - name: file_size
   required: false
@@ -1405,7 +1441,7 @@ Video:
   required: true
 - name: duration
   required: true
-- name: thumb
+- name: thumbnail
   required: false
 - name: file_name
   required: false
@@ -1446,7 +1482,7 @@ Sticker:
   required: true
 - name: is_video
   required: true
-- name: thumb
+- name: thumbnail
   required: false
 - name: emoji
   required: false
@@ -1458,6 +1494,8 @@ Sticker:
   required: false
 - name: custom_emoji_id
   required: false
+- name: needs_repainting
+  required: false
 - name: file_size
   required: false
 Document:
@@ -1465,7 +1503,56 @@ Document:
   required: true
 - name: file_unique_id
   required: true
-- name: thumb
+- name: thumbnail
+  required: false
+- name: file_name
+  required: false
+- name: mime_type
+  required: false
+- name: file_size
+  required: false
+Audio:
+- name: file_id
+  required: true
+- name: file_unique_id
+  required: true
+- name: duration
+  required: true
+- name: performer
+  required: false
+- name: title
+  required: false
+- name: file_name
+  required: false
+- name: mime_type
+  required: false
+- name: file_size
+  required: false
+- name: thumbnail
+  required: false
+PhotoSize:
+- name: file_id
+  required: true
+- name: file_unique_id
+  required: true
+- name: width
+  required: true
+- name: height
+  required: true
+- name: file_size
+  required: false
+Animation:
+- name: file_id
+  required: true
+- name: file_unique_id
+  required: true
+- name: width
+  required: true
+- name: height
+  required: true
+- name: duration
+  required: true
+- name: thumbnail
   required: false
 - name: file_name
   required: false
@@ -1600,6 +1687,29 @@ Chat:
 - name: linked_chat_id
   required: false
 - name: location
+  required: false
+User:
+- name: id
+  required: true
+- name: is_bot
+  required: true
+- name: first_name
+  required: true
+- name: last_name
+  required: false
+- name: username
+  required: false
+- name: language_code
+  required: false
+- name: is_premium
+  required: false
+- name: added_to_attachment_menu
+  required: false
+- name: can_join_groups
+  required: false
+- name: can_read_all_group_messages
+  required: false
+- name: supports_inline_queries
   required: false
 Message:
 - name: message_id
@@ -1744,125 +1854,34 @@ Message:
   required: false
 - name: reply_markup
   required: false
-User:
-- name: id
-  required: true
-- name: is_bot
-  required: true
-- name: first_name
-  required: true
-- name: last_name
-  required: false
-- name: username
-  required: false
-- name: language_code
-  required: false
-- name: is_premium
-  required: false
-- name: added_to_attachment_menu
-  required: false
-- name: can_join_groups
-  required: false
-- name: can_read_all_group_messages
-  required: false
-- name: supports_inline_queries
-  required: false
-CallbackQuery:
-- name: id
-  required: true
-- name: from
+Update:
+- name: update_id
   required: true
 - name: message
   required: false
-- name: inline_message_id
+- name: edited_message
   required: false
-- name: chat_instance
-  required: true
-- name: data
+- name: channel_post
   required: false
-- name: game_short_name
+- name: edited_channel_post
   required: false
-CallbackGame: []
-BotCommandScopeDefault:
-- name: type
-  required: true
-BotCommandScopeChatMember:
-- name: type
-  required: true
-- name: chat_id
-  required: true
-- name: user_id
-  required: true
-BotCommandScopeChatAdministrators:
-- name: type
-  required: true
-- name: chat_id
-  required: true
-BotCommandScopeChat:
-- name: type
-  required: true
-- name: chat_id
-  required: true
-BotCommandScopeAllPrivateChats:
-- name: type
-  required: true
-BotCommandScopeAllGroupChats:
-- name: type
-  required: true
-BotCommandScopeAllChatAdministrators:
-- name: type
-  required: true
-BotCommand:
-- name: command
-  required: true
-- name: description
-  required: true
-Audio:
-- name: file_id
-  required: true
-- name: file_unique_id
-  required: true
-- name: duration
-  required: true
-- name: performer
+- name: inline_query
   required: false
-- name: title
+- name: chosen_inline_result
   required: false
-- name: file_name
+- name: callback_query
   required: false
-- name: mime_type
+- name: shipping_query
   required: false
-- name: file_size
+- name: pre_checkout_query
   required: false
-- name: thumb
+- name: poll
   required: false
-PhotoSize:
-- name: file_id
-  required: true
-- name: file_unique_id
-  required: true
-- name: width
-  required: true
-- name: height
-  required: true
-- name: file_size
+- name: poll_answer
   required: false
-Animation:
-- name: file_id
-  required: true
-- name: file_unique_id
-  required: true
-- name: width
-  required: true
-- name: height
-  required: true
-- name: duration
-  required: true
-- name: thumb
+- name: my_chat_member
   required: false
-- name: file_name
+- name: chat_member
   required: false
-- name: mime_type
-  required: false
-- name: file_size
+- name: chat_join_request
   required: false
