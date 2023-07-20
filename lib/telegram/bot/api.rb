@@ -56,7 +56,7 @@ module Telegram
       def call(endpoint, raw_params = {})
         params = build_params(raw_params)
         path = build_path(endpoint)
-        response = conn.post(path, params)
+        response = connection.post(path, params)
         unless response.status == 200
           raise Exceptions::ResponseError.new(response), 'Telegram API has returned the error.'
         end
@@ -96,8 +96,8 @@ module Telegram
         words.join
       end
 
-      def conn
-        @conn ||= Faraday.new(url: url) do |faraday|
+      def connection
+        @connection ||= Faraday.new(url: url) do |faraday|
           faraday.request :multipart
           faraday.request :url_encoded
           faraday.adapter Telegram::Bot.configuration.adapter
