@@ -3,8 +3,14 @@
 module Telegram
   module Bot
     module Types
-      class ChatMember < Base
-      end
+      CHAT_MEMBER = (
+        ChatMemberAdministrator |
+        ChatMemberBanned |
+        ChatMemberLeft |
+        ChatMemberMember |
+        ChatMemberOwner |
+        ChatMemberRestricted
+      )
     end
   end
 end

@@ -7,8 +7,8 @@ module Telegram
         attribute :chat, Chat
         attribute :from, User
         attribute :date, Types::Integer
-        attribute :old_chat_member, ChatMember
-        attribute :new_chat_member, ChatMember
+        attribute :old_chat_member, CHAT_MEMBER
+        attribute :new_chat_member, CHAT_MEMBER
         attribute? :invite_link, ChatInviteLink
       end
     end

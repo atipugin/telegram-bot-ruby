@@ -3,8 +3,8 @@
 module Telegram
   module Bot
     module Types
-      class ChatMemberAdministrator < ChatMember
-        attribute :status, Types::String
+      class ChatMemberAdministrator < Base
+        attribute :status, Types::String.constrained(eql: 'administrator').default('administrator')
         attribute :user, User
         attribute :can_be_edited, Types::Bool
         attribute :is_anonymous, Types::Bool

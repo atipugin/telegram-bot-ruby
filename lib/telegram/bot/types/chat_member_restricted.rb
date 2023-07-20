@@ -3,8 +3,8 @@
 module Telegram
   module Bot
     module Types
-      class ChatMemberRestricted < ChatMember
-        attribute :status, Types::String
+      class ChatMemberRestricted < Base
+        attribute :status, Types::String.constrained(eql: 'restricted').default('restricted')
         attribute :user, User
         attribute :is_member, Types::Bool
         attribute :can_send_messages, Types::Bool

@@ -137,4 +137,111 @@ RSpec.describe Telegram::Bot::Api do
   #     it { is_expected.to eq menu_button }
   #   end
   # end
+
+  describe '#getUpdates' do
+    subject { api.getUpdates }
+
+    describe 'with chat member' do
+      let(:stubbed_response) do
+        {
+          'ok' => true,
+          'result' => [
+            {
+              'update_id' => 111_111,
+              'my_chat_member' => {
+                'chat' => {
+                  'id' => 222_222,
+                  'first_name' => 'Alexander',
+                  'last_name' => 'Popov',
+                  'username' => 'AlexWayfer',
+                  'type' => 'private'
+                },
+                'from' => {
+                  'id' => 222_222,
+                  'is_bot' => false,
+                  'first_name' => 'Alexander',
+                  'last_name' => 'Popov',
+                  'username' => 'AlexWayfer',
+                  'language_code' => 'en',
+                  'is_premium' => true
+                },
+                'date' => 1_689_850_120,
+                'old_chat_member' => {
+                  'user' => {
+                    'id' => 333_333,
+                    'is_bot' => true,
+                    'first_name' => 'Test Bot',
+                    'username' => 'test_bot'
+                  },
+                  'status' => 'member'
+                },
+                'new_chat_member' => {
+                  'user' => {
+                    'id' => 333_333,
+                    'is_bot' => true,
+                    'first_name' => 'Test Bot',
+                    'username' => 'test_bot'
+                  },
+                  'status' => 'kicked',
+                  'until_date' => 0
+                }
+              }
+            }
+          ]
+        }
+      end
+
+      let(:expected_data) do
+        [
+          Telegram::Bot::Types::Update.new(
+            'update_id' => 111_111,
+            'my_chat_member' => Telegram::Bot::Types::ChatMemberUpdated.new(
+              'chat' => Telegram::Bot::Types::Chat.new(
+                'id' => 222_222,
+                'first_name' => 'Alexander',
+                'last_name' => 'Popov',
+                'username' => 'AlexWayfer',
+                'type' => 'private'
+              ),
+              'from' => Telegram::Bot::Types::User.new(
+                'id' => 222_222,
+                'is_bot' => false,
+                'first_name' => 'Alexander',
+                'last_name' => 'Popov',
+                'username' => 'AlexWayfer',
+                'language_code' => 'en',
+                'is_premium' => true
+              ),
+              'date' => 1_689_850_120,
+              'old_chat_member' => Telegram::Bot::Types::ChatMemberMember.new(
+                'user' => {
+                  'id' => 333_333,
+                  'is_bot' => true,
+                  'first_name' => 'Test Bot',
+                  'username' => 'test_bot'
+                },
+                'status' => 'member'
+              ),
+              'new_chat_member' => Telegram::Bot::Types::ChatMemberBanned.new(
+                'user' => {
+                  'id' => 333_333,
+                  'is_bot' => true,
+                  'first_name' => 'Test Bot',
+                  'username' => 'test_bot'
+                },
+                'status' => 'kicked',
+                'until_date' => 0
+              )
+            )
+          )
+        ]
+      end
+
+      before do
+        allow(api).to receive(:call).with('getUpdates').and_return(stubbed_response)
+      end
+
+      it { is_expected.to eq expected_data }
+    end
+  end
 end

@@ -3,8 +3,8 @@
 module Telegram
   module Bot
     module Types
-      class ChatMemberLeft < ChatMember
-        attribute :status, Types::String
+      class ChatMemberLeft < Base
+        attribute :status, Types::String.constrained(eql: 'left').default('left')
         attribute :user, User
       end
     end
