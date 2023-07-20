@@ -88,4 +88,53 @@ RSpec.describe Telegram::Bot::Api do
 
     it { is_expected.to all be_an_instance_of(Telegram::Bot::Types::BotCommand) }
   end
+
+  pending '#getChatMenuButton'
+
+  ## I don't know why `setChatMenuButton` returns `OK` but changes nothing
+  ## Code is commented, because `pending` is not enough:
+  ## some of these specs are not failing returning the same button as it was
+
+  # describe '#getChatMenuButton' do
+  #   subject { api.getChatMenuButton }
+  #
+  #   context "when it's commands" do
+  #     let(:menu_button) { Telegram::Bot::Types::MenuButtonCommands.new }
+  #
+  #     around do |example|
+  #       # api.send(:connection).response :logger, nil, { headers: true, bodies: true }
+  #
+  #       old_menu_button = api.getChatMenuButton
+  #       api.setChatMenuButton(menu_button: menu_button)
+  #
+  #       example.run
+  #
+  #       api.setChatMenuButton(menu_button: old_menu_button)
+  #     end
+  #
+  #     it { is_expected.to eq menu_button }
+  #   end
+  #
+  #   context "when it's web app" do
+  #     let(:menu_button) do
+  #       Telegram::Bot::Types::MenuButtonWebApp.new(
+  #         text: 'Open link',
+  #         web_app: Telegram::Bot::Types::WebAppInfo.new(url: 'https://example.org/')
+  #       )
+  #     end
+  #
+  #     around do |example|
+  #       # api.send(:connection).response :logger, nil, { headers: true, bodies: true }
+  #
+  #       old_menu_button = api.getChatMenuButton
+  #       api.setChatMenuButton(menu_button: menu_button)
+  #
+  #       example.run
+  #
+  #       api.setChatMenuButton(menu_button: old_menu_button)
+  #     end
+  #
+  #     it { is_expected.to eq menu_button }
+  #   end
+  # end
 end
