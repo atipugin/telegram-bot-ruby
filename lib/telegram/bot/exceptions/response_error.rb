@@ -6,7 +6,7 @@ module Telegram
       class ResponseError < Base
         attr_reader :response
 
-        def initialize(response)
+        def initialize(response:)
           @response = response
 
           super "Telegram API has returned the error. (#{data.map { |k, v| %(#{k}: #{v.inspect}) }.join(', ')})"
