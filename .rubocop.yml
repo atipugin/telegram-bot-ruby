@@ -22,3 +22,6 @@ Metrics/ClassLength:
 
 Layout/LineLength:
   Max: 120
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
