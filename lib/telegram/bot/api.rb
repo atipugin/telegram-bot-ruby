@@ -58,7 +58,7 @@ module Telegram
         path = build_path(endpoint)
         response = conn.post(path, params)
         unless response.status == 200
-          raise Exceptions::ResponseError.new(response), 'Telegram API has returned the error.'
+          raise Exceptions::ResponseError.new(response)
         end
 
         JSON.parse(response.body)
