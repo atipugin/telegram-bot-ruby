@@ -96,7 +96,13 @@ module Telegram
         'reopenGeneralForumTopic' => Types::Bool,
         'hideGeneralForumTopic' => Types::Bool,
         'unhideGeneralForumTopic' => Types::Bool,
-        'unpinAllGeneralForumTopicMessages' => Types::Bool
+        'unpinAllGeneralForumTopicMessages' => Types::Bool,
+        'setMyName' => Types::Bool,
+        'getMyName' => Types::BotName,
+        'setMyDescription' => Types::Bool,
+        'getMyDescription' => Types::BotDescription,
+        'setMyShortDescription' => Types::Bool,
+        'getMyShortDescription' => Types::BotShortDescription
       }.freeze
     end
   end
