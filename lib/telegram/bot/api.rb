@@ -39,6 +39,16 @@ module Telegram
         @environment = environment.downcase.to_sym
       end
 
+      def connection
+        @connection ||= Faraday.new(url: url) do |faraday|
+          faraday.request :multipart
+          faraday.request :url_encoded
+          faraday.adapter Telegram::Bot.configuration.adapter
+          faraday.options.timeout = Telegram::Bot.configuration.connection_timeout
+          faraday.options.open_timeout = Telegram::Bot.configuration.connection_open_timeout
+        end
+      end
+
       def method_missing(method_name, *args, &block)
         endpoint = method_name.to_s
         endpoint = camelize(endpoint) if endpoint.include?('_')
@@ -56,7 +66,7 @@ module Telegram
       def call(endpoint, raw_params = {})
         params = build_params(raw_params)
         path = build_path(endpoint)
-        response = conn.post(path, params)
+        response = connection.post(path, params)
         raise Exceptions::ResponseError.new(response: response) unless response.status == 200
 
         JSON.parse(response.body)
@@ -92,16 +102,6 @@ module Telegram
         words = method_name.split('_')
         words.drop(1).map(&:capitalize!)
         words.join
-      end
-
-      def conn
-        @conn ||= Faraday.new(url: url) do |faraday|
-          faraday.request :multipart
-          faraday.request :url_encoded
-          faraday.adapter Telegram::Bot.configuration.adapter
-          faraday.options.timeout = Telegram::Bot.configuration.connection_timeout
-          faraday.options.open_timeout = Telegram::Bot.configuration.connection_open_timeout
-        end
       end
     end
   end
