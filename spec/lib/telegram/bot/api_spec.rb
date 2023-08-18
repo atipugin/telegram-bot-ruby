@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Telegram::Bot::Api do
+RSpec.describe Telegram::Bot::Api, :vcr do
   let(:token) { ENV.fetch('BOT_API_TOKEN') }
   let(:environment) { ENV.fetch('BOT_API_ENV', :test) }
   let(:endpoint) { 'getMe' }
@@ -25,8 +25,10 @@ RSpec.describe Telegram::Bot::Api do
       let(:token) { '123456:wrongtoken' }
 
       it 'raises an error' do
-        expect { api_call }
-          .to raise_error(Telegram::Bot::Exceptions::ResponseError)
+        expect { api_call }.to raise_error(
+          Telegram::Bot::Exceptions::ResponseError,
+          'Telegram API has returned the error. (ok: false, error_code: 401, description: "Unauthorized")'
+        )
       end
     end
 
