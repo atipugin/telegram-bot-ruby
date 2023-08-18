@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Telegram::Bot::Exceptions::ResponseError do
+RSpec.describe Telegram::Bot::Exceptions::ResponseError, :vcr do
   subject(:error) do
     described_class.new(response)
   rescue StandardError => e
