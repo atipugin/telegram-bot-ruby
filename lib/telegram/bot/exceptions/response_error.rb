@@ -6,21 +6,15 @@ module Telegram
       class ResponseError < Base
         attr_reader :response
 
-        def initialize(response)
+        def initialize(response:)
           @response = response
-          super
-        end
 
-        def to_s
-          super +
-            format(' (%s)', data.map { |k, v| %(#{k}: "#{v}") }.join(', '))
+          super "Telegram API has returned the error. (#{data.map { |k, v| %(#{k}: #{v.inspect}) }.join(', ')})"
         end
 
         def error_code
           data[:error_code] || data['error_code']
         end
-
-        private
 
         def data
           @data ||= begin
