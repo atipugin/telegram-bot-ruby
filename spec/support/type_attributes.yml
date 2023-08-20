@@ -1082,8 +1082,10 @@ ChatMemberUpdated:
 PollAnswer:
 - name: poll_id
   required: true
+- name: voter_chat
+  required: false
 - name: user
-  required: true
+  required: false
 - name: option_ids
   required: true
 PreCheckoutQuery:
@@ -1150,6 +1152,17 @@ InlineQuery:
 - name: location
   required: false
 CallbackGame: []
+SwitchInlineQueryChosenChat:
+- name: query
+  required: false
+- name: allow_user_chats
+  required: false
+- name: allow_bot_chats
+  required: false
+- name: allow_group_chats
+  required: false
+- name: allow_channel_chats
+  required: false
 LoginUrl:
 - name: url
   required: true
@@ -1449,6 +1462,7 @@ Video:
   required: false
 - name: file_size
   required: false
+Story: []
 MaskPosition:
 - name: point
   required: true
@@ -1652,6 +1666,8 @@ Chat:
   required: false
 - name: emoji_status_custom_emoji_id
   required: false
+- name: emoji_status_expiration_date
+  required: false
 - name: bio
   required: false
 - name: has_private_forwards
@@ -1765,6 +1781,8 @@ Message:
 - name: photo
   required: false
 - name: sticker
+  required: false
+- name: story
   required: false
 - name: video
   required: false
