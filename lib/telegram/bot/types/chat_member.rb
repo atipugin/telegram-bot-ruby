@@ -3,7 +3,9 @@
 module Telegram
   module Bot
     module Types
-      CHAT_MEMBER = (
+      ## Just for classes consistency
+      # rubocop:disable Naming/ConstantName
+      ChatMember = (
         ChatMemberAdministrator |
         ChatMemberBanned |
         ChatMemberLeft |
@@ -11,6 +13,7 @@ module Telegram
         ChatMemberOwner |
         ChatMemberRestricted
       )
+      # rubocop:enable Naming/ConstantName
     end
   end
 end

@@ -25,6 +25,6 @@ end
 
 loader = Zeitwerk::Loader.new
 loader.inflector = Zeitwerk::GemInflector.new(__FILE__)
-loader.inflector.inflect('endpoints' => 'ENDPOINTS', 'chat_member' => 'CHAT_MEMBER')
+loader.inflector.inflect('endpoints' => 'ENDPOINTS')
 loader.push_dir("#{__dir__}/bot", namespace: Telegram::Bot)
 loader.setup
