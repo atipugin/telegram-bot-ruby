@@ -31,6 +31,7 @@ module Telegram
         attribute? :document, Document
         attribute? :photo, Types::Array.of(PhotoSize)
         attribute? :sticker, Sticker
+        attribute? :story, Story
         attribute? :video, Video
         attribute? :video_note, VideoNote
         attribute? :voice, Voice

@@ -10,8 +10,8 @@ module Telegram
         attribute? :mpeg4_width, Types::Integer
         attribute? :mpeg4_height, Types::Integer
         attribute? :mpeg4_duration, Types::Integer
-        attribute :thumb_url, Types::String
-        attribute? :thumb_mime_type, Types::String
+        attribute :thumbnail_url, Types::String
+        attribute? :thumbnail_mime_type, Types::String
         attribute? :title, Types::String
         attribute? :caption, Types::String
         attribute? :parse_mode, Types::String

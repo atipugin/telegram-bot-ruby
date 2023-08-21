@@ -3,8 +3,8 @@
 module Telegram
   module Bot
     module Types
-      class ChatMemberBanned < ChatMember
-        attribute :status, Types::String
+      class ChatMemberBanned < Base
+        attribute :status, Types::String.constrained(eql: 'kicked').default('kicked')
         attribute :user, User
         attribute :until_date, Types::Integer
       end

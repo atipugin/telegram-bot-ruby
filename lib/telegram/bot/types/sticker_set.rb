@@ -10,7 +10,7 @@ module Telegram
         attribute :is_animated, Types::Bool
         attribute :is_video, Types::Bool
         attribute :stickers, Types::Array.of(Sticker)
-        attribute? :thumb, PhotoSize
+        attribute? :thumbnail, PhotoSize
       end
     end
   end

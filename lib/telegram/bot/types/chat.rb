@@ -14,6 +14,7 @@ module Telegram
         attribute? :photo, ChatPhoto
         attribute? :active_usernames, Types::Array.of(Types::String)
         attribute? :emoji_status_custom_emoji_id, Types::String
+        attribute? :emoji_status_expiration_date, Types::Integer
         attribute? :bio, Types::String
         attribute? :has_private_forwards, Types::Bool
         attribute? :has_restricted_voice_and_video_messages, Types::Bool

@@ -15,9 +15,9 @@ module Telegram
         attribute? :proximity_alert_radius, Types::Integer
         attribute? :reply_markup, InlineKeyboardMarkup
         attribute? :input_message_content, InputMessageContent
-        attribute? :thumb_url, Types::String
-        attribute? :thumb_width, Types::Integer
-        attribute? :thumb_height, Types::Integer
+        attribute? :thumbnail_url, Types::String
+        attribute? :thumbnail_width, Types::Integer
+        attribute? :thumbnail_height, Types::Integer
       end
     end
   end

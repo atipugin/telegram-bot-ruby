@@ -8,7 +8,7 @@ module Telegram
         attribute :file_unique_id, Types::String
         attribute :length, Types::Integer
         attribute :duration, Types::Integer
-        attribute? :thumb, PhotoSize
+        attribute? :thumbnail, PhotoSize
         attribute? :file_size, Types::Integer
       end
     end

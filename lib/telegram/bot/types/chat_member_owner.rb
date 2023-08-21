@@ -3,8 +3,8 @@
 module Telegram
   module Bot
     module Types
-      class ChatMemberOwner < ChatMember
-        attribute :status, Types::String
+      class ChatMemberOwner < Base
+        attribute :status, Types::String.constrained(eql: 'creator').default('creator')
         attribute :user, User
         attribute :is_anonymous, Types::Bool
         attribute? :custom_title, Types::String
