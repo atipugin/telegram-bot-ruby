@@ -1,0 +1,42 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.telegram.org/bot<BOT_API_TOKEN>/test/getMe
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.7.10
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      server:
+      - nginx/1.18.0
+      date:
+      - Mon, 21 Aug 2023 09:12:16 GMT
+      content-type:
+      - application/json
+      content-length:
+      - '200'
+      connection:
+      - keep-alive
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      access-control-allow-origin:
+      - "*"
+      access-control-allow-methods:
+      - GET, POST, OPTIONS
+      access-control-expose-headers:
+      - Content-Length,Content-Type,Date,Server,Connection
+    body:
+      encoding: UTF-8
+      string: '{"ok":true,"result":{"id":2200529744,"is_bot":true,"first_name":"Test
+        bot","username":"alexwayfer_test_bot","can_join_groups":true,"can_read_all_group_messages":false,"supports_inline_queries":false}}'
+  recorded_at: Mon, 21 Aug 2023 09:12:16 GMT
+recorded_with: VCR 6.1.0

@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.telegram.org/bot123456:wrongtoken/getMe
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.7.10
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      server:
+      - nginx/1.18.0
+      date:
+      - Mon, 21 Aug 2023 09:12:18 GMT
+      content-type:
+      - application/json
+      content-length:
+      - '58'
+      connection:
+      - keep-alive
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      access-control-allow-origin:
+      - "*"
+      access-control-expose-headers:
+      - Content-Length,Content-Type,Date,Server,Connection
+    body:
+      encoding: UTF-8
+      string: '{"ok":false,"error_code":401,"description":"Unauthorized"}'
+  recorded_at: Mon, 21 Aug 2023 09:12:18 GMT
+recorded_with: VCR 6.1.0
