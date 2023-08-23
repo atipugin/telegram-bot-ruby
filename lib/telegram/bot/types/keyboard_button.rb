@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+require_relative 'keyboard_button_poll_type'
+require_relative 'keyboard_button_request_chat'
+require_relative 'keyboard_button_request_user'
+
 module Telegram
   module Bot
     module Types

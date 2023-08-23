@@ -4,8 +4,11 @@ require 'logger'
 require 'json'
 require 'faraday'
 require 'faraday/multipart'
-require 'zeitwerk'
 require 'dry-struct'
+
+require_relative 'bot/types'
+require_relative 'bot/configuration'
+require_relative 'bot/client'
 
 module Telegram
   module Bot
@@ -22,9 +25,3 @@ module Telegram
     end
   end
 end
-
-loader = Zeitwerk::Loader.new
-loader.inflector = Zeitwerk::GemInflector.new(__FILE__)
-loader.inflector.inflect('endpoints' => 'ENDPOINTS')
-loader.push_dir("#{__dir__}/bot", namespace: Telegram::Bot)
-loader.setup

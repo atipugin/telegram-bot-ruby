@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'input_message_content'
+
 module Telegram
   module Bot
     module Types

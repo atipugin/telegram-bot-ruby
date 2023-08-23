@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'mask_position'
+
 module Telegram
   module Bot
     module Types

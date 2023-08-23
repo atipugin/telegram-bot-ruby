@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+require_relative 'chat_photo'
+require_relative 'chat_permissions'
+require_relative 'chat_location'
+
 module Telegram
   module Bot
     module Types

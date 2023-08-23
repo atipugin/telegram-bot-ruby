@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'labeled_price'
+
 module Telegram
   module Bot
     module Types

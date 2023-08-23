@@ -24,7 +24,6 @@ task :dump_type_attributes do
   require 'yaml'
 
   # Preload every type we have
-  Zeitwerk::Loader.eager_load_all
   types = Telegram::Bot::Types::Base.descendants.map { |c| c.name.split('::').last }
 
   # Fetch and parse docs

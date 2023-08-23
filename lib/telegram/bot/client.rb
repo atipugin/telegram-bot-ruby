@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require_relative 'api'
+require_relative 'null_logger'
+
 module Telegram
   module Bot
     class Client

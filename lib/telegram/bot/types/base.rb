@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require_relative 'compactable'
+require_relative 'pattern_matching'
+
 module Telegram
   module Bot
     module Types

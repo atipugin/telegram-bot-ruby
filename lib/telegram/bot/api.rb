@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require_relative 'api/endpoints'
+require_relative 'exceptions/response_error'
+
 module Telegram
   module Bot
     class Api

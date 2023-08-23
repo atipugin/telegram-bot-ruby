@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+require_relative 'login_url'
+require_relative 'switch_inline_query_chosen_chat'
+require_relative 'web_app_info'
+
 module Telegram
   module Bot
     module Types

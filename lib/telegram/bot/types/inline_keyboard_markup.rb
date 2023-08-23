@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'inline_keyboard_button'
+
 module Telegram
   module Bot
     module Types
