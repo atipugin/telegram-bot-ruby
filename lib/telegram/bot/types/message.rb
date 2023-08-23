@@ -1,38 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'chat_shared'
-require_relative 'contact'
-require_relative 'dice'
-require_relative 'document'
-require_relative 'forum_topic_created'
-require_relative 'forum_topic_edited'
-require_relative 'forum_topic_closed'
-require_relative 'forum_topic_reopened'
-require_relative 'game'
-require_relative 'general_forum_topic_hidden'
-require_relative 'general_forum_topic_unhidden'
-require_relative 'inline_keyboard_markup'
-require_relative 'invoice'
-require_relative 'message_auto_delete_timer_changed'
-require_relative 'message_entity'
-require_relative 'passport_data'
-require_relative 'poll'
-require_relative 'proximity_alert_triggered'
-require_relative 'sticker'
-require_relative 'story'
-require_relative 'successful_payment'
-require_relative 'user_shared'
-require_relative 'venue'
-require_relative 'video'
-require_relative 'video_chat_scheduled'
-require_relative 'video_chat_started'
-require_relative 'video_chat_ended'
-require_relative 'video_chat_participants_invited'
-require_relative 'video_note'
-require_relative 'voice'
-require_relative 'web_app_data'
-require_relative 'write_access_allowed'
-
 module Telegram
   module Bot
     module Types

@@ -24,6 +24,7 @@ task :dump_type_attributes do
   require 'yaml'
 
   # Preload every type we have
+  Dir["#{__dir__}/lib/telegram/bot/types/**/*.rb"].sort.each { |file| require file }
   types = Telegram::Bot::Types::Base.descendants.map { |c| c.name.split('::').last }
 
   # Fetch and parse docs

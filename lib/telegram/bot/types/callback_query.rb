@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'user'
-require_relative 'message'
-
 module Telegram
   module Bot
     module Types

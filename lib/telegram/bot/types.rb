@@ -5,13 +5,14 @@ module Telegram
     module Types
       include Dry.Types()
 
-      ## Resolve circular dependency
-      autoload :Chat, "#{__dir__}/types/chat"
-      autoload :Message, "#{__dir__}/types/message"
+      types_dir = "#{__dir__}/types"
+      Dir["#{types_dir}/**/*.rb"].each do |file_name|
+        relative_file_path = Pathname.new(file_name).relative_path_from(types_dir).to_s.chomp('.rb')
+        constant_name = relative_file_path.split('/').map { |part| part.split('_').map(&:capitalize).join }.join('::')
+        autoload constant_name, file_name
+      end
     end
   end
 end
 
 require_relative 'types/base'
-
-Dir["#{__dir__}/types/*.rb"].sort.each { |file| require file }

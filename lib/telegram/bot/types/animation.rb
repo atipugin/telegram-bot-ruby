@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'photo_size'
-
 module Telegram
   module Bot
     module Types

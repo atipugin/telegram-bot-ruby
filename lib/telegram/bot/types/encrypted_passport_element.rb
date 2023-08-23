@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'passport_file'
-
 module Telegram
   module Bot
     module Types

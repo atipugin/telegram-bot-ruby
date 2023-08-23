@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'encrypted_passport_element'
-require_relative 'encrypted_credentials'
-
 module Telegram
   module Bot
     module Types

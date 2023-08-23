@@ -803,15 +803,6 @@ ForceReply:
   required: false
 - name: selective
   required: false
-BotShortDescription:
-- name: short_description
-  required: true
-BotName:
-- name: name
-  required: true
-BotDescription:
-- name: description
-  required: true
 BotCommandScopeDefault:
 - name: type
   required: true
@@ -840,6 +831,15 @@ BotCommandScopeAllGroupChats:
   required: true
 BotCommandScopeAllChatAdministrators:
 - name: type
+  required: true
+BotShortDescription:
+- name: short_description
+  required: true
+BotDescription:
+- name: description
+  required: true
+BotName:
+- name: name
   required: true
 ChatAdministratorRights:
 - name: is_anonymous
