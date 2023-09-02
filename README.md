@@ -82,6 +82,21 @@ end
 Same thing about `message` object: it implements [Message](https://core.telegram.org/bots/api#message) spec,
 so you always know what to expect from it.
 
+To gracefully stop the bot, for example by `INT` signal (Ctrl-C), call the `bot.stop` method:
+
+```ruby
+bot = Telegram::Bot::Client.new(token)
+
+Signal.trap('INT') do
+  bot.stop
+end
+
+bot.listen do |message|
+  # it will be in an infinity loop until `bot.stop` command
+  # (with a small delay for the current `fetch_updates` request)
+end
+```
+
 ## Webhooks
 
 If you are going to use [webhooks](https://core.telegram.org/bots/api#setwebhook)
