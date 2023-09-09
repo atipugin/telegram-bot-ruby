@@ -2,9 +2,7 @@
 
 require 'yaml'
 
-type_attributes = YAML.safe_load(
-  File.read(File.expand_path('../../../support/type_attributes.yml', __dir__))
-)
+type_attributes = YAML.safe_load File.read("#{__dir__}/../../../support/type_attributes.yml")
 
 RSpec.describe Telegram::Bot::Types do
   type_attributes.each do |type, attributes|
