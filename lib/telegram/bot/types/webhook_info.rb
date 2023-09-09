@@ -12,7 +12,7 @@ module Telegram
         attribute? :last_error_message, Types::String
         attribute? :last_synchronization_error_date, Types::Integer
         attribute? :max_connections, Types::Integer
-        attribute? :allowed_updates, Types::Array.of(String)
+        attribute? :allowed_updates, Types::Array.of(Types::String)
       end
     end
   end

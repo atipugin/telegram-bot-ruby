@@ -6,7 +6,7 @@ module Telegram
       class PassportElementErrorFiles < Base
         attribute :source, Types::String.constrained(eql: 'files').default('files')
         attribute :type, Types::String
-        attribute :file_hashes, Types::Array.of(String)
+        attribute :file_hashes, Types::Array.of(Types::String)
         attribute :message, Types::String
       end
     end
