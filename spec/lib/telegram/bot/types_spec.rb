@@ -9,7 +9,7 @@ type_attributes = YAML.safe_load(
 RSpec.describe Telegram::Bot::Types do
   type_attributes.each do |parsed_type, parsed_attributes|
     describe parsed_type do
-      subject(:klass) { Object.const_get("Telegram::Bot::Types::#{parsed_type}") }
+      subject(:klass) { described_class.const_get(parsed_type, false) }
 
       it 'has correct attributes' do
         expect(klass.schema.keys.map(&:name)).to eq(parsed_attributes.map { |e| e['name'].to_sym })
