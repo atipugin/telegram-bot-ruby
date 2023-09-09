@@ -5,7 +5,7 @@ module Telegram
     module Types
       class BotCommandScopeChat < Base
         attribute :type, Types::String.constrained(eql: 'chat').default('chat')
-        attribute :chat_id, Types::String
+        attribute :chat_id, Types::Integer | Types::String
       end
     end
   end
