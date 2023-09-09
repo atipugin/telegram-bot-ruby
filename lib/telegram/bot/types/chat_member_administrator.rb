@@ -16,9 +16,9 @@ module Telegram
         attribute :can_change_info, Types::Bool
         attribute :can_invite_users, Types::Bool
         attribute? :can_post_messages, Types::Bool
-        attribute? :can_edit_messages, Types::Integer
-        attribute? :can_pin_messages, Types::Integer
-        attribute? :can_manage_topics, Types::Integer
+        attribute? :can_edit_messages, Types::Bool
+        attribute? :can_pin_messages, Types::Bool
+        attribute? :can_manage_topics, Types::Bool
         attribute? :custom_title, Types::String
       end
     end
