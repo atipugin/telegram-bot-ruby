@@ -7,18 +7,20 @@ type_attributes = YAML.safe_load(
 )
 
 RSpec.describe Telegram::Bot::Types do
-  type_attributes.each do |type, attributes|
-    describe type do
-      subject(:klass) { Object.const_get("Telegram::Bot::Types::#{type}") }
+  type_attributes.each do |parsed_type, parsed_attributes|
+    describe parsed_type do
+      subject(:klass) { Object.const_get("Telegram::Bot::Types::#{parsed_type}") }
 
       it 'has correct attributes' do
-        expect(klass.schema.keys.map(&:name)).to eq(attributes.map { |e| e['name'].to_sym })
+        expect(klass.schema.keys.map(&:name)).to eq(parsed_attributes.map { |e| e['name'].to_sym })
       end
 
-      attributes.each do |attribute|
-        describe "##{attribute['name']}" do
+      parsed_attributes.each do |parsed_attribute|
+        describe "##{parsed_attribute['name']}" do
+          subject(:klass_attribute) { klass.schema.name_key_map[parsed_attribute['name'].to_sym] }
+
           it 'has correct optionality' do
-            expect(klass.schema.name_key_map[attribute['name'].to_sym]&.required?).to eq(attribute['required'])
+            expect(klass_attribute&.required?).to eq(parsed_attribute['required'])
           end
         end
       end
