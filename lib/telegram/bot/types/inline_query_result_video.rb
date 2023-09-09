@@ -4,7 +4,7 @@ module Telegram
   module Bot
     module Types
       class InlineQueryResultVideo < Base
-        attribute :type, Types::String.default('video')
+        attribute :type, Types::String.constrained(eql: 'video').default('video')
         attribute :id, Types::String
         attribute :video_url, Types::String
         attribute :mime_type, Types::String

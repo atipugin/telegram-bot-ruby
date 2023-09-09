@@ -4,7 +4,7 @@ module Telegram
   module Bot
     module Types
       class PassportElementErrorTranslationFiles < Base
-        attribute :source, Types::String.default('translation_files')
+        attribute :source, Types::String.constrained(eql: 'translation_files').default('translation_files')
         attribute :type, Types::String
         attribute :file_hashes, Types::Array.of(String)
         attribute :message, Types::String

@@ -4,7 +4,7 @@ module Telegram
   module Bot
     module Types
       class InputMediaPhoto < Base
-        attribute :type, Types::String.default('photo')
+        attribute :type, Types::String.constrained(eql: 'photo').default('photo')
         attribute :media, Types::String
         attribute? :caption, Types::String
         attribute? :parse_mode, Types::String
