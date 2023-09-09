@@ -10,8 +10,8 @@ module Telegram
         attribute? :last_name, Types::String
         attribute? :username, Types::String
         attribute? :language_code, Types::String
-        attribute? :is_premium, Types::Bool
-        attribute? :added_to_attachment_menu, Types::Bool
+        attribute? :is_premium, Types::True
+        attribute? :added_to_attachment_menu, Types::True
         attribute? :can_join_groups, Types::Bool
         attribute? :can_read_all_group_messages, Types::Bool
         attribute? :supports_inline_queries, Types::Bool

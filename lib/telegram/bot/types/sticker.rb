@@ -17,7 +17,7 @@ module Telegram
         attribute? :premium_animation, File
         attribute? :mask_position, MaskPosition
         attribute? :custom_emoji_id, Types::String
-        attribute? :needs_repainting, Types::Bool
+        attribute? :needs_repainting, Types::True
         attribute? :file_size, Types::Integer
       end
     end
