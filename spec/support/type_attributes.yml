@@ -803,15 +803,6 @@ ForceReply:
   required: false
 - name: selective
   required: false
-BotShortDescription:
-- name: short_description
-  required: true
-BotName:
-- name: name
-  required: true
-BotDescription:
-- name: description
-  required: true
 BotCommandScopeDefault:
 - name: type
   required: true
@@ -841,6 +832,15 @@ BotCommandScopeAllGroupChats:
 BotCommandScopeAllChatAdministrators:
 - name: type
   required: true
+BotShortDescription:
+- name: short_description
+  required: true
+BotDescription:
+- name: description
+  required: true
+BotName:
+- name: name
+  required: true
 ChatAdministratorRights:
 - name: is_anonymous
   required: true
@@ -863,6 +863,12 @@ ChatAdministratorRights:
 - name: can_edit_messages
   required: false
 - name: can_pin_messages
+  required: false
+- name: can_post_stories
+  required: false
+- name: can_edit_stories
+  required: false
+- name: can_delete_stories
   required: false
 - name: can_manage_topics
   required: false
@@ -1059,6 +1065,12 @@ ChatMemberAdministrator:
 - name: can_edit_messages
   required: false
 - name: can_pin_messages
+  required: false
+- name: can_post_stories
+  required: false
+- name: can_edit_stories
+  required: false
+- name: can_delete_stories
   required: false
 - name: can_manage_topics
   required: false
@@ -1280,7 +1292,11 @@ PassportData:
 - name: credentials
   required: true
 WriteAccessAllowed:
+- name: from_request
+  required: false
 - name: web_app_name
+  required: false
+- name: from_attachment_menu
   required: false
 ChatShared:
 - name: request_id
