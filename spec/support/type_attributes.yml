@@ -1273,6 +1273,15 @@ BotName:
 - name: name
   type: String
   required: true
+BotShortDescription:
+- name: short_description
+  required: true
+BotDescription:
+- name: description
+  required: true
+BotName:
+- name: name
+  required: true
 ChatAdministratorRights:
 - name: is_anonymous
   type: Boolean
@@ -1306,6 +1315,12 @@ ChatAdministratorRights:
   required: false
 - name: can_pin_messages
   type: Boolean
+  required: false
+- name: can_post_stories
+  required: false
+- name: can_edit_stories
+  required: false
+- name: can_delete_stories
   required: false
 - name: can_manage_topics
   type: Boolean
@@ -1600,6 +1615,12 @@ ChatMemberAdministrator:
   required: false
 - name: can_pin_messages
   type: Boolean
+  required: false
+- name: can_post_stories
+  required: false
+- name: can_edit_stories
+  required: false
+- name: can_delete_stories
   required: false
 - name: can_manage_topics
   type: Boolean
@@ -1916,8 +1937,12 @@ PassportData:
   type: EncryptedCredentials
   required: true
 WriteAccessAllowed:
+- name: from_request
+  required: false
 - name: web_app_name
   type: String
+  required: false
+- name: from_attachment_menu
   required: false
 ChatShared:
 - name: request_id

@@ -18,6 +18,9 @@ module Telegram
         attribute? :can_post_messages, Types::Bool
         attribute? :can_edit_messages, Types::Bool
         attribute? :can_pin_messages, Types::Bool
+        attribute? :can_post_stories, Types::Bool
+        attribute? :can_edit_stories, Types::Bool
+        attribute? :can_delete_stories, Types::Bool
         attribute? :can_manage_topics, Types::Bool
         attribute? :custom_title, Types::String
       end
