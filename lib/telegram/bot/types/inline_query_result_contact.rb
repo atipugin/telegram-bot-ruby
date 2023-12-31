@@ -4,7 +4,7 @@ module Telegram
   module Bot
     module Types
       class InlineQueryResultContact < Base
-        attribute :type, Types::String.default('contact')
+        attribute :type, Types::String.constrained(eql: 'contact').default('contact')
         attribute :id, Types::String
         attribute :phone_number, Types::String
         attribute :first_name, Types::String

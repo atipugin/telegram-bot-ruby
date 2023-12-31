@@ -4,7 +4,7 @@ module Telegram
   module Bot
     module Types
       class InlineQueryResultCachedPhoto < Base
-        attribute :type, Types::String.default('photo')
+        attribute :type, Types::String.constrained(eql: 'photo').default('photo')
         attribute :id, Types::String
         attribute :photo_file_id, Types::String
         attribute? :title, Types::String

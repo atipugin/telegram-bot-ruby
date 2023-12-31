@@ -4,7 +4,7 @@ module Telegram
   module Bot
     module Types
       class InlineQueryResultCachedVideo < Base
-        attribute :type, Types::String.default('video')
+        attribute :type, Types::String.constrained(eql: 'video').default('video')
         attribute :id, Types::String
         attribute :video_file_id, Types::String
         attribute :title, Types::String

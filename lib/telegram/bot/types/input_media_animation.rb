@@ -4,7 +4,7 @@ module Telegram
   module Bot
     module Types
       class InputMediaAnimation < Base
-        attribute :type, Types::String.default('animation')
+        attribute :type, Types::String.constrained(eql: 'animation').default('animation')
         attribute :media, Types::String
         attribute? :thumbnail, Types::String
         attribute? :caption, Types::String

@@ -4,7 +4,7 @@ module Telegram
   module Bot
     module Types
       class InlineQueryResultCachedGif < Base
-        attribute :type, Types::String.default('gif')
+        attribute :type, Types::String.constrained(eql: 'gif').default('gif')
         attribute :id, Types::String
         attribute :gif_file_id, Types::String
         attribute? :title, Types::String

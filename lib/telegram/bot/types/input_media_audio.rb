@@ -4,7 +4,7 @@ module Telegram
   module Bot
     module Types
       class InputMediaAudio < Base
-        attribute :type, Types::String.default('audio')
+        attribute :type, Types::String.constrained(eql: 'audio').default('audio')
         attribute :media, Types::String
         attribute? :thumbnail, Types::String
         attribute? :caption, Types::String

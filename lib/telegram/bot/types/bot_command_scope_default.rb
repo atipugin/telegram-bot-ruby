@@ -4,7 +4,7 @@ module Telegram
   module Bot
     module Types
       class BotCommandScopeDefault < Base
-        attribute :type, Types::String.default('default')
+        attribute :type, Types::String.constrained(eql: 'default').default('default')
       end
     end
   end

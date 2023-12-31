@@ -16,12 +16,12 @@ module Telegram
         attribute? :forward_signature, Types::String
         attribute? :forward_sender_name, Types::String
         attribute? :forward_date, Types::Integer
-        attribute? :is_topic_message, Types::Bool
-        attribute? :is_automatic_forward, Types::Bool
+        attribute? :is_topic_message, Types::True
+        attribute? :is_automatic_forward, Types::True
         attribute? :reply_to_message, Message
         attribute? :via_bot, User
         attribute? :edit_date, Types::Integer
-        attribute? :has_protected_content, Types::Bool
+        attribute? :has_protected_content, Types::True
         attribute? :media_group_id, Types::String
         attribute? :author_signature, Types::String
         attribute? :text, Types::String
@@ -37,7 +37,7 @@ module Telegram
         attribute? :voice, Voice
         attribute? :caption, Types::String
         attribute? :caption_entities, Types::Array.of(MessageEntity)
-        attribute? :has_media_spoiler, Types::Bool
+        attribute? :has_media_spoiler, Types::True
         attribute? :contact, Contact
         attribute? :dice, Dice
         attribute? :game, Game
@@ -48,10 +48,10 @@ module Telegram
         attribute? :left_chat_member, User
         attribute? :new_chat_title, Types::String
         attribute? :new_chat_photo, Types::Array.of(PhotoSize)
-        attribute? :delete_chat_photo, Types::Bool
-        attribute? :group_chat_created, Types::Bool
-        attribute? :supergroup_chat_created, Types::Bool
-        attribute? :channel_chat_created, Types::Bool
+        attribute? :delete_chat_photo, Types::True
+        attribute? :group_chat_created, Types::True
+        attribute? :supergroup_chat_created, Types::True
+        attribute? :channel_chat_created, Types::True
         attribute? :message_auto_delete_timer_changed, MessageAutoDeleteTimerChanged
         attribute? :migrate_to_chat_id, Types::Integer
         attribute? :migrate_from_chat_id, Types::Integer

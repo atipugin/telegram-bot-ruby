@@ -4,7 +4,7 @@ module Telegram
   module Bot
     module Types
       class InlineQueryResultLocation < Base
-        attribute :type, Types::String.default('location')
+        attribute :type, Types::String.constrained(eql: 'location').default('location')
         attribute :id, Types::String
         attribute :latitude, Types::Float
         attribute :longitude, Types::Float

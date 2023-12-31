@@ -4,7 +4,7 @@ module Telegram
   module Bot
     module Types
       class BotCommandScopeAllChatAdministrators < Base
-        attribute :type, Types::String.default('all_chat_administrators')
+        attribute :type, Types::String.constrained(eql: 'all_chat_administrators').default('all_chat_administrators')
       end
     end
   end

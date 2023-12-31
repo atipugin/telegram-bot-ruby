@@ -4,7 +4,7 @@ module Telegram
   module Bot
     module Types
       class InlineQueryResultArticle < Base
-        attribute :type, Types::String.default('article')
+        attribute :type, Types::String.constrained(eql: 'article').default('article')
         attribute :id, Types::String
         attribute :title, Types::String
         attribute :input_message_content, InputMessageContent

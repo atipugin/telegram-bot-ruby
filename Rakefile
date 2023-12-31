@@ -47,8 +47,11 @@ task :dump_type_attributes do
       cells = el.children.select { |c| c.name == 'td' }
       {
         'name' => cells[0].text,
-        'required' => !cells[2].text.start_with?('Optional.')
-      }
+        'type' => cells[1].text,
+        'required' => !cells[2].text.start_with?('Optional.'),
+        'required_value' =>
+          cells[2].text.match(/^.+, (?:must be (?<found_type>\w+)|always “(?<found_type>\w+)”)$/)&.[](:found_type)
+      }.compact
     end
 
     [type, attributes]

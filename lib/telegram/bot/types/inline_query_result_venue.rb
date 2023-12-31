@@ -4,7 +4,7 @@ module Telegram
   module Bot
     module Types
       class InlineQueryResultVenue < Base
-        attribute :type, Types::String.default('venue')
+        attribute :type, Types::String.constrained(eql: 'venue').default('venue')
         attribute :id, Types::String
         attribute :latitude, Types::Float
         attribute :longitude, Types::Float

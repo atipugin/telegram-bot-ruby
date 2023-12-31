@@ -4,7 +4,7 @@ module Telegram
   module Bot
     module Types
       class InlineQueryResultMpeg4Gif < Base
-        attribute :type, Types::String.default('mpeg4_gif')
+        attribute :type, Types::String.constrained(eql: 'mpeg4_gif').default('mpeg4_gif')
         attribute :id, Types::String
         attribute :mpeg4_url, Types::String
         attribute? :mpeg4_width, Types::Integer
