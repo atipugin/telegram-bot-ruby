@@ -6,7 +6,7 @@ module Telegram
       class CallbackQuery < Base
         attribute :id, Types::String
         attribute :from, User
-        attribute? :message, Message
+        attribute? :message, MaybeInaccessibleMessage
         attribute? :inline_message_id, Types::String
         attribute :chat_instance, Types::String
         attribute? :data, Types::String

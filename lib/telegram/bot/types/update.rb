@@ -9,6 +9,8 @@ module Telegram
         attribute? :edited_message, Message
         attribute? :channel_post, Message
         attribute? :edited_channel_post, Message
+        attribute? :message_reaction, MessageReactionUpdated
+        attribute? :message_reaction_count, MessageReactionCountUpdated
         attribute? :inline_query, InlineQuery
         attribute? :chosen_inline_result, ChosenInlineResult
         attribute? :callback_query, CallbackQuery
@@ -19,6 +21,8 @@ module Telegram
         attribute? :my_chat_member, ChatMemberUpdated
         attribute? :chat_member, ChatMemberUpdated
         attribute? :chat_join_request, ChatJoinRequest
+        attribute? :chat_boost, ChatBoostUpdated
+        attribute? :removed_chat_boost, ChatBoostRemoved
 
         def current_message
           @current_message ||=

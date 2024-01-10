@@ -5,7 +5,7 @@ module Telegram
     module Types
       class KeyboardButton < Base
         attribute :text, Types::String
-        attribute? :request_user, KeyboardButtonRequestUser
+        attribute? :request_users, KeyboardButtonRequestUsers
         attribute? :request_chat, KeyboardButtonRequestChat
         attribute? :request_contact, Types::Bool
         attribute? :request_location, Types::Bool

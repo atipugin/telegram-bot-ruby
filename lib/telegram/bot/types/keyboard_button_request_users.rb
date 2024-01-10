@@ -3,10 +3,11 @@
 module Telegram
   module Bot
     module Types
-      class KeyboardButtonRequestUser < Base
+      class KeyboardButtonRequestUsers < Base
         attribute :request_id, Types::Integer
         attribute? :user_is_bot, Types::Bool
         attribute? :user_is_premium, Types::Bool
+        attribute? :max_quantity, Types::Integer
       end
     end
   end
