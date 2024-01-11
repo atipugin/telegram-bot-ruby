@@ -7,7 +7,7 @@ module Telegram
         attribute :request_id, Types::Integer
         attribute? :user_is_bot, Types::Bool
         attribute? :user_is_premium, Types::Bool
-        attribute? :max_quantity, Types::Integer.constrained(gteq: 1, lteq: 10).default(1)
+        attribute? :max_quantity, Types::Integer.default(1)
       end
     end
   end
