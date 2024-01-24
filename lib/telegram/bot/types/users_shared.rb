@@ -3,9 +3,9 @@
 module Telegram
   module Bot
     module Types
-      class UserShared < Base
+      class UsersShared < Base
         attribute :request_id, Types::Integer
-        attribute :user_id, Types::Integer
+        attribute :user_ids, Types::Array.of(Types::Integer)
       end
     end
   end

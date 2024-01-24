@@ -7,7 +7,7 @@ module Telegram
         attribute :message_text, Types::String
         attribute? :parse_mode, Types::String
         attribute? :entities, Types::Array.of(MessageEntity)
-        attribute? :disable_web_page_preview, Types::Bool
+        attribute? :link_preview_options, LinkPreviewOptions
       end
     end
   end

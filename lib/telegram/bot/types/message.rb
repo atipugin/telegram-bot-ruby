@@ -10,15 +10,12 @@ module Telegram
         attribute? :sender_chat, Chat
         attribute :date, Types::Integer
         attribute :chat, Chat
-        attribute? :forward_from, User
-        attribute? :forward_from_chat, Chat
-        attribute? :forward_from_message_id, Types::Integer
-        attribute? :forward_signature, Types::String
-        attribute? :forward_sender_name, Types::String
-        attribute? :forward_date, Types::Integer
+        attribute? :forward_origin, MessageOrigin
         attribute? :is_topic_message, Types::True
         attribute? :is_automatic_forward, Types::True
         attribute? :reply_to_message, Message
+        attribute? :external_reply, ExternalReplyInfo
+        attribute? :quote, TextQuote
         attribute? :via_bot, User
         attribute? :edit_date, Types::Integer
         attribute? :has_protected_content, Types::True
@@ -26,6 +23,7 @@ module Telegram
         attribute? :author_signature, Types::String
         attribute? :text, Types::String
         attribute? :entities, Types::Array.of(MessageEntity)
+        attribute? :link_preview_options, LinkPreviewOptions
         attribute? :animation, Animation
         attribute? :audio, Audio
         attribute? :document, Document
@@ -55,10 +53,10 @@ module Telegram
         attribute? :message_auto_delete_timer_changed, MessageAutoDeleteTimerChanged
         attribute? :migrate_to_chat_id, Types::Integer
         attribute? :migrate_from_chat_id, Types::Integer
-        attribute? :pinned_message, Message
+        attribute? :pinned_message, MaybeInaccessibleMessage
         attribute? :invoice, Invoice
         attribute? :successful_payment, SuccessfulPayment
-        attribute? :user_shared, UserShared
+        attribute? :users_shared, UsersShared
         attribute? :chat_shared, ChatShared
         attribute? :connected_website, Types::String
         attribute? :write_access_allowed, WriteAccessAllowed
@@ -70,6 +68,10 @@ module Telegram
         attribute? :forum_topic_reopened, ForumTopicReopened
         attribute? :general_forum_topic_hidden, GeneralForumTopicHidden
         attribute? :general_forum_topic_unhidden, GeneralForumTopicUnhidden
+        attribute? :giveaway_created, GiveawayCreated
+        attribute? :giveaway, Giveaway
+        attribute? :giveaway_winners, GiveawayWinners
+        attribute? :giveaway_completed, GiveawayCompleted
         attribute? :video_chat_scheduled, VideoChatScheduled
         attribute? :video_chat_started, VideoChatStarted
         attribute? :video_chat_ended, VideoChatEnded

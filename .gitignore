@@ -3,4 +3,5 @@ Gemfile.lock
 .bundle/
 .env
 pkg/
+tmp/
 vendor/bundle/

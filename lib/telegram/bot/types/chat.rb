@@ -13,6 +13,11 @@ module Telegram
         attribute? :is_forum, Types::True
         attribute? :photo, ChatPhoto
         attribute? :active_usernames, Types::Array.of(Types::String)
+        attribute? :available_reactions, Types::Array.of(ReactionType)
+        attribute? :accent_color_id, Types::Integer
+        attribute? :background_custom_emoji_id, Types::String
+        attribute? :profile_accent_color_id, Types::Integer
+        attribute? :profile_background_custom_emoji_id, Types::String
         attribute? :emoji_status_custom_emoji_id, Types::String
         attribute? :emoji_status_expiration_date, Types::Integer
         attribute? :bio, Types::String
@@ -29,6 +34,7 @@ module Telegram
         attribute? :has_aggressive_anti_spam_enabled, Types::True
         attribute? :has_hidden_members, Types::True
         attribute? :has_protected_content, Types::True
+        attribute? :has_visible_history, Types::True
         attribute? :sticker_set_name, Types::String
         attribute? :can_set_sticker_set, Types::True
         attribute? :linked_chat_id, Types::Integer
