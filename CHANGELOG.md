@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.0.0
+
+### Added
+
+- [Bot API 7.0](https://core.telegram.org/bots/api#december-29-2023)
+
+### Changed
+
+- API method calls now return corresponding response objects (#285, thx [@AlexWayfer][])
+
 ## 1.0.0
 
 - Replace [virtus](https://github.com/solnic/virtus) with [dry-struct](https://github.com/dry-rb/dry-struct)
