@@ -8,7 +8,7 @@
 
 ### Changed
 
-- API method calls now return corresponding response objects (#285, thx [@AlexWayfer][])
+- API method calls now return corresponding response objects ([#285](https://github.com/atipugin/telegram-bot-ruby/pull/285), thx [@AlexWayfer](https://github.com/AlexWayfer))
 
 ## 1.0.0
 
