@@ -265,9 +265,9 @@ Telegram::Bot.configure do |config|
 end
 ```
 
-## Validating data received via the Mini App
+## Validating data received via the Web App
 
-To validate data received via the Mini App, you can use the `Telegram::Bot::WebApp` class.
+To validate data received via the Web App, you can use the `Telegram::Bot::WebApp` class.
 This class has a method `#verify_data_init` receive string with telegram data init that returns `Telegram::Bot::Types::WebAppUser` if the data is valid and `false` if it is not.
 
 ```ruby
