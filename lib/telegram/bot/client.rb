@@ -35,7 +35,7 @@ module Telegram
           yield handle_update(update)
         end
       rescue Faraday::TimeoutError, Faraday::ConnectionFailed
-        retry
+        retry if @running
       end
 
       def handle_update(update)
