@@ -5,7 +5,7 @@ module Telegram
     module Types
       class SharedUser < Base
         attribute :user_id, Types::Integer
-        attribute :first_name, Types::String
+        attribute? :first_name, Types::String
         attribute? :last_name, Types::String
         attribute? :username, Types::String
         attribute? :photo, Types::Array.of(PhotoSize)
