@@ -11,6 +11,7 @@ module Telegram
         attribute? :first_name, Types::String
         attribute? :last_name, Types::String
         attribute? :is_forum, Types::True
+        attribute? :birthdate, Birthdate
         attribute? :photo, ChatPhoto
         attribute? :active_usernames, Types::Array.of(Types::String)
         attribute? :available_reactions, Types::Array.of(ReactionType)
