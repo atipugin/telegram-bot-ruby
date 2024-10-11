@@ -3,8 +3,14 @@
 module Telegram
   module Bot
     module Types
-      class BackgroundFill < Base
-      end
+      ## Just for classes consistency
+      # rubocop:disable Naming/ConstantName
+      BackgroundFill = (
+        BackgroundFillSolid |
+        BackgroundFillGradient |
+        BackgroundFillFreeformGradient
+      )
+      # rubocop:enable Naming/ConstantName
     end
   end
 end

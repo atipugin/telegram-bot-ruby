@@ -3,8 +3,15 @@
 module Telegram
   module Bot
     module Types
-      class BackgroundType < Base
-      end
+      ## Just for classes consistency
+      # rubocop:disable Naming/ConstantName
+      BackgroundType = (
+        BackgroundTypeFill |
+        BackgroundTypeWallpaper |
+        BackgroundTypePattern |
+        BackgroundTypeChatTheme
+      )
+      # rubocop:enable Naming/ConstantName
     end
   end
 end

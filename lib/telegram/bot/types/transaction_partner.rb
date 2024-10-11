@@ -3,8 +3,15 @@
 module Telegram
   module Bot
     module Types
-      class TransactionPartner < Base
-      end
+      ## Just for classes consistency
+      # rubocop:disable Naming/ConstantName
+      TransactionPartner = (
+        TransactionPartnerUser |
+        TransactionPartnerFragment |
+        TransactionPartnerTelegramAds |
+        TransactionPartnerOther
+      )
+      # rubocop:enable Naming/ConstantName
     end
   end
 end

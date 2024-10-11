@@ -3,8 +3,14 @@
 module Telegram
   module Bot
     module Types
-      class MenuButton < Base
-      end
+      ## Just for classes consistency
+      # rubocop:disable Naming/ConstantName
+      MenuButton = (
+        MenuButtonCommands |
+        MenuButtonWebApp |
+        MenuButtonDefault
+      )
+      # rubocop:enable Naming/ConstantName
     end
   end
 end

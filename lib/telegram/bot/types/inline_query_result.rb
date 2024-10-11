@@ -3,8 +3,31 @@
 module Telegram
   module Bot
     module Types
-      class InlineQueryResult < Base
-      end
+      ## Just for classes consistency
+      # rubocop:disable Naming/ConstantName
+      InlineQueryResult = (
+        InlineQueryResultCachedAudio |
+        InlineQueryResultCachedDocument |
+        InlineQueryResultCachedGif |
+        InlineQueryResultCachedMpeg4Gif |
+        InlineQueryResultCachedPhoto |
+        InlineQueryResultCachedSticker |
+        InlineQueryResultCachedVideo |
+        InlineQueryResultCachedVoice |
+        InlineQueryResultArticle |
+        InlineQueryResultAudio |
+        InlineQueryResultContact |
+        InlineQueryResultGame |
+        InlineQueryResultDocument |
+        InlineQueryResultGif |
+        InlineQueryResultLocation |
+        InlineQueryResultMpeg4Gif |
+        InlineQueryResultPhoto |
+        InlineQueryResultVenue |
+        InlineQueryResultVideo |
+        InlineQueryResultVoice
+      )
+      # rubocop:enable Naming/ConstantName
     end
   end
 end
