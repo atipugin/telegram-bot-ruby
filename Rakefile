@@ -61,68 +61,61 @@ task :dump_type_attributes do
   File.write "#{__dir__}/spec/support/type_attributes.yml", result.to_yaml
 end
 
+DRY_TYPES = %w[string integer float decimal array hash symbol boolean date date_time time range].freeze
 desc 'Rebuild types'
 task :rebuild_types do
   require 'json'
   require 'erb'
-  DRY_TYPES = %w[string integer float decimal array hash symbol boolean date date_time time range]
-
-  def underscore(camel_cased_word)
-    camel_cased_word.to_s.gsub(/::/, '/').
-      gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
-      gsub(/([a-z\d])([A-Z])/,'\1_\2').
-      tr("-", "_").
-      downcase
-  end
-
-  def typecast_default(type, obj)
-    type == 'Types::String' ? "'#{obj.to_s}'" : obj
-  end
-  
-  def add_module_types(type)
-    DRY_TYPES.include?(type) ? "Types::#{type.capitalize}" : type
-  end
 
   types = JSON.parse(File.read("#{__dir__}/spec/support/openapi_type_attributes.json"), symbolize_names: true)
 
   types.each_pair do |name, attributes|
     template = ERB.new(File.read("#{__dir__}/spec/support/type.erb"))
 
-    attributes.each_pair do |attr_name, properties| 
-      attributes[attr_name][:type] = add_module_types(properties[:type]) unless properties[:type].kind_of?(Array)
-      attributes[attr_name][:type] = properties[:type].map { |type| add_module_types(type) }.join(' | ') if properties[:type].kind_of?(Array)
+    attributes.each_pair do |attr_name, properties|
+      attributes[attr_name][:type] = add_module_types(properties[:type]) unless properties[:type].is_a?(Array)
+      if properties[:type].is_a?(Array)
+        attributes[attr_name][:type] = properties[:type].map do |type|
+          add_module_types(type)
+        end.join(' | ')
+      end
       attributes[attr_name][:type] += ".of(#{add_module_types(properties[:items])})" if properties[:items]
-      attributes[attr_name][:type] += ".default(#{typecast_default(properties[:type], properties[:default])})" if properties[:default]
-      attributes[attr_name][:type] = "Types::True" if attributes[attr_name][:type] == 'Types::Boolean.default(true)'
-      attributes[attr_name][:type] = "Types::Bool" if attributes[attr_name][:type] == 'Types::Boolean'
+      if properties[:default]
+        attributes[attr_name][:type] += ".default(#{typecast_default(properties[:type],
+                                                                     properties[:default])})"
+      end
+      attributes[attr_name][:type] = 'Types::True' if attributes[attr_name][:type] == 'Types::Boolean.default(true)'
+      attributes[attr_name][:type] = 'Types::Bool' if attributes[attr_name][:type] == 'Types::Boolean'
     end
 
-    File.write "#{__dir__}/lib/telegram/bot/types/#{underscore(name)}.rb", template.result(binding).gsub(/      \n/,'')
+    File.write "#{__dir__}/lib/telegram/bot/types/#{underscore(name)}.rb", template.result(binding).gsub("      \n", '')
   end
 end
 
 desc 'Parse types from public json, should be up to date https://github.com/ark0f/tg-bot-api'
 task :parse_type_attributes_from_opeanapi do
-  require "openapi3_parser"
+  require 'openapi3_parser'
   result = {}
-  document = Openapi3Parser.load_url("https://ark0f.github.io/tg-bot-api/openapi.json")
-  SKIP = %w[]
+  document = Openapi3Parser.load_url('https://ark0f.github.io/tg-bot-api/openapi.json')
 
   document.components.schemas.each do |schema|
-    next if SKIP.include?(schema[0])
-
     result_schema = {}
     schema[1].properties.each do |property|
       required_keys = schema[1].required.to_a || []
 
       result_schema[property[0]] = {
-        type: property[1].type != 'object' ? property[1].type : property[1].name
+        type: property[1].type == 'object' ? property[1].name : property[1].type
       }
 
-      result_schema[property[0]][:type] = property[1].any_of.map do |item|
-        property[1].name || item.name || item.type
-      end.uniq unless property[1].any_of.nil?
-      result_schema[property[0]][:type] = result_schema[property[0]][:type].join() if result_schema[property[0]][:type]&.length == 1
+      unless property[1].any_of.nil?
+        result_schema[property[0]][:type] = property[1].any_of.map do |item|
+          property[1].name || item.name || item.type
+        end.uniq
+      end
+      if result_schema[property[0]][:type]&.length == 1
+        result_schema[property[0]][:type] =
+          result_schema[property[0]][:type].join
+      end
       result_schema[property[0]][:required] = true if required_keys.include?(property[0])
       result_schema[property[0]][:items] = property[1].items.type if property[1]&.items
       result_schema[property[0]][:items] = property[1].items.name if property[1]&.items&.type == 'object'
@@ -132,4 +125,20 @@ task :parse_type_attributes_from_opeanapi do
   end
 
   File.write "#{__dir__}/spec/support/openapi_type_attributes.json", result.to_json
+end
+
+def add_module_types(type)
+  DRY_TYPES.include?(type) ? "Types::#{type.capitalize}" : type
+end
+
+def underscore(camel_cased_word)
+  camel_cased_word.to_s.gsub('::', '/')
+                  .gsub(/([A-Z]+)([A-Z][a-z])/, '\1_\2')
+                  .gsub(/([a-z\d])([A-Z])/, '\1_\2')
+                  .tr('-', '_')
+                  .downcase
+end
+
+def typecast_default(type, obj)
+  type == 'Types::String' ? "'#{obj}'" : obj
 end
