@@ -7,10 +7,10 @@ module Telegram
         attribute :title, Types::String
         attribute :description, Types::String
         attribute :payload, Types::String
-        attribute :provider_token, Types::String
+        attribute? :provider_token, Types::String
         attribute :currency, Types::String
         attribute :prices, Types::Array.of(LabeledPrice)
-        attribute? :max_tip_amount, Types::Integer
+        attribute? :max_tip_amount, Types::Integer.default(0)
         attribute? :suggested_tip_amounts, Types::Array.of(Types::Integer)
         attribute? :provider_data, Types::String
         attribute? :photo_url, Types::String

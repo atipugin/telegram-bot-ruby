@@ -5,7 +5,8 @@ module Telegram
     module Types
       ReactionType = ( # rubocop:disable Naming/ConstantName
         ReactionTypeEmoji |
-        ReactionTypeCustomEmoji
+        ReactionTypeCustomEmoji |
+        ReactionTypePaid
       )
     end
   end

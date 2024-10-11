@@ -215,6 +215,15 @@ KeyboardButtonRequestChat:
 - name: bot_is_member
   type: Boolean
   required: false
+- name: request_title
+  type: Boolean
+  required: false
+- name: request_username
+  type: Boolean
+  required: false
+- name: request_photo
+  type: Boolean
+  required: false
 KeyboardButtonRequestUsers:
 - name: request_id
   type: Integer
@@ -227,6 +236,15 @@ KeyboardButtonRequestUsers:
   required: false
 - name: max_quantity
   type: Integer
+  required: false
+- name: request_name
+  type: Boolean
+  required: false
+- name: request_username
+  type: Boolean
+  required: false
+- name: request_photo
+  type: Boolean
   required: false
 KeyboardButton:
 - name: text
@@ -308,6 +326,9 @@ InputMediaVideo:
 - name: caption_entities
   type: Array of MessageEntity
   required: false
+- name: show_caption_above_media
+  type: Boolean
+  required: false
 - name: width
   type: Integer
   required: false
@@ -339,6 +360,9 @@ InputMediaPhoto:
   required: false
 - name: caption_entities
   type: Array of MessageEntity
+  required: false
+- name: show_caption_above_media
+  type: Boolean
   required: false
 - name: has_spoiler
   type: Boolean
@@ -415,6 +439,9 @@ InputMediaAnimation:
 - name: caption_entities
   type: Array of MessageEntity
   required: false
+- name: show_caption_above_media
+  type: Boolean
+  required: false
 - name: width
   type: Integer
   required: false
@@ -435,7 +462,7 @@ InputLocationMessageContent:
   type: Float
   required: true
 - name: horizontal_accuracy
-  type: Float number
+  type: Float
   required: false
 - name: live_period
   type: Integer
@@ -465,7 +492,7 @@ InputInvoiceMessageContent:
   required: true
 - name: provider_token
   type: String
-  required: true
+  required: false
 - name: currency
   type: String
   required: true
@@ -588,6 +615,9 @@ InlineQueryResultVideo:
 - name: caption_entities
   type: Array of MessageEntity
   required: false
+- name: show_caption_above_media
+  type: Boolean
+  required: false
 - name: video_width
   type: Integer
   required: false
@@ -688,6 +718,9 @@ InlineQueryResultPhoto:
 - name: caption_entities
   type: Array of MessageEntity
   required: false
+- name: show_caption_above_media
+  type: Boolean
+  required: false
 - name: reply_markup
   type: InlineKeyboardMarkup
   required: false
@@ -732,6 +765,9 @@ InlineQueryResultMpeg4Gif:
 - name: caption_entities
   type: Array of MessageEntity
   required: false
+- name: show_caption_above_media
+  type: Boolean
+  required: false
 - name: reply_markup
   type: InlineKeyboardMarkup
   required: false
@@ -747,16 +783,16 @@ InlineQueryResultLocation:
   type: String
   required: true
 - name: latitude
-  type: Float number
+  type: Float
   required: true
 - name: longitude
-  type: Float number
+  type: Float
   required: true
 - name: title
   type: String
   required: true
 - name: horizontal_accuracy
-  type: Float number
+  type: Float
   required: false
 - name: live_period
   type: Integer
@@ -819,6 +855,9 @@ InlineQueryResultGif:
   required: false
 - name: caption_entities
   type: Array of MessageEntity
+  required: false
+- name: show_caption_above_media
+  type: Boolean
   required: false
 - name: reply_markup
   type: InlineKeyboardMarkup
@@ -974,6 +1013,9 @@ InlineQueryResultCachedVideo:
 - name: caption_entities
   type: Array of MessageEntity
   required: false
+- name: show_caption_above_media
+  type: Boolean
+  required: false
 - name: reply_markup
   type: InlineKeyboardMarkup
   required: false
@@ -1023,6 +1065,9 @@ InlineQueryResultCachedPhoto:
 - name: caption_entities
   type: Array of MessageEntity
   required: false
+- name: show_caption_above_media
+  type: Boolean
+  required: false
 - name: reply_markup
   type: InlineKeyboardMarkup
   required: false
@@ -1052,6 +1097,9 @@ InlineQueryResultCachedMpeg4Gif:
 - name: caption_entities
   type: Array of MessageEntity
   required: false
+- name: show_caption_above_media
+  type: Boolean
+  required: false
 - name: reply_markup
   type: InlineKeyboardMarkup
   required: false
@@ -1080,6 +1128,9 @@ InlineQueryResultCachedGif:
   required: false
 - name: caption_entities
   type: Array of MessageEntity
+  required: false
+- name: show_caption_above_media
+  type: Boolean
   required: false
 - name: reply_markup
   type: InlineKeyboardMarkup
@@ -1323,6 +1374,15 @@ ChatAdministratorRights:
 - name: can_invite_users
   type: Boolean
   required: true
+- name: can_post_stories
+  type: Boolean
+  required: true
+- name: can_edit_stories
+  type: Boolean
+  required: true
+- name: can_delete_stories
+  type: Boolean
+  required: true
 - name: can_post_messages
   type: Boolean
   required: false
@@ -1330,15 +1390,6 @@ ChatAdministratorRights:
   type: Boolean
   required: false
 - name: can_pin_messages
-  type: Boolean
-  required: false
-- name: can_post_stories
-  type: Boolean
-  required: false
-- name: can_edit_stories
-  type: Boolean
-  required: false
-- name: can_delete_stories
   type: Boolean
   required: false
 - name: can_manage_topics
@@ -1395,12 +1446,6 @@ StickerSet:
   required: true
 - name: sticker_type
   type: String
-  required: true
-- name: is_animated
-  type: Boolean
-  required: true
-- name: is_video
-  type: Boolean
   required: true
 - name: stickers
   type: Array of Sticker
@@ -1474,6 +1519,9 @@ ChatBoostSourceGiveaway:
   required: true
 - name: user
   type: User
+  required: false
+- name: prize_star_count
+  type: Integer
   required: false
 - name: is_unclaimed
   type: 'True'
@@ -1561,6 +1609,12 @@ ChatInviteLink:
 - name: pending_join_request_count
   type: Integer
   required: false
+- name: subscription_period
+  type: Integer
+  required: false
+- name: subscription_price
+  type: Integer
+  required: false
 ChatMemberRestricted:
 - name: status
   type: String
@@ -1639,6 +1693,9 @@ ChatMemberMember:
 - name: user
   type: User
   required: true
+- name: until_date
+  type: Integer
+  required: false
 ChatMemberLeft:
 - name: status
   type: String
@@ -1693,6 +1750,15 @@ ChatMemberAdministrator:
 - name: can_invite_users
   type: Boolean
   required: true
+- name: can_post_stories
+  type: Boolean
+  required: true
+- name: can_edit_stories
+  type: Boolean
+  required: true
+- name: can_delete_stories
+  type: Boolean
+  required: true
 - name: can_post_messages
   type: Boolean
   required: false
@@ -1700,15 +1766,6 @@ ChatMemberAdministrator:
   type: Boolean
   required: false
 - name: can_pin_messages
-  type: Boolean
-  required: false
-- name: can_post_stories
-  type: Boolean
-  required: false
-- name: can_edit_stories
-  type: Boolean
-  required: false
-- name: can_delete_stories
   type: Boolean
   required: false
 - name: can_manage_topics
@@ -1735,6 +1792,9 @@ ChatMemberUpdated:
   required: true
 - name: invite_link
   type: ChatInviteLink
+  required: false
+- name: via_join_request
+  type: Boolean
   required: false
 - name: via_chat_folder_invite_link
   type: Boolean
@@ -1985,7 +2045,13 @@ GiveawayCompleted:
 - name: giveaway_message
   type: Message
   required: false
-GiveawayCreated: []
+- name: is_star_giveaway
+  type: 'True'
+  required: false
+GiveawayCreated:
+- name: prize_star_count
+  type: Integer
+  required: false
 GeneralForumTopicUnhidden: []
 GeneralForumTopicHidden: []
 ForumTopicReopened: []
@@ -2095,12 +2161,21 @@ ChatShared:
 - name: chat_id
   type: Integer
   required: true
+- name: title
+  type: String
+  required: false
+- name: username
+  type: String
+  required: false
+- name: photo
+  type: Array of PhotoSize
+  required: false
 UsersShared:
 - name: request_id
   type: Integer
   required: true
-- name: user_ids
-  type: Array of Integer
+- name: users
+  type: Array of SharedUser
   required: true
 ShippingAddress:
 - name: country_code
@@ -2209,6 +2284,9 @@ PollOption:
 - name: text
   type: String
   required: true
+- name: text_entities
+  type: Array of MessageEntity
+  required: false
 - name: voter_count
   type: Integer
   required: true
@@ -2219,6 +2297,9 @@ Poll:
 - name: question
   type: String
   required: true
+- name: question_entities
+  type: Array of MessageEntity
+  required: false
 - name: options
   type: Array of PollOption
   required: true
@@ -2287,6 +2368,9 @@ GiveawayWinners:
 - name: additional_chat_count
   type: Integer
   required: false
+- name: prize_star_count
+  type: Integer
+  required: false
 - name: premium_subscription_month_count
   type: Integer
   required: false
@@ -2323,6 +2407,9 @@ Giveaway:
   required: false
 - name: country_codes
   type: Array of String
+  required: false
+- name: prize_star_count
+  type: Integer
   required: false
 - name: premium_subscription_month_count
   type: Integer
@@ -2454,19 +2541,25 @@ Video:
 - name: file_size
   type: Integer
   required: false
-Story: []
+Story:
+- name: chat
+  type: Chat
+  required: true
+- name: id
+  type: Integer
+  required: true
 MaskPosition:
 - name: point
   type: String
   required: true
 - name: x_shift
-  type: Float number
+  type: Float
   required: true
 - name: y_shift
-  type: Float number
+  type: Float
   required: true
 - name: scale
-  type: Float number
+  type: Float
   required: true
 File:
 - name: file_id
@@ -2656,6 +2749,9 @@ ExternalReplyInfo:
 - name: document
   type: Document
   required: false
+- name: paid_media
+  type: PaidMediaInfo
+  required: false
 - name: photo
   type: Array of PhotoSize
   required: false
@@ -2758,14 +2854,14 @@ MessageOriginUser:
   type: User
   required: true
 Location:
-- name: longitude
-  type: Float
-  required: true
 - name: latitude
   type: Float
   required: true
+- name: longitude
+  type: Float
+  required: true
 - name: horizontal_accuracy
-  type: Float number
+  type: Float
   required: false
 - name: live_period
   type: Integer
@@ -2855,6 +2951,16 @@ ChatPhoto:
 - name: big_file_unique_id
   type: String
   required: true
+Birthdate:
+- name: day
+  type: Integer
+  required: true
+- name: month
+  type: Integer
+  required: true
+- name: year
+  type: Integer
+  required: false
 Chat:
 - name: id
   type: Integer
@@ -2876,90 +2982,6 @@ Chat:
   required: false
 - name: is_forum
   type: 'True'
-  required: false
-- name: photo
-  type: ChatPhoto
-  required: false
-- name: active_usernames
-  type: Array of String
-  required: false
-- name: available_reactions
-  type: Array of ReactionType
-  required: false
-- name: accent_color_id
-  type: Integer
-  required: false
-- name: background_custom_emoji_id
-  type: String
-  required: false
-- name: profile_accent_color_id
-  type: Integer
-  required: false
-- name: profile_background_custom_emoji_id
-  type: String
-  required: false
-- name: emoji_status_custom_emoji_id
-  type: String
-  required: false
-- name: emoji_status_expiration_date
-  type: Integer
-  required: false
-- name: bio
-  type: String
-  required: false
-- name: has_private_forwards
-  type: 'True'
-  required: false
-- name: has_restricted_voice_and_video_messages
-  type: 'True'
-  required: false
-- name: join_to_send_messages
-  type: 'True'
-  required: false
-- name: join_by_request
-  type: 'True'
-  required: false
-- name: description
-  type: String
-  required: false
-- name: invite_link
-  type: String
-  required: false
-- name: pinned_message
-  type: Message
-  required: false
-- name: permissions
-  type: ChatPermissions
-  required: false
-- name: slow_mode_delay
-  type: Integer
-  required: false
-- name: message_auto_delete_time
-  type: Integer
-  required: false
-- name: has_aggressive_anti_spam_enabled
-  type: 'True'
-  required: false
-- name: has_hidden_members
-  type: 'True'
-  required: false
-- name: has_protected_content
-  type: 'True'
-  required: false
-- name: has_visible_history
-  type: 'True'
-  required: false
-- name: sticker_set_name
-  type: String
-  required: false
-- name: can_set_sticker_set
-  type: 'True'
-  required: false
-- name: linked_chat_id
-  type: Integer
-  required: false
-- name: location
-  type: ChatLocation
   required: false
 User:
 - name: id
@@ -2995,6 +3017,12 @@ User:
 - name: supports_inline_queries
   type: Boolean
   required: false
+- name: can_connect_to_business
+  type: Boolean
+  required: false
+- name: has_main_web_app
+  type: Boolean
+  required: false
 Message:
 - name: message_id
   type: Integer
@@ -3008,9 +3036,18 @@ Message:
 - name: sender_chat
   type: Chat
   required: false
+- name: sender_boost_count
+  type: Integer
+  required: false
+- name: sender_business_bot
+  type: User
+  required: false
 - name: date
   type: Integer
   required: true
+- name: business_connection_id
+  type: String
+  required: false
 - name: chat
   type: Chat
   required: true
@@ -3032,6 +3069,9 @@ Message:
 - name: quote
   type: TextQuote
   required: false
+- name: reply_to_story
+  type: Story
+  required: false
 - name: via_bot
   type: User
   required: false
@@ -3039,6 +3079,9 @@ Message:
   type: Integer
   required: false
 - name: has_protected_content
+  type: 'True'
+  required: false
+- name: is_from_offline
   type: 'True'
   required: false
 - name: media_group_id
@@ -3056,6 +3099,9 @@ Message:
 - name: link_preview_options
   type: LinkPreviewOptions
   required: false
+- name: effect_id
+  type: String
+  required: false
 - name: animation
   type: Animation
   required: false
@@ -3064,6 +3110,9 @@ Message:
   required: false
 - name: document
   type: Document
+  required: false
+- name: paid_media
+  type: PaidMediaInfo
   required: false
 - name: photo
   type: Array of PhotoSize
@@ -3088,6 +3137,9 @@ Message:
   required: false
 - name: caption_entities
   type: Array of MessageEntity
+  required: false
+- name: show_caption_above_media
+  type: 'True'
   required: false
 - name: has_media_spoiler
   type: 'True'
@@ -3152,6 +3204,9 @@ Message:
 - name: successful_payment
   type: SuccessfulPayment
   required: false
+- name: refunded_payment
+  type: RefundedPayment
+  required: false
 - name: users_shared
   type: UsersShared
   required: false
@@ -3169,6 +3224,12 @@ Message:
   required: false
 - name: proximity_alert_triggered
   type: ProximityAlertTriggered
+  required: false
+- name: boost_added
+  type: ChatBoostAdded
+  required: false
+- name: chat_background_set
+  type: ChatBackground
   required: false
 - name: forum_topic_created
   type: ForumTopicCreated
@@ -3234,6 +3295,18 @@ Update:
 - name: edited_channel_post
   type: Message
   required: false
+- name: business_connection
+  type: BusinessConnection
+  required: false
+- name: business_message
+  type: Message
+  required: false
+- name: edited_business_message
+  type: Message
+  required: false
+- name: deleted_business_messages
+  type: BusinessMessagesDeleted
+  required: false
 - name: message_reaction
   type: MessageReactionUpdated
   required: false
@@ -3254,6 +3327,9 @@ Update:
   required: false
 - name: pre_checkout_query
   type: PreCheckoutQuery
+  required: false
+- name: purchased_paid_media
+  type: PaidMediaPurchased
   required: false
 - name: poll
   type: Poll

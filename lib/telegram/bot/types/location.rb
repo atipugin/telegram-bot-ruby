@@ -4,8 +4,8 @@ module Telegram
   module Bot
     module Types
       class Location < Base
-        attribute :longitude, Types::Float
         attribute :latitude, Types::Float
+        attribute :longitude, Types::Float
         attribute? :horizontal_accuracy, Types::Float
         attribute? :live_period, Types::Integer
         attribute? :heading, Types::Integer

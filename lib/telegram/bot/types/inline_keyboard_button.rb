@@ -11,7 +11,7 @@ module Telegram
         attribute? :login_url, LoginUrl
         attribute? :switch_inline_query, Types::String
         attribute? :switch_inline_query_current_chat, Types::String
-        attribute? :switch_inline_query_chosen_chat, Types::SwitchInlineQueryChosenChat
+        attribute? :switch_inline_query_chosen_chat, SwitchInlineQueryChosenChat
         attribute? :callback_game, CallbackGame
         attribute? :pay, Types::Bool
       end

@@ -9,6 +9,10 @@ module Telegram
         attribute? :edited_message, Message
         attribute? :channel_post, Message
         attribute? :edited_channel_post, Message
+        attribute? :business_connection, BusinessConnection
+        attribute? :business_message, Message
+        attribute? :edited_business_message, Message
+        attribute? :deleted_business_messages, BusinessMessagesDeleted
         attribute? :message_reaction, MessageReactionUpdated
         attribute? :message_reaction_count, MessageReactionCountUpdated
         attribute? :inline_query, InlineQuery
@@ -16,6 +20,7 @@ module Telegram
         attribute? :callback_query, CallbackQuery
         attribute? :shipping_query, ShippingQuery
         attribute? :pre_checkout_query, PreCheckoutQuery
+        attribute? :purchased_paid_media, PaidMediaPurchased
         attribute? :poll, Poll
         attribute? :poll_answer, PollAnswer
         attribute? :my_chat_member, ChatMemberUpdated

@@ -6,6 +6,7 @@ module Telegram
       class Birthdate < Base
         attribute :day, Types::Integer
         attribute :month, Types::Integer
+        attribute? :year, Types::Integer
       end
     end
   end

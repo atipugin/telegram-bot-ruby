@@ -6,7 +6,7 @@ module Telegram
       class ForceReply < Base
         attribute :force_reply, Types::True
         attribute? :input_field_placeholder, Types::String
-        attribute? :selective, Types::Bool.default(false)
+        attribute? :selective, Types::Bool
       end
     end
   end

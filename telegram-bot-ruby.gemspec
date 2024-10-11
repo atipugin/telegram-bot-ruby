@@ -23,4 +23,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'faraday', '~> 2.0'
   spec.add_dependency 'faraday-multipart', '~> 1.0'
   spec.add_dependency 'zeitwerk', '~> 2.6'
+  spec.add_development_dependency 'openapi3_parser', '~> 0.9.2'
 end

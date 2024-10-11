@@ -6,6 +6,7 @@ module Telegram
       class ChatMemberMember < Base
         attribute :status, Types::String.constrained(eql: 'member').default('member')
         attribute :user, User
+        attribute? :until_date, Types::Integer
       end
     end
   end

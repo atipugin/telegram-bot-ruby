@@ -9,7 +9,7 @@ module Telegram
         attribute? :resize_keyboard, Types::Bool.default(false)
         attribute? :one_time_keyboard, Types::Bool.default(false)
         attribute? :input_field_placeholder, Types::String
-        attribute? :selective, Types::Bool.default(false)
+        attribute? :selective, Types::Bool
 
         def to_compact_hash
           hsh = super
