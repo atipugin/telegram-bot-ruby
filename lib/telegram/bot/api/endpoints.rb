@@ -33,7 +33,7 @@ module Telegram
         'restrictChatMember' => Types::Bool,
         'promoteChatMember' => Types::Bool,
         'leaveChat' => Types::Bool,
-        'getChat' => Types::Chat,
+        'getChat' => Types::ChatFullInfo,
         'getChatAdministrators' => Types::Array.of(Types::ChatMember),
         'exportChatInviteLink' => Types::String,
         'setChatPhoto' => Types::Bool,
@@ -107,7 +107,12 @@ module Telegram
         'setMyDescription' => Types::Bool,
         'getMyDescription' => Types::BotDescription,
         'setMyShortDescription' => Types::Bool,
-        'getMyShortDescription' => Types::BotShortDescription
+        'getMyShortDescription' => Types::BotShortDescription,
+        'refundStarPayment' => Types::Bool,
+        'getStarTransactions' => Types::StarTransactions,
+        'sendPaidMedia' => Types::Message,
+        'createChatSubscriptionInviteLink' => Types::ChatInviteLink,
+        'editChatSubscriptionInviteLink' => Types::ChatInviteLink
       }.freeze
     end
   end
