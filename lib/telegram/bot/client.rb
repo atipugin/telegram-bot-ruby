@@ -39,9 +39,9 @@ module Telegram
       end
 
       def handle_update(update)
-        @options[:offset] = update.update_id.next
+        options[:offset] = update.update_id.next
 
-        if @options[:listen_update_mode]
+        if options[:listen_update_mode]
           log_incoming_update(update)
 
           update
