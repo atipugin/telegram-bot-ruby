@@ -2011,6 +2011,9 @@ InlineKeyboardButton:
 - name: pay
   type: Boolean
   required: false
+- name: copy_text
+  type: CopyTextButton
+  required: false
 InlineKeyboardMarkup:
 - name: inline_keyboard
   type: Array of Array of InlineKeyboardButton
