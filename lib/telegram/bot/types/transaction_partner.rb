@@ -9,6 +9,7 @@ module Telegram
         TransactionPartnerUser |
         TransactionPartnerFragment |
         TransactionPartnerTelegramAds |
+        TransactionPartnerTelegramApi |
         TransactionPartnerOther
       )
       # rubocop:enable Naming/ConstantName
