@@ -1864,6 +1864,9 @@
     "switch_inline_query_chosen_chat": {
       "type": "SwitchInlineQueryChosenChat"
     },
+    "copy_text": {
+      "type": "CopyTextButton"
+    },
     "callback_game": {
       "type": null
     },
@@ -1901,6 +1904,12 @@
     },
     "allow_channel_chats": {
       "type": "boolean"
+    }
+  },
+  "CopyTextButton": {
+    "text": {
+      "type": "string",
+      "required": true
     }
   },
   "CallbackQuery": {
@@ -4462,6 +4471,17 @@
       "type": "string",
       "required": true,
       "default": "telegram_ads"
+    }
+  },
+  "TransactionPartnerTelegramApi": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "default": "telegram_api"
+    },
+    "request_count": {
+      "type": "integer",
+      "required": true
     }
   },
   "TransactionPartnerOther": {
