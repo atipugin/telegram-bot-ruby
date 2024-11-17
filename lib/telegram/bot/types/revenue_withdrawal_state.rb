@@ -3,8 +3,14 @@
 module Telegram
   module Bot
     module Types
-      class RevenueWithdrawalState < Base
-      end
+      ## Just for classes consistency
+      # rubocop:disable Naming/ConstantName
+      RevenueWithdrawalState = (
+        RevenueWithdrawalStatePending |
+        RevenueWithdrawalStateSucceeded |
+        RevenueWithdrawalStateFailed
+      )
+      # rubocop:enable Naming/ConstantName
     end
   end
 end

@@ -3,8 +3,14 @@
 module Telegram
   module Bot
     module Types
-      class PaidMedia < Base
-      end
+      ## Just for classes consistency
+      # rubocop:disable Naming/ConstantName
+      PaidMedia = (
+        PaidMediaPreview |
+        PaidMediaPhoto |
+        PaidMediaVideo
+      )
+      # rubocop:enable Naming/ConstantName
     end
   end
 end

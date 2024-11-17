@@ -6,12 +6,12 @@ module Telegram
       ## Just for classes consistency
       # rubocop:disable Naming/ConstantName
       ChatMember = (
-        ChatMemberAdministrator |
-        ChatMemberBanned |
-        ChatMemberLeft |
-        ChatMemberMember |
         ChatMemberOwner |
-        ChatMemberRestricted
+        ChatMemberAdministrator |
+        ChatMemberMember |
+        ChatMemberRestricted |
+        ChatMemberLeft |
+        ChatMemberBanned
       )
       # rubocop:enable Naming/ConstantName
     end

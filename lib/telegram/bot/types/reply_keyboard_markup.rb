@@ -8,7 +8,7 @@ module Telegram
         attribute? :is_persistent, Types::Bool.default(false)
         attribute? :resize_keyboard, Types::Bool.default(false)
         attribute? :one_time_keyboard, Types::Bool.default(false)
-        attribute? :input_field_placeholder, Types::String
+        attribute? :input_field_placeholder, Types::String.constrained(min_size: 1, max_size: 64)
         attribute? :selective, Types::Bool
 
         def to_compact_hash

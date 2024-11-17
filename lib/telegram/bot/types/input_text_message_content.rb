@@ -3,8 +3,8 @@
 module Telegram
   module Bot
     module Types
-      class InputTextMessageContent < InputMessageContent
-        attribute :message_text, Types::String
+      class InputTextMessageContent < Base
+        attribute :message_text, Types::String.constrained(min_size: 1, max_size: 4096)
         attribute? :parse_mode, Types::String
         attribute? :entities, Types::Array.of(MessageEntity)
         attribute? :link_preview_options, LinkPreviewOptions

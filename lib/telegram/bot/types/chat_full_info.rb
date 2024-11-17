@@ -20,7 +20,7 @@ module Telegram
         attribute? :business_location, BusinessLocation
         attribute? :business_opening_hours, BusinessOpeningHours
         attribute? :personal_chat, Chat
-        attribute? :available_reactions, Types::Array
+        attribute? :available_reactions, Types::Array.of(ReactionType)
         attribute? :background_custom_emoji_id, Types::String
         attribute? :profile_accent_color_id, Types::Integer
         attribute? :profile_background_custom_emoji_id, Types::String

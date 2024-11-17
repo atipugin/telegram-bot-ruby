@@ -6,7 +6,7 @@ module Telegram
       class InlineQueryResultsButton < Base
         attribute :text, Types::String
         attribute? :web_app, WebAppInfo
-        attribute? :start_parameter, Types::String
+        attribute? :start_parameter, Types::String.constrained(min_size: 1, max_size: 64)
       end
     end
   end

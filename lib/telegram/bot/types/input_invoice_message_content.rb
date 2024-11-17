@@ -3,9 +3,9 @@
 module Telegram
   module Bot
     module Types
-      class InputInvoiceMessageContent < InputMessageContent
-        attribute :title, Types::String
-        attribute :description, Types::String
+      class InputInvoiceMessageContent < Base
+        attribute :title, Types::String.constrained(min_size: 1, max_size: 32)
+        attribute :description, Types::String.constrained(min_size: 1, max_size: 255)
         attribute :payload, Types::String
         attribute? :provider_token, Types::String
         attribute :currency, Types::String

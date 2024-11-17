@@ -5,7 +5,7 @@ module Telegram
     module Types
       class PaidMediaInfo < Base
         attribute :star_count, Types::Integer
-        attribute :paid_media, Types::Array
+        attribute :paid_media, Types::Array.of(PaidMedia)
       end
     end
   end
