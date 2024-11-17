@@ -4,7 +4,7 @@ module Telegram
   module Bot
     module Types
       class TransactionPartnerFragment < Base
-        attribute :type, Types::String.default('fragment')
+        attribute :type, Types::String.constrained(eql: 'fragment').default('fragment')
         attribute? :withdrawal_state, RevenueWithdrawalState
       end
     end

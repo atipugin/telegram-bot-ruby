@@ -4,7 +4,7 @@ module Telegram
   module Bot
     module Types
       class InputPaidMediaVideo < Base
-        attribute :type, Types::String.default('video')
+        attribute :type, Types::String.constrained(eql: 'video').default('video')
         attribute :media, Types::String
         attribute? :thumbnail, Types::String
         attribute? :width, Types::Integer

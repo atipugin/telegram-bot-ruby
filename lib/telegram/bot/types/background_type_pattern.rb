@@ -4,7 +4,7 @@ module Telegram
   module Bot
     module Types
       class BackgroundTypePattern < Base
-        attribute :type, Types::String.default('pattern')
+        attribute :type, Types::String.constrained(eql: 'pattern').default('pattern')
         attribute :document, Document
         attribute :fill, BackgroundFill
         attribute :intensity, Types::Integer

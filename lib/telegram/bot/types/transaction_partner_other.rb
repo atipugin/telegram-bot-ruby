@@ -4,7 +4,7 @@ module Telegram
   module Bot
     module Types
       class TransactionPartnerOther < Base
-        attribute :type, Types::String.default('other')
+        attribute :type, Types::String.constrained(eql: 'other').default('other')
       end
     end
   end
