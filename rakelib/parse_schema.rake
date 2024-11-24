@@ -50,7 +50,7 @@ task :parse_schema do
   end
 
   # Input File is literally just a string for our purpose
-  File.write "#{__dir__}/../utility/type_attributes.json", JSON.pretty_generate(result.except('InputFile'))
+  File.write "#{__dir__}/../data/type_attributes.json", JSON.pretty_generate(result.except('InputFile'))
 end
 
 def required_keys(schema)

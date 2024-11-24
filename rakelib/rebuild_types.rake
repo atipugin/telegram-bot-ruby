@@ -6,7 +6,7 @@ DRY_TYPES = %w[string integer float decimal array hash symbol boolean date date_
 
 desc 'Rebuild types'
 task :rebuild_types do
-  types = JSON.parse(File.read("#{__dir__}/../utility/type_attributes.json"), symbolize_names: true)
+  types = JSON.parse(File.read("#{__dir__}/../data/type_attributes.json"), symbolize_names: true)
 
   types.each_pair do |name, attributes|
     next build_empty_type(name, attributes) if attributes[:type].instance_of?(Array)
@@ -35,14 +35,14 @@ task :rebuild_types do
     end
 
     File.write "#{__dir__}/../lib/telegram/bot/types/#{underscore(name)}.rb",
-               ERB.new(File.read("#{__dir__}/../utility/type.erb")).result(binding).gsub("      \n", '')
+               ERB.new(File.read("#{__dir__}/templates/type.erb")).result(binding).gsub("      \n", '')
   end
 end
 
 def build_empty_type(name, attributes)
   attributes = attributes[:type].join(" |\n        ")
   File.write "#{__dir__}/../lib/telegram/bot/types/#{underscore(name)}.rb",
-             ERB.new(File.read("#{__dir__}/../utility/empty_type.erb")).result(binding).gsub("      \n", '')
+             ERB.new(File.read("#{__dir__}/templates/empty_type.erb")).result(binding).gsub("      \n", '')
 end
 
 def apply_default(attributes, attr_name, properties, original_type)
