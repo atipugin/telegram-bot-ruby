@@ -3,7 +3,7 @@
 module Telegram
   module Bot
     module Types
-      class InputContactMessageContent < InputMessageContent
+      class InputContactMessageContent < Base
         attribute :phone_number, Types::String
         attribute :first_name, Types::String
         attribute? :last_name, Types::String

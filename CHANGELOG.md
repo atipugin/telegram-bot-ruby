@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.0
+
+### Added
+
+- [Bot API 8.0](https://core.telegram.org/bots/api#november-17-2024)
+
 ## 2.0.0
 
 ### Added

@@ -3,7 +3,7 @@
 module Telegram
   module Bot
     module Types
-      class InputVenueMessageContent < InputMessageContent
+      class InputVenueMessageContent < Base
         attribute :latitude, Types::Float
         attribute :longitude, Types::Float
         attribute :title, Types::String

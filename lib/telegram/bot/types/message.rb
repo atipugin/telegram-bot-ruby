@@ -8,7 +8,10 @@ module Telegram
         attribute? :message_thread_id, Types::Integer
         attribute? :from, User
         attribute? :sender_chat, Chat
+        attribute? :sender_boost_count, Types::Integer
+        attribute? :sender_business_bot, User
         attribute :date, Types::Integer
+        attribute? :business_connection_id, Types::String
         attribute :chat, Chat
         attribute? :forward_origin, MessageOrigin
         attribute? :is_topic_message, Types::True
@@ -16,17 +19,21 @@ module Telegram
         attribute? :reply_to_message, Message
         attribute? :external_reply, ExternalReplyInfo
         attribute? :quote, TextQuote
+        attribute? :reply_to_story, Story
         attribute? :via_bot, User
         attribute? :edit_date, Types::Integer
         attribute? :has_protected_content, Types::True
+        attribute? :is_from_offline, Types::True
         attribute? :media_group_id, Types::String
         attribute? :author_signature, Types::String
         attribute? :text, Types::String
         attribute? :entities, Types::Array.of(MessageEntity)
         attribute? :link_preview_options, LinkPreviewOptions
+        attribute? :effect_id, Types::String
         attribute? :animation, Animation
         attribute? :audio, Audio
         attribute? :document, Document
+        attribute? :paid_media, PaidMediaInfo
         attribute? :photo, Types::Array.of(PhotoSize)
         attribute? :sticker, Sticker
         attribute? :story, Story
@@ -35,6 +42,7 @@ module Telegram
         attribute? :voice, Voice
         attribute? :caption, Types::String
         attribute? :caption_entities, Types::Array.of(MessageEntity)
+        attribute? :show_caption_above_media, Types::True
         attribute? :has_media_spoiler, Types::True
         attribute? :contact, Contact
         attribute? :dice, Dice
@@ -56,12 +64,15 @@ module Telegram
         attribute? :pinned_message, MaybeInaccessibleMessage
         attribute? :invoice, Invoice
         attribute? :successful_payment, SuccessfulPayment
+        attribute? :refunded_payment, RefundedPayment
         attribute? :users_shared, UsersShared
         attribute? :chat_shared, ChatShared
         attribute? :connected_website, Types::String
         attribute? :write_access_allowed, WriteAccessAllowed
         attribute? :passport_data, PassportData
         attribute? :proximity_alert_triggered, ProximityAlertTriggered
+        attribute? :boost_added, ChatBoostAdded
+        attribute? :chat_background_set, ChatBackground
         attribute? :forum_topic_created, ForumTopicCreated
         attribute? :forum_topic_edited, ForumTopicEdited
         attribute? :forum_topic_closed, ForumTopicClosed

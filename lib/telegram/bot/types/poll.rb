@@ -5,7 +5,8 @@ module Telegram
     module Types
       class Poll < Base
         attribute :id, Types::String
-        attribute :question, Types::String
+        attribute :question, Types::String.constrained(min_size: 1, max_size: 300)
+        attribute? :question_entities, Types::Array.of(MessageEntity)
         attribute :options, Types::Array.of(PollOption)
         attribute :total_voter_count, Types::Integer
         attribute :is_closed, Types::Bool

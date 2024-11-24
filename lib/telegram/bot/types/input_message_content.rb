@@ -3,8 +3,16 @@
 module Telegram
   module Bot
     module Types
-      class InputMessageContent < Base
-      end
+      ## Just for classes consistency
+      # rubocop:disable Naming/ConstantName
+      InputMessageContent = (
+        InputTextMessageContent |
+        InputLocationMessageContent |
+        InputVenueMessageContent |
+        InputContactMessageContent |
+        InputInvoiceMessageContent
+      )
+      # rubocop:enable Naming/ConstantName
     end
   end
 end

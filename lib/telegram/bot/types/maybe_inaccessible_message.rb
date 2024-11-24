@@ -3,10 +3,13 @@
 module Telegram
   module Bot
     module Types
-      MaybeInaccessibleMessage = ( # rubocop:disable Naming/ConstantName
+      ## Just for classes consistency
+      # rubocop:disable Naming/ConstantName
+      MaybeInaccessibleMessage = (
         Message |
         InaccessibleMessage
       )
+      # rubocop:enable Naming/ConstantName
     end
   end
 end
