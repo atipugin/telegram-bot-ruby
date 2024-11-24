@@ -2,7 +2,7 @@
 
 require 'json'
 
-file = File.read("#{__dir__}/../../../../utility/type_attributes.json")
+file = File.read("#{__dir__}/../../../../data/type_attributes.json")
 parsed_types = JSON.parse(file)
 
 RSpec.describe Telegram::Bot::Types do
