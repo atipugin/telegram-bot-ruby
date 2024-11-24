@@ -2,6 +2,7 @@
 
 require 'json'
 require 'erb'
+DRY_TYPES = %w[string integer float decimal array hash symbol boolean date date_time time range].freeze
 
 desc 'Rebuild types'
 task :rebuild_types do
@@ -10,7 +11,7 @@ task :rebuild_types do
   types.each_pair do |name, attributes|
     next build_empty_type(name, attributes) if attributes[:type].instance_of?(Array)
 
-    attributes.except(:inherited_from).each_pair do |attr_name, properties|
+    attributes.each_pair do |attr_name, properties|
       attributes[attr_name][:type] = add_module_types(properties[:type]) unless properties[:type].is_a?(Array)
       if properties[:type].is_a?(Array)
         attributes[attr_name][:type] = properties[:type].map do |type|

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'openapi3_parser'
-DRY_TYPES = %w[string integer float decimal array hash symbol boolean date date_time time range].freeze
 
 desc 'Parse types from public json, should be up to date https://github.com/ark0f/tg-bot-api'
 task :parse_schema do
@@ -41,7 +40,7 @@ task :parse_schema do
         attribute[:items] = { type: 'array', items: property_schema.items.items.name }
       end
 
-      attribute = apply_default(attribute, property_schema)
+      attribute = apply_default_schema(attribute, property_schema)
       [property_name, attribute]
     end
 
@@ -58,7 +57,7 @@ def required_keys(schema)
   schema.required.to_a || []
 end
 
-def apply_default(attribute, property_schema)
+def apply_default_schema(attribute, property_schema)
   attribute[:default] = property_schema.default unless property_schema.default.nil?
   # previous line would have been enough, but had to check the description due to issue: https://github.com/kevindew/openapi3_parser/issues/28
   attribute[:default] = false if property_schema.description&.include?('Defaults to *false*')

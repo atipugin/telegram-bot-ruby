@@ -3313,6 +3313,33 @@
       "items": "string"
     }
   },
+  "Gift": {
+    "id": {
+      "type": "string",
+      "required": true
+    },
+    "sticker": {
+      "type": "Sticker",
+      "required": true
+    },
+    "star_count": {
+      "type": "integer",
+      "required": true
+    },
+    "total_count": {
+      "type": "integer"
+    },
+    "remaining_count": {
+      "type": "integer"
+    }
+  },
+  "Gifts": {
+    "gifts": {
+      "type": "array",
+      "required": true,
+      "items": "Gift"
+    }
+  },
   "InlineQuery": {
     "id": {
       "type": "string",
@@ -4431,6 +4458,16 @@
       "type": "string"
     }
   },
+  "PreparedInlineMessage": {
+    "id": {
+      "type": "string",
+      "required": true
+    },
+    "expiration_date": {
+      "type": "integer",
+      "required": true
+    }
+  },
   "LabeledPrice": {
     "label": {
       "type": "string",
@@ -4530,6 +4567,17 @@
     "invoice_payload": {
       "type": "string",
       "required": true
+    },
+    "subscription_expiration_date": {
+      "type": "integer"
+    },
+    "is_recurring": {
+      "type": "boolean",
+      "default": true
+    },
+    "is_first_recurring": {
+      "type": "boolean",
+      "default": true
     },
     "shipping_option_id": {
       "type": "string"
@@ -4687,12 +4735,18 @@
     "invoice_payload": {
       "type": "string"
     },
+    "subscription_period": {
+      "type": "integer"
+    },
     "paid_media": {
       "type": "array",
       "items": "PaidMedia"
     },
     "paid_media_payload": {
       "type": "string"
+    },
+    "gift": {
+      "type": "Gift"
     }
   },
   "TransactionPartnerFragment": {

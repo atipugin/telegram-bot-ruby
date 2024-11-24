@@ -112,7 +112,12 @@ module Telegram
         'getStarTransactions' => Types::StarTransactions,
         'sendPaidMedia' => Types::Message,
         'createChatSubscriptionInviteLink' => Types::ChatInviteLink,
-        'editChatSubscriptionInviteLink' => Types::ChatInviteLink
+        'editChatSubscriptionInviteLink' => Types::ChatInviteLink,
+        'getAvailableGifts' => Types::Gifts,
+        'sendGift' => Types::Bool,
+        'savePreparedInlineMessage' => Types::PreparedInlineMessage,
+        'editUserStarSubscription' => Types::Bool,
+        'setUserEmojiStatus' => Types::Bool
       }.freeze
     end
   end
