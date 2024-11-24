@@ -4,7 +4,7 @@
 
 ### Added
 
-- [Bot API 8.0](https://core.telegram.org/bots/api#november-17-2024) (thx [@seorgiy][])
+- [Bot API 8.0](https://core.telegram.org/bots/api#november-17-2024) (thx [@seorgiy](https://github.com/seorgiy))
 
 ## 2.0.0
 
