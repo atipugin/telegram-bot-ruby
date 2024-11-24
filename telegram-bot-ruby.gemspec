@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.summary       = "Ruby wrapper for Telegram's Bot API"
   spec.homepage      = 'https://github.com/atipugin/telegram-bot'
 
-  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
+  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features|data)/}) }
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
