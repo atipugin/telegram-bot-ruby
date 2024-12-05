@@ -4712,9 +4712,29 @@
       "default": "failed"
     }
   },
+  "AffiliateInfo": {
+    "affiliate_user": {
+      "type": "User"
+    },
+    "affiliate_chat": {
+      "type": "Chat"
+    },
+    "commission_per_mille": {
+      "type": "integer",
+      "required": true
+    },
+    "amount": {
+      "type": "integer",
+      "required": true
+    },
+    "nanostar_amount": {
+      "type": "integer"
+    }
+  },
   "TransactionPartner": {
     "type": [
       "TransactionPartnerUser",
+      "TransactionPartnerAffiliateProgram",
       "TransactionPartnerFragment",
       "TransactionPartnerTelegramAds",
       "TransactionPartnerTelegramApi",
@@ -4732,6 +4752,9 @@
       "type": "User",
       "required": true
     },
+    "affiliate": {
+      "type": "AffiliateInfo"
+    },
     "invoice_payload": {
       "type": "string"
     },
@@ -4747,6 +4770,21 @@
     },
     "gift": {
       "type": "Gift"
+    }
+  },
+  "TransactionPartnerAffiliateProgram": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "affiliate_program",
+      "default": "affiliate_program"
+    },
+    "sponsor_user": {
+      "type": "User"
+    },
+    "commission_per_mille": {
+      "type": "integer",
+      "required": true
     }
   },
   "TransactionPartnerFragment": {
@@ -4796,6 +4834,9 @@
     "amount": {
       "type": "integer",
       "required": true
+    },
+    "nanostar_amount": {
+      "type": "integer"
     },
     "date": {
       "type": "integer",
