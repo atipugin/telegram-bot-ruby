@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.2.0
+
+### Added
+
+- [Bot API 8.1](https://core.telegram.org/bots/api-changelog#october-31-2024) [#319](https://github.com/atipugin/telegram-bot-ruby/pull/319)
+
 ## 2.1.0
 
 ### Added
