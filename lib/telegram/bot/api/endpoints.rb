@@ -19,6 +19,7 @@ module Telegram
         'sendVoice' => Types::Message,
         'sendVideoNote' => Types::Message,
         'sendMediaGroup' => Types::Array.of(Types::Message),
+        'sendPaidMedia' => Types::Message,
         'sendLocation' => Types::Message,
         'editMessageLiveLocation' => Types::Message | Types::Bool,
         'stopMessageLiveLocation' => Types::Message | Types::Bool,
