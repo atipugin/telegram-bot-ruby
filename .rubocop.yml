@@ -16,6 +16,8 @@ Metrics/BlockLength:
     - context
     - describe
     - task
+    - namespace
+
 Metrics/ClassLength:
   Exclude:
     - lib/telegram/bot/api/endpoints.rb
