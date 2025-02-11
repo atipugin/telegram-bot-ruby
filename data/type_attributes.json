@@ -3326,6 +3326,9 @@
       "type": "integer",
       "required": true
     },
+    "upgrade_star_count": {
+      "type": "integer"
+    },
     "total_count": {
       "type": "integer"
     },
@@ -3426,9 +3429,6 @@
     },
     "url": {
       "type": "string"
-    },
-    "hide_url": {
-      "type": "boolean"
     },
     "description": {
       "type": "string"

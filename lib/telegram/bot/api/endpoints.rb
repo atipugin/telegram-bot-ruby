@@ -117,7 +117,11 @@ module Telegram
         'sendGift' => Types::Bool,
         'savePreparedInlineMessage' => Types::PreparedInlineMessage,
         'editUserStarSubscription' => Types::Bool,
-        'setUserEmojiStatus' => Types::Bool
+        'setUserEmojiStatus' => Types::Bool,
+        'verifyUser' => Types::Bool,
+        'verifyChat' => Types::Bool,
+        'removeUserVerification' => Types::Bool,
+        'removeChatVerification' => Types::Bool
       }.freeze
     end
   end
