@@ -7,6 +7,7 @@ module Telegram
         attribute :id, Types::String
         attribute :sticker, Sticker
         attribute :star_count, Types::Integer
+        attribute? :upgrade_star_count, Types::Integer
         attribute? :total_count, Types::Integer
         attribute? :remaining_count, Types::Integer
       end
