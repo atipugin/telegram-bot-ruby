@@ -7,6 +7,8 @@ module Telegram
         attribute :type, Types::String.constrained(eql: 'video').default('video')
         attribute :media, Types::String
         attribute? :thumbnail, Types::String
+        attribute? :cover, Types::String
+        attribute? :start_timestamp, Types::Integer
         attribute? :width, Types::Integer
         attribute? :height, Types::Integer
         attribute? :duration, Types::Integer
