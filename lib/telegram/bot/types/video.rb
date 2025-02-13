@@ -10,6 +10,8 @@ module Telegram
         attribute :height, Types::Integer
         attribute :duration, Types::Integer
         attribute? :thumbnail, PhotoSize
+        attribute? :cover, Types::Array.of(PhotoSize)
+        attribute? :start_timestamp, Types::Integer
         attribute? :file_name, Types::String
         attribute? :mime_type, Types::String
         attribute? :file_size, Types::Integer

@@ -7,6 +7,7 @@ module Telegram
       # rubocop:disable Naming/ConstantName
       TransactionPartner = (
         TransactionPartnerUser |
+        TransactionPartnerChat |
         TransactionPartnerAffiliateProgram |
         TransactionPartnerFragment |
         TransactionPartnerTelegramAds |

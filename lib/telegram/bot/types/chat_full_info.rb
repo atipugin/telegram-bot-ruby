@@ -35,6 +35,7 @@ module Telegram
         attribute? :invite_link, Types::String
         attribute? :pinned_message, Message
         attribute? :permissions, ChatPermissions
+        attribute? :can_send_gift, Types::True
         attribute? :can_send_paid_media, Types::True
         attribute? :slow_mode_delay, Types::Integer
         attribute? :unrestrict_boost_count, Types::Integer

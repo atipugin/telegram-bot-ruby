@@ -301,6 +301,10 @@
     "permissions": {
       "type": "ChatPermissions"
     },
+    "can_send_gift": {
+      "type": "boolean",
+      "default": true
+    },
     "can_send_paid_media": {
       "type": "boolean",
       "default": true
@@ -1022,6 +1026,13 @@
     },
     "thumbnail": {
       "type": "PhotoSize"
+    },
+    "cover": {
+      "type": "array",
+      "items": "PhotoSize"
+    },
+    "start_timestamp": {
+      "type": "integer"
     },
     "file_name": {
       "type": "string"
@@ -3016,6 +3027,12 @@
     "thumbnail": {
       "type": "string"
     },
+    "cover": {
+      "type": "string"
+    },
+    "start_timestamp": {
+      "type": "integer"
+    },
     "caption": {
       "type": "string",
       "max_size": 1024
@@ -3182,6 +3199,12 @@
     },
     "thumbnail": {
       "type": "string"
+    },
+    "cover": {
+      "type": "string"
+    },
+    "start_timestamp": {
+      "type": "integer"
     },
     "width": {
       "type": "integer"
@@ -4734,6 +4757,7 @@
   "TransactionPartner": {
     "type": [
       "TransactionPartnerUser",
+      "TransactionPartnerChat",
       "TransactionPartnerAffiliateProgram",
       "TransactionPartnerFragment",
       "TransactionPartnerTelegramAds",
@@ -4767,6 +4791,21 @@
     },
     "paid_media_payload": {
       "type": "string"
+    },
+    "gift": {
+      "type": "Gift"
+    }
+  },
+  "TransactionPartnerChat": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "chat",
+      "default": "chat"
+    },
+    "chat": {
+      "type": "Chat",
+      "required": true
     },
     "gift": {
       "type": "Gift"
