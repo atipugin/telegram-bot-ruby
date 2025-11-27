@@ -7,7 +7,7 @@ module Telegram
         attribute :type, Types::String.constrained(eql: 'document').default('document')
         attribute :id, Types::String
         attribute :title, Types::String
-        attribute? :caption, Types::String
+        attribute? :caption, Types::String.constrained(max_size: 1024)
         attribute? :parse_mode, Types::String
         attribute? :caption_entities, Types::Array.of(MessageEntity)
         attribute :document_url, Types::String

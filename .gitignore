@@ -1,7 +1,9 @@
 Gemfile.lock
 
 .bundle/
+.claude/
 .env
+.serena/
 pkg/
 tmp/
 vendor/bundle/

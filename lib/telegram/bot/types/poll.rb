@@ -14,7 +14,7 @@ module Telegram
         attribute :type, Types::String
         attribute :allows_multiple_answers, Types::Bool
         attribute? :correct_option_id, Types::Integer
-        attribute? :explanation, Types::String
+        attribute? :explanation, Types::String.constrained(max_size: 200)
         attribute? :explanation_entities, Types::Array.of(MessageEntity)
         attribute? :open_period, Types::Integer
         attribute? :close_date, Types::Integer

@@ -9,7 +9,7 @@ module Telegram
         attribute :video_file_id, Types::String
         attribute :title, Types::String
         attribute? :description, Types::String
-        attribute? :caption, Types::String
+        attribute? :caption, Types::String.constrained(max_size: 1024)
         attribute? :parse_mode, Types::String
         attribute? :caption_entities, Types::Array.of(MessageEntity)
         attribute? :show_caption_above_media, Types::Bool
