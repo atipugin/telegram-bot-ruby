@@ -13,6 +13,14 @@ module DocsParsers
   #   documentation page (https://core.telegram.org/bots/api) and generates a structured
   #   JSON file (methods.json) that maps method names to their return types.
   #
+  # @problem_statement
+  #   **Why this parser exists:**
+  #   The OpenAPI schema for Telegram Bot API is no longer being maintained by Telegram,
+  #   making it necessary to parse the HTML documentation directly. While type definitions
+  #   are important, knowing what each API method returns is equally crucial for proper
+  #   type inference and SDK functionality. This parser provides an automated solution to
+  #   extract method return type information from the official HTML documentation.
+  #
   # @why_we_parse
   #   The Telegram Bot API provides dozens of methods (sendMessage, getUpdates, etc.), each
   #   with specific return types. To provide accurate type information in the Ruby SDK, we need
@@ -21,15 +29,46 @@ module DocsParsers
   #   - Ensures the SDK stays in sync with the official API
   #   - Enables proper type inference and IDE autocomplete
   #   - Supports automatic method wrapper generation
+  #   - Automatically detects new methods added in API updates
+  #
+  # @output_format
+  #   The parser generates a JSON file with the following structure:
+  #
+  #   ```json
+  #   {
+  #     "getMe": "Types::User",
+  #     "sendMessage": "Types::Message",
+  #     "getUpdates": "Types::Array.of(Types::Update)",
+  #     "stopPoll": "Types::Poll | Types::Bool",
+  #     "setWebhook": "Types::Bool"
+  #   }
+  #   ```
+  #
+  #   Each key is a method name (camelCase) and each value is a Ruby dry-types type expression.
   #
   # @how_we_parse
   #   The parser uses Nokogiri to parse the HTML documentation and extracts return type
   #   information from method descriptions. The process:
   #
+  #   **HTML Structure for Methods:**
+  #   ```html
+  #   <h4>methodName</h4>
+  #   <p>Description explaining what the method does. Returns TypeName on success.</p>
+  #   <table>
+  #     <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+  #     <tbody>
+  #       <tr><td>param_name</td><td>Type</td><td>Yes</td><td>Description</td></tr>
+  #     </tbody>
+  #   </table>
+  #   ```
+  #
+  #   **Parsing Steps:**
+  #
   #   1. **Identify Methods** - Find all h4 headers that start with lowercase letters
-  #      (methods use camelCase, types use PascalCase)
+  #      (methods use camelCase like "sendMessage", types use PascalCase like "Message")
   #
   #   2. **Extract Descriptions** - Collect paragraph text following each method header
+  #      (descriptions contain the return type information)
   #
   #   3. **Parse Return Types** - Analyze description text for return type patterns:
   #      - `Returns True on success` → `Types::Bool`
@@ -72,25 +111,85 @@ module DocsParsers
   #
   # @type_mapping
   #   The parser maps Telegram API type names to Ruby dry-types representations:
-  #   - Integer/Int → Types::Integer
-  #   - String → Types::String
-  #   - Boolean/Bool/True → Types::Bool
-  #   - Float → Types::Float
-  #   - Custom types → Types::TypeName (e.g., Message → Types::Message)
+  #   - `Integer`/`Int` → `Types::Integer`
+  #   - `String` → `Types::String`
+  #   - `Boolean`/`Bool`/`True` → `Types::Bool`
+  #   - `Float` → `Types::Float`
+  #   - `Array of X` → `Types::Array.of(Types::X)`
+  #   - `X or Y` → `Types::X | Types::Y` (union type syntax)
+  #   - Custom types → `Types::TypeName` (e.g., `Message` → `Types::Message`)
+  #
+  # @pattern_matching_details
+  #   The parser uses regex patterns to extract return types from natural language descriptions.
+  #   It must handle various documentation writing styles:
+  #
+  #   **Skip words:** Common words that aren't types are filtered out:
+  #   - "False", "success", "information", "object", "file", "the", "a", "an", "if", "when", "basic"
+  #
+  #   **Fallback for known methods:** Some methods have hardcoded return types when patterns fail:
+  #   - `getUpdates` → `Types::Array.of(Types::Update)`
+  #   - `setWebhook`/`deleteWebhook` → `Types::Bool`
+  #   - `getMe` → `Types::User`
+  #
+  # @known_limitations
+  #   1. **Natural language dependency**: Relies on specific phrasing in descriptions (e.g., "Returns X")
+  #   2. **Pattern brittleness**: Documentation style changes could break pattern matching
+  #   3. **Incomplete coverage**: Some methods may not match any pattern and return nil
+  #   4. **No parameter parsing**: Only parses return types, not method parameters or their types
+  #   5. **Manual fallbacks needed**: Edge case methods require hardcoded return types
+  #   6. **No validation**: Doesn't verify if return type actually exists in type_attributes.json
+  #
+  # @dependencies
+  #   Required Ruby gems:
+  #   - `nokogiri` - HTML/XML parsing
+  #   - `open-uri` - HTTP fetching (Ruby standard library)
+  #   - `json` - JSON generation (Ruby standard library)
+  #
+  # @performance
+  #   - Fetch time: ~2-3 seconds (depends on network)
+  #   - Parse time: <1 second (processes ~80-100 methods)
+  #   - Total execution: ~3-4 seconds
+  #
+  # @validation_approach
+  #   To ensure parser accuracy:
+  #   1. Compare generated methods.json with expected output
+  #   2. Check that all known methods are detected (e.g., getMe, sendMessage, getUpdates)
+  #   3. Verify return types match documentation
+  #   4. Test with multiple API versions to ensure pattern robustness
+  #   5. Review any methods that return nil (pattern match failures)
+  #
+  # @usage_workflow
+  #   Typical workflow for updating methods after a Bot API release:
+  #   1. Run parser to generate new methods: `parser.fetch; parser.parse; parser.save('new.json')`
+  #   2. Compare with existing file to review changes
+  #   3. Check for new methods, removed methods, and return type changes
+  #   4. Review any nil values (methods that couldn't be parsed)
+  #   5. Add fallback cases for edge case methods if needed
+  #   6. If everything looks correct, replace the existing methods.json
   #
   # @example Basic usage
   #   parser = MethodsParser.new
+  #   parser.fetch                 # Fetch HTML from Telegram Bot API
+  #   parser.parse                 # Parse all methods from HTML
+  #   parser.save('methods.json')  # Save to file
+  #
+  # @example Programmatic usage
+  #   parser = MethodsParser.new('https://core.telegram.org/bots/api')
   #   parser.fetch
-  #   parser.parse
-  #   parser.save('methods.json')
+  #   methods = parser.parse       # Returns hash of method_name => return_type
+  #   json_string = parser.to_json # Get JSON string without saving
   #
   # @example Generated output format
   #   {
   #     "getMe": "Types::User",
   #     "sendMessage": "Types::Message",
   #     "getUpdates": "Types::Array.of(Types::Update)",
-  #     "stopPoll": "Types::Poll | Types::Bool"
+  #     "stopPoll": "Types::Poll | Types::Bool",
+  #     "forwardMessage": "Types::Message",
+  #     "deleteMessage": "Types::Bool"
   #   }
+  #
+  # @see https://core.telegram.org/bots/api Official Telegram Bot API documentation
   #
   class MethodsParser
     # Map Telegram API type names to Ruby type representations
