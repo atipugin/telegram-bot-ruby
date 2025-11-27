@@ -9,7 +9,7 @@ module DocsParsers
   #
   # This parser automatically extracts type definitions from the official Telegram Bot API
   # documentation page (https://core.telegram.org/bots/api) and generates a structured
-  # JSON file (type_attributes.json) that describes all API types with their fields,
+  # JSON file (types.json) that describes all API types with their fields,
   # constraints, and metadata.
   #
   # == Why This Parser Exists
@@ -169,7 +169,7 @@ module DocsParsers
   #
   # == Validation Results
   #
-  # After improvements, the parser produces output that matches the existing type_attributes.json
+  # After improvements, the parser produces output that matches the existing types.json
   # with only legitimate API version differences. Before improvements, 53 types differed;
   # after improvements, only 12 types differ due to API version changes (new/removed fields).
   #
@@ -212,7 +212,7 @@ module DocsParsers
   # 1. Run parser to generate new types: parser.fetch; parser.parse; parser.save('new.json')
   # 2. Compare with existing file to review changes
   # 3. Check for new types, removed types, and field changes
-  # 4. If everything looks correct, replace the existing type_attributes.json
+  # 4. If everything looks correct, replace the existing types.json
   # 5. Regenerate Ruby type classes if applicable
   # 6. Run test suite to ensure compatibility
   #
@@ -228,7 +228,7 @@ module DocsParsers
   #   parser.fetch                   # Fetch HTML from Telegram Bot API
   #   parser.parse                   # Parse all types from HTML
   #   parser.add_custom_types!       # Add custom types like Error
-  #   parser.save('type_attributes.json')  # Save to file
+  #   parser.save('types.json')  # Save to file
   #
   # @example Programmatic usage
   #   parser = TypesParser.new('https://core.telegram.org/bots/api')

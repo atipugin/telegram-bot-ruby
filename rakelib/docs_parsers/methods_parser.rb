@@ -9,7 +9,7 @@ module DocsParsers
   #
   # This parser automatically extracts method definitions from the official Telegram Bot API
   # documentation page (https://core.telegram.org/bots/api) and generates a structured
-  # JSON file (methods.json) that maps method names to their return types.
+  # JSON file (endpoints.json) that maps method names to their return types.
   #
   # == Why This Parser Exists
   #
@@ -145,7 +145,7 @@ module DocsParsers
   # == Validation Approach
   #
   # To ensure parser accuracy:
-  # 1. Compare generated methods.json with expected output
+  # 1. Compare generated endpoints.json with expected output
   # 2. Check that all known methods are detected (e.g., getMe, sendMessage, getUpdates)
   # 3. Verify return types match documentation
   # 4. Test with multiple API versions to ensure pattern robustness
@@ -159,20 +159,20 @@ module DocsParsers
   # 3. Check for new methods, removed methods, and return type changes
   # 4. Review any nil values (methods that couldn't be parsed)
   # 5. Add fallback cases for edge case methods if needed
-  # 6. If everything looks correct, replace the existing methods.json
+  # 6. If everything looks correct, replace the existing endpoints.json
   #
   # @note Natural language dependency - Relies on specific phrasing in descriptions (e.g., "Returns X")
   # @note Pattern brittleness - Documentation style changes could break pattern matching
   # @note Incomplete coverage - Some methods may not match any pattern and return nil
   # @note No parameter parsing - Only parses return types, not method parameters or their types
   # @note Manual fallbacks needed - Edge case methods require hardcoded return types
-  # @note No validation - Doesn't verify if return type actually exists in type_attributes.json
+  # @note No validation - Doesn't verify if return type actually exists in types.json
   #
   # @example Basic usage
   #   parser = MethodsParser.new
   #   parser.fetch                  # Fetch HTML from Telegram Bot API
   #   parser.parse                  # Parse all methods from HTML
-  #   parser.save('methods.json')   # Save to file
+  #   parser.save('endpoints.json')   # Save to file
   #
   # @example Programmatic usage
   #   parser = MethodsParser.new('https://core.telegram.org/bots/api')

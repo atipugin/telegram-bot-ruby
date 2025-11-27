@@ -4,9 +4,9 @@ require_relative 'docs_parsers/types_parser'
 require_relative 'docs_parsers/methods_parser'
 
 namespace :parse do
-  desc 'Parse Telegram Bot API documentation and generate type_attributes.json'
+  desc 'Parse Telegram Bot API documentation and generate types.json'
   task :types do
-    output_file = "#{__dir__}/../data/type_attributes.json"
+    output_file = "#{__dir__}/../data/types.json"
 
     parser = DocsParsers::TypesParser.new
     parser.fetch
@@ -18,9 +18,9 @@ namespace :parse do
     puts "  Generated #{parser.instance_variable_get(:@types).size} types"
   end
 
-  desc 'Parse Telegram Bot API documentation and generate methods.json'
-  task :methods do
-    output_file = "#{__dir__}/../data/methods.json"
+  desc 'Parse Telegram Bot API documentation and generate endpoints.json'
+  task :endpoints do
+    output_file = "#{__dir__}/../data/endpoints.json"
 
     parser = DocsParsers::MethodsParser.new
     parser.fetch

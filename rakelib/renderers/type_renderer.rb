@@ -6,7 +6,7 @@ module Renderers
   # Renderer for Telegram Bot API type classes from parsed type attributes.
   #
   # This renderer automatically creates Ruby class content from the structured type
-  # definitions in type_attributes.json. It converts JSON type specifications into
+  # definitions in types.json. It converts JSON type specifications into
   # proper dry-types Ruby code and renders either regular type classes or union
   # type aliases.
   #
@@ -102,7 +102,7 @@ module Renderers
   #
   # == Usage
   #
-  #   types = JSON.parse(File.read('data/type_attributes.json'), symbolize_names: true)
+  #   types = JSON.parse(File.read('data/types.json'), symbolize_names: true)
   #
   #   types.each_pair do |name, attributes|
   #     renderer = Renderers::TypeRenderer.new(name, attributes)
@@ -110,7 +110,7 @@ module Renderers
   #     # Write content to appropriate file...
   #   end
   #
-  # @see DocsParsers::TypesParser For the parser that generates type_attributes.json
+  # @see DocsParsers::TypesParser For the parser that generates types.json
   class TypeRenderer # rubocop:disable Metrics/ClassLength
     # Dry-types built-in type names that map directly to Types::Xxx
     DRY_TYPES = %w[string integer float decimal array hash symbol boolean date date_time time range].freeze
@@ -124,13 +124,13 @@ module Renderers
     # @return [String] The type name (e.g., "Animation", "User")
     attr_reader :name
 
-    # @return [Hash] The type attributes from type_attributes.json
+    # @return [Hash] The type attributes from types.json
     attr_reader :attributes
 
     # Creates a new type renderer.
     #
     # @param name [String, Symbol] The type name (e.g., "Animation")
-    # @param attributes [Hash] The type attributes from type_attributes.json
+    # @param attributes [Hash] The type attributes from types.json
     #   For regular types, this is a hash of field_name => properties.
     #   For union types, this has a single :type key with an array of type names.
     #

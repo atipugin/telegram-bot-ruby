@@ -6,7 +6,7 @@ module Renderers
   # Renderer for Telegram Bot API endpoints module from parsed methods.
   #
   # This renderer creates the endpoints.rb content from the structured
-  # method definitions in methods.json. It renders a Ruby module containing
+  # method definitions in endpoints.json. It renders a Ruby module containing
   # a constant hash mapping API method names to their return types.
   #
   # == Input Format
@@ -36,22 +36,22 @@ module Renderers
   #
   # == Usage
   #
-  #   methods = JSON.parse(File.read('data/methods.json'))
+  #   methods = JSON.parse(File.read('data/endpoints.json'))
   #   renderer = Renderers::EndpointsRenderer.new(methods)
   #   content = renderer.render
   #   # Write content to appropriate file...
   #
-  # @see DocsParsers::MethodsParser For the parser that generates methods.json
+  # @see DocsParsers::MethodsParser For the parser that generates endpoints.json
   class EndpointsRenderer
     # Directory containing ERB templates
     TEMPLATES_DIR = File.expand_path('../templates', __dir__)
 
-    # @return [Hash] The methods hash from methods.json
+    # @return [Hash] The methods hash from endpoints.json
     attr_reader :methods
 
     # Creates a new endpoints renderer.
     #
-    # @param methods [Hash] The methods hash from methods.json
+    # @param methods [Hash] The methods hash from endpoints.json
     #   Keys are method names (e.g., "getMe"), values are return types (e.g., "Types::User")
     #
     # @example

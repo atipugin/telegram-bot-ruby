@@ -5,9 +5,9 @@ require_relative 'renderers/type_renderer'
 require_relative 'renderers/endpoints_renderer'
 
 namespace :rebuild do
-  desc 'Rebuild type classes from type_attributes.json'
+  desc 'Rebuild type classes from types.json'
   task :types do
-    input_file = "#{__dir__}/../data/type_attributes.json"
+    input_file = "#{__dir__}/../data/types.json"
 
     unless File.exist?(input_file)
       puts "Error: #{input_file} not found. Run 'rake parse:types' first."
@@ -29,9 +29,9 @@ namespace :rebuild do
     puts "  Generated #{types.size} type classes"
   end
 
-  desc 'Rebuild endpoints from methods.json'
-  task :methods do
-    input_file = "#{__dir__}/../data/methods.json"
+  desc 'Rebuild endpoints from endpoints.json'
+  task :endpoints do
+    input_file = "#{__dir__}/../data/endpoints.json"
 
     unless File.exist?(input_file)
       puts "Error: #{input_file} not found. Run 'rake parse:methods' first."
