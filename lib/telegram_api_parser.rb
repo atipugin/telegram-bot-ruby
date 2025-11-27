@@ -13,7 +13,7 @@ class TelegramApiParser
     'Integer' => 'integer',
     'String' => 'string',
     'Boolean' => 'boolean',
-    'Float' => 'float',
+    'Float' => 'number',  # Use 'number' for consistency with existing file
     'True' => 'boolean',
     'Int' => 'integer'
   }.freeze
@@ -172,6 +172,32 @@ class TelegramApiParser
       attribute['default'] = true
     end
 
+    # Parse default from description: "Defaults to X" or "defaults to X"
+    if (match = description.match(/defaults to\s+["'\u201C\u201D](.+?)["'\u201C\u201D]/i))
+      # Default value in quotes: Defaults to "image/jpeg"
+      attribute['default'] = match[1].strip
+    elsif (match = description.match(/defaults to\s+(\w+)/i))
+      # Default without quotes: defaults to true
+      value = match[1].strip
+      # Try to cast to appropriate type
+      if value =~ /^(true|false)$/i
+        attribute['default'] = value.downcase == 'true'
+      elsif value =~ /^\d+$/
+        attribute['default'] = value.to_i
+      else
+        attribute['default'] = value
+      end
+    end
+
+    # Parse min_size and max_size from description
+    # Patterns: "1-32 characters", "0-4096 characters", etc.
+    if (match = description.match(/(\d+)-(\d+)\s+characters/i))
+      min = match[1].to_i
+      max = match[2].to_i
+      attribute['min_size'] = min unless min.zero? # Skip min_size if 0
+      attribute['max_size'] = max
+    end
+
     # Check for special required_value (discriminator fields for union type members)
     # Patterns: 'always "value"' or 'must be value'
     # Note: HTML uses Unicode smart quotes (\u201C and \u201D) instead of regular quotes
@@ -205,7 +231,21 @@ class TelegramApiParser
     doc = Nokogiri::HTML.fragment(type_html)
     type_text = doc.text.strip
 
-    # Handle arrays: "Array of X"
+    # Handle nested arrays: "Array of Array of X"
+    if (match = type_text.match(/^Array of Array of (.+)$/i))
+      inner_type = match[1].strip
+      inner_type = extract_type_name(inner_type)
+
+      return {
+        'type' => 'array',
+        'items' => {
+          'type' => 'array',
+          'items' => map_type(inner_type)
+        }
+      }
+    end
+
+    # Handle regular arrays: "Array of X"
     if (match = type_text.match(/^Array of (.+)$/i))
       item_type = match[1].strip
       item_type = extract_type_name(item_type)
@@ -216,12 +256,24 @@ class TelegramApiParser
       }
     end
 
-    # Handle union types: "A or B" or "A, B or C" or "A and B"
-    if type_text.match?(/\s+or\s+|\s+and\s+/i)
-      # For inline unions, take the first type
-      # (These are usually documented as separate fields anyway)
-      first_type = type_text.split(/\s+(?:or|and)\s+/i).first.split(',').first.strip
-      return { 'type' => map_type(extract_type_name(first_type)) }
+    # Handle union types: "A or B" or "A, B or C"
+    # For inline field unions (not top-level type unions), return array of types
+    if type_text.match?(/\s+or\s+/i)
+      # Split by "or" and clean up each type
+      types = type_text.split(/\s+or\s+/i).map do |part|
+        # Remove any commas and extra text
+        part = part.split(',').first.strip
+        map_type(extract_type_name(part))
+      end
+
+      # If we have exactly 2 simple types, return as array
+      # Examples: "Integer or String", "Float or Integer"
+      if types.size == 2 && types.all? { |t| t =~ /^[a-z]+$/ }
+        return { 'type' => types }
+      else
+        # For complex unions, take first type (rare edge case)
+        return { 'type' => types.first }
+      end
     end
 
     # Single type

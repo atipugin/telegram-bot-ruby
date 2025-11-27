@@ -258,11 +258,15 @@
   "BotCommand": {
     "command": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "min_size": 1,
+      "max_size": 32
     },
     "description": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "min_size": 1,
+      "max_size": 256
     }
   },
   "BotCommandScope": {
@@ -309,7 +313,10 @@
     },
     "chat_id": {
       "required": true,
-      "type": "integer"
+      "type": [
+        "integer",
+        "string"
+      ]
     }
   },
   "BotCommandScopeChatAdministrators": {
@@ -321,7 +328,10 @@
     },
     "chat_id": {
       "required": true,
-      "type": "integer"
+      "type": [
+        "integer",
+        "string"
+      ]
     }
   },
   "BotCommandScopeChatMember": {
@@ -333,7 +343,10 @@
     },
     "chat_id": {
       "required": true,
-      "type": "integer"
+      "type": [
+        "integer",
+        "string"
+      ]
     },
     "user_id": {
       "required": true,
@@ -967,7 +980,9 @@
     },
     "address": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "min_size": 1,
+      "max_size": 64
     }
   },
   "ChatMember": {
@@ -1268,7 +1283,8 @@
       "type": "boolean"
     },
     "can_manage_topics": {
-      "type": "boolean"
+      "type": "boolean",
+      "default": "the"
     }
   },
   "ChatPhoto": {
@@ -1417,7 +1433,9 @@
   "CopyTextButton": {
     "text": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "min_size": 1,
+      "max_size": 256
     }
   },
   "Dice": {
@@ -1436,7 +1454,8 @@
       "type": "boolean"
     },
     "direct_message_star_count": {
-      "type": "integer"
+      "type": "integer",
+      "default": 0
     }
   },
   "DirectMessagesTopic": {
@@ -1640,7 +1659,9 @@
       "default": true
     },
     "input_field_placeholder": {
-      "type": "string"
+      "type": "string",
+      "min_size": 1,
+      "max_size": 64
     },
     "selective": {
       "type": "boolean"
@@ -1701,7 +1722,8 @@
       "items": "PhotoSize"
     },
     "text": {
-      "type": "string"
+      "type": "string",
+      "max_size": 4096
     },
     "text_entities": {
       "type": "array",
@@ -1947,7 +1969,10 @@
     "inline_keyboard": {
       "required": true,
       "type": "array",
-      "items": "Array"
+      "items": {
+        "type": "array",
+        "items": "InlineKeyboardButton"
+      }
     }
   },
   "InlineQuery": {
@@ -2056,7 +2081,8 @@
       "type": "string"
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -2094,7 +2120,8 @@
       "type": "string"
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -2133,7 +2160,8 @@
       "type": "string"
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -2168,7 +2196,8 @@
       "type": "string"
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -2206,7 +2235,8 @@
       "type": "string"
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -2247,7 +2277,8 @@
       "type": "string"
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -2311,7 +2342,8 @@
       "type": "string"
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -2350,7 +2382,8 @@
       "type": "string"
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -2423,7 +2456,8 @@
       "type": "string"
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -2507,13 +2541,15 @@
       "type": "string"
     },
     "thumbnail_mime_type": {
-      "type": "string"
+      "type": "string",
+      "default": "image/jpeg"
     },
     "title": {
       "type": "string"
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -2545,18 +2581,18 @@
     },
     "latitude": {
       "required": true,
-      "type": "float"
+      "type": "number"
     },
     "longitude": {
       "required": true,
-      "type": "float"
+      "type": "number"
     },
     "title": {
       "required": true,
       "type": "string"
     },
     "horizontal_accuracy": {
-      "type": "float"
+      "type": "number"
     },
     "live_period": {
       "type": "integer"
@@ -2612,13 +2648,15 @@
       "type": "string"
     },
     "thumbnail_mime_type": {
-      "type": "string"
+      "type": "string",
+      "default": "image/jpeg"
     },
     "title": {
       "type": "string"
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -2669,7 +2707,8 @@
       "type": "string"
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -2701,11 +2740,11 @@
     },
     "latitude": {
       "required": true,
-      "type": "float"
+      "type": "number"
     },
     "longitude": {
       "required": true,
-      "type": "float"
+      "type": "number"
     },
     "title": {
       "required": true,
@@ -2771,7 +2810,8 @@
       "type": "string"
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -2822,7 +2862,8 @@
       "type": "string"
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -2850,13 +2891,17 @@
       "type": "WebAppInfo"
     },
     "start_parameter": {
-      "type": "string"
+      "type": "string",
+      "min_size": 1,
+      "max_size": 64
     }
   },
   "InputChecklist": {
     "title": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "min_size": 1,
+      "max_size": 255
     },
     "parse_mode": {
       "type": "string"
@@ -2884,7 +2929,9 @@
     },
     "text": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "min_size": 1,
+      "max_size": 100
     },
     "parse_mode": {
       "type": "string"
@@ -2913,11 +2960,15 @@
   "InputInvoiceMessageContent": {
     "title": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "min_size": 1,
+      "max_size": 32
     },
     "description": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "min_size": 1,
+      "max_size": 255
     },
     "payload": {
       "required": true,
@@ -2936,7 +2987,8 @@
       "items": "LabeledPrice"
     },
     "max_tip_amount": {
-      "type": "integer"
+      "type": "integer",
+      "default": 0
     },
     "suggested_tip_amounts": {
       "type": "array",
@@ -2982,14 +3034,14 @@
   "InputLocationMessageContent": {
     "latitude": {
       "required": true,
-      "type": "float"
+      "type": "number"
     },
     "longitude": {
       "required": true,
-      "type": "float"
+      "type": "number"
     },
     "horizontal_accuracy": {
-      "type": "float"
+      "type": "number"
     },
     "live_period": {
       "type": "integer"
@@ -3025,7 +3077,8 @@
       "type": "string"
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -3065,7 +3118,8 @@
       "type": "string"
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -3099,7 +3153,8 @@
       "type": "string"
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -3124,7 +3179,8 @@
       "type": "string"
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -3161,7 +3217,8 @@
       "type": "integer"
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -3252,7 +3309,9 @@
   "InputPollOption": {
     "text": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "min_size": 1,
+      "max_size": 100
     },
     "text_parse_mode": {
       "type": "string"
@@ -3280,7 +3339,8 @@
       "type": "string"
     },
     "main_frame_timestamp": {
-      "type": "float"
+      "type": "number",
+      "default": 0
     }
   },
   "InputProfilePhotoStatic": {
@@ -3347,10 +3407,11 @@
       "type": "string"
     },
     "duration": {
-      "type": "float"
+      "type": "number"
     },
     "cover_frame_timestamp": {
-      "type": "float"
+      "type": "number",
+      "default": 0
     },
     "is_animation": {
       "type": "boolean"
@@ -3359,7 +3420,9 @@
   "InputTextMessageContent": {
     "message_text": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "min_size": 1,
+      "max_size": 4096
     },
     "parse_mode": {
       "type": "string"
@@ -3375,11 +3438,11 @@
   "InputVenueMessageContent": {
     "latitude": {
       "required": true,
-      "type": "float"
+      "type": "number"
     },
     "longitude": {
       "required": true,
-      "type": "float"
+      "type": "number"
     },
     "title": {
       "required": true,
@@ -3502,7 +3565,8 @@
       "type": "boolean"
     },
     "max_quantity": {
-      "type": "integer"
+      "type": "integer",
+      "default": 1
     },
     "request_name": {
       "type": "boolean"
@@ -3544,14 +3608,14 @@
   "Location": {
     "latitude": {
       "required": true,
-      "type": "float"
+      "type": "number"
     },
     "longitude": {
       "required": true,
-      "type": "float"
+      "type": "number"
     },
     "horizontal_accuracy": {
-      "type": "float"
+      "type": "number"
     },
     "live_period": {
       "type": "integer"
@@ -3600,15 +3664,15 @@
     },
     "x_shift": {
       "required": true,
-      "type": "float"
+      "type": "number"
     },
     "y_shift": {
       "required": true,
-      "type": "float"
+      "type": "number"
     },
     "scale": {
       "required": true,
-      "type": "float"
+      "type": "number"
     }
   },
   "MaybeInaccessibleMessage": {
@@ -4605,7 +4669,9 @@
     },
     "question": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "min_size": 1,
+      "max_size": 300
     },
     "question_entities": {
       "type": "array",
@@ -4640,7 +4706,8 @@
       "type": "integer"
     },
     "explanation": {
-      "type": "string"
+      "type": "string",
+      "max_size": 200
     },
     "explanation_entities": {
       "type": "array",
@@ -4673,7 +4740,9 @@
   "PollOption": {
     "text": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "min_size": 1,
+      "max_size": 100
     },
     "text_entities": {
       "type": "array",
@@ -4812,19 +4881,27 @@
     "keyboard": {
       "required": true,
       "type": "array",
-      "items": "Array"
+      "items": {
+        "type": "array",
+        "items": "KeyboardButton"
+      }
     },
     "is_persistent": {
-      "type": "boolean"
+      "type": "boolean",
+      "default": false
     },
     "resize_keyboard": {
-      "type": "boolean"
+      "type": "boolean",
+      "default": false
     },
     "one_time_keyboard": {
-      "type": "boolean"
+      "type": "boolean",
+      "default": false
     },
     "input_field_placeholder": {
-      "type": "string"
+      "type": "string",
+      "min_size": 1,
+      "max_size": 64
     },
     "selective": {
       "type": "boolean"
@@ -4846,13 +4923,17 @@
       "type": "integer"
     },
     "chat_id": {
-      "type": "integer"
+      "type": [
+        "integer",
+        "string"
+      ]
     },
     "allow_sending_without_reply": {
       "type": "boolean"
     },
     "quote": {
-      "type": "string"
+      "type": "string",
+      "max_size": 1024
     },
     "quote_parse_mode": {
       "type": "string"
@@ -5137,27 +5218,27 @@
   "StoryAreaPosition": {
     "x_percentage": {
       "required": true,
-      "type": "float"
+      "type": "number"
     },
     "y_percentage": {
       "required": true,
-      "type": "float"
+      "type": "number"
     },
     "width_percentage": {
       "required": true,
-      "type": "float"
+      "type": "number"
     },
     "height_percentage": {
       "required": true,
-      "type": "float"
+      "type": "number"
     },
     "rotation_angle": {
       "required": true,
-      "type": "float"
+      "type": "number"
     },
     "corner_radius_percentage": {
       "required": true,
-      "type": "float"
+      "type": "number"
     }
   },
   "StoryAreaType": {
@@ -5190,11 +5271,11 @@
     },
     "latitude": {
       "required": true,
-      "type": "float"
+      "type": "number"
     },
     "longitude": {
       "required": true,
-      "type": "float"
+      "type": "number"
     },
     "address": {
       "type": "LocationAddress"
@@ -5239,7 +5320,7 @@
     },
     "temperature": {
       "required": true,
-      "type": "float"
+      "type": "number"
     },
     "emoji": {
       "required": true,
@@ -5774,7 +5855,10 @@
     "photos": {
       "required": true,
       "type": "array",
-      "items": "Array"
+      "items": {
+        "type": "array",
+        "items": "PhotoSize"
+      }
     }
   },
   "UsersShared": {
@@ -5965,7 +6049,8 @@
     },
     "allowed_updates": {
       "type": "array",
-      "items": "string"
+      "items": "string",
+      "default": "all"
     }
   },
   "WriteAccessAllowed": {
