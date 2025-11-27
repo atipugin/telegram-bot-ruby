@@ -304,21 +304,19 @@ module DocsParsers
       if (match = description.match(/(?:returns?|returned)\s+(?:an?\s+)?(\w+)(?:\s+(?:object|on success|is returned))?/i))
         type_name = match[1].strip
 
-        # Skip common words that aren't types
-        skip_words = %w[False success information object file the a an if when basic]
-        return nil if skip_words.include?(type_name)
-
-        # Check if it's a known type
-        return map_type(type_name)
+        # Skip common words that aren't types - don't return, just skip to next pattern
+        skip_words = %w[False success information object file the a an if when basic to error]
+        unless skip_words.include?(type_name)
+          # Check if it's a known type
+          return map_type(type_name)
+        end
       end
 
       # Pattern 6: "On success, X is returned"
       if (match = description.match(/on success,\s+(?:an?\s+)?(\w+)\s+(?:is|are)\s+returned/i))
         type_name = match[1].strip
         skip_words = %w[information the message]
-        return nil if skip_words.include?(type_name)
-
-        return map_type(type_name)
+        return map_type(type_name) unless skip_words.include?(type_name)
       end
 
       # Pattern 7: For specific methods with known return types
@@ -326,12 +324,10 @@ module DocsParsers
       case method_name
       when 'getUpdates'
         'Types::Array.of(Types::Update)'
-      when 'setWebhook', 'deleteWebhook'
+      when 'setWebhook', 'deleteWebhook', 'banChatMember', 'unbanChatMember', 'setGameScore'
         'Types::Bool'
       when 'getMe'
         'Types::User'
-      else
-        nil
       end
     end
 
