@@ -114,7 +114,7 @@ module Telegram
         'unpinChatMessage' => Types::Bool,
         'upgradeGift' => Types::Bool,
         'verifyChat' => Types::Bool,
-        'verifyUser' => Types::Bool,
+        'verifyUser' => Types::Bool
       }.freeze
     end
   end

@@ -30,6 +30,21 @@ Metrics/MethodLength:
     - rakelib/docs_parsers/types_parser.rb
     - spec/**/*
 
+Metrics/AbcSize:
+  Exclude:
+    - rakelib/docs_parsers/methods_parser.rb
+    - rakelib/docs_parsers/types_parser.rb
+
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - rakelib/docs_parsers/methods_parser.rb
+    - rakelib/docs_parsers/types_parser.rb
+
+Metrics/PerceivedComplexity:
+  Exclude:
+    - rakelib/docs_parsers/methods_parser.rb
+    - rakelib/docs_parsers/types_parser.rb
+
 Layout/LineLength:
   Max: 120
 

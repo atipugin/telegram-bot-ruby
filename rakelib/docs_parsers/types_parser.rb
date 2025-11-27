@@ -263,6 +263,18 @@ module DocsParsers
       /placeholder.*holds no information/i
     ].freeze
 
+    STOP_TAGS = %w[table ul].freeze
+
+    # Discriminator patterns in order of priority
+    DISCRIMINATOR_PATTERNS = [
+      # Value in quotes: always "solid" or always "solid" (Unicode smart quotes)
+      /always\s+["'\u201C\u201D](.+?)["'\u201C\u201D]/i,
+      # Value without quotes: always solid
+      /always\s+(\w+)/i,
+      # Must be pattern with quotes: must be "data"
+      /must be\s+["'\u201C\u201D](.+?)["'\u201C\u201D]/i
+    ].freeze
+
     def initialize(url = 'https://core.telegram.org/bots/api')
       @url = URI(url)
       @doc = nil
@@ -294,13 +306,13 @@ module DocsParsers
         list = find_following_list(header)
 
         if union_type?(description, table, list)
-          parse_union_type(type_name, header, list)
+          parse_union_type(type_name, list)
           union_count += 1
         elsif empty_type?(description, table)
           parse_empty_type(type_name)
           empty_count += 1
-        elsif table && is_type_table?(table)
-          parse_regular_type(type_name, header, table)
+        elsif table && type_table?(table)
+          parse_regular_type(type_name, table)
           type_count += 1
         end
       end
@@ -331,12 +343,12 @@ module DocsParsers
       EMPTY_TYPE_KEYWORDS.any? { |pattern| description.match?(pattern) }
     end
 
-    def is_type_table?(table)
-      headers = table.css('thead tr th, tr:first-child th').map(&:text).map(&:strip)
+    def type_table?(table)
+      headers = table.css('thead tr th, tr:first-child th').map { |x| x.text.strip }
       headers == %w[Field Type Description]
     end
 
-    def parse_union_type(type_name, header, list)
+    def parse_union_type(type_name, list)
       return unless list
 
       # Extract member type names from the list
@@ -358,7 +370,7 @@ module DocsParsers
       puts "  Empty: #{type_name}"
     end
 
-    def parse_regular_type(type_name, header, table)
+    def parse_regular_type(type_name, table)
       attributes = {}
 
       table.css('tbody tr, tr').each do |row|
@@ -392,7 +404,7 @@ module DocsParsers
       attribute['required'] = true unless is_optional
 
       # Parse type information
-      type_info = parse_type_info(type_html, description)
+      type_info = parse_type_info(type_html)
       attribute.merge!(type_info)
 
       # Check for default values (especially for True boolean type)
@@ -430,31 +442,32 @@ module DocsParsers
       # Exclude patterns like "must be one of X or Y" (multiple choice, not discriminator)
       discriminator_fields = %w[type source status currency]
       if discriminator_fields.include?(field_name)
-        # Try "always X" pattern first (with regular or Unicode quotes)
-        if (match = description.match(/always\s+["'\u201C\u201D](.+?)["'\u201C\u201D]/i))
-          # Value in quotes: always "solid" or always "solid"
-          attribute['required_value'] = match[1].strip
-          attribute['default'] = match[1].strip
-        elsif (match = description.match(/always\s+(\w+)/i))
-          # Value without quotes: always solid
-          attribute['required_value'] = match[1].strip
-          attribute['default'] = match[1].strip
-        elsif (match = description.match(/must be\s+["'\u201C\u201D](.+?)["'\u201C\u201D]/i))
-          # Must be pattern with quotes: must be "data"
-          attribute['required_value'] = match[1].strip
-          attribute['default'] = match[1].strip
-        elsif !description.match?(/must be\s+one\s+of/i) && (match = description.match(/must be\s+(\w+)\b/i))
-          # Must be pattern without quotes: must be data, must be default
-          # Explicitly exclude "must be one of" pattern before trying to match
-          attribute['required_value'] = match[1].strip
-          attribute['default'] = match[1].strip
+        discriminator_value = extract_discriminator_value(description)
+        if discriminator_value
+          attribute['required_value'] = discriminator_value
+          attribute['default'] = discriminator_value
         end
       end
 
       attribute
     end
 
-    def parse_type_info(type_html, description)
+    def extract_discriminator_value(description)
+      # Try standard patterns first
+      DISCRIMINATOR_PATTERNS.each do |pattern|
+        match = description.match(pattern)
+        return match[1].strip if match
+      end
+
+      # Must be pattern without quotes: must be data, must be default
+      # Explicitly exclude "must be one of" pattern before trying to match
+      return nil if description.match?(/must be\s+one\s+of/i)
+
+      match = description.match(/must be\s+(\w+)\b/i)
+      match ? match[1].strip : nil
+    end
+
+    def parse_type_info(type_html)
       # Parse HTML fragment to extract type text
       doc = Nokogiri::HTML.fragment(type_html)
       type_text = doc.text.strip
@@ -548,7 +561,7 @@ module DocsParsers
 
       # Collect all paragraph descriptions before table/list
       while current && current.name != 'h4' && current.name != 'h3'
-        break if %w[table ul].include?(current.name)
+        break if STOP_TAGS.include?(current.name)
 
         descriptions << current.text.strip if current.name == 'p'
         current = current.next_element

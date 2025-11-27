@@ -301,7 +301,8 @@ module DocsParsers
 
       # Pattern 5: "Returns X on success" or "On success, returns X"
       # Look for common return type patterns
-      if (match = description.match(/(?:returns?|returned)\s+(?:an?\s+)?(\w+)(?:\s+(?:object|on success|is returned))?/i))
+      return_type_pattern = /(?:returns?|returned)\s+(?:an?\s+)?(\w+)(?:\s+(?:object|on success|is returned))?/i
+      if (match = description.match(return_type_pattern))
         type_name = match[1].strip
 
         # Skip common words that aren't types - don't return, just skip to next pattern
