@@ -6,35 +6,33 @@ require 'nokogiri'
 require 'json'
 
 module DocsParsers
-  # Parser for Telegram Bot API documentation types
+  # Parser for Telegram Bot API documentation types.
   #
-  # @overview
-  #   This parser automatically extracts type definitions from the official Telegram Bot API
-  #   documentation page (https://core.telegram.org/bots/api) and generates a structured
-  #   JSON file (type_attributes.json) that describes all API types with their fields,
-  #   constraints, and metadata.
+  # This parser automatically extracts type definitions from the official Telegram Bot API
+  # documentation page (https://core.telegram.org/bots/api) and generates a structured
+  # JSON file (type_attributes.json) that describes all API types with their fields,
+  # constraints, and metadata.
   #
-  # @problem_statement
-  #   **Why this parser exists:**
-  #   The OpenAPI schema for Telegram Bot API is no longer being maintained by Telegram,
-  #   making it necessary to parse the HTML documentation directly to keep type definitions
-  #   up-to-date with the latest Bot API changes. This parser provides an automated solution
-  #   to extract and structure type information from the official HTML documentation.
+  # == Why This Parser Exists
   #
-  # @why_we_parse
-  #   The Telegram Bot API documentation is the single source of truth for API types, but
-  #   it's only available as HTML. To provide proper type checking, validation, and
-  #   autocomplete in the Ruby SDK, we need structured data about each type. This parser:
-  #   - Eliminates manual maintenance of type definitions
-  #   - Ensures the SDK stays in sync with the official API
-  #   - Captures detailed metadata (required fields, default values, size constraints)
-  #   - Enables automated type generation for the Ruby SDK
-  #   - Automatically detects new types added in API updates (e.g., checklist, gift, story features)
+  # The OpenAPI schema for Telegram Bot API is no longer being maintained by Telegram,
+  # making it necessary to parse the HTML documentation directly to keep type definitions
+  # up-to-date with the latest Bot API changes. This parser provides an automated solution
+  # to extract and structure type information from the official HTML documentation.
   #
-  # @output_format
-  #   The parser generates a JSON file with the following structure:
+  # The Telegram Bot API documentation is the single source of truth for API types, but
+  # it's only available as HTML. To provide proper type checking, validation, and
+  # autocomplete in the Ruby SDK, we need structured data about each type. This parser:
+  # - Eliminates manual maintenance of type definitions
+  # - Ensures the SDK stays in sync with the official API
+  # - Captures detailed metadata (required fields, default values, size constraints)
+  # - Enables automated type generation for the Ruby SDK
+  # - Automatically detects new types added in API updates (e.g., checklist, gift, story features)
   #
-  #   ```json
+  # == Output Format
+  #
+  # The parser generates a JSON file with the following structure:
+  #
   #   {
   #     "TypeName": {
   #       "field_name": {
@@ -48,82 +46,91 @@ module DocsParsers
   #       }
   #     }
   #   }
-  #   ```
   #
-  # @how_we_parse
-  #   The parser uses Nokogiri to parse the HTML documentation and identifies three categories
-  #   of types based on their HTML structure:
+  # == How We Parse
   #
-  #   **1. Regular Types** (e.g., User, Message) - Types with fields defined in a table
-  #      HTML Pattern:
-  #      ```html
-  #      <h4>TypeName</h4>
-  #      <p>Description of the type</p>
-  #      <table>
-  #        <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
-  #        <tbody>
-  #          <tr><td>field_name</td><td>FieldType</td><td>Optional. Description...</td></tr>
-  #        </tbody>
-  #      </table>
-  #      ```
-  #      Parser extracts:
-  #      - Field names, types, and descriptions from HTML tables
-  #      - Constraints from descriptions (min/max sizes, default values)
-  #      - Required vs optional fields (checks for "Optional" keyword)
-  #      - Discriminator fields for union type members (e.g., type="always X")
+  # The parser uses Nokogiri to parse the HTML documentation and identifies three categories
+  # of types based on their HTML structure:
   #
-  #   **2. Union Types** (e.g., MessageOrigin, InputMedia) - Types representing "one of" several types
-  #      HTML Pattern:
-  #      ```html
-  #      <h4>UnionTypeName</h4>
-  #      <p>This object can be one of</p>
-  #      <ul>
-  #        <li><a href="#type1">Type1</a></li>
-  #        <li><a href="#type2">Type2</a></li>
-  #      </ul>
-  #      ```
-  #      Detection keywords: "can be one of", "should be one of", "represents one of",
-  #      "currently, the following N types", "currently support the following N"
-  #      Output format: `{"type": ["Type1", "Type2", ...]}`
+  # === 1. Regular Types
   #
-  #   **3. Empty Types** (e.g., ForumTopicClosed, CallbackGame) - Marker types with no fields
-  #      HTML Pattern:
-  #      ```html
-  #      <h4>EmptyTypeName</h4>
-  #      <p>This object ... Currently holds no information.</p>
-  #      ```
-  #      Detection keywords: "currently holds no information", "placeholder.*holds no information"
-  #      Output format: `{}`
+  # Types with fields defined in a table (e.g., User, Message).
   #
-  # @detection_logic
-  #   For each <h4> header in the documentation:
-  #   1. Extract type name from header text
-  #   2. Get description from following <p> elements
-  #   3. Look for table with "Field | Type | Description" headers
-  #   4. Look for <ul> list of member types
+  # HTML Pattern:
+  #   <h4>TypeName</h4>
+  #   <p>Description of the type</p>
+  #   <table>
+  #     <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+  #     <tbody>
+  #       <tr><td>field_name</td><td>FieldType</td><td>Optional. Description...</td></tr>
+  #     </tbody>
+  #   </table>
   #
-  #   Classification decision tree:
-  #   - If description has union keywords + list present + no table → **Union Type**
-  #   - If description has "holds no information" + no table → **Empty Type**
-  #   - If table with field definitions present → **Regular Type**
-  #   - Otherwise → Skip (likely a method, not a type)
+  # Parser extracts:
+  # - Field names, types, and descriptions from HTML tables
+  # - Constraints from descriptions (min/max sizes, default values)
+  # - Required vs optional fields (checks for "Optional" keyword)
+  # - Discriminator fields for union type members (e.g., type="always X")
   #
-  # @parser_improvements
-  #   Several improvements were made to accurately capture all type metadata:
+  # === 2. Union Types
   #
-  #   **1. Min/Max Size Constraints**
-  #   Fields like `BotCommand.command` specify "1-32 characters" in descriptions.
-  #   Parser now extracts these patterns and adds `min_size`/`max_size` attributes.
-  #   Note: `min_size` is omitted when zero (e.g., "0-4096 characters" only adds `max_size`).
+  # Types representing "one of" several types (e.g., MessageOrigin, InputMedia).
   #
-  #   **2. Union Field Types**
-  #   Fields like `chat_id` can be "Integer or String". Parser now returns an array
-  #   for the type attribute: `{"type": ["integer", "string"]}` instead of just the first type.
+  # HTML Pattern:
+  #   <h4>UnionTypeName</h4>
+  #   <p>This object can be one of</p>
+  #   <ul>
+  #     <li><a href="#type1">Type1</a></li>
+  #     <li><a href="#type2">Type2</a></li>
+  #   </ul>
   #
-  #   **3. Nested Arrays**
-  #   Fields like `InlineKeyboardMarkup.inline_keyboard` have type "Array of Array of X".
-  #   Parser now creates nested array structures:
-  #   ```json
+  # Detection keywords: "can be one of", "should be one of", "represents one of",
+  # "currently, the following N types", "currently support the following N"
+  #
+  # Output format: {"type": ["Type1", "Type2", ...]}
+  #
+  # === 3. Empty Types
+  #
+  # Marker types with no fields (e.g., ForumTopicClosed, CallbackGame).
+  #
+  # HTML Pattern:
+  #   <h4>EmptyTypeName</h4>
+  #   <p>This object ... Currently holds no information.</p>
+  #
+  # Detection keywords: "currently holds no information", "placeholder.*holds no information"
+  #
+  # Output format: {}
+  #
+  # == Detection Logic
+  #
+  # For each <h4> header in the documentation:
+  # 1. Extract type name from header text
+  # 2. Get description from following <p> elements
+  # 3. Look for table with "Field | Type | Description" headers
+  # 4. Look for <ul> list of member types
+  #
+  # Classification decision tree:
+  # - If description has union keywords + list present + no table → Union Type
+  # - If description has "holds no information" + no table → Empty Type
+  # - If table with field definitions present → Regular Type
+  # - Otherwise → Skip (likely a method, not a type)
+  #
+  # == Parser Improvements
+  #
+  # Several improvements were made to accurately capture all type metadata:
+  #
+  # === 1. Min/Max Size Constraints
+  # Fields like BotCommand.command specify "1-32 characters" in descriptions.
+  # Parser now extracts these patterns and adds min_size/max_size attributes.
+  # Note: min_size is omitted when zero (e.g., "0-4096 characters" only adds max_size).
+  #
+  # === 2. Union Field Types
+  # Fields like chat_id can be "Integer or String". Parser now returns an array
+  # for the type attribute: {"type": ["integer", "string"]} instead of just the first type.
+  #
+  # === 3. Nested Arrays
+  # Fields like InlineKeyboardMarkup.inline_keyboard have type "Array of Array of X".
+  # Parser now creates nested array structures:
   #   {
   #     "type": "array",
   #     "items": {
@@ -131,93 +138,97 @@ module DocsParsers
   #       "items": "InlineKeyboardButton"
   #     }
   #   }
-  #   ```
   #
-  #   **4. Float vs Number Type**
-  #   Changed from "float" to "number" in TYPE_MAPPING for consistency with existing file.
+  # === 4. Float vs Number Type
+  # Changed from "float" to "number" in TYPE_MAPPING for consistency with existing file.
   #
-  #   **5. Default Values**
-  #   Parses "Defaults to X" patterns from descriptions. Supports:
-  #   - Quoted strings: `Defaults to "image/jpeg"` → `"image/jpeg"`
-  #   - Booleans: `defaults to true` → `true`
-  #   - Numbers: `defaults to 0` → `0`
-  #   Intentionally skips field references like "defaults to the value of other_field".
+  # === 5. Default Values
+  # Parses "Defaults to X" patterns from descriptions. Supports:
+  # - Quoted strings: Defaults to "image/jpeg" → "image/jpeg"
+  # - Booleans: defaults to true → true
+  # - Numbers: defaults to 0 → 0
+  # Intentionally skips field references like "defaults to the value of other_field".
   #
-  #   **6. Discriminator Fields**
-  #   Fields like `type`, `source`, `status` often have required values (e.g., `type` always "solid").
-  #   Parser detects patterns like "always X" or "must be X" and adds:
-  #   - `required_value`: The constant value
-  #   - `default`: Set to the same value
+  # === 6. Discriminator Fields
+  # Fields like type, source, status often have required values (e.g., type always "solid").
+  # Parser detects patterns like "always X" or "must be X" and adds:
+  # - required_value: The constant value
+  # - default: Set to the same value
   #
-  # @type_mappings
-  #   The parser maps Telegram API type names to JSON type representations:
-  #   - `Integer`/`Int` → `"integer"`
-  #   - `String` → `"string"`
-  #   - `Boolean` → `"boolean"`
-  #   - `True` → `"boolean"` with `"default": true`
-  #   - `Float` → `"number"` (changed from "float" for consistency)
-  #   - `Array of X` → `{"type": "array", "items": "X"}`
-  #   - `Array of Array of X` → `{"type": "array", "items": {"type": "array", "items": "X"}}`
-  #   - `Integer or String` → `{"type": ["integer", "string"]}`
-  #   - Custom types → Referenced by type name (e.g., `"Message"`, `"User"`)
+  # == Type Mappings
   #
-  # @validation_results
-  #   After improvements, the parser produces output that matches the existing type_attributes.json
-  #   with only legitimate API version differences. Before improvements, 53 types differed;
-  #   after improvements, only 12 types differ due to API version changes (new/removed fields).
+  # The parser maps Telegram API type names to JSON type representations:
+  # - Integer/Int → "integer"
+  # - String → "string"
+  # - Boolean → "boolean"
+  # - True → "boolean" with "default": true
+  # - Float → "number" (changed from "float" for consistency)
+  # - Array of X → {"type": "array", "items": "X"}
+  # - Array of Array of X → {"type": "array", "items": {"type": "array", "items": "X"}}
+  # - Integer or String → {"type": ["integer", "string"]}
+  # - Custom types → Referenced by type name (e.g., "Message", "User")
   #
-  #   Current output statistics (as of latest API version):
-  #   - Regular types: ~250
-  #   - Union types: ~21
-  #   - Empty types: ~6
-  #   - Custom types: 1 (Error)
-  #   - Total: ~278 types
+  # == Validation Results
   #
-  #   New types automatically detected in recent API updates:
-  #   - Checklist features: ChecklistTask, Checklist, InputChecklistTask, etc.
-  #   - Suggested posts: SuggestedPostPrice, SuggestedPostInfo, etc.
-  #   - Gift system: UniqueGift, GiftInfo, OwnedGift, etc.
-  #   - Story areas: StoryAreaType, StoryAreaTypeLocation, etc.
-  #   - Business features: BusinessBotRights, DirectMessagesTopic
+  # After improvements, the parser produces output that matches the existing type_attributes.json
+  # with only legitimate API version differences. Before improvements, 53 types differed;
+  # after improvements, only 12 types differ due to API version changes (new/removed fields).
   #
-  # @dependencies
-  #   Required Ruby gems:
-  #   - `nokogiri` - HTML/XML parsing
-  #   - `open-uri` - HTTP fetching (Ruby standard library)
-  #   - `json` - JSON generation (Ruby standard library)
+  # Current output statistics (as of latest API version):
+  # - Regular types: ~250
+  # - Union types: ~21
+  # - Empty types: ~6
+  # - Custom types: 1 (Error)
+  # - Total: ~278 types
   #
-  # @performance
-  #   - Fetch time: ~2-3 seconds (depends on network)
-  #   - Parse time: <1 second
-  #   - Total execution: ~3-4 seconds
+  # New types automatically detected in recent API updates:
+  # - Checklist features: ChecklistTask, Checklist, InputChecklistTask, etc.
+  # - Suggested posts: SuggestedPostPrice, SuggestedPostInfo, etc.
+  # - Gift system: UniqueGift, GiftInfo, OwnedGift, etc.
+  # - Story areas: StoryAreaType, StoryAreaTypeLocation, etc.
+  # - Business features: BusinessBotRights, DirectMessagesTopic
   #
-  # @known_limitations
-  #   1. **Requires manual review**: Generated types should be reviewed before replacing existing file
-  #   2. **Complex inline unions**: Some complex union patterns may need special handling
-  #   3. **Documentation changes**: Changes to HTML structure could break pattern matching
-  #   4. **No reference validation**: Doesn't validate type references or check for circular dependencies
-  #   5. **Method parameters not parsed**: Only parses return types, not method parameters
-  #   6. **Custom types must be added manually**: Types like `Error` that aren't in docs need manual addition
+  # == Dependencies
   #
-  # @custom_types
-  #   The parser includes an `add_custom_types!` method to add types not present in the official
-  #   documentation. Currently includes:
-  #   - **Error**: Represents API error responses with fields: ok, error_code, description, parameters
+  # Required Ruby gems:
+  # - nokogiri - HTML/XML parsing
+  # - open-uri - HTTP fetching (Ruby standard library)
+  # - json - JSON generation (Ruby standard library)
   #
-  # @usage_workflow
-  #   Typical workflow for updating types after a Bot API release:
-  #   1. Run parser to generate new types: `parser.fetch; parser.parse; parser.save('new.json')`
-  #   2. Compare with existing file to review changes
-  #   3. Check for new types, removed types, and field changes
-  #   4. If everything looks correct, replace the existing type_attributes.json
-  #   5. Regenerate Ruby type classes if applicable
-  #   6. Run test suite to ensure compatibility
+  # == Performance
+  #
+  # - Fetch time: ~2-3 seconds (depends on network)
+  # - Parse time: <1 second
+  # - Total execution: ~3-4 seconds
+  #
+  # == Custom Types
+  #
+  # The parser includes an add_custom_types! method to add types not present in the official
+  # documentation. Currently includes:
+  # - Error: Represents API error responses with fields: ok, error_code, description, parameters
+  #
+  # == Usage Workflow
+  #
+  # Typical workflow for updating types after a Bot API release:
+  # 1. Run parser to generate new types: parser.fetch; parser.parse; parser.save('new.json')
+  # 2. Compare with existing file to review changes
+  # 3. Check for new types, removed types, and field changes
+  # 4. If everything looks correct, replace the existing type_attributes.json
+  # 5. Regenerate Ruby type classes if applicable
+  # 6. Run test suite to ensure compatibility
+  #
+  # @note Requires manual review - Generated types should be reviewed before replacing existing file
+  # @note Complex inline unions - Some complex union patterns may need special handling
+  # @note Documentation changes - Changes to HTML structure could break pattern matching
+  # @note No reference validation - Doesn't validate type references or check for circular dependencies
+  # @note Method parameters not parsed - Only parses return types, not method parameters
+  # @note Custom types must be added manually - Types like Error that aren't in docs need manual addition
   #
   # @example Basic usage
   #   parser = TypesParser.new
-  #   parser.fetch                  # Fetch HTML from Telegram Bot API
-  #   parser.parse                  # Parse all types from HTML
-  #   parser.add_custom_types!      # Add custom types like Error
+  #   parser.fetch                   # Fetch HTML from Telegram Bot API
+  #   parser.parse                   # Parse all types from HTML
+  #   parser.add_custom_types!       # Add custom types like Error
   #   parser.save('type_attributes.json')  # Save to file
   #
   # @example Programmatic usage
