@@ -11,10 +11,6 @@ module Telegram
   module Bot
     class << self
       attr_writer :configuration
-
-      def eager_load!
-        @loader.eager_load
-      end
     end
 
     def self.configuration
@@ -24,11 +20,11 @@ module Telegram
     def self.configure
       yield(configuration)
     end
-
-    @loader = Zeitwerk::Loader.new
-    @loader.inflector = Zeitwerk::GemInflector.new(__FILE__)
-    @loader.inflector.inflect('endpoints' => 'ENDPOINTS')
-    @loader.push_dir("#{__dir__}/bot", namespace: Telegram::Bot)
-    @loader.setup
   end
 end
+
+loader = Zeitwerk::Loader.new
+loader.inflector = Zeitwerk::GemInflector.new(__FILE__)
+loader.inflector.inflect('endpoints' => 'ENDPOINTS')
+loader.push_dir("#{__dir__}/bot", namespace: Telegram::Bot)
+loader.setup
