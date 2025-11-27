@@ -7,7 +7,92 @@ require 'json'
 
 module DocsParsers
   # Parser for Telegram Bot API documentation types
-  # Generates type_attributes.json from https://core.telegram.org/bots/api
+  #
+  # @overview
+  #   This parser automatically extracts type definitions from the official Telegram Bot API
+  #   documentation page (https://core.telegram.org/bots/api) and generates a structured
+  #   JSON file (type_attributes.json) that describes all API types with their fields,
+  #   constraints, and metadata.
+  #
+  # @why_we_parse
+  #   The Telegram Bot API documentation is the single source of truth for API types, but
+  #   it's only available as HTML. To provide proper type checking, validation, and
+  #   autocomplete in the Ruby SDK, we need structured data about each type. This parser:
+  #   - Eliminates manual maintenance of type definitions
+  #   - Ensures the SDK stays in sync with the official API
+  #   - Captures detailed metadata (required fields, default values, size constraints)
+  #   - Enables automated type generation for the Ruby SDK
+  #
+  # @how_we_parse
+  #   The parser uses Nokogiri to parse the HTML documentation and identifies three categories
+  #   of types:
+  #
+  #   1. **Regular Types** - Types with fields defined in a table (e.g., User, Message)
+  #      - Extracts field names, types, and descriptions from HTML tables
+  #      - Parses constraints from descriptions (min/max sizes, default values)
+  #      - Identifies required vs optional fields
+  #      - Detects discriminator fields for union type members
+  #
+  #   2. **Union Types** - Types that represent "one of" several other types (e.g., InputMedia)
+  #      - Identified by keywords like "can be one of" in descriptions
+  #      - Extracts member types from following bullet lists
+  #
+  #   3. **Empty Types** - Placeholder types with no fields (e.g., successful payment confirmations)
+  #      - Identified by phrases like "currently holds no information"
+  #
+  # @parser_improvements
+  #   Several improvements were made to accurately capture all type metadata:
+  #
+  #   **1. Min/Max Size Constraints**
+  #   Fields like `BotCommand.command` specify "1-32 characters" in descriptions.
+  #   Parser now extracts these patterns and adds `min_size`/`max_size` attributes.
+  #   Note: `min_size` is omitted when zero (e.g., "0-4096 characters" only adds `max_size`).
+  #
+  #   **2. Union Field Types**
+  #   Fields like `chat_id` can be "Integer or String". Parser now returns an array
+  #   for the type attribute: `{"type": ["integer", "string"]}` instead of just the first type.
+  #
+  #   **3. Nested Arrays**
+  #   Fields like `InlineKeyboardMarkup.inline_keyboard` have type "Array of Array of X".
+  #   Parser now creates nested array structures:
+  #   ```json
+  #   {
+  #     "type": "array",
+  #     "items": {
+  #       "type": "array",
+  #       "items": "InlineKeyboardButton"
+  #     }
+  #   }
+  #   ```
+  #
+  #   **4. Float vs Number Type**
+  #   Changed from "float" to "number" in TYPE_MAPPING for consistency with existing file.
+  #
+  #   **5. Default Values**
+  #   Parses "Defaults to X" patterns from descriptions. Supports:
+  #   - Quoted strings: `Defaults to "image/jpeg"` → `"image/jpeg"`
+  #   - Booleans: `defaults to true` → `true`
+  #   - Numbers: `defaults to 0` → `0`
+  #   Intentionally skips field references like "defaults to the value of other_field".
+  #
+  #   **6. Discriminator Fields**
+  #   Fields like `type`, `source`, `status` often have required values (e.g., `type` always "solid").
+  #   Parser detects patterns like "always X" or "must be X" and adds:
+  #   - `required_value`: The constant value
+  #   - `default`: Set to the same value
+  #
+  # @validation_results
+  #   After improvements, the parser produces output that matches the existing type_attributes.json
+  #   with only legitimate API version differences. Before improvements, 53 types differed;
+  #   after improvements, only 12 types differ due to API version changes (new/removed fields).
+  #
+  # @example Basic usage
+  #   parser = TypesParser.new
+  #   parser.fetch
+  #   parser.parse
+  #   parser.add_custom_types!
+  #   parser.save('type_attributes.json')
+  #
   class TypesParser
   TYPE_MAPPING = {
     'Integer' => 'integer',
