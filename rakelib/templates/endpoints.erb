@@ -1,0 +1,11 @@
+# frozen_string_literal: true
+
+module Telegram
+  module Bot
+    class Api
+      ENDPOINTS = {
+<% methods.each_pair do |method_name, return_type| %>        '<%= method_name %>' => <%= return_type %>,
+<% end %>      }.freeze
+    end
+  end
+end

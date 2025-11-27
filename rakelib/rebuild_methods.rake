@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'json'
+require 'erb'
 
 desc 'Rebuild endpoints from methods.json'
 task :rebuild_methods do
@@ -14,27 +15,10 @@ task :rebuild_methods do
   methods = JSON.parse(File.read(methods_file))
 
   # Sort methods alphabetically for consistency
-  sorted_methods = methods.keys.sort.map do |method_name|
-    return_type = methods[method_name]
-    "        '#{method_name}' => #{return_type}"
-  end
-
-  content = <<~RUBY
-    # frozen_string_literal: true
-
-    module Telegram
-      module Bot
-        class Api
-          ENDPOINTS = {
-    #{sorted_methods.join(",\n")}
-          }.freeze
-        end
-      end
-    end
-  RUBY
+  methods = methods.sort.to_h
 
   output_file = "#{__dir__}/../lib/telegram/bot/api/endpoints.rb"
-  File.write(output_file, content)
+  File.write(output_file, ERB.new(File.read("#{__dir__}/templates/endpoints.erb")).result(binding))
 
   puts "✓ Rebuilt #{output_file}"
   puts "  Generated #{methods.size} endpoints"
