@@ -11,6 +11,7 @@ module Telegram
         attribute? :first_name, Types::String
         attribute? :last_name, Types::String
         attribute? :is_forum, Types::True
+        attribute? :is_direct_messages, Types::True
         attribute :accent_color_id, Types::Integer
         attribute :max_reaction_count, Types::Integer
         attribute? :photo, ChatPhoto
@@ -20,6 +21,7 @@ module Telegram
         attribute? :business_location, BusinessLocation
         attribute? :business_opening_hours, BusinessOpeningHours
         attribute? :personal_chat, Chat
+        attribute? :parent_chat, Chat
         attribute? :available_reactions, Types::Array.of(ReactionType)
         attribute? :background_custom_emoji_id, Types::String
         attribute? :profile_accent_color_id, Types::Integer
@@ -35,7 +37,7 @@ module Telegram
         attribute? :invite_link, Types::String
         attribute? :pinned_message, Message
         attribute? :permissions, ChatPermissions
-        attribute? :can_send_gift, Types::True
+        attribute :accepted_gift_types, AcceptedGiftTypes
         attribute? :can_send_paid_media, Types::True
         attribute? :slow_mode_delay, Types::Integer
         attribute? :unrestrict_boost_count, Types::Integer

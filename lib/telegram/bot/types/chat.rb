@@ -11,6 +11,7 @@ module Telegram
         attribute? :first_name, Types::String
         attribute? :last_name, Types::String
         attribute? :is_forum, Types::True
+        attribute? :is_direct_messages, Types::True
       end
     end
   end

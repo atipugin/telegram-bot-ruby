@@ -1,183 +1,558 @@
 {
-  "Error": {
-    "ok": {
-      "type": "boolean",
-      "required": true
+  "AcceptedGiftTypes": {
+    "unlimited_gifts": {
+      "required": true,
+      "type": "boolean"
     },
-    "error_code": {
-      "type": "integer",
-      "required": true
+    "limited_gifts": {
+      "required": true,
+      "type": "boolean"
+    },
+    "unique_gifts": {
+      "required": true,
+      "type": "boolean"
+    },
+    "premium_subscription": {
+      "required": true,
+      "type": "boolean"
+    }
+  },
+  "AffiliateInfo": {
+    "affiliate_user": {
+      "type": "User"
+    },
+    "affiliate_chat": {
+      "type": "Chat"
+    },
+    "commission_per_mille": {
+      "required": true,
+      "type": "integer"
+    },
+    "amount": {
+      "required": true,
+      "type": "integer"
+    },
+    "nanostar_amount": {
+      "type": "integer"
+    }
+  },
+  "Animation": {
+    "file_id": {
+      "required": true,
+      "type": "string"
+    },
+    "file_unique_id": {
+      "required": true,
+      "type": "string"
+    },
+    "width": {
+      "required": true,
+      "type": "integer"
+    },
+    "height": {
+      "required": true,
+      "type": "integer"
+    },
+    "duration": {
+      "required": true,
+      "type": "integer"
+    },
+    "thumbnail": {
+      "type": "PhotoSize"
+    },
+    "file_name": {
+      "type": "string"
+    },
+    "mime_type": {
+      "type": "string"
+    },
+    "file_size": {
+      "type": "integer"
+    }
+  },
+  "Audio": {
+    "file_id": {
+      "required": true,
+      "type": "string"
+    },
+    "file_unique_id": {
+      "required": true,
+      "type": "string"
+    },
+    "duration": {
+      "required": true,
+      "type": "integer"
+    },
+    "performer": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "file_name": {
+      "type": "string"
+    },
+    "mime_type": {
+      "type": "string"
+    },
+    "file_size": {
+      "type": "integer"
+    },
+    "thumbnail": {
+      "type": "PhotoSize"
+    }
+  },
+  "BackgroundFill": {
+    "type": [
+      "BackgroundFillSolid",
+      "BackgroundFillGradient",
+      "BackgroundFillFreeformGradient"
+    ]
+  },
+  "BackgroundFillFreeformGradient": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "freeform_gradient",
+      "default": "freeform_gradient"
+    },
+    "colors": {
+      "required": true,
+      "type": "array",
+      "items": "integer"
+    }
+  },
+  "BackgroundFillGradient": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "gradient",
+      "default": "gradient"
+    },
+    "top_color": {
+      "required": true,
+      "type": "integer"
+    },
+    "bottom_color": {
+      "required": true,
+      "type": "integer"
+    },
+    "rotation_angle": {
+      "required": true,
+      "type": "integer"
+    }
+  },
+  "BackgroundFillSolid": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "solid",
+      "default": "solid"
+    },
+    "color": {
+      "required": true,
+      "type": "integer"
+    }
+  },
+  "BackgroundType": {
+    "type": [
+      "BackgroundTypeFill",
+      "BackgroundTypeWallpaper",
+      "BackgroundTypePattern",
+      "BackgroundTypeChatTheme"
+    ]
+  },
+  "BackgroundTypeChatTheme": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "chat_theme",
+      "default": "chat_theme"
+    },
+    "theme_name": {
+      "required": true,
+      "type": "string"
+    }
+  },
+  "BackgroundTypeFill": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "fill",
+      "default": "fill"
+    },
+    "fill": {
+      "required": true,
+      "type": "BackgroundFill"
+    },
+    "dark_theme_dimming": {
+      "required": true,
+      "type": "integer"
+    }
+  },
+  "BackgroundTypePattern": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "pattern",
+      "default": "pattern"
+    },
+    "document": {
+      "required": true,
+      "type": "Document"
+    },
+    "fill": {
+      "required": true,
+      "type": "BackgroundFill"
+    },
+    "intensity": {
+      "required": true,
+      "type": "integer"
+    },
+    "is_inverted": {
+      "type": "boolean",
+      "default": true
+    },
+    "is_moving": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "BackgroundTypeWallpaper": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "wallpaper",
+      "default": "wallpaper"
+    },
+    "document": {
+      "required": true,
+      "type": "Document"
+    },
+    "dark_theme_dimming": {
+      "required": true,
+      "type": "integer"
+    },
+    "is_blurred": {
+      "type": "boolean",
+      "default": true
+    },
+    "is_moving": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "Birthdate": {
+    "day": {
+      "required": true,
+      "type": "integer"
+    },
+    "month": {
+      "required": true,
+      "type": "integer"
+    },
+    "year": {
+      "type": "integer"
+    }
+  },
+  "BotCommand": {
+    "command": {
+      "required": true,
+      "type": "string",
+      "min_size": 1,
+      "max_size": 32
     },
     "description": {
+      "required": true,
       "type": "string",
-      "required": true
-    },
-    "parameters": {
-      "type": "ResponseParameters"
+      "min_size": 1,
+      "max_size": 256
     }
   },
-  "Update": {
-    "update_id": {
-      "type": "integer",
-      "required": true
+  "BotCommandScope": {
+    "type": [
+      "BotCommandScopeDefault",
+      "BotCommandScopeAllPrivateChats",
+      "BotCommandScopeAllGroupChats",
+      "BotCommandScopeAllChatAdministrators",
+      "BotCommandScopeChat",
+      "BotCommandScopeChatAdministrators",
+      "BotCommandScopeChatMember"
+    ]
+  },
+  "BotCommandScopeAllChatAdministrators": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "all_chat_administrators",
+      "default": "all_chat_administrators"
+    }
+  },
+  "BotCommandScopeAllGroupChats": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "all_group_chats",
+      "default": "all_group_chats"
+    }
+  },
+  "BotCommandScopeAllPrivateChats": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "all_private_chats",
+      "default": "all_private_chats"
+    }
+  },
+  "BotCommandScopeChat": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "chat",
+      "default": "chat"
+    },
+    "chat_id": {
+      "required": true,
+      "type": [
+        "integer",
+        "string"
+      ]
+    }
+  },
+  "BotCommandScopeChatAdministrators": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "chat_administrators",
+      "default": "chat_administrators"
+    },
+    "chat_id": {
+      "required": true,
+      "type": [
+        "integer",
+        "string"
+      ]
+    }
+  },
+  "BotCommandScopeChatMember": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "chat_member",
+      "default": "chat_member"
+    },
+    "chat_id": {
+      "required": true,
+      "type": [
+        "integer",
+        "string"
+      ]
+    },
+    "user_id": {
+      "required": true,
+      "type": "integer"
+    }
+  },
+  "BotCommandScopeDefault": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "default",
+      "default": "default"
+    }
+  },
+  "BotDescription": {
+    "description": {
+      "required": true,
+      "type": "string"
+    }
+  },
+  "BotName": {
+    "name": {
+      "required": true,
+      "type": "string"
+    }
+  },
+  "BotShortDescription": {
+    "short_description": {
+      "required": true,
+      "type": "string"
+    }
+  },
+  "BusinessBotRights": {
+    "can_reply": {
+      "type": "boolean",
+      "default": true
+    },
+    "can_read_messages": {
+      "type": "boolean",
+      "default": true
+    },
+    "can_delete_sent_messages": {
+      "type": "boolean",
+      "default": true
+    },
+    "can_delete_all_messages": {
+      "type": "boolean",
+      "default": true
+    },
+    "can_edit_name": {
+      "type": "boolean",
+      "default": true
+    },
+    "can_edit_bio": {
+      "type": "boolean",
+      "default": true
+    },
+    "can_edit_profile_photo": {
+      "type": "boolean",
+      "default": true
+    },
+    "can_edit_username": {
+      "type": "boolean",
+      "default": true
+    },
+    "can_change_gift_settings": {
+      "type": "boolean",
+      "default": true
+    },
+    "can_view_gifts_and_stars": {
+      "type": "boolean",
+      "default": true
+    },
+    "can_convert_gifts_to_stars": {
+      "type": "boolean",
+      "default": true
+    },
+    "can_transfer_and_upgrade_gifts": {
+      "type": "boolean",
+      "default": true
+    },
+    "can_transfer_stars": {
+      "type": "boolean",
+      "default": true
+    },
+    "can_manage_stories": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "BusinessConnection": {
+    "id": {
+      "required": true,
+      "type": "string"
+    },
+    "user": {
+      "required": true,
+      "type": "User"
+    },
+    "user_chat_id": {
+      "required": true,
+      "type": "integer"
+    },
+    "date": {
+      "required": true,
+      "type": "integer"
+    },
+    "rights": {
+      "type": "BusinessBotRights"
+    },
+    "is_enabled": {
+      "required": true,
+      "type": "boolean"
+    }
+  },
+  "BusinessIntro": {
+    "title": {
+      "type": "string"
     },
     "message": {
-      "type": "Message"
+      "type": "string"
     },
-    "edited_message": {
-      "type": "Message"
-    },
-    "channel_post": {
-      "type": "Message"
-    },
-    "edited_channel_post": {
-      "type": "Message"
-    },
-    "business_connection": {
-      "type": "BusinessConnection"
-    },
-    "business_message": {
-      "type": "Message"
-    },
-    "edited_business_message": {
-      "type": "Message"
-    },
-    "deleted_business_messages": {
-      "type": "BusinessMessagesDeleted"
-    },
-    "message_reaction": {
-      "type": "MessageReactionUpdated"
-    },
-    "message_reaction_count": {
-      "type": "MessageReactionCountUpdated"
-    },
-    "inline_query": {
-      "type": "InlineQuery"
-    },
-    "chosen_inline_result": {
-      "type": "ChosenInlineResult"
-    },
-    "callback_query": {
-      "type": "CallbackQuery"
-    },
-    "shipping_query": {
-      "type": "ShippingQuery"
-    },
-    "pre_checkout_query": {
-      "type": "PreCheckoutQuery"
-    },
-    "purchased_paid_media": {
-      "type": "PaidMediaPurchased"
-    },
-    "poll": {
-      "type": "Poll"
-    },
-    "poll_answer": {
-      "type": "PollAnswer"
-    },
-    "my_chat_member": {
-      "type": "ChatMemberUpdated"
-    },
-    "chat_member": {
-      "type": "ChatMemberUpdated"
-    },
-    "chat_join_request": {
-      "type": "ChatJoinRequest"
-    },
-    "chat_boost": {
-      "type": "ChatBoostUpdated"
-    },
-    "removed_chat_boost": {
-      "type": "ChatBoostRemoved"
+    "sticker": {
+      "type": "Sticker"
     }
   },
-  "WebhookInfo": {
-    "url": {
-      "type": "string",
-      "required": true
-    },
-    "has_custom_certificate": {
-      "type": "boolean",
-      "required": true
-    },
-    "pending_update_count": {
-      "type": "integer",
-      "required": true
-    },
-    "ip_address": {
+  "BusinessLocation": {
+    "address": {
+      "required": true,
       "type": "string"
     },
-    "last_error_date": {
-      "type": "integer"
-    },
-    "last_error_message": {
+    "location": {
+      "type": "Location"
+    }
+  },
+  "BusinessMessagesDeleted": {
+    "business_connection_id": {
+      "required": true,
       "type": "string"
     },
-    "last_synchronization_error_date": {
-      "type": "integer"
+    "chat": {
+      "required": true,
+      "type": "Chat"
     },
-    "max_connections": {
-      "type": "integer"
-    },
-    "allowed_updates": {
+    "message_ids": {
+      "required": true,
       "type": "array",
-      "items": "string"
+      "items": "integer"
     }
   },
-  "User": {
+  "BusinessOpeningHours": {
+    "time_zone_name": {
+      "required": true,
+      "type": "string"
+    },
+    "opening_hours": {
+      "required": true,
+      "type": "array",
+      "items": "BusinessOpeningHoursInterval"
+    }
+  },
+  "BusinessOpeningHoursInterval": {
+    "opening_minute": {
+      "required": true,
+      "type": "integer"
+    },
+    "closing_minute": {
+      "required": true,
+      "type": "integer"
+    }
+  },
+  "CallbackGame": {},
+  "CallbackQuery": {
     "id": {
-      "type": "integer",
-      "required": true
-    },
-    "is_bot": {
-      "type": "boolean",
-      "required": true
-    },
-    "first_name": {
-      "type": "string",
-      "required": true
-    },
-    "last_name": {
+      "required": true,
       "type": "string"
     },
-    "username": {
+    "from": {
+      "required": true,
+      "type": "User"
+    },
+    "message": {
+      "type": "MaybeInaccessibleMessage"
+    },
+    "inline_message_id": {
       "type": "string"
     },
-    "language_code": {
+    "chat_instance": {
+      "required": true,
       "type": "string"
     },
-    "is_premium": {
-      "type": "boolean",
-      "default": true
+    "data": {
+      "type": "string"
     },
-    "added_to_attachment_menu": {
-      "type": "boolean",
-      "default": true
-    },
-    "can_join_groups": {
-      "type": "boolean"
-    },
-    "can_read_all_group_messages": {
-      "type": "boolean"
-    },
-    "supports_inline_queries": {
-      "type": "boolean"
-    },
-    "can_connect_to_business": {
-      "type": "boolean"
-    },
-    "has_main_web_app": {
-      "type": "boolean"
+    "game_short_name": {
+      "type": "string"
     }
   },
   "Chat": {
     "id": {
-      "type": "integer",
-      "required": true
+      "required": true,
+      "type": "integer"
     },
     "type": {
-      "type": "string",
-      "required": true
+      "required": true,
+      "type": "string"
     },
     "title": {
       "type": "string"
@@ -192,18 +567,194 @@
       "type": "string"
     },
     "is_forum": {
+      "type": "boolean",
+      "default": true
+    },
+    "is_direct_messages": {
       "type": "boolean",
       "default": true
     }
   },
+  "ChatAdministratorRights": {
+    "is_anonymous": {
+      "required": true,
+      "type": "boolean"
+    },
+    "can_manage_chat": {
+      "required": true,
+      "type": "boolean"
+    },
+    "can_delete_messages": {
+      "required": true,
+      "type": "boolean"
+    },
+    "can_manage_video_chats": {
+      "required": true,
+      "type": "boolean"
+    },
+    "can_restrict_members": {
+      "required": true,
+      "type": "boolean"
+    },
+    "can_promote_members": {
+      "required": true,
+      "type": "boolean"
+    },
+    "can_change_info": {
+      "required": true,
+      "type": "boolean"
+    },
+    "can_invite_users": {
+      "required": true,
+      "type": "boolean"
+    },
+    "can_post_stories": {
+      "required": true,
+      "type": "boolean"
+    },
+    "can_edit_stories": {
+      "required": true,
+      "type": "boolean"
+    },
+    "can_delete_stories": {
+      "required": true,
+      "type": "boolean"
+    },
+    "can_post_messages": {
+      "type": "boolean"
+    },
+    "can_edit_messages": {
+      "type": "boolean"
+    },
+    "can_pin_messages": {
+      "type": "boolean"
+    },
+    "can_manage_topics": {
+      "type": "boolean"
+    },
+    "can_manage_direct_messages": {
+      "type": "boolean"
+    }
+  },
+  "ChatBackground": {
+    "type": {
+      "required": true,
+      "type": "BackgroundType"
+    }
+  },
+  "ChatBoost": {
+    "boost_id": {
+      "required": true,
+      "type": "string"
+    },
+    "add_date": {
+      "required": true,
+      "type": "integer"
+    },
+    "expiration_date": {
+      "required": true,
+      "type": "integer"
+    },
+    "source": {
+      "required": true,
+      "type": "ChatBoostSource"
+    }
+  },
+  "ChatBoostAdded": {
+    "boost_count": {
+      "required": true,
+      "type": "integer"
+    }
+  },
+  "ChatBoostRemoved": {
+    "chat": {
+      "required": true,
+      "type": "Chat"
+    },
+    "boost_id": {
+      "required": true,
+      "type": "string"
+    },
+    "remove_date": {
+      "required": true,
+      "type": "integer"
+    },
+    "source": {
+      "required": true,
+      "type": "ChatBoostSource"
+    }
+  },
+  "ChatBoostSource": {
+    "type": [
+      "ChatBoostSourcePremium",
+      "ChatBoostSourceGiftCode",
+      "ChatBoostSourceGiveaway"
+    ]
+  },
+  "ChatBoostSourceGiftCode": {
+    "source": {
+      "required": true,
+      "type": "string",
+      "required_value": "gift_code",
+      "default": "gift_code"
+    },
+    "user": {
+      "required": true,
+      "type": "User"
+    }
+  },
+  "ChatBoostSourceGiveaway": {
+    "source": {
+      "required": true,
+      "type": "string",
+      "required_value": "giveaway",
+      "default": "giveaway"
+    },
+    "giveaway_message_id": {
+      "required": true,
+      "type": "integer"
+    },
+    "user": {
+      "type": "User"
+    },
+    "prize_star_count": {
+      "type": "integer"
+    },
+    "is_unclaimed": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "ChatBoostSourcePremium": {
+    "source": {
+      "required": true,
+      "type": "string",
+      "required_value": "premium",
+      "default": "premium"
+    },
+    "user": {
+      "required": true,
+      "type": "User"
+    }
+  },
+  "ChatBoostUpdated": {
+    "chat": {
+      "required": true,
+      "type": "Chat"
+    },
+    "boost": {
+      "required": true,
+      "type": "ChatBoost"
+    }
+  },
   "ChatFullInfo": {
     "id": {
-      "type": "integer",
-      "required": true
+      "required": true,
+      "type": "integer"
     },
     "type": {
-      "type": "string",
-      "required": true
+      "required": true,
+      "type": "string"
     },
     "title": {
       "type": "string"
@@ -221,13 +772,17 @@
       "type": "boolean",
       "default": true
     },
+    "is_direct_messages": {
+      "type": "boolean",
+      "default": true
+    },
     "accent_color_id": {
-      "type": "integer",
-      "required": true
+      "required": true,
+      "type": "integer"
     },
     "max_reaction_count": {
-      "type": "integer",
-      "required": true
+      "required": true,
+      "type": "integer"
     },
     "photo": {
       "type": "ChatPhoto"
@@ -249,6 +804,9 @@
       "type": "BusinessOpeningHours"
     },
     "personal_chat": {
+      "type": "Chat"
+    },
+    "parent_chat": {
       "type": "Chat"
     },
     "available_reactions": {
@@ -301,9 +859,9 @@
     "permissions": {
       "type": "ChatPermissions"
     },
-    "can_send_gift": {
-      "type": "boolean",
-      "default": true
+    "accepted_gift_types": {
+      "required": true,
+      "type": "AcceptedGiftTypes"
     },
     "can_send_paid_media": {
       "type": "boolean",
@@ -351,13 +909,2826 @@
       "type": "ChatLocation"
     }
   },
-  "Message": {
-    "message_id": {
+  "ChatInviteLink": {
+    "invite_link": {
+      "required": true,
+      "type": "string"
+    },
+    "creator": {
+      "required": true,
+      "type": "User"
+    },
+    "creates_join_request": {
+      "required": true,
+      "type": "boolean"
+    },
+    "is_primary": {
+      "required": true,
+      "type": "boolean"
+    },
+    "is_revoked": {
+      "required": true,
+      "type": "boolean"
+    },
+    "name": {
+      "type": "string"
+    },
+    "expire_date": {
+      "type": "integer"
+    },
+    "member_limit": {
+      "type": "integer"
+    },
+    "pending_join_request_count": {
+      "type": "integer"
+    },
+    "subscription_period": {
+      "type": "integer"
+    },
+    "subscription_price": {
+      "type": "integer"
+    }
+  },
+  "ChatJoinRequest": {
+    "chat": {
+      "required": true,
+      "type": "Chat"
+    },
+    "from": {
+      "required": true,
+      "type": "User"
+    },
+    "user_chat_id": {
+      "required": true,
+      "type": "integer"
+    },
+    "date": {
+      "required": true,
+      "type": "integer"
+    },
+    "bio": {
+      "type": "string"
+    },
+    "invite_link": {
+      "type": "ChatInviteLink"
+    }
+  },
+  "ChatLocation": {
+    "location": {
+      "required": true,
+      "type": "Location"
+    },
+    "address": {
+      "required": true,
+      "type": "string",
+      "min_size": 1,
+      "max_size": 64
+    }
+  },
+  "ChatMember": {
+    "type": [
+      "ChatMemberOwner",
+      "ChatMemberAdministrator",
+      "ChatMemberMember",
+      "ChatMemberRestricted",
+      "ChatMemberLeft",
+      "ChatMemberBanned"
+    ]
+  },
+  "ChatMemberAdministrator": {
+    "status": {
+      "required": true,
+      "type": "string",
+      "required_value": "administrator",
+      "default": "administrator"
+    },
+    "user": {
+      "required": true,
+      "type": "User"
+    },
+    "can_be_edited": {
+      "required": true,
+      "type": "boolean"
+    },
+    "is_anonymous": {
+      "required": true,
+      "type": "boolean"
+    },
+    "can_manage_chat": {
+      "required": true,
+      "type": "boolean"
+    },
+    "can_delete_messages": {
+      "required": true,
+      "type": "boolean"
+    },
+    "can_manage_video_chats": {
+      "required": true,
+      "type": "boolean"
+    },
+    "can_restrict_members": {
+      "required": true,
+      "type": "boolean"
+    },
+    "can_promote_members": {
+      "required": true,
+      "type": "boolean"
+    },
+    "can_change_info": {
+      "required": true,
+      "type": "boolean"
+    },
+    "can_invite_users": {
+      "required": true,
+      "type": "boolean"
+    },
+    "can_post_stories": {
+      "required": true,
+      "type": "boolean"
+    },
+    "can_edit_stories": {
+      "required": true,
+      "type": "boolean"
+    },
+    "can_delete_stories": {
+      "required": true,
+      "type": "boolean"
+    },
+    "can_post_messages": {
+      "type": "boolean"
+    },
+    "can_edit_messages": {
+      "type": "boolean"
+    },
+    "can_pin_messages": {
+      "type": "boolean"
+    },
+    "can_manage_topics": {
+      "type": "boolean"
+    },
+    "can_manage_direct_messages": {
+      "type": "boolean"
+    },
+    "custom_title": {
+      "type": "string"
+    }
+  },
+  "ChatMemberBanned": {
+    "status": {
+      "required": true,
+      "type": "string",
+      "required_value": "kicked",
+      "default": "kicked"
+    },
+    "user": {
+      "required": true,
+      "type": "User"
+    },
+    "until_date": {
+      "required": true,
+      "type": "integer"
+    }
+  },
+  "ChatMemberLeft": {
+    "status": {
+      "required": true,
+      "type": "string",
+      "required_value": "left",
+      "default": "left"
+    },
+    "user": {
+      "required": true,
+      "type": "User"
+    }
+  },
+  "ChatMemberMember": {
+    "status": {
+      "required": true,
+      "type": "string",
+      "required_value": "member",
+      "default": "member"
+    },
+    "user": {
+      "required": true,
+      "type": "User"
+    },
+    "until_date": {
+      "type": "integer"
+    }
+  },
+  "ChatMemberOwner": {
+    "status": {
+      "required": true,
+      "type": "string",
+      "required_value": "creator",
+      "default": "creator"
+    },
+    "user": {
+      "required": true,
+      "type": "User"
+    },
+    "is_anonymous": {
+      "required": true,
+      "type": "boolean"
+    },
+    "custom_title": {
+      "type": "string"
+    }
+  },
+  "ChatMemberRestricted": {
+    "status": {
+      "required": true,
+      "type": "string",
+      "required_value": "restricted",
+      "default": "restricted"
+    },
+    "user": {
+      "required": true,
+      "type": "User"
+    },
+    "is_member": {
+      "required": true,
+      "type": "boolean"
+    },
+    "can_send_messages": {
+      "required": true,
+      "type": "boolean"
+    },
+    "can_send_audios": {
+      "required": true,
+      "type": "boolean"
+    },
+    "can_send_documents": {
+      "required": true,
+      "type": "boolean"
+    },
+    "can_send_photos": {
+      "required": true,
+      "type": "boolean"
+    },
+    "can_send_videos": {
+      "required": true,
+      "type": "boolean"
+    },
+    "can_send_video_notes": {
+      "required": true,
+      "type": "boolean"
+    },
+    "can_send_voice_notes": {
+      "required": true,
+      "type": "boolean"
+    },
+    "can_send_polls": {
+      "required": true,
+      "type": "boolean"
+    },
+    "can_send_other_messages": {
+      "required": true,
+      "type": "boolean"
+    },
+    "can_add_web_page_previews": {
+      "required": true,
+      "type": "boolean"
+    },
+    "can_change_info": {
+      "required": true,
+      "type": "boolean"
+    },
+    "can_invite_users": {
+      "required": true,
+      "type": "boolean"
+    },
+    "can_pin_messages": {
+      "required": true,
+      "type": "boolean"
+    },
+    "can_manage_topics": {
+      "required": true,
+      "type": "boolean"
+    },
+    "until_date": {
+      "required": true,
+      "type": "integer"
+    }
+  },
+  "ChatMemberUpdated": {
+    "chat": {
+      "required": true,
+      "type": "Chat"
+    },
+    "from": {
+      "required": true,
+      "type": "User"
+    },
+    "date": {
+      "required": true,
+      "type": "integer"
+    },
+    "old_chat_member": {
+      "required": true,
+      "type": "ChatMember"
+    },
+    "new_chat_member": {
+      "required": true,
+      "type": "ChatMember"
+    },
+    "invite_link": {
+      "type": "ChatInviteLink"
+    },
+    "via_join_request": {
+      "type": "boolean"
+    },
+    "via_chat_folder_invite_link": {
+      "type": "boolean"
+    }
+  },
+  "ChatPermissions": {
+    "can_send_messages": {
+      "type": "boolean"
+    },
+    "can_send_audios": {
+      "type": "boolean"
+    },
+    "can_send_documents": {
+      "type": "boolean"
+    },
+    "can_send_photos": {
+      "type": "boolean"
+    },
+    "can_send_videos": {
+      "type": "boolean"
+    },
+    "can_send_video_notes": {
+      "type": "boolean"
+    },
+    "can_send_voice_notes": {
+      "type": "boolean"
+    },
+    "can_send_polls": {
+      "type": "boolean"
+    },
+    "can_send_other_messages": {
+      "type": "boolean"
+    },
+    "can_add_web_page_previews": {
+      "type": "boolean"
+    },
+    "can_change_info": {
+      "type": "boolean"
+    },
+    "can_invite_users": {
+      "type": "boolean"
+    },
+    "can_pin_messages": {
+      "type": "boolean"
+    },
+    "can_manage_topics": {
+      "type": "boolean"
+    }
+  },
+  "ChatPhoto": {
+    "small_file_id": {
+      "required": true,
+      "type": "string"
+    },
+    "small_file_unique_id": {
+      "required": true,
+      "type": "string"
+    },
+    "big_file_id": {
+      "required": true,
+      "type": "string"
+    },
+    "big_file_unique_id": {
+      "required": true,
+      "type": "string"
+    }
+  },
+  "ChatShared": {
+    "request_id": {
+      "required": true,
+      "type": "integer"
+    },
+    "chat_id": {
+      "required": true,
+      "type": "integer"
+    },
+    "title": {
+      "type": "string"
+    },
+    "username": {
+      "type": "string"
+    },
+    "photo": {
+      "type": "array",
+      "items": "PhotoSize"
+    }
+  },
+  "Checklist": {
+    "title": {
+      "required": true,
+      "type": "string"
+    },
+    "title_entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "tasks": {
+      "required": true,
+      "type": "array",
+      "items": "ChecklistTask"
+    },
+    "others_can_add_tasks": {
+      "type": "boolean",
+      "default": true
+    },
+    "others_can_mark_tasks_as_done": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "ChecklistTask": {
+    "id": {
+      "required": true,
+      "type": "integer"
+    },
+    "text": {
+      "required": true,
+      "type": "string"
+    },
+    "text_entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "completed_by_user": {
+      "type": "User"
+    },
+    "completion_date": {
+      "type": "integer"
+    }
+  },
+  "ChecklistTasksAdded": {
+    "checklist_message": {
+      "type": "Message"
+    },
+    "tasks": {
+      "required": true,
+      "type": "array",
+      "items": "ChecklistTask"
+    }
+  },
+  "ChecklistTasksDone": {
+    "checklist_message": {
+      "type": "Message"
+    },
+    "marked_as_done_task_ids": {
+      "type": "array",
+      "items": "integer"
+    },
+    "marked_as_not_done_task_ids": {
+      "type": "array",
+      "items": "integer"
+    }
+  },
+  "ChosenInlineResult": {
+    "result_id": {
+      "required": true,
+      "type": "string"
+    },
+    "from": {
+      "required": true,
+      "type": "User"
+    },
+    "location": {
+      "type": "Location"
+    },
+    "inline_message_id": {
+      "type": "string"
+    },
+    "query": {
+      "required": true,
+      "type": "string"
+    }
+  },
+  "Contact": {
+    "phone_number": {
+      "required": true,
+      "type": "string"
+    },
+    "first_name": {
+      "required": true,
+      "type": "string"
+    },
+    "last_name": {
+      "type": "string"
+    },
+    "user_id": {
+      "type": "integer"
+    },
+    "vcard": {
+      "type": "string"
+    }
+  },
+  "CopyTextButton": {
+    "text": {
+      "required": true,
+      "type": "string",
+      "min_size": 1,
+      "max_size": 256
+    }
+  },
+  "Dice": {
+    "emoji": {
+      "required": true,
+      "type": "string"
+    },
+    "value": {
+      "required": true,
+      "type": "integer"
+    }
+  },
+  "DirectMessagePriceChanged": {
+    "are_direct_messages_enabled": {
+      "required": true,
+      "type": "boolean"
+    },
+    "direct_message_star_count": {
+      "type": "integer",
+      "default": 0
+    }
+  },
+  "DirectMessagesTopic": {
+    "topic_id": {
+      "required": true,
+      "type": "integer"
+    },
+    "user": {
+      "type": "User"
+    }
+  },
+  "Document": {
+    "file_id": {
+      "required": true,
+      "type": "string"
+    },
+    "file_unique_id": {
+      "required": true,
+      "type": "string"
+    },
+    "thumbnail": {
+      "type": "PhotoSize"
+    },
+    "file_name": {
+      "type": "string"
+    },
+    "mime_type": {
+      "type": "string"
+    },
+    "file_size": {
+      "type": "integer"
+    }
+  },
+  "EncryptedCredentials": {
+    "data": {
+      "required": true,
+      "type": "string"
+    },
+    "hash": {
+      "required": true,
+      "type": "string"
+    },
+    "secret": {
+      "required": true,
+      "type": "string"
+    }
+  },
+  "EncryptedPassportElement": {
+    "type": {
+      "required": true,
+      "type": "string"
+    },
+    "data": {
+      "type": "string"
+    },
+    "phone_number": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "files": {
+      "type": "array",
+      "items": "PassportFile"
+    },
+    "front_side": {
+      "type": "PassportFile"
+    },
+    "reverse_side": {
+      "type": "PassportFile"
+    },
+    "selfie": {
+      "type": "PassportFile"
+    },
+    "translation": {
+      "type": "array",
+      "items": "PassportFile"
+    },
+    "hash": {
+      "required": true,
+      "type": "string"
+    }
+  },
+  "Error": {
+    "ok": {
+      "type": "boolean",
+      "required": true
+    },
+    "error_code": {
       "type": "integer",
       "required": true
     },
+    "description": {
+      "type": "string",
+      "required": true
+    },
+    "parameters": {
+      "type": "ResponseParameters"
+    }
+  },
+  "ExternalReplyInfo": {
+    "origin": {
+      "required": true,
+      "type": "MessageOrigin"
+    },
+    "chat": {
+      "type": "Chat"
+    },
+    "message_id": {
+      "type": "integer"
+    },
+    "link_preview_options": {
+      "type": "LinkPreviewOptions"
+    },
+    "animation": {
+      "type": "Animation"
+    },
+    "audio": {
+      "type": "Audio"
+    },
+    "document": {
+      "type": "Document"
+    },
+    "paid_media": {
+      "type": "PaidMediaInfo"
+    },
+    "photo": {
+      "type": "array",
+      "items": "PhotoSize"
+    },
+    "sticker": {
+      "type": "Sticker"
+    },
+    "story": {
+      "type": "Story"
+    },
+    "video": {
+      "type": "Video"
+    },
+    "video_note": {
+      "type": "VideoNote"
+    },
+    "voice": {
+      "type": "Voice"
+    },
+    "has_media_spoiler": {
+      "type": "boolean",
+      "default": true
+    },
+    "checklist": {
+      "type": "Checklist"
+    },
+    "contact": {
+      "type": "Contact"
+    },
+    "dice": {
+      "type": "Dice"
+    },
+    "game": {
+      "type": "Game"
+    },
+    "giveaway": {
+      "type": "Giveaway"
+    },
+    "giveaway_winners": {
+      "type": "GiveawayWinners"
+    },
+    "invoice": {
+      "type": "Invoice"
+    },
+    "location": {
+      "type": "Location"
+    },
+    "poll": {
+      "type": "Poll"
+    },
+    "venue": {
+      "type": "Venue"
+    }
+  },
+  "File": {
+    "file_id": {
+      "required": true,
+      "type": "string"
+    },
+    "file_unique_id": {
+      "required": true,
+      "type": "string"
+    },
+    "file_size": {
+      "type": "integer"
+    },
+    "file_path": {
+      "type": "string"
+    }
+  },
+  "ForceReply": {
+    "force_reply": {
+      "required": true,
+      "type": "boolean",
+      "default": true
+    },
+    "input_field_placeholder": {
+      "type": "string",
+      "min_size": 1,
+      "max_size": 64
+    },
+    "selective": {
+      "type": "boolean"
+    }
+  },
+  "ForumTopic": {
+    "message_thread_id": {
+      "required": true,
+      "type": "integer"
+    },
+    "name": {
+      "required": true,
+      "type": "string"
+    },
+    "icon_color": {
+      "required": true,
+      "type": "integer"
+    },
+    "icon_custom_emoji_id": {
+      "type": "string"
+    }
+  },
+  "ForumTopicClosed": {},
+  "ForumTopicCreated": {
+    "name": {
+      "required": true,
+      "type": "string"
+    },
+    "icon_color": {
+      "required": true,
+      "type": "integer"
+    },
+    "icon_custom_emoji_id": {
+      "type": "string"
+    }
+  },
+  "ForumTopicEdited": {
+    "name": {
+      "type": "string"
+    },
+    "icon_custom_emoji_id": {
+      "type": "string"
+    }
+  },
+  "ForumTopicReopened": {},
+  "Game": {
+    "title": {
+      "required": true,
+      "type": "string"
+    },
+    "description": {
+      "required": true,
+      "type": "string"
+    },
+    "photo": {
+      "required": true,
+      "type": "array",
+      "items": "PhotoSize"
+    },
+    "text": {
+      "type": "string",
+      "max_size": 4096
+    },
+    "text_entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "animation": {
+      "type": "Animation"
+    }
+  },
+  "GameHighScore": {
+    "position": {
+      "required": true,
+      "type": "integer"
+    },
+    "user": {
+      "required": true,
+      "type": "User"
+    },
+    "score": {
+      "required": true,
+      "type": "integer"
+    }
+  },
+  "GeneralForumTopicHidden": {},
+  "GeneralForumTopicUnhidden": {},
+  "Gift": {
+    "id": {
+      "required": true,
+      "type": "string"
+    },
+    "sticker": {
+      "required": true,
+      "type": "Sticker"
+    },
+    "star_count": {
+      "required": true,
+      "type": "integer"
+    },
+    "upgrade_star_count": {
+      "type": "integer"
+    },
+    "total_count": {
+      "type": "integer"
+    },
+    "remaining_count": {
+      "type": "integer"
+    },
+    "publisher_chat": {
+      "type": "Chat"
+    }
+  },
+  "GiftInfo": {
+    "gift": {
+      "required": true,
+      "type": "Gift"
+    },
+    "owned_gift_id": {
+      "type": "string"
+    },
+    "convert_star_count": {
+      "type": "integer"
+    },
+    "prepaid_upgrade_star_count": {
+      "type": "integer"
+    },
+    "can_be_upgraded": {
+      "type": "boolean",
+      "default": true
+    },
+    "text": {
+      "type": "string"
+    },
+    "entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "is_private": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "Gifts": {
+    "gifts": {
+      "required": true,
+      "type": "array",
+      "items": "Gift"
+    }
+  },
+  "Giveaway": {
+    "chats": {
+      "required": true,
+      "type": "array",
+      "items": "Chat"
+    },
+    "winners_selection_date": {
+      "required": true,
+      "type": "integer"
+    },
+    "winner_count": {
+      "required": true,
+      "type": "integer"
+    },
+    "only_new_members": {
+      "type": "boolean",
+      "default": true
+    },
+    "has_public_winners": {
+      "type": "boolean",
+      "default": true
+    },
+    "prize_description": {
+      "type": "string"
+    },
+    "country_codes": {
+      "type": "array",
+      "items": "string"
+    },
+    "prize_star_count": {
+      "type": "integer"
+    },
+    "premium_subscription_month_count": {
+      "type": "integer"
+    }
+  },
+  "GiveawayCompleted": {
+    "winner_count": {
+      "required": true,
+      "type": "integer"
+    },
+    "unclaimed_prize_count": {
+      "type": "integer"
+    },
+    "giveaway_message": {
+      "type": "Message"
+    },
+    "is_star_giveaway": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "GiveawayCreated": {
+    "prize_star_count": {
+      "type": "integer"
+    }
+  },
+  "GiveawayWinners": {
+    "chat": {
+      "required": true,
+      "type": "Chat"
+    },
+    "giveaway_message_id": {
+      "required": true,
+      "type": "integer"
+    },
+    "winners_selection_date": {
+      "required": true,
+      "type": "integer"
+    },
+    "winner_count": {
+      "required": true,
+      "type": "integer"
+    },
+    "winners": {
+      "required": true,
+      "type": "array",
+      "items": "User"
+    },
+    "additional_chat_count": {
+      "type": "integer"
+    },
+    "prize_star_count": {
+      "type": "integer"
+    },
+    "premium_subscription_month_count": {
+      "type": "integer"
+    },
+    "unclaimed_prize_count": {
+      "type": "integer"
+    },
+    "only_new_members": {
+      "type": "boolean",
+      "default": true
+    },
+    "was_refunded": {
+      "type": "boolean",
+      "default": true
+    },
+    "prize_description": {
+      "type": "string"
+    }
+  },
+  "InaccessibleMessage": {
+    "chat": {
+      "required": true,
+      "type": "Chat"
+    },
+    "message_id": {
+      "required": true,
+      "type": "integer"
+    },
+    "date": {
+      "required": true,
+      "type": "integer"
+    }
+  },
+  "InlineKeyboardButton": {
+    "text": {
+      "required": true,
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "callback_data": {
+      "type": "string"
+    },
+    "web_app": {
+      "type": "WebAppInfo"
+    },
+    "login_url": {
+      "type": "LoginUrl"
+    },
+    "switch_inline_query": {
+      "type": "string"
+    },
+    "switch_inline_query_current_chat": {
+      "type": "string"
+    },
+    "switch_inline_query_chosen_chat": {
+      "type": "SwitchInlineQueryChosenChat"
+    },
+    "copy_text": {
+      "type": "CopyTextButton"
+    },
+    "callback_game": {
+      "type": "CallbackGame"
+    },
+    "pay": {
+      "type": "boolean"
+    }
+  },
+  "InlineKeyboardMarkup": {
+    "inline_keyboard": {
+      "required": true,
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": "InlineKeyboardButton"
+      }
+    }
+  },
+  "InlineQuery": {
+    "id": {
+      "required": true,
+      "type": "string"
+    },
+    "from": {
+      "required": true,
+      "type": "User"
+    },
+    "query": {
+      "required": true,
+      "type": "string"
+    },
+    "offset": {
+      "required": true,
+      "type": "string"
+    },
+    "chat_type": {
+      "type": "string"
+    },
+    "location": {
+      "type": "Location"
+    }
+  },
+  "InlineQueryResult": {
+    "type": [
+      "InlineQueryResultCachedAudio",
+      "InlineQueryResultCachedDocument",
+      "InlineQueryResultCachedGif",
+      "InlineQueryResultCachedMpeg4Gif",
+      "InlineQueryResultCachedPhoto",
+      "InlineQueryResultCachedSticker",
+      "InlineQueryResultCachedVideo",
+      "InlineQueryResultCachedVoice",
+      "InlineQueryResultArticle",
+      "InlineQueryResultAudio",
+      "InlineQueryResultContact",
+      "InlineQueryResultGame",
+      "InlineQueryResultDocument",
+      "InlineQueryResultGif",
+      "InlineQueryResultLocation",
+      "InlineQueryResultMpeg4Gif",
+      "InlineQueryResultPhoto",
+      "InlineQueryResultVenue",
+      "InlineQueryResultVideo",
+      "InlineQueryResultVoice"
+    ]
+  },
+  "InlineQueryResultArticle": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "article",
+      "default": "article"
+    },
+    "id": {
+      "required": true,
+      "type": "string"
+    },
+    "title": {
+      "required": true,
+      "type": "string"
+    },
+    "input_message_content": {
+      "required": true,
+      "type": "InputMessageContent"
+    },
+    "reply_markup": {
+      "type": "InlineKeyboardMarkup"
+    },
+    "url": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "thumbnail_url": {
+      "type": "string"
+    },
+    "thumbnail_width": {
+      "type": "integer"
+    },
+    "thumbnail_height": {
+      "type": "integer"
+    }
+  },
+  "InlineQueryResultAudio": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "audio",
+      "default": "audio"
+    },
+    "id": {
+      "required": true,
+      "type": "string"
+    },
+    "audio_url": {
+      "required": true,
+      "type": "string"
+    },
+    "title": {
+      "required": true,
+      "type": "string"
+    },
+    "caption": {
+      "type": "string",
+      "max_size": 1024
+    },
+    "parse_mode": {
+      "type": "string"
+    },
+    "caption_entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "performer": {
+      "type": "string"
+    },
+    "audio_duration": {
+      "type": "integer"
+    },
+    "reply_markup": {
+      "type": "InlineKeyboardMarkup"
+    },
+    "input_message_content": {
+      "type": "InputMessageContent"
+    }
+  },
+  "InlineQueryResultCachedAudio": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "audio",
+      "default": "audio"
+    },
+    "id": {
+      "required": true,
+      "type": "string"
+    },
+    "audio_file_id": {
+      "required": true,
+      "type": "string"
+    },
+    "caption": {
+      "type": "string",
+      "max_size": 1024
+    },
+    "parse_mode": {
+      "type": "string"
+    },
+    "caption_entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "reply_markup": {
+      "type": "InlineKeyboardMarkup"
+    },
+    "input_message_content": {
+      "type": "InputMessageContent"
+    }
+  },
+  "InlineQueryResultCachedDocument": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "document",
+      "default": "document"
+    },
+    "id": {
+      "required": true,
+      "type": "string"
+    },
+    "title": {
+      "required": true,
+      "type": "string"
+    },
+    "document_file_id": {
+      "required": true,
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "caption": {
+      "type": "string",
+      "max_size": 1024
+    },
+    "parse_mode": {
+      "type": "string"
+    },
+    "caption_entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "reply_markup": {
+      "type": "InlineKeyboardMarkup"
+    },
+    "input_message_content": {
+      "type": "InputMessageContent"
+    }
+  },
+  "InlineQueryResultCachedGif": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "gif",
+      "default": "gif"
+    },
+    "id": {
+      "required": true,
+      "type": "string"
+    },
+    "gif_file_id": {
+      "required": true,
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "caption": {
+      "type": "string",
+      "max_size": 1024
+    },
+    "parse_mode": {
+      "type": "string"
+    },
+    "caption_entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "show_caption_above_media": {
+      "type": "boolean"
+    },
+    "reply_markup": {
+      "type": "InlineKeyboardMarkup"
+    },
+    "input_message_content": {
+      "type": "InputMessageContent"
+    }
+  },
+  "InlineQueryResultCachedMpeg4Gif": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "mpeg4_gif",
+      "default": "mpeg4_gif"
+    },
+    "id": {
+      "required": true,
+      "type": "string"
+    },
+    "mpeg4_file_id": {
+      "required": true,
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "caption": {
+      "type": "string",
+      "max_size": 1024
+    },
+    "parse_mode": {
+      "type": "string"
+    },
+    "caption_entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "show_caption_above_media": {
+      "type": "boolean"
+    },
+    "reply_markup": {
+      "type": "InlineKeyboardMarkup"
+    },
+    "input_message_content": {
+      "type": "InputMessageContent"
+    }
+  },
+  "InlineQueryResultCachedPhoto": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "photo",
+      "default": "photo"
+    },
+    "id": {
+      "required": true,
+      "type": "string"
+    },
+    "photo_file_id": {
+      "required": true,
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "caption": {
+      "type": "string",
+      "max_size": 1024
+    },
+    "parse_mode": {
+      "type": "string"
+    },
+    "caption_entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "show_caption_above_media": {
+      "type": "boolean"
+    },
+    "reply_markup": {
+      "type": "InlineKeyboardMarkup"
+    },
+    "input_message_content": {
+      "type": "InputMessageContent"
+    }
+  },
+  "InlineQueryResultCachedSticker": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "sticker",
+      "default": "sticker"
+    },
+    "id": {
+      "required": true,
+      "type": "string"
+    },
+    "sticker_file_id": {
+      "required": true,
+      "type": "string"
+    },
+    "reply_markup": {
+      "type": "InlineKeyboardMarkup"
+    },
+    "input_message_content": {
+      "type": "InputMessageContent"
+    }
+  },
+  "InlineQueryResultCachedVideo": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "video",
+      "default": "video"
+    },
+    "id": {
+      "required": true,
+      "type": "string"
+    },
+    "video_file_id": {
+      "required": true,
+      "type": "string"
+    },
+    "title": {
+      "required": true,
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "caption": {
+      "type": "string",
+      "max_size": 1024
+    },
+    "parse_mode": {
+      "type": "string"
+    },
+    "caption_entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "show_caption_above_media": {
+      "type": "boolean"
+    },
+    "reply_markup": {
+      "type": "InlineKeyboardMarkup"
+    },
+    "input_message_content": {
+      "type": "InputMessageContent"
+    }
+  },
+  "InlineQueryResultCachedVoice": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "voice",
+      "default": "voice"
+    },
+    "id": {
+      "required": true,
+      "type": "string"
+    },
+    "voice_file_id": {
+      "required": true,
+      "type": "string"
+    },
+    "title": {
+      "required": true,
+      "type": "string"
+    },
+    "caption": {
+      "type": "string",
+      "max_size": 1024
+    },
+    "parse_mode": {
+      "type": "string"
+    },
+    "caption_entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "reply_markup": {
+      "type": "InlineKeyboardMarkup"
+    },
+    "input_message_content": {
+      "type": "InputMessageContent"
+    }
+  },
+  "InlineQueryResultContact": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "contact",
+      "default": "contact"
+    },
+    "id": {
+      "required": true,
+      "type": "string"
+    },
+    "phone_number": {
+      "required": true,
+      "type": "string"
+    },
+    "first_name": {
+      "required": true,
+      "type": "string"
+    },
+    "last_name": {
+      "type": "string"
+    },
+    "vcard": {
+      "type": "string"
+    },
+    "reply_markup": {
+      "type": "InlineKeyboardMarkup"
+    },
+    "input_message_content": {
+      "type": "InputMessageContent"
+    },
+    "thumbnail_url": {
+      "type": "string"
+    },
+    "thumbnail_width": {
+      "type": "integer"
+    },
+    "thumbnail_height": {
+      "type": "integer"
+    }
+  },
+  "InlineQueryResultDocument": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "document",
+      "default": "document"
+    },
+    "id": {
+      "required": true,
+      "type": "string"
+    },
+    "title": {
+      "required": true,
+      "type": "string"
+    },
+    "caption": {
+      "type": "string",
+      "max_size": 1024
+    },
+    "parse_mode": {
+      "type": "string"
+    },
+    "caption_entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "document_url": {
+      "required": true,
+      "type": "string"
+    },
+    "mime_type": {
+      "required": true,
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "reply_markup": {
+      "type": "InlineKeyboardMarkup"
+    },
+    "input_message_content": {
+      "type": "InputMessageContent"
+    },
+    "thumbnail_url": {
+      "type": "string"
+    },
+    "thumbnail_width": {
+      "type": "integer"
+    },
+    "thumbnail_height": {
+      "type": "integer"
+    }
+  },
+  "InlineQueryResultGame": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "game",
+      "default": "game"
+    },
+    "id": {
+      "required": true,
+      "type": "string"
+    },
+    "game_short_name": {
+      "required": true,
+      "type": "string"
+    },
+    "reply_markup": {
+      "type": "InlineKeyboardMarkup"
+    }
+  },
+  "InlineQueryResultGif": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "gif",
+      "default": "gif"
+    },
+    "id": {
+      "required": true,
+      "type": "string"
+    },
+    "gif_url": {
+      "required": true,
+      "type": "string"
+    },
+    "gif_width": {
+      "type": "integer"
+    },
+    "gif_height": {
+      "type": "integer"
+    },
+    "gif_duration": {
+      "type": "integer"
+    },
+    "thumbnail_url": {
+      "required": true,
+      "type": "string"
+    },
+    "thumbnail_mime_type": {
+      "type": "string",
+      "default": "image/jpeg"
+    },
+    "title": {
+      "type": "string"
+    },
+    "caption": {
+      "type": "string",
+      "max_size": 1024
+    },
+    "parse_mode": {
+      "type": "string"
+    },
+    "caption_entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "show_caption_above_media": {
+      "type": "boolean"
+    },
+    "reply_markup": {
+      "type": "InlineKeyboardMarkup"
+    },
+    "input_message_content": {
+      "type": "InputMessageContent"
+    }
+  },
+  "InlineQueryResultLocation": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "location",
+      "default": "location"
+    },
+    "id": {
+      "required": true,
+      "type": "string"
+    },
+    "latitude": {
+      "required": true,
+      "type": "number"
+    },
+    "longitude": {
+      "required": true,
+      "type": "number"
+    },
+    "title": {
+      "required": true,
+      "type": "string"
+    },
+    "horizontal_accuracy": {
+      "type": "number"
+    },
+    "live_period": {
+      "type": "integer"
+    },
+    "heading": {
+      "type": "integer"
+    },
+    "proximity_alert_radius": {
+      "type": "integer"
+    },
+    "reply_markup": {
+      "type": "InlineKeyboardMarkup"
+    },
+    "input_message_content": {
+      "type": "InputMessageContent"
+    },
+    "thumbnail_url": {
+      "type": "string"
+    },
+    "thumbnail_width": {
+      "type": "integer"
+    },
+    "thumbnail_height": {
+      "type": "integer"
+    }
+  },
+  "InlineQueryResultMpeg4Gif": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "mpeg4_gif",
+      "default": "mpeg4_gif"
+    },
+    "id": {
+      "required": true,
+      "type": "string"
+    },
+    "mpeg4_url": {
+      "required": true,
+      "type": "string"
+    },
+    "mpeg4_width": {
+      "type": "integer"
+    },
+    "mpeg4_height": {
+      "type": "integer"
+    },
+    "mpeg4_duration": {
+      "type": "integer"
+    },
+    "thumbnail_url": {
+      "required": true,
+      "type": "string"
+    },
+    "thumbnail_mime_type": {
+      "type": "string",
+      "default": "image/jpeg"
+    },
+    "title": {
+      "type": "string"
+    },
+    "caption": {
+      "type": "string",
+      "max_size": 1024
+    },
+    "parse_mode": {
+      "type": "string"
+    },
+    "caption_entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "show_caption_above_media": {
+      "type": "boolean"
+    },
+    "reply_markup": {
+      "type": "InlineKeyboardMarkup"
+    },
+    "input_message_content": {
+      "type": "InputMessageContent"
+    }
+  },
+  "InlineQueryResultPhoto": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "photo",
+      "default": "photo"
+    },
+    "id": {
+      "required": true,
+      "type": "string"
+    },
+    "photo_url": {
+      "required": true,
+      "type": "string"
+    },
+    "thumbnail_url": {
+      "required": true,
+      "type": "string"
+    },
+    "photo_width": {
+      "type": "integer"
+    },
+    "photo_height": {
+      "type": "integer"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "caption": {
+      "type": "string",
+      "max_size": 1024
+    },
+    "parse_mode": {
+      "type": "string"
+    },
+    "caption_entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "show_caption_above_media": {
+      "type": "boolean"
+    },
+    "reply_markup": {
+      "type": "InlineKeyboardMarkup"
+    },
+    "input_message_content": {
+      "type": "InputMessageContent"
+    }
+  },
+  "InlineQueryResultVenue": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "venue",
+      "default": "venue"
+    },
+    "id": {
+      "required": true,
+      "type": "string"
+    },
+    "latitude": {
+      "required": true,
+      "type": "number"
+    },
+    "longitude": {
+      "required": true,
+      "type": "number"
+    },
+    "title": {
+      "required": true,
+      "type": "string"
+    },
+    "address": {
+      "required": true,
+      "type": "string"
+    },
+    "foursquare_id": {
+      "type": "string"
+    },
+    "foursquare_type": {
+      "type": "string"
+    },
+    "google_place_id": {
+      "type": "string"
+    },
+    "google_place_type": {
+      "type": "string"
+    },
+    "reply_markup": {
+      "type": "InlineKeyboardMarkup"
+    },
+    "input_message_content": {
+      "type": "InputMessageContent"
+    },
+    "thumbnail_url": {
+      "type": "string"
+    },
+    "thumbnail_width": {
+      "type": "integer"
+    },
+    "thumbnail_height": {
+      "type": "integer"
+    }
+  },
+  "InlineQueryResultVideo": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "video",
+      "default": "video"
+    },
+    "id": {
+      "required": true,
+      "type": "string"
+    },
+    "video_url": {
+      "required": true,
+      "type": "string"
+    },
+    "mime_type": {
+      "required": true,
+      "type": "string"
+    },
+    "thumbnail_url": {
+      "required": true,
+      "type": "string"
+    },
+    "title": {
+      "required": true,
+      "type": "string"
+    },
+    "caption": {
+      "type": "string",
+      "max_size": 1024
+    },
+    "parse_mode": {
+      "type": "string"
+    },
+    "caption_entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "show_caption_above_media": {
+      "type": "boolean"
+    },
+    "video_width": {
+      "type": "integer"
+    },
+    "video_height": {
+      "type": "integer"
+    },
+    "video_duration": {
+      "type": "integer"
+    },
+    "description": {
+      "type": "string"
+    },
+    "reply_markup": {
+      "type": "InlineKeyboardMarkup"
+    },
+    "input_message_content": {
+      "type": "InputMessageContent"
+    }
+  },
+  "InlineQueryResultVoice": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "voice",
+      "default": "voice"
+    },
+    "id": {
+      "required": true,
+      "type": "string"
+    },
+    "voice_url": {
+      "required": true,
+      "type": "string"
+    },
+    "title": {
+      "required": true,
+      "type": "string"
+    },
+    "caption": {
+      "type": "string",
+      "max_size": 1024
+    },
+    "parse_mode": {
+      "type": "string"
+    },
+    "caption_entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "voice_duration": {
+      "type": "integer"
+    },
+    "reply_markup": {
+      "type": "InlineKeyboardMarkup"
+    },
+    "input_message_content": {
+      "type": "InputMessageContent"
+    }
+  },
+  "InlineQueryResultsButton": {
+    "text": {
+      "required": true,
+      "type": "string"
+    },
+    "web_app": {
+      "type": "WebAppInfo"
+    },
+    "start_parameter": {
+      "type": "string",
+      "min_size": 1,
+      "max_size": 64
+    }
+  },
+  "InputChecklist": {
+    "title": {
+      "required": true,
+      "type": "string",
+      "min_size": 1,
+      "max_size": 255
+    },
+    "parse_mode": {
+      "type": "string"
+    },
+    "title_entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "tasks": {
+      "required": true,
+      "type": "array",
+      "items": "InputChecklistTask"
+    },
+    "others_can_add_tasks": {
+      "type": "boolean"
+    },
+    "others_can_mark_tasks_as_done": {
+      "type": "boolean"
+    }
+  },
+  "InputChecklistTask": {
+    "id": {
+      "required": true,
+      "type": "integer"
+    },
+    "text": {
+      "required": true,
+      "type": "string",
+      "min_size": 1,
+      "max_size": 100
+    },
+    "parse_mode": {
+      "type": "string"
+    },
+    "text_entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    }
+  },
+  "InputContactMessageContent": {
+    "phone_number": {
+      "required": true,
+      "type": "string"
+    },
+    "first_name": {
+      "required": true,
+      "type": "string"
+    },
+    "last_name": {
+      "type": "string"
+    },
+    "vcard": {
+      "type": "string"
+    }
+  },
+  "InputInvoiceMessageContent": {
+    "title": {
+      "required": true,
+      "type": "string",
+      "min_size": 1,
+      "max_size": 32
+    },
+    "description": {
+      "required": true,
+      "type": "string",
+      "min_size": 1,
+      "max_size": 255
+    },
+    "payload": {
+      "required": true,
+      "type": "string"
+    },
+    "provider_token": {
+      "type": "string"
+    },
+    "currency": {
+      "required": true,
+      "type": "string"
+    },
+    "prices": {
+      "required": true,
+      "type": "array",
+      "items": "LabeledPrice"
+    },
+    "max_tip_amount": {
+      "type": "integer",
+      "default": 0
+    },
+    "suggested_tip_amounts": {
+      "type": "array",
+      "items": "integer"
+    },
+    "provider_data": {
+      "type": "string"
+    },
+    "photo_url": {
+      "type": "string"
+    },
+    "photo_size": {
+      "type": "integer"
+    },
+    "photo_width": {
+      "type": "integer"
+    },
+    "photo_height": {
+      "type": "integer"
+    },
+    "need_name": {
+      "type": "boolean"
+    },
+    "need_phone_number": {
+      "type": "boolean"
+    },
+    "need_email": {
+      "type": "boolean"
+    },
+    "need_shipping_address": {
+      "type": "boolean"
+    },
+    "send_phone_number_to_provider": {
+      "type": "boolean"
+    },
+    "send_email_to_provider": {
+      "type": "boolean"
+    },
+    "is_flexible": {
+      "type": "boolean"
+    }
+  },
+  "InputLocationMessageContent": {
+    "latitude": {
+      "required": true,
+      "type": "number"
+    },
+    "longitude": {
+      "required": true,
+      "type": "number"
+    },
+    "horizontal_accuracy": {
+      "type": "number"
+    },
+    "live_period": {
+      "type": "integer"
+    },
+    "heading": {
+      "type": "integer"
+    },
+    "proximity_alert_radius": {
+      "type": "integer"
+    }
+  },
+  "InputMedia": {
+    "type": [
+      "InputMediaAnimation",
+      "InputMediaDocument",
+      "InputMediaAudio",
+      "InputMediaPhoto",
+      "InputMediaVideo"
+    ]
+  },
+  "InputMediaAnimation": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "animation",
+      "default": "animation"
+    },
+    "media": {
+      "required": true,
+      "type": "string"
+    },
+    "thumbnail": {
+      "type": "string"
+    },
+    "caption": {
+      "type": "string",
+      "max_size": 1024
+    },
+    "parse_mode": {
+      "type": "string"
+    },
+    "caption_entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "show_caption_above_media": {
+      "type": "boolean"
+    },
+    "width": {
+      "type": "integer"
+    },
+    "height": {
+      "type": "integer"
+    },
+    "duration": {
+      "type": "integer"
+    },
+    "has_spoiler": {
+      "type": "boolean"
+    }
+  },
+  "InputMediaAudio": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "audio",
+      "default": "audio"
+    },
+    "media": {
+      "required": true,
+      "type": "string"
+    },
+    "thumbnail": {
+      "type": "string"
+    },
+    "caption": {
+      "type": "string",
+      "max_size": 1024
+    },
+    "parse_mode": {
+      "type": "string"
+    },
+    "caption_entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "duration": {
+      "type": "integer"
+    },
+    "performer": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    }
+  },
+  "InputMediaDocument": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "document",
+      "default": "document"
+    },
+    "media": {
+      "required": true,
+      "type": "string"
+    },
+    "thumbnail": {
+      "type": "string"
+    },
+    "caption": {
+      "type": "string",
+      "max_size": 1024
+    },
+    "parse_mode": {
+      "type": "string"
+    },
+    "caption_entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "disable_content_type_detection": {
+      "type": "boolean"
+    }
+  },
+  "InputMediaPhoto": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "photo",
+      "default": "photo"
+    },
+    "media": {
+      "required": true,
+      "type": "string"
+    },
+    "caption": {
+      "type": "string",
+      "max_size": 1024
+    },
+    "parse_mode": {
+      "type": "string"
+    },
+    "caption_entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "show_caption_above_media": {
+      "type": "boolean"
+    },
+    "has_spoiler": {
+      "type": "boolean"
+    }
+  },
+  "InputMediaVideo": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "video",
+      "default": "video"
+    },
+    "media": {
+      "required": true,
+      "type": "string"
+    },
+    "thumbnail": {
+      "type": "string"
+    },
+    "cover": {
+      "type": "string"
+    },
+    "start_timestamp": {
+      "type": "integer"
+    },
+    "caption": {
+      "type": "string",
+      "max_size": 1024
+    },
+    "parse_mode": {
+      "type": "string"
+    },
+    "caption_entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "show_caption_above_media": {
+      "type": "boolean"
+    },
+    "width": {
+      "type": "integer"
+    },
+    "height": {
+      "type": "integer"
+    },
+    "duration": {
+      "type": "integer"
+    },
+    "supports_streaming": {
+      "type": "boolean"
+    },
+    "has_spoiler": {
+      "type": "boolean"
+    }
+  },
+  "InputMessageContent": {
+    "type": [
+      "InputTextMessageContent",
+      "InputLocationMessageContent",
+      "InputVenueMessageContent",
+      "InputContactMessageContent",
+      "InputInvoiceMessageContent"
+    ]
+  },
+  "InputPaidMedia": {
+    "type": [
+      "InputPaidMediaPhoto",
+      "InputPaidMediaVideo"
+    ]
+  },
+  "InputPaidMediaPhoto": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "photo",
+      "default": "photo"
+    },
+    "media": {
+      "required": true,
+      "type": "string"
+    }
+  },
+  "InputPaidMediaVideo": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "video",
+      "default": "video"
+    },
+    "media": {
+      "required": true,
+      "type": "string"
+    },
+    "thumbnail": {
+      "type": "string"
+    },
+    "cover": {
+      "type": "string"
+    },
+    "start_timestamp": {
+      "type": "integer"
+    },
+    "width": {
+      "type": "integer"
+    },
+    "height": {
+      "type": "integer"
+    },
+    "duration": {
+      "type": "integer"
+    },
+    "supports_streaming": {
+      "type": "boolean"
+    }
+  },
+  "InputPollOption": {
+    "text": {
+      "required": true,
+      "type": "string",
+      "min_size": 1,
+      "max_size": 100
+    },
+    "text_parse_mode": {
+      "type": "string"
+    },
+    "text_entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    }
+  },
+  "InputProfilePhoto": {
+    "type": [
+      "InputProfilePhotoStatic",
+      "InputProfilePhotoAnimated"
+    ]
+  },
+  "InputProfilePhotoAnimated": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "animated",
+      "default": "animated"
+    },
+    "animation": {
+      "required": true,
+      "type": "string"
+    },
+    "main_frame_timestamp": {
+      "type": "number",
+      "default": 0.0
+    }
+  },
+  "InputProfilePhotoStatic": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "static",
+      "default": "static"
+    },
+    "photo": {
+      "required": true,
+      "type": "string"
+    }
+  },
+  "InputSticker": {
+    "sticker": {
+      "required": true,
+      "type": "string"
+    },
+    "format": {
+      "required": true,
+      "type": "string"
+    },
+    "emoji_list": {
+      "required": true,
+      "type": "array",
+      "items": "string"
+    },
+    "mask_position": {
+      "type": "MaskPosition"
+    },
+    "keywords": {
+      "type": "array",
+      "items": "string"
+    }
+  },
+  "InputStoryContent": {
+    "type": [
+      "InputStoryContentPhoto",
+      "InputStoryContentVideo"
+    ]
+  },
+  "InputStoryContentPhoto": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "photo",
+      "default": "photo"
+    },
+    "photo": {
+      "required": true,
+      "type": "string"
+    }
+  },
+  "InputStoryContentVideo": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "video",
+      "default": "video"
+    },
+    "video": {
+      "required": true,
+      "type": "string"
+    },
+    "duration": {
+      "type": "number"
+    },
+    "cover_frame_timestamp": {
+      "type": "number",
+      "default": 0.0
+    },
+    "is_animation": {
+      "type": "boolean"
+    }
+  },
+  "InputTextMessageContent": {
+    "message_text": {
+      "required": true,
+      "type": "string",
+      "min_size": 1,
+      "max_size": 4096
+    },
+    "parse_mode": {
+      "type": "string"
+    },
+    "entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "link_preview_options": {
+      "type": "LinkPreviewOptions"
+    }
+  },
+  "InputVenueMessageContent": {
+    "latitude": {
+      "required": true,
+      "type": "number"
+    },
+    "longitude": {
+      "required": true,
+      "type": "number"
+    },
+    "title": {
+      "required": true,
+      "type": "string"
+    },
+    "address": {
+      "required": true,
+      "type": "string"
+    },
+    "foursquare_id": {
+      "type": "string"
+    },
+    "foursquare_type": {
+      "type": "string"
+    },
+    "google_place_id": {
+      "type": "string"
+    },
+    "google_place_type": {
+      "type": "string"
+    }
+  },
+  "Invoice": {
+    "title": {
+      "required": true,
+      "type": "string"
+    },
+    "description": {
+      "required": true,
+      "type": "string"
+    },
+    "start_parameter": {
+      "required": true,
+      "type": "string"
+    },
+    "currency": {
+      "required": true,
+      "type": "string"
+    },
+    "total_amount": {
+      "required": true,
+      "type": "integer"
+    }
+  },
+  "KeyboardButton": {
+    "text": {
+      "required": true,
+      "type": "string"
+    },
+    "request_users": {
+      "type": "KeyboardButtonRequestUsers"
+    },
+    "request_chat": {
+      "type": "KeyboardButtonRequestChat"
+    },
+    "request_contact": {
+      "type": "boolean"
+    },
+    "request_location": {
+      "type": "boolean"
+    },
+    "request_poll": {
+      "type": "KeyboardButtonPollType"
+    },
+    "web_app": {
+      "type": "WebAppInfo"
+    }
+  },
+  "KeyboardButtonPollType": {
+    "type": {
+      "type": "string"
+    }
+  },
+  "KeyboardButtonRequestChat": {
+    "request_id": {
+      "required": true,
+      "type": "integer"
+    },
+    "chat_is_channel": {
+      "required": true,
+      "type": "boolean"
+    },
+    "chat_is_forum": {
+      "type": "boolean"
+    },
+    "chat_has_username": {
+      "type": "boolean"
+    },
+    "chat_is_created": {
+      "type": "boolean"
+    },
+    "user_administrator_rights": {
+      "type": "ChatAdministratorRights"
+    },
+    "bot_administrator_rights": {
+      "type": "ChatAdministratorRights"
+    },
+    "bot_is_member": {
+      "type": "boolean"
+    },
+    "request_title": {
+      "type": "boolean"
+    },
+    "request_username": {
+      "type": "boolean"
+    },
+    "request_photo": {
+      "type": "boolean"
+    }
+  },
+  "KeyboardButtonRequestUsers": {
+    "request_id": {
+      "required": true,
+      "type": "integer"
+    },
+    "user_is_bot": {
+      "type": "boolean"
+    },
+    "user_is_premium": {
+      "type": "boolean"
+    },
+    "max_quantity": {
+      "type": "integer",
+      "default": 1
+    },
+    "request_name": {
+      "type": "boolean"
+    },
+    "request_username": {
+      "type": "boolean"
+    },
+    "request_photo": {
+      "type": "boolean"
+    }
+  },
+  "LabeledPrice": {
+    "label": {
+      "required": true,
+      "type": "string"
+    },
+    "amount": {
+      "required": true,
+      "type": "integer"
+    }
+  },
+  "LinkPreviewOptions": {
+    "is_disabled": {
+      "type": "boolean"
+    },
+    "url": {
+      "type": "string"
+    },
+    "prefer_small_media": {
+      "type": "boolean"
+    },
+    "prefer_large_media": {
+      "type": "boolean"
+    },
+    "show_above_text": {
+      "type": "boolean"
+    }
+  },
+  "Location": {
+    "latitude": {
+      "required": true,
+      "type": "number"
+    },
+    "longitude": {
+      "required": true,
+      "type": "number"
+    },
+    "horizontal_accuracy": {
+      "type": "number"
+    },
+    "live_period": {
+      "type": "integer"
+    },
+    "heading": {
+      "type": "integer"
+    },
+    "proximity_alert_radius": {
+      "type": "integer"
+    }
+  },
+  "LocationAddress": {
+    "country_code": {
+      "required": true,
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "street": {
+      "type": "string"
+    }
+  },
+  "LoginUrl": {
+    "url": {
+      "required": true,
+      "type": "string"
+    },
+    "forward_text": {
+      "type": "string"
+    },
+    "bot_username": {
+      "type": "string"
+    },
+    "request_write_access": {
+      "type": "boolean"
+    }
+  },
+  "MaskPosition": {
+    "point": {
+      "required": true,
+      "type": "string"
+    },
+    "x_shift": {
+      "required": true,
+      "type": "number"
+    },
+    "y_shift": {
+      "required": true,
+      "type": "number"
+    },
+    "scale": {
+      "required": true,
+      "type": "number"
+    }
+  },
+  "MaybeInaccessibleMessage": {
+    "type": [
+      "Message",
+      "InaccessibleMessage"
+    ]
+  },
+  "MenuButton": {
+    "type": [
+      "MenuButtonCommands",
+      "MenuButtonWebApp",
+      "MenuButtonDefault"
+    ]
+  },
+  "MenuButtonCommands": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "commands",
+      "default": "commands"
+    }
+  },
+  "MenuButtonDefault": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "default",
+      "default": "default"
+    }
+  },
+  "MenuButtonWebApp": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "web_app",
+      "default": "web_app"
+    },
+    "text": {
+      "required": true,
+      "type": "string"
+    },
+    "web_app": {
+      "required": true,
+      "type": "WebAppInfo"
+    }
+  },
+  "Message": {
+    "message_id": {
+      "required": true,
+      "type": "integer"
+    },
     "message_thread_id": {
       "type": "integer"
+    },
+    "direct_messages_topic": {
+      "type": "DirectMessagesTopic"
     },
     "from": {
       "type": "User"
@@ -372,15 +3743,15 @@
       "type": "User"
     },
     "date": {
-      "type": "integer",
-      "required": true
+      "required": true,
+      "type": "integer"
     },
     "business_connection_id": {
       "type": "string"
     },
     "chat": {
-      "type": "Chat",
-      "required": true
+      "required": true,
+      "type": "Chat"
     },
     "forward_origin": {
       "type": "MessageOrigin"
@@ -405,6 +3776,9 @@
     "reply_to_story": {
       "type": "Story"
     },
+    "reply_to_checklist_task_id": {
+      "type": "integer"
+    },
     "via_bot": {
       "type": "User"
     },
@@ -419,11 +3793,18 @@
       "type": "boolean",
       "default": true
     },
+    "is_paid_post": {
+      "type": "boolean",
+      "default": true
+    },
     "media_group_id": {
       "type": "string"
     },
     "author_signature": {
       "type": "string"
+    },
+    "paid_star_count": {
+      "type": "integer"
     },
     "text": {
       "type": "string"
@@ -434,6 +3815,9 @@
     },
     "link_preview_options": {
       "type": "LinkPreviewOptions"
+    },
+    "suggested_post_info": {
+      "type": "SuggestedPostInfo"
     },
     "effect_id": {
       "type": "string"
@@ -483,6 +3867,9 @@
     "has_media_spoiler": {
       "type": "boolean",
       "default": true
+    },
+    "checklist": {
+      "type": "Checklist"
     },
     "contact": {
       "type": "Contact"
@@ -559,6 +3946,12 @@
     "chat_shared": {
       "type": "ChatShared"
     },
+    "gift": {
+      "type": "GiftInfo"
+    },
+    "unique_gift": {
+      "type": "UniqueGiftInfo"
+    },
     "connected_website": {
       "type": "string"
     },
@@ -576,6 +3969,15 @@
     },
     "chat_background_set": {
       "type": "ChatBackground"
+    },
+    "checklist_tasks_done": {
+      "type": "ChecklistTasksDone"
+    },
+    "checklist_tasks_added": {
+      "type": "ChecklistTasksAdded"
+    },
+    "direct_message_price_changed": {
+      "type": "DirectMessagePriceChanged"
     },
     "forum_topic_created": {
       "type": "ForumTopicCreated"
@@ -607,6 +4009,24 @@
     "giveaway_completed": {
       "type": "GiveawayCompleted"
     },
+    "paid_message_price_changed": {
+      "type": "PaidMessagePriceChanged"
+    },
+    "suggested_post_approved": {
+      "type": "SuggestedPostApproved"
+    },
+    "suggested_post_approval_failed": {
+      "type": "SuggestedPostApprovalFailed"
+    },
+    "suggested_post_declined": {
+      "type": "SuggestedPostDeclined"
+    },
+    "suggested_post_paid": {
+      "type": "SuggestedPostPaid"
+    },
+    "suggested_post_refunded": {
+      "type": "SuggestedPostRefunded"
+    },
     "video_chat_scheduled": {
       "type": "VideoChatScheduled"
     },
@@ -626,44 +4046,24 @@
       "type": "InlineKeyboardMarkup"
     }
   },
-  "MessageId": {
-    "message_id": {
-      "type": "integer",
-      "required": true
+  "MessageAutoDeleteTimerChanged": {
+    "message_auto_delete_time": {
+      "required": true,
+      "type": "integer"
     }
-  },
-  "InaccessibleMessage": {
-    "chat": {
-      "type": "Chat",
-      "required": true
-    },
-    "message_id": {
-      "type": "integer",
-      "required": true
-    },
-    "date": {
-      "type": "integer",
-      "required": true
-    }
-  },
-  "MaybeInaccessibleMessage": {
-    "type": [
-      "Message",
-      "InaccessibleMessage"
-    ]
   },
   "MessageEntity": {
     "type": {
-      "type": "string",
-      "required": true
+      "required": true,
+      "type": "string"
     },
     "offset": {
-      "type": "integer",
-      "required": true
+      "required": true,
+      "type": "integer"
     },
     "length": {
-      "type": "integer",
-      "required": true
+      "required": true,
+      "type": "integer"
     },
     "url": {
       "type": "string"
@@ -678,127 +4078,9 @@
       "type": "string"
     }
   },
-  "TextQuote": {
-    "text": {
-      "type": "string",
-      "required": true
-    },
-    "entities": {
-      "type": "array",
-      "items": "MessageEntity"
-    },
-    "position": {
-      "type": "integer",
-      "required": true
-    },
-    "is_manual": {
-      "type": "boolean",
-      "default": true
-    }
-  },
-  "ExternalReplyInfo": {
-    "origin": {
-      "type": "MessageOrigin",
-      "required": true
-    },
-    "chat": {
-      "type": "Chat"
-    },
+  "MessageId": {
     "message_id": {
-      "type": "integer"
-    },
-    "link_preview_options": {
-      "type": "LinkPreviewOptions"
-    },
-    "animation": {
-      "type": "Animation"
-    },
-    "audio": {
-      "type": "Audio"
-    },
-    "document": {
-      "type": "Document"
-    },
-    "paid_media": {
-      "type": "PaidMediaInfo"
-    },
-    "photo": {
-      "type": "array",
-      "items": "PhotoSize"
-    },
-    "sticker": {
-      "type": "Sticker"
-    },
-    "story": {
-      "type": "Story"
-    },
-    "video": {
-      "type": "Video"
-    },
-    "video_note": {
-      "type": "VideoNote"
-    },
-    "voice": {
-      "type": "Voice"
-    },
-    "has_media_spoiler": {
-      "type": "boolean",
-      "default": true
-    },
-    "contact": {
-      "type": "Contact"
-    },
-    "dice": {
-      "type": "Dice"
-    },
-    "game": {
-      "type": "Game"
-    },
-    "giveaway": {
-      "type": "Giveaway"
-    },
-    "giveaway_winners": {
-      "type": "GiveawayWinners"
-    },
-    "invoice": {
-      "type": "Invoice"
-    },
-    "location": {
-      "type": "Location"
-    },
-    "poll": {
-      "type": "Poll"
-    },
-    "venue": {
-      "type": "Venue"
-    }
-  },
-  "ReplyParameters": {
-    "message_id": {
-      "type": "integer",
-      "required": true
-    },
-    "chat_id": {
-      "type": [
-        "integer",
-        "string"
-      ]
-    },
-    "allow_sending_without_reply": {
-      "type": "boolean"
-    },
-    "quote": {
-      "type": "string",
-      "max_size": 1024
-    },
-    "quote_parse_mode": {
-      "type": "string"
-    },
-    "quote_entities": {
-      "type": "array",
-      "items": "MessageEntity"
-    },
-    "quote_position": {
+      "required": true,
       "type": "integer"
     }
   },
@@ -810,293 +4092,248 @@
       "MessageOriginChannel"
     ]
   },
-  "MessageOriginUser": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "user",
-      "default": "user"
-    },
-    "date": {
-      "type": "integer",
-      "required": true
-    },
-    "sender_user": {
-      "type": "User",
-      "required": true
-    }
-  },
-  "MessageOriginHiddenUser": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "hidden_user",
-      "default": "hidden_user"
-    },
-    "date": {
-      "type": "integer",
-      "required": true
-    },
-    "sender_user_name": {
-      "type": "string",
-      "required": true
-    }
-  },
-  "MessageOriginChat": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "chat",
-      "default": "chat"
-    },
-    "date": {
-      "type": "integer",
-      "required": true
-    },
-    "sender_chat": {
-      "type": "Chat",
-      "required": true
-    },
-    "author_signature": {
-      "type": "string"
-    }
-  },
   "MessageOriginChannel": {
     "type": {
-      "type": "string",
       "required": true,
+      "type": "string",
       "required_value": "channel",
       "default": "channel"
     },
     "date": {
-      "type": "integer",
-      "required": true
+      "required": true,
+      "type": "integer"
     },
     "chat": {
-      "type": "Chat",
-      "required": true
+      "required": true,
+      "type": "Chat"
     },
     "message_id": {
-      "type": "integer",
-      "required": true
+      "required": true,
+      "type": "integer"
     },
     "author_signature": {
       "type": "string"
     }
   },
-  "PhotoSize": {
-    "file_id": {
-      "type": "string",
-      "required": true
-    },
-    "file_unique_id": {
-      "type": "string",
-      "required": true
-    },
-    "width": {
-      "type": "integer",
-      "required": true
-    },
-    "height": {
-      "type": "integer",
-      "required": true
-    },
-    "file_size": {
-      "type": "integer"
-    }
-  },
-  "Animation": {
-    "file_id": {
-      "type": "string",
-      "required": true
-    },
-    "file_unique_id": {
-      "type": "string",
-      "required": true
-    },
-    "width": {
-      "type": "integer",
-      "required": true
-    },
-    "height": {
-      "type": "integer",
-      "required": true
-    },
-    "duration": {
-      "type": "integer",
-      "required": true
-    },
-    "thumbnail": {
-      "type": "PhotoSize"
-    },
-    "file_name": {
-      "type": "string"
-    },
-    "mime_type": {
-      "type": "string"
-    },
-    "file_size": {
-      "type": "integer"
-    }
-  },
-  "Audio": {
-    "file_id": {
-      "type": "string",
-      "required": true
-    },
-    "file_unique_id": {
-      "type": "string",
-      "required": true
-    },
-    "duration": {
-      "type": "integer",
-      "required": true
-    },
-    "performer": {
-      "type": "string"
-    },
-    "title": {
-      "type": "string"
-    },
-    "file_name": {
-      "type": "string"
-    },
-    "mime_type": {
-      "type": "string"
-    },
-    "file_size": {
-      "type": "integer"
-    },
-    "thumbnail": {
-      "type": "PhotoSize"
-    }
-  },
-  "Document": {
-    "file_id": {
-      "type": "string",
-      "required": true
-    },
-    "file_unique_id": {
-      "type": "string",
-      "required": true
-    },
-    "thumbnail": {
-      "type": "PhotoSize"
-    },
-    "file_name": {
-      "type": "string"
-    },
-    "mime_type": {
-      "type": "string"
-    },
-    "file_size": {
-      "type": "integer"
-    }
-  },
-  "Story": {
-    "chat": {
-      "type": "Chat",
-      "required": true
-    },
-    "id": {
-      "type": "integer",
-      "required": true
-    }
-  },
-  "Video": {
-    "file_id": {
-      "type": "string",
-      "required": true
-    },
-    "file_unique_id": {
-      "type": "string",
-      "required": true
-    },
-    "width": {
-      "type": "integer",
-      "required": true
-    },
-    "height": {
-      "type": "integer",
-      "required": true
-    },
-    "duration": {
-      "type": "integer",
-      "required": true
-    },
-    "thumbnail": {
-      "type": "PhotoSize"
-    },
-    "cover": {
-      "type": "array",
-      "items": "PhotoSize"
-    },
-    "start_timestamp": {
-      "type": "integer"
-    },
-    "file_name": {
-      "type": "string"
-    },
-    "mime_type": {
-      "type": "string"
-    },
-    "file_size": {
-      "type": "integer"
-    }
-  },
-  "VideoNote": {
-    "file_id": {
-      "type": "string",
-      "required": true
-    },
-    "file_unique_id": {
-      "type": "string",
-      "required": true
-    },
-    "length": {
-      "type": "integer",
-      "required": true
-    },
-    "duration": {
-      "type": "integer",
-      "required": true
-    },
-    "thumbnail": {
-      "type": "PhotoSize"
-    },
-    "file_size": {
-      "type": "integer"
-    }
-  },
-  "Voice": {
-    "file_id": {
-      "type": "string",
-      "required": true
-    },
-    "file_unique_id": {
-      "type": "string",
-      "required": true
-    },
-    "duration": {
-      "type": "integer",
-      "required": true
-    },
-    "mime_type": {
-      "type": "string"
-    },
-    "file_size": {
-      "type": "integer"
-    }
-  },
-  "PaidMediaInfo": {
-    "star_count": {
-      "type": "integer",
-      "required": true
-    },
-    "paid_media": {
-      "type": "array",
+  "MessageOriginChat": {
+    "type": {
       "required": true,
-      "items": "PaidMedia"
+      "type": "string",
+      "required_value": "chat",
+      "default": "chat"
+    },
+    "date": {
+      "required": true,
+      "type": "integer"
+    },
+    "sender_chat": {
+      "required": true,
+      "type": "Chat"
+    },
+    "author_signature": {
+      "type": "string"
+    }
+  },
+  "MessageOriginHiddenUser": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "hidden_user",
+      "default": "hidden_user"
+    },
+    "date": {
+      "required": true,
+      "type": "integer"
+    },
+    "sender_user_name": {
+      "required": true,
+      "type": "string"
+    }
+  },
+  "MessageOriginUser": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "user",
+      "default": "user"
+    },
+    "date": {
+      "required": true,
+      "type": "integer"
+    },
+    "sender_user": {
+      "required": true,
+      "type": "User"
+    }
+  },
+  "MessageReactionCountUpdated": {
+    "chat": {
+      "required": true,
+      "type": "Chat"
+    },
+    "message_id": {
+      "required": true,
+      "type": "integer"
+    },
+    "date": {
+      "required": true,
+      "type": "integer"
+    },
+    "reactions": {
+      "required": true,
+      "type": "array",
+      "items": "ReactionCount"
+    }
+  },
+  "MessageReactionUpdated": {
+    "chat": {
+      "required": true,
+      "type": "Chat"
+    },
+    "message_id": {
+      "required": true,
+      "type": "integer"
+    },
+    "user": {
+      "type": "User"
+    },
+    "actor_chat": {
+      "type": "Chat"
+    },
+    "date": {
+      "required": true,
+      "type": "integer"
+    },
+    "old_reaction": {
+      "required": true,
+      "type": "array",
+      "items": "ReactionType"
+    },
+    "new_reaction": {
+      "required": true,
+      "type": "array",
+      "items": "ReactionType"
+    }
+  },
+  "OrderInfo": {
+    "name": {
+      "type": "string"
+    },
+    "phone_number": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "shipping_address": {
+      "type": "ShippingAddress"
+    }
+  },
+  "OwnedGift": {
+    "type": [
+      "OwnedGiftRegular",
+      "OwnedGiftUnique"
+    ]
+  },
+  "OwnedGiftRegular": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "regular",
+      "default": "regular"
+    },
+    "gift": {
+      "required": true,
+      "type": "Gift"
+    },
+    "owned_gift_id": {
+      "type": "string"
+    },
+    "sender_user": {
+      "type": "User"
+    },
+    "send_date": {
+      "required": true,
+      "type": "integer"
+    },
+    "text": {
+      "type": "string"
+    },
+    "entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "is_private": {
+      "type": "boolean",
+      "default": true
+    },
+    "is_saved": {
+      "type": "boolean",
+      "default": true
+    },
+    "can_be_upgraded": {
+      "type": "boolean",
+      "default": true
+    },
+    "was_refunded": {
+      "type": "boolean",
+      "default": true
+    },
+    "convert_star_count": {
+      "type": "integer"
+    },
+    "prepaid_upgrade_star_count": {
+      "type": "integer"
+    }
+  },
+  "OwnedGiftUnique": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "unique",
+      "default": "unique"
+    },
+    "gift": {
+      "required": true,
+      "type": "UniqueGift"
+    },
+    "owned_gift_id": {
+      "type": "string"
+    },
+    "sender_user": {
+      "type": "User"
+    },
+    "send_date": {
+      "required": true,
+      "type": "integer"
+    },
+    "is_saved": {
+      "type": "boolean",
+      "default": true
+    },
+    "can_be_transferred": {
+      "type": "boolean",
+      "default": true
+    },
+    "transfer_star_count": {
+      "type": "integer"
+    },
+    "next_transfer_date": {
+      "type": "integer"
+    }
+  },
+  "OwnedGifts": {
+    "total_count": {
+      "required": true,
+      "type": "integer"
+    },
+    "gifts": {
+      "required": true,
+      "type": "array",
+      "items": "OwnedGift"
+    },
+    "next_offset": {
+      "type": "string"
     }
   },
   "PaidMedia": {
@@ -1106,10 +4343,34 @@
       "PaidMediaVideo"
     ]
   },
+  "PaidMediaInfo": {
+    "star_count": {
+      "required": true,
+      "type": "integer"
+    },
+    "paid_media": {
+      "required": true,
+      "type": "array",
+      "items": "PaidMedia"
+    }
+  },
+  "PaidMediaPhoto": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "photo",
+      "default": "photo"
+    },
+    "photo": {
+      "required": true,
+      "type": "array",
+      "items": "PhotoSize"
+    }
+  },
   "PaidMediaPreview": {
     "type": {
-      "type": "string",
       "required": true,
+      "type": "string",
       "required_value": "preview",
       "default": "preview"
     },
@@ -1123,116 +4384,291 @@
       "type": "integer"
     }
   },
-  "PaidMediaPhoto": {
-    "type": {
-      "type": "string",
+  "PaidMediaPurchased": {
+    "from": {
       "required": true,
-      "required_value": "photo",
-      "default": "photo"
+      "type": "User"
     },
-    "photo": {
-      "type": "array",
+    "paid_media_payload": {
       "required": true,
-      "items": "PhotoSize"
+      "type": "string"
     }
   },
   "PaidMediaVideo": {
     "type": {
-      "type": "string",
       "required": true,
+      "type": "string",
       "required_value": "video",
       "default": "video"
     },
     "video": {
-      "type": "Video",
-      "required": true
+      "required": true,
+      "type": "Video"
     }
   },
-  "Contact": {
-    "phone_number": {
-      "type": "string",
-      "required": true
+  "PaidMessagePriceChanged": {
+    "paid_message_star_count": {
+      "required": true,
+      "type": "integer"
+    }
+  },
+  "PassportData": {
+    "data": {
+      "required": true,
+      "type": "array",
+      "items": "EncryptedPassportElement"
     },
-    "first_name": {
+    "credentials": {
+      "required": true,
+      "type": "EncryptedCredentials"
+    }
+  },
+  "PassportElementError": {
+    "type": [
+      "PassportElementErrorDataField",
+      "PassportElementErrorFrontSide",
+      "PassportElementErrorReverseSide",
+      "PassportElementErrorSelfie",
+      "PassportElementErrorFile",
+      "PassportElementErrorFiles",
+      "PassportElementErrorTranslationFile",
+      "PassportElementErrorTranslationFiles",
+      "PassportElementErrorUnspecified"
+    ]
+  },
+  "PassportElementErrorDataField": {
+    "source": {
+      "required": true,
       "type": "string",
-      "required": true
+      "required_value": "data",
+      "default": "data"
     },
-    "last_name": {
+    "type": {
+      "required": true,
       "type": "string"
     },
-    "user_id": {
+    "field_name": {
+      "required": true,
+      "type": "string"
+    },
+    "data_hash": {
+      "required": true,
+      "type": "string"
+    },
+    "message": {
+      "required": true,
+      "type": "string"
+    }
+  },
+  "PassportElementErrorFile": {
+    "source": {
+      "required": true,
+      "type": "string",
+      "required_value": "file",
+      "default": "file"
+    },
+    "type": {
+      "required": true,
+      "type": "string"
+    },
+    "file_hash": {
+      "required": true,
+      "type": "string"
+    },
+    "message": {
+      "required": true,
+      "type": "string"
+    }
+  },
+  "PassportElementErrorFiles": {
+    "source": {
+      "required": true,
+      "type": "string",
+      "required_value": "files",
+      "default": "files"
+    },
+    "type": {
+      "required": true,
+      "type": "string"
+    },
+    "file_hashes": {
+      "required": true,
+      "type": "array",
+      "items": "string"
+    },
+    "message": {
+      "required": true,
+      "type": "string"
+    }
+  },
+  "PassportElementErrorFrontSide": {
+    "source": {
+      "required": true,
+      "type": "string",
+      "required_value": "front_side",
+      "default": "front_side"
+    },
+    "type": {
+      "required": true,
+      "type": "string"
+    },
+    "file_hash": {
+      "required": true,
+      "type": "string"
+    },
+    "message": {
+      "required": true,
+      "type": "string"
+    }
+  },
+  "PassportElementErrorReverseSide": {
+    "source": {
+      "required": true,
+      "type": "string",
+      "required_value": "reverse_side",
+      "default": "reverse_side"
+    },
+    "type": {
+      "required": true,
+      "type": "string"
+    },
+    "file_hash": {
+      "required": true,
+      "type": "string"
+    },
+    "message": {
+      "required": true,
+      "type": "string"
+    }
+  },
+  "PassportElementErrorSelfie": {
+    "source": {
+      "required": true,
+      "type": "string",
+      "required_value": "selfie",
+      "default": "selfie"
+    },
+    "type": {
+      "required": true,
+      "type": "string"
+    },
+    "file_hash": {
+      "required": true,
+      "type": "string"
+    },
+    "message": {
+      "required": true,
+      "type": "string"
+    }
+  },
+  "PassportElementErrorTranslationFile": {
+    "source": {
+      "required": true,
+      "type": "string",
+      "required_value": "translation_file",
+      "default": "translation_file"
+    },
+    "type": {
+      "required": true,
+      "type": "string"
+    },
+    "file_hash": {
+      "required": true,
+      "type": "string"
+    },
+    "message": {
+      "required": true,
+      "type": "string"
+    }
+  },
+  "PassportElementErrorTranslationFiles": {
+    "source": {
+      "required": true,
+      "type": "string",
+      "required_value": "translation_files",
+      "default": "translation_files"
+    },
+    "type": {
+      "required": true,
+      "type": "string"
+    },
+    "file_hashes": {
+      "required": true,
+      "type": "array",
+      "items": "string"
+    },
+    "message": {
+      "required": true,
+      "type": "string"
+    }
+  },
+  "PassportElementErrorUnspecified": {
+    "source": {
+      "required": true,
+      "type": "string",
+      "required_value": "unspecified",
+      "default": "unspecified"
+    },
+    "type": {
+      "required": true,
+      "type": "string"
+    },
+    "element_hash": {
+      "required": true,
+      "type": "string"
+    },
+    "message": {
+      "required": true,
+      "type": "string"
+    }
+  },
+  "PassportFile": {
+    "file_id": {
+      "required": true,
+      "type": "string"
+    },
+    "file_unique_id": {
+      "required": true,
+      "type": "string"
+    },
+    "file_size": {
+      "required": true,
       "type": "integer"
     },
-    "vcard": {
-      "type": "string"
-    }
-  },
-  "Dice": {
-    "emoji": {
-      "type": "string",
-      "required": true
-    },
-    "value": {
-      "type": "integer",
-      "required": true
-    }
-  },
-  "PollOption": {
-    "text": {
-      "type": "string",
+    "file_date": {
       "required": true,
-      "min_size": 1,
-      "max_size": 100
-    },
-    "text_entities": {
-      "type": "array",
-      "items": "MessageEntity"
-    },
-    "voter_count": {
-      "type": "integer",
-      "required": true
+      "type": "integer"
     }
   },
-  "InputPollOption": {
-    "text": {
-      "type": "string",
+  "PhotoSize": {
+    "file_id": {
       "required": true,
-      "min_size": 1,
-      "max_size": 100
-    },
-    "text_parse_mode": {
       "type": "string"
     },
-    "text_entities": {
-      "type": "array",
-      "items": "MessageEntity"
-    }
-  },
-  "PollAnswer": {
-    "poll_id": {
-      "type": "string",
-      "required": true
-    },
-    "voter_chat": {
-      "type": "Chat"
-    },
-    "user": {
-      "type": "User"
-    },
-    "option_ids": {
-      "type": "array",
+    "file_unique_id": {
       "required": true,
-      "items": "integer"
+      "type": "string"
+    },
+    "width": {
+      "required": true,
+      "type": "integer"
+    },
+    "height": {
+      "required": true,
+      "type": "integer"
+    },
+    "file_size": {
+      "type": "integer"
     }
   },
   "Poll": {
     "id": {
-      "type": "string",
-      "required": true
+      "required": true,
+      "type": "string"
     },
     "question": {
-      "type": "string",
       "required": true,
+      "type": "string",
       "min_size": 1,
       "max_size": 300
     },
@@ -1241,29 +4677,29 @@
       "items": "MessageEntity"
     },
     "options": {
-      "type": "array",
       "required": true,
+      "type": "array",
       "items": "PollOption"
     },
     "total_voter_count": {
-      "type": "integer",
-      "required": true
+      "required": true,
+      "type": "integer"
     },
     "is_closed": {
-      "type": "boolean",
-      "required": true
+      "required": true,
+      "type": "boolean"
     },
     "is_anonymous": {
-      "type": "boolean",
-      "required": true
+      "required": true,
+      "type": "boolean"
     },
     "type": {
-      "type": "string",
-      "required": true
+      "required": true,
+      "type": "string"
     },
     "allows_multiple_answers": {
-      "type": "boolean",
-      "required": true
+      "required": true,
+      "type": "boolean"
     },
     "correct_option_id": {
       "type": "integer"
@@ -1283,507 +4719,167 @@
       "type": "integer"
     }
   },
-  "Location": {
-    "latitude": {
-      "type": "number",
-      "required": true
+  "PollAnswer": {
+    "poll_id": {
+      "required": true,
+      "type": "string"
     },
-    "longitude": {
-      "type": "number",
-      "required": true
+    "voter_chat": {
+      "type": "Chat"
     },
-    "horizontal_accuracy": {
-      "type": "number"
+    "user": {
+      "type": "User"
     },
-    "live_period": {
-      "type": "integer"
+    "option_ids": {
+      "required": true,
+      "type": "array",
+      "items": "integer"
+    }
+  },
+  "PollOption": {
+    "text": {
+      "required": true,
+      "type": "string",
+      "min_size": 1,
+      "max_size": 100
     },
-    "heading": {
-      "type": "integer"
+    "text_entities": {
+      "type": "array",
+      "items": "MessageEntity"
     },
-    "proximity_alert_radius": {
+    "voter_count": {
+      "required": true,
       "type": "integer"
     }
   },
-  "Venue": {
-    "location": {
-      "type": "Location",
-      "required": true
-    },
-    "title": {
-      "type": "string",
-      "required": true
-    },
-    "address": {
-      "type": "string",
-      "required": true
-    },
-    "foursquare_id": {
+  "PreCheckoutQuery": {
+    "id": {
+      "required": true,
       "type": "string"
     },
-    "foursquare_type": {
+    "from": {
+      "required": true,
+      "type": "User"
+    },
+    "currency": {
+      "required": true,
       "type": "string"
     },
-    "google_place_id": {
+    "total_amount": {
+      "required": true,
+      "type": "integer"
+    },
+    "invoice_payload": {
+      "required": true,
       "type": "string"
     },
-    "google_place_type": {
+    "shipping_option_id": {
       "type": "string"
+    },
+    "order_info": {
+      "type": "OrderInfo"
     }
   },
-  "WebAppData": {
-    "data": {
-      "type": "string",
-      "required": true
+  "PreparedInlineMessage": {
+    "id": {
+      "required": true,
+      "type": "string"
     },
-    "button_text": {
-      "type": "string",
-      "required": true
+    "expiration_date": {
+      "required": true,
+      "type": "integer"
     }
   },
   "ProximityAlertTriggered": {
     "traveler": {
-      "type": "User",
-      "required": true
+      "required": true,
+      "type": "User"
     },
     "watcher": {
-      "type": "User",
-      "required": true
+      "required": true,
+      "type": "User"
     },
     "distance": {
-      "type": "integer",
-      "required": true
-    }
-  },
-  "MessageAutoDeleteTimerChanged": {
-    "message_auto_delete_time": {
-      "type": "integer",
-      "required": true
-    }
-  },
-  "ChatBoostAdded": {
-    "boost_count": {
-      "type": "integer",
-      "required": true
-    }
-  },
-  "BackgroundFill": {
-    "type": [
-      "BackgroundFillSolid",
-      "BackgroundFillGradient",
-      "BackgroundFillFreeformGradient"
-    ]
-  },
-  "BackgroundFillSolid": {
-    "type": {
-      "type": "string",
       "required": true,
-      "required_value": "solid",
-      "default": "solid"
-    },
-    "color": {
-      "type": "integer",
-      "required": true
-    }
-  },
-  "BackgroundFillGradient": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "gradient",
-      "default": "gradient"
-    },
-    "top_color": {
-      "type": "integer",
-      "required": true
-    },
-    "bottom_color": {
-      "type": "integer",
-      "required": true
-    },
-    "rotation_angle": {
-      "type": "integer",
-      "required": true
-    }
-  },
-  "BackgroundFillFreeformGradient": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "freeform_gradient",
-      "default": "freeform_gradient"
-    },
-    "colors": {
-      "type": "array",
-      "required": true,
-      "items": "integer"
-    }
-  },
-  "BackgroundType": {
-    "type": [
-      "BackgroundTypeFill",
-      "BackgroundTypeWallpaper",
-      "BackgroundTypePattern",
-      "BackgroundTypeChatTheme"
-    ]
-  },
-  "BackgroundTypeFill": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "fill",
-      "default": "fill"
-    },
-    "fill": {
-      "type": "BackgroundFill",
-      "required": true
-    },
-    "dark_theme_dimming": {
-      "type": "integer",
-      "required": true
-    }
-  },
-  "BackgroundTypeWallpaper": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "wallpaper",
-      "default": "wallpaper"
-    },
-    "document": {
-      "type": "Document",
-      "required": true
-    },
-    "dark_theme_dimming": {
-      "type": "integer",
-      "required": true
-    },
-    "is_blurred": {
-      "type": "boolean",
-      "default": true
-    },
-    "is_moving": {
-      "type": "boolean",
-      "default": true
-    }
-  },
-  "BackgroundTypePattern": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "pattern",
-      "default": "pattern"
-    },
-    "document": {
-      "type": "Document",
-      "required": true
-    },
-    "fill": {
-      "type": "BackgroundFill",
-      "required": true
-    },
-    "intensity": {
-      "type": "integer",
-      "required": true
-    },
-    "is_inverted": {
-      "type": "boolean",
-      "default": true
-    },
-    "is_moving": {
-      "type": "boolean",
-      "default": true
-    }
-  },
-  "BackgroundTypeChatTheme": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "chat_theme",
-      "default": "chat_theme"
-    },
-    "theme_name": {
-      "type": "string",
-      "required": true
-    }
-  },
-  "ChatBackground": {
-    "type": {
-      "type": "BackgroundType",
-      "required": true
-    }
-  },
-  "ForumTopicCreated": {
-    "name": {
-      "type": "string",
-      "required": true
-    },
-    "icon_color": {
-      "type": "integer",
-      "required": true
-    },
-    "icon_custom_emoji_id": {
-      "type": "string"
-    }
-  },
-  "ForumTopicClosed": {
-  },
-  "ForumTopicEdited": {
-    "name": {
-      "type": "string"
-    },
-    "icon_custom_emoji_id": {
-      "type": "string"
-    }
-  },
-  "ForumTopicReopened": {
-  },
-  "GeneralForumTopicHidden": {
-  },
-  "GeneralForumTopicUnhidden": {
-  },
-  "SharedUser": {
-    "user_id": {
-      "type": "integer",
-      "required": true
-    },
-    "first_name": {
-      "type": "string"
-    },
-    "last_name": {
-      "type": "string"
-    },
-    "username": {
-      "type": "string"
-    },
-    "photo": {
-      "type": "array",
-      "items": "PhotoSize"
-    }
-  },
-  "UsersShared": {
-    "request_id": {
-      "type": "integer",
-      "required": true
-    },
-    "users": {
-      "type": "array",
-      "required": true,
-      "items": "SharedUser"
-    }
-  },
-  "ChatShared": {
-    "request_id": {
-      "type": "integer",
-      "required": true
-    },
-    "chat_id": {
-      "type": "integer",
-      "required": true
-    },
-    "title": {
-      "type": "string"
-    },
-    "username": {
-      "type": "string"
-    },
-    "photo": {
-      "type": "array",
-      "items": "PhotoSize"
-    }
-  },
-  "WriteAccessAllowed": {
-    "from_request": {
-      "type": "boolean"
-    },
-    "web_app_name": {
-      "type": "string"
-    },
-    "from_attachment_menu": {
-      "type": "boolean"
-    }
-  },
-  "VideoChatScheduled": {
-    "start_date": {
-      "type": "integer",
-      "required": true
-    }
-  },
-  "VideoChatStarted": {
-  },
-  "VideoChatEnded": {
-    "duration": {
-      "type": "integer",
-      "required": true
-    }
-  },
-  "VideoChatParticipantsInvited": {
-    "users": {
-      "type": "array",
-      "required": true,
-      "items": "User"
-    }
-  },
-  "GiveawayCreated": {
-    "prize_star_count": {
       "type": "integer"
     }
   },
-  "Giveaway": {
-    "chats": {
-      "type": "array",
+  "ReactionCount": {
+    "type": {
       "required": true,
-      "items": "Chat"
+      "type": "ReactionType"
     },
-    "winners_selection_date": {
-      "type": "integer",
-      "required": true
-    },
-    "winner_count": {
-      "type": "integer",
-      "required": true
-    },
-    "only_new_members": {
-      "type": "boolean",
-      "default": true
-    },
-    "has_public_winners": {
-      "type": "boolean",
-      "default": true
-    },
-    "prize_description": {
-      "type": "string"
-    },
-    "country_codes": {
-      "type": "array",
-      "items": "string"
-    },
-    "prize_star_count": {
-      "type": "integer"
-    },
-    "premium_subscription_month_count": {
-      "type": "integer"
-    }
-  },
-  "GiveawayWinners": {
-    "chat": {
-      "type": "Chat",
-      "required": true
-    },
-    "giveaway_message_id": {
-      "type": "integer",
-      "required": true
-    },
-    "winners_selection_date": {
-      "type": "integer",
-      "required": true
-    },
-    "winner_count": {
-      "type": "integer",
-      "required": true
-    },
-    "winners": {
-      "type": "array",
-      "required": true,
-      "items": "User"
-    },
-    "additional_chat_count": {
-      "type": "integer"
-    },
-    "prize_star_count": {
-      "type": "integer"
-    },
-    "premium_subscription_month_count": {
-      "type": "integer"
-    },
-    "unclaimed_prize_count": {
-      "type": "integer"
-    },
-    "only_new_members": {
-      "type": "boolean",
-      "default": true
-    },
-    "was_refunded": {
-      "type": "boolean",
-      "default": true
-    },
-    "prize_description": {
-      "type": "string"
-    }
-  },
-  "GiveawayCompleted": {
-    "winner_count": {
-      "type": "integer",
-      "required": true
-    },
-    "unclaimed_prize_count": {
-      "type": "integer"
-    },
-    "giveaway_message": {
-      "type": "Message"
-    },
-    "is_star_giveaway": {
-      "type": "boolean",
-      "default": true
-    }
-  },
-  "LinkPreviewOptions": {
-    "is_disabled": {
-      "type": "boolean"
-    },
-    "url": {
-      "type": "string"
-    },
-    "prefer_small_media": {
-      "type": "boolean"
-    },
-    "prefer_large_media": {
-      "type": "boolean"
-    },
-    "show_above_text": {
-      "type": "boolean"
-    }
-  },
-  "UserProfilePhotos": {
     "total_count": {
-      "type": "integer",
-      "required": true
-    },
-    "photos": {
-      "type": "array",
       "required": true,
-      "items": {
-        "type": "array",
-        "items": "PhotoSize"
-      }
+      "type": "integer"
     }
   },
-  "File": {
-    "file_id": {
+  "ReactionType": {
+    "type": [
+      "ReactionTypeEmoji",
+      "ReactionTypeCustomEmoji",
+      "ReactionTypePaid"
+    ]
+  },
+  "ReactionTypeCustomEmoji": {
+    "type": {
+      "required": true,
       "type": "string",
-      "required": true
+      "required_value": "custom_emoji",
+      "default": "custom_emoji"
     },
-    "file_unique_id": {
-      "type": "string",
-      "required": true
-    },
-    "file_size": {
-      "type": "integer"
-    },
-    "file_path": {
+    "custom_emoji_id": {
+      "required": true,
       "type": "string"
     }
   },
-  "WebAppInfo": {
-    "url": {
+  "ReactionTypeEmoji": {
+    "type": {
+      "required": true,
       "type": "string",
-      "required": true
+      "required_value": "emoji",
+      "default": "emoji"
+    },
+    "emoji": {
+      "required": true,
+      "type": "string"
+    }
+  },
+  "ReactionTypePaid": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "paid",
+      "default": "paid"
+    }
+  },
+  "RefundedPayment": {
+    "currency": {
+      "required": true,
+      "type": "string",
+      "required_value": "XTR",
+      "default": "XTR"
+    },
+    "total_amount": {
+      "required": true,
+      "type": "integer"
+    },
+    "invoice_payload": {
+      "required": true,
+      "type": "string"
+    },
+    "telegram_payment_charge_id": {
+      "required": true,
+      "type": "string"
+    },
+    "provider_payment_charge_id": {
+      "type": "string"
     }
   },
   "ReplyKeyboardMarkup": {
     "keyboard": {
-      "type": "array",
       "required": true,
+      "type": "array",
       "items": {
         "type": "array",
         "items": "KeyboardButton"
@@ -1810,1161 +4906,46 @@
       "type": "boolean"
     }
   },
-  "KeyboardButton": {
-    "text": {
-      "type": "string",
-      "required": true
-    },
-    "request_users": {
-      "type": "KeyboardButtonRequestUsers"
-    },
-    "request_chat": {
-      "type": "KeyboardButtonRequestChat"
-    },
-    "request_contact": {
-      "type": "boolean"
-    },
-    "request_location": {
-      "type": "boolean"
-    },
-    "request_poll": {
-      "type": "KeyboardButtonPollType"
-    },
-    "web_app": {
-      "type": "WebAppInfo"
-    }
-  },
-  "KeyboardButtonRequestUsers": {
-    "request_id": {
-      "type": "integer",
-      "required": true
-    },
-    "user_is_bot": {
-      "type": "boolean"
-    },
-    "user_is_premium": {
-      "type": "boolean"
-    },
-    "max_quantity": {
-      "type": "integer",
-      "default": 1
-    },
-    "request_name": {
-      "type": "boolean"
-    },
-    "request_username": {
-      "type": "boolean"
-    },
-    "request_photo": {
-      "type": "boolean"
-    }
-  },
-  "KeyboardButtonRequestChat": {
-    "request_id": {
-      "type": "integer",
-      "required": true
-    },
-    "chat_is_channel": {
-      "type": "boolean",
-      "required": true
-    },
-    "chat_is_forum": {
-      "type": "boolean"
-    },
-    "chat_has_username": {
-      "type": "boolean"
-    },
-    "chat_is_created": {
-      "type": "boolean"
-    },
-    "user_administrator_rights": {
-      "type": "ChatAdministratorRights"
-    },
-    "bot_administrator_rights": {
-      "type": "ChatAdministratorRights"
-    },
-    "bot_is_member": {
-      "type": "boolean"
-    },
-    "request_title": {
-      "type": "boolean"
-    },
-    "request_username": {
-      "type": "boolean"
-    },
-    "request_photo": {
-      "type": "boolean"
-    }
-  },
-  "KeyboardButtonPollType": {
-    "type": {
-      "type": "string"
-    }
-  },
   "ReplyKeyboardRemove": {
     "remove_keyboard": {
-      "type": "boolean",
       "required": true,
+      "type": "boolean",
       "default": true
     },
     "selective": {
       "type": "boolean"
     }
   },
-  "InlineKeyboardMarkup": {
-    "inline_keyboard": {
-      "type": "array",
-      "required": true,
-      "items": {
-        "type": "array",
-        "items": "InlineKeyboardButton"
-      }
-    }
-  },
-  "InlineKeyboardButton": {
-    "text": {
-      "type": "string",
-      "required": true
-    },
-    "url": {
-      "type": "string"
-    },
-    "callback_data": {
-      "type": "string"
-    },
-    "web_app": {
-      "type": "WebAppInfo"
-    },
-    "login_url": {
-      "type": "LoginUrl"
-    },
-    "switch_inline_query": {
-      "type": "string"
-    },
-    "switch_inline_query_current_chat": {
-      "type": "string"
-    },
-    "switch_inline_query_chosen_chat": {
-      "type": "SwitchInlineQueryChosenChat"
-    },
-    "copy_text": {
-      "type": "CopyTextButton"
-    },
-    "callback_game": {
-      "type": "CallbackGame"
-    },
-    "pay": {
-      "type": "boolean"
-    }
-  },
-  "LoginUrl": {
-    "url": {
-      "type": "string",
-      "required": true
-    },
-    "forward_text": {
-      "type": "string"
-    },
-    "bot_username": {
-      "type": "string"
-    },
-    "request_write_access": {
-      "type": "boolean"
-    }
-  },
-  "SwitchInlineQueryChosenChat": {
-    "query": {
-      "type": "string"
-    },
-    "allow_user_chats": {
-      "type": "boolean"
-    },
-    "allow_bot_chats": {
-      "type": "boolean"
-    },
-    "allow_group_chats": {
-      "type": "boolean"
-    },
-    "allow_channel_chats": {
-      "type": "boolean"
-    }
-  },
-  "CopyTextButton": {
-    "text": {
-      "type": "string",
-      "required": true,
-      "min_size": 1,
-      "max_size": 256
-    }
-  },
-  "CallbackQuery": {
-    "id": {
-      "type": "string",
-      "required": true
-    },
-    "from": {
-      "type": "User",
-      "required": true
-    },
-    "message": {
-      "type": "MaybeInaccessibleMessage"
-    },
-    "inline_message_id": {
-      "type": "string"
-    },
-    "chat_instance": {
-      "type": "string",
-      "required": true
-    },
-    "data": {
-      "type": "string"
-    },
-    "game_short_name": {
-      "type": "string"
-    }
-  },
-  "ForceReply": {
-    "force_reply": {
-      "type": "boolean",
-      "required": true,
-      "default": true
-    },
-    "input_field_placeholder": {
-      "type": "string",
-      "min_size": 1,
-      "max_size": 64
-    },
-    "selective": {
-      "type": "boolean"
-    }
-  },
-  "ChatPhoto": {
-    "small_file_id": {
-      "type": "string",
-      "required": true
-    },
-    "small_file_unique_id": {
-      "type": "string",
-      "required": true
-    },
-    "big_file_id": {
-      "type": "string",
-      "required": true
-    },
-    "big_file_unique_id": {
-      "type": "string",
-      "required": true
-    }
-  },
-  "ChatInviteLink": {
-    "invite_link": {
-      "type": "string",
-      "required": true
-    },
-    "creator": {
-      "type": "User",
-      "required": true
-    },
-    "creates_join_request": {
-      "type": "boolean",
-      "required": true
-    },
-    "is_primary": {
-      "type": "boolean",
-      "required": true
-    },
-    "is_revoked": {
-      "type": "boolean",
-      "required": true
-    },
-    "name": {
-      "type": "string"
-    },
-    "expire_date": {
-      "type": "integer"
-    },
-    "member_limit": {
-      "type": "integer"
-    },
-    "pending_join_request_count": {
-      "type": "integer"
-    },
-    "subscription_period": {
-      "type": "integer"
-    },
-    "subscription_price": {
-      "type": "integer"
-    }
-  },
-  "ChatAdministratorRights": {
-    "is_anonymous": {
-      "type": "boolean",
-      "required": true
-    },
-    "can_manage_chat": {
-      "type": "boolean",
-      "required": true
-    },
-    "can_delete_messages": {
-      "type": "boolean",
-      "required": true
-    },
-    "can_manage_video_chats": {
-      "type": "boolean",
-      "required": true
-    },
-    "can_restrict_members": {
-      "type": "boolean",
-      "required": true
-    },
-    "can_promote_members": {
-      "type": "boolean",
-      "required": true
-    },
-    "can_change_info": {
-      "type": "boolean",
-      "required": true
-    },
-    "can_invite_users": {
-      "type": "boolean",
-      "required": true
-    },
-    "can_post_stories": {
-      "type": "boolean",
-      "required": true
-    },
-    "can_edit_stories": {
-      "type": "boolean",
-      "required": true
-    },
-    "can_delete_stories": {
-      "type": "boolean",
-      "required": true
-    },
-    "can_post_messages": {
-      "type": "boolean"
-    },
-    "can_edit_messages": {
-      "type": "boolean"
-    },
-    "can_pin_messages": {
-      "type": "boolean"
-    },
-    "can_manage_topics": {
-      "type": "boolean"
-    }
-  },
-  "ChatMemberUpdated": {
-    "chat": {
-      "type": "Chat",
-      "required": true
-    },
-    "from": {
-      "type": "User",
-      "required": true
-    },
-    "date": {
-      "type": "integer",
-      "required": true
-    },
-    "old_chat_member": {
-      "type": "ChatMember",
-      "required": true
-    },
-    "new_chat_member": {
-      "type": "ChatMember",
-      "required": true
-    },
-    "invite_link": {
-      "type": "ChatInviteLink"
-    },
-    "via_join_request": {
-      "type": "boolean"
-    },
-    "via_chat_folder_invite_link": {
-      "type": "boolean"
-    }
-  },
-  "ChatMember": {
-    "type": [
-      "ChatMemberOwner",
-      "ChatMemberAdministrator",
-      "ChatMemberMember",
-      "ChatMemberRestricted",
-      "ChatMemberLeft",
-      "ChatMemberBanned"
-    ]
-  },
-  "ChatMemberOwner": {
-    "status": {
-      "type": "string",
-      "required": true,
-      "required_value": "creator",
-      "default": "creator"
-    },
-    "user": {
-      "type": "User",
-      "required": true
-    },
-    "is_anonymous": {
-      "type": "boolean",
-      "required": true
-    },
-    "custom_title": {
-      "type": "string"
-    }
-  },
-  "ChatMemberAdministrator": {
-    "status": {
-      "type": "string",
-      "required": true,
-      "required_value": "administrator",
-      "default": "administrator"
-    },
-    "user": {
-      "type": "User",
-      "required": true
-    },
-    "can_be_edited": {
-      "type": "boolean",
-      "required": true
-    },
-    "is_anonymous": {
-      "type": "boolean",
-      "required": true
-    },
-    "can_manage_chat": {
-      "type": "boolean",
-      "required": true
-    },
-    "can_delete_messages": {
-      "type": "boolean",
-      "required": true
-    },
-    "can_manage_video_chats": {
-      "type": "boolean",
-      "required": true
-    },
-    "can_restrict_members": {
-      "type": "boolean",
-      "required": true
-    },
-    "can_promote_members": {
-      "type": "boolean",
-      "required": true
-    },
-    "can_change_info": {
-      "type": "boolean",
-      "required": true
-    },
-    "can_invite_users": {
-      "type": "boolean",
-      "required": true
-    },
-    "can_post_stories": {
-      "type": "boolean",
-      "required": true
-    },
-    "can_edit_stories": {
-      "type": "boolean",
-      "required": true
-    },
-    "can_delete_stories": {
-      "type": "boolean",
-      "required": true
-    },
-    "can_post_messages": {
-      "type": "boolean"
-    },
-    "can_edit_messages": {
-      "type": "boolean"
-    },
-    "can_pin_messages": {
-      "type": "boolean"
-    },
-    "can_manage_topics": {
-      "type": "boolean"
-    },
-    "custom_title": {
-      "type": "string"
-    }
-  },
-  "ChatMemberMember": {
-    "status": {
-      "type": "string",
-      "required": true,
-      "required_value": "member",
-      "default": "member"
-    },
-    "user": {
-      "type": "User",
-      "required": true
-    },
-    "until_date": {
-      "type": "integer"
-    }
-  },
-  "ChatMemberRestricted": {
-    "status": {
-      "type": "string",
-      "required": true,
-      "required_value": "restricted",
-      "default": "restricted"
-    },
-    "user": {
-      "type": "User",
-      "required": true
-    },
-    "is_member": {
-      "type": "boolean",
-      "required": true
-    },
-    "can_send_messages": {
-      "type": "boolean",
-      "required": true
-    },
-    "can_send_audios": {
-      "type": "boolean",
-      "required": true
-    },
-    "can_send_documents": {
-      "type": "boolean",
-      "required": true
-    },
-    "can_send_photos": {
-      "type": "boolean",
-      "required": true
-    },
-    "can_send_videos": {
-      "type": "boolean",
-      "required": true
-    },
-    "can_send_video_notes": {
-      "type": "boolean",
-      "required": true
-    },
-    "can_send_voice_notes": {
-      "type": "boolean",
-      "required": true
-    },
-    "can_send_polls": {
-      "type": "boolean",
-      "required": true
-    },
-    "can_send_other_messages": {
-      "type": "boolean",
-      "required": true
-    },
-    "can_add_web_page_previews": {
-      "type": "boolean",
-      "required": true
-    },
-    "can_change_info": {
-      "type": "boolean",
-      "required": true
-    },
-    "can_invite_users": {
-      "type": "boolean",
-      "required": true
-    },
-    "can_pin_messages": {
-      "type": "boolean",
-      "required": true
-    },
-    "can_manage_topics": {
-      "type": "boolean",
-      "required": true
-    },
-    "until_date": {
-      "type": "integer",
-      "required": true
-    }
-  },
-  "ChatMemberLeft": {
-    "status": {
-      "type": "string",
-      "required": true,
-      "required_value": "left",
-      "default": "left"
-    },
-    "user": {
-      "type": "User",
-      "required": true
-    }
-  },
-  "ChatMemberBanned": {
-    "status": {
-      "type": "string",
-      "required": true,
-      "required_value": "kicked",
-      "default": "kicked"
-    },
-    "user": {
-      "type": "User",
-      "required": true
-    },
-    "until_date": {
-      "type": "integer",
-      "required": true
-    }
-  },
-  "ChatJoinRequest": {
-    "chat": {
-      "type": "Chat",
-      "required": true
-    },
-    "from": {
-      "type": "User",
-      "required": true
-    },
-    "user_chat_id": {
-      "type": "integer",
-      "required": true
-    },
-    "date": {
-      "type": "integer",
-      "required": true
-    },
-    "bio": {
-      "type": "string"
-    },
-    "invite_link": {
-      "type": "ChatInviteLink"
-    }
-  },
-  "ChatPermissions": {
-    "can_send_messages": {
-      "type": "boolean"
-    },
-    "can_send_audios": {
-      "type": "boolean"
-    },
-    "can_send_documents": {
-      "type": "boolean"
-    },
-    "can_send_photos": {
-      "type": "boolean"
-    },
-    "can_send_videos": {
-      "type": "boolean"
-    },
-    "can_send_video_notes": {
-      "type": "boolean"
-    },
-    "can_send_voice_notes": {
-      "type": "boolean"
-    },
-    "can_send_polls": {
-      "type": "boolean"
-    },
-    "can_send_other_messages": {
-      "type": "boolean"
-    },
-    "can_add_web_page_previews": {
-      "type": "boolean"
-    },
-    "can_change_info": {
-      "type": "boolean"
-    },
-    "can_invite_users": {
-      "type": "boolean"
-    },
-    "can_pin_messages": {
-      "type": "boolean"
-    },
-    "can_manage_topics": {
-      "type": "boolean"
-    }
-  },
-  "Birthdate": {
-    "day": {
-      "type": "integer",
-      "required": true
-    },
-    "month": {
-      "type": "integer",
-      "required": true
-    },
-    "year": {
-      "type": "integer"
-    }
-  },
-  "BusinessIntro": {
-    "title": {
-      "type": "string"
-    },
-    "message": {
-      "type": "string"
-    },
-    "sticker": {
-      "type": "Sticker"
-    }
-  },
-  "BusinessLocation": {
-    "address": {
-      "type": "string",
-      "required": true
-    },
-    "location": {
-      "type": "Location"
-    }
-  },
-  "BusinessOpeningHoursInterval": {
-    "opening_minute": {
-      "type": "integer",
-      "required": true
-    },
-    "closing_minute": {
-      "type": "integer",
-      "required": true
-    }
-  },
-  "BusinessOpeningHours": {
-    "time_zone_name": {
-      "type": "string",
-      "required": true
-    },
-    "opening_hours": {
-      "type": "array",
-      "required": true,
-      "items": "BusinessOpeningHoursInterval"
-    }
-  },
-  "ChatLocation": {
-    "location": {
-      "type": "Location",
-      "required": true
-    },
-    "address": {
-      "type": "string",
-      "required": true,
-      "min_size": 1,
-      "max_size": 64
-    }
-  },
-  "ReactionType": {
-    "type": [
-      "ReactionTypeEmoji",
-      "ReactionTypeCustomEmoji",
-      "ReactionTypePaid"
-    ]
-  },
-  "ReactionTypeEmoji": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "emoji",
-      "default": "emoji"
-    },
-    "emoji": {
-      "type": "string",
-      "required": true
-    }
-  },
-  "ReactionTypeCustomEmoji": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "custom_emoji",
-      "default": "custom_emoji"
-    },
-    "custom_emoji_id": {
-      "type": "string",
-      "required": true
-    }
-  },
-  "ReactionTypePaid": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "paid",
-      "default": "paid"
-    }
-  },
-  "ReactionCount": {
-    "type": {
-      "type": "ReactionType",
-      "required": true
-    },
-    "total_count": {
-      "type": "integer",
-      "required": true
-    }
-  },
-  "MessageReactionUpdated": {
-    "chat": {
-      "type": "Chat",
-      "required": true
-    },
+  "ReplyParameters": {
     "message_id": {
-      "type": "integer",
-      "required": true
-    },
-    "user": {
-      "type": "User"
-    },
-    "actor_chat": {
-      "type": "Chat"
-    },
-    "date": {
-      "type": "integer",
-      "required": true
-    },
-    "old_reaction": {
-      "type": "array",
       "required": true,
-      "items": "ReactionType"
-    },
-    "new_reaction": {
-      "type": "array",
-      "required": true,
-      "items": "ReactionType"
-    }
-  },
-  "MessageReactionCountUpdated": {
-    "chat": {
-      "type": "Chat",
-      "required": true
-    },
-    "message_id": {
-      "type": "integer",
-      "required": true
-    },
-    "date": {
-      "type": "integer",
-      "required": true
-    },
-    "reactions": {
-      "type": "array",
-      "required": true,
-      "items": "ReactionCount"
-    }
-  },
-  "ForumTopic": {
-    "message_thread_id": {
-      "type": "integer",
-      "required": true
-    },
-    "name": {
-      "type": "string",
-      "required": true
-    },
-    "icon_color": {
-      "type": "integer",
-      "required": true
-    },
-    "icon_custom_emoji_id": {
-      "type": "string"
-    }
-  },
-  "BotCommand": {
-    "command": {
-      "type": "string",
-      "required": true,
-      "min_size": 1,
-      "max_size": 32
-    },
-    "description": {
-      "type": "string",
-      "required": true,
-      "min_size": 1,
-      "max_size": 256
-    }
-  },
-  "BotCommandScope": {
-    "type": [
-      "BotCommandScopeDefault",
-      "BotCommandScopeAllPrivateChats",
-      "BotCommandScopeAllGroupChats",
-      "BotCommandScopeAllChatAdministrators",
-      "BotCommandScopeChat",
-      "BotCommandScopeChatAdministrators",
-      "BotCommandScopeChatMember"
-    ]
-  },
-  "BotCommandScopeDefault": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "default",
-      "default": "default"
-    }
-  },
-  "BotCommandScopeAllPrivateChats": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "all_private_chats",
-      "default": "all_private_chats"
-    }
-  },
-  "BotCommandScopeAllGroupChats": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "all_group_chats",
-      "default": "all_group_chats"
-    }
-  },
-  "BotCommandScopeAllChatAdministrators": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "all_chat_administrators",
-      "default": "all_chat_administrators"
-    }
-  },
-  "BotCommandScopeChat": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "chat",
-      "default": "chat"
-    },
-    "chat_id": {
-      "type": [
-        "integer",
-        "string"
-      ],
-      "required": true
-    }
-  },
-  "BotCommandScopeChatAdministrators": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "chat_administrators",
-      "default": "chat_administrators"
-    },
-    "chat_id": {
-      "type": [
-        "integer",
-        "string"
-      ],
-      "required": true
-    }
-  },
-  "BotCommandScopeChatMember": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "chat_member",
-      "default": "chat_member"
-    },
-    "chat_id": {
-      "type": [
-        "integer",
-        "string"
-      ],
-      "required": true
-    },
-    "user_id": {
-      "type": "integer",
-      "required": true
-    }
-  },
-  "BotName": {
-    "name": {
-      "type": "string",
-      "required": true
-    }
-  },
-  "BotDescription": {
-    "description": {
-      "type": "string",
-      "required": true
-    }
-  },
-  "BotShortDescription": {
-    "short_description": {
-      "type": "string",
-      "required": true
-    }
-  },
-  "MenuButton": {
-    "type": [
-      "MenuButtonCommands",
-      "MenuButtonWebApp",
-      "MenuButtonDefault"
-    ]
-  },
-  "MenuButtonCommands": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "commands",
-      "default": "commands"
-    }
-  },
-  "MenuButtonWebApp": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "web_app",
-      "default": "web_app"
-    },
-    "text": {
-      "type": "string",
-      "required": true
-    },
-    "web_app": {
-      "type": "WebAppInfo",
-      "required": true
-    }
-  },
-  "MenuButtonDefault": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "default",
-      "default": "default"
-    }
-  },
-  "ChatBoostSource": {
-    "type": [
-      "ChatBoostSourcePremium",
-      "ChatBoostSourceGiftCode",
-      "ChatBoostSourceGiveaway"
-    ]
-  },
-  "ChatBoostSourcePremium": {
-    "source": {
-      "type": "string",
-      "required": true,
-      "required_value": "premium",
-      "default": "premium"
-    },
-    "user": {
-      "type": "User",
-      "required": true
-    }
-  },
-  "ChatBoostSourceGiftCode": {
-    "source": {
-      "type": "string",
-      "required": true,
-      "required_value": "gift_code",
-      "default": "gift_code"
-    },
-    "user": {
-      "type": "User",
-      "required": true
-    }
-  },
-  "ChatBoostSourceGiveaway": {
-    "source": {
-      "type": "string",
-      "required": true,
-      "required_value": "giveaway",
-      "default": "giveaway"
-    },
-    "giveaway_message_id": {
-      "type": "integer",
-      "required": true
-    },
-    "user": {
-      "type": "User"
-    },
-    "prize_star_count": {
       "type": "integer"
     },
-    "is_unclaimed": {
-      "type": "boolean",
-      "default": true
-    }
-  },
-  "ChatBoost": {
-    "boost_id": {
+    "chat_id": {
+      "type": [
+        "integer",
+        "string"
+      ]
+    },
+    "allow_sending_without_reply": {
+      "type": "boolean"
+    },
+    "quote": {
       "type": "string",
-      "required": true
+      "max_size": 1024
     },
-    "add_date": {
-      "type": "integer",
-      "required": true
+    "quote_parse_mode": {
+      "type": "string"
     },
-    "expiration_date": {
-      "type": "integer",
-      "required": true
-    },
-    "source": {
-      "type": "ChatBoostSource",
-      "required": true
-    }
-  },
-  "ChatBoostUpdated": {
-    "chat": {
-      "type": "Chat",
-      "required": true
-    },
-    "boost": {
-      "type": "ChatBoost",
-      "required": true
-    }
-  },
-  "ChatBoostRemoved": {
-    "chat": {
-      "type": "Chat",
-      "required": true
-    },
-    "boost_id": {
-      "type": "string",
-      "required": true
-    },
-    "remove_date": {
-      "type": "integer",
-      "required": true
-    },
-    "source": {
-      "type": "ChatBoostSource",
-      "required": true
-    }
-  },
-  "UserChatBoosts": {
-    "boosts": {
+    "quote_entities": {
       "type": "array",
-      "required": true,
-      "items": "ChatBoost"
-    }
-  },
-  "BusinessConnection": {
-    "id": {
-      "type": "string",
-      "required": true
+      "items": "MessageEntity"
     },
-    "user": {
-      "type": "User",
-      "required": true
+    "quote_position": {
+      "type": "integer"
     },
-    "user_chat_id": {
-      "type": "integer",
-      "required": true
-    },
-    "date": {
-      "type": "integer",
-      "required": true
-    },
-    "can_reply": {
-      "type": "boolean",
-      "required": true
-    },
-    "is_enabled": {
-      "type": "boolean",
-      "required": true
-    }
-  },
-  "BusinessMessagesDeleted": {
-    "business_connection_id": {
-      "type": "string",
-      "required": true
-    },
-    "chat": {
-      "type": "Chat",
-      "required": true
-    },
-    "message_ids": {
-      "type": "array",
-      "required": true,
-      "items": "integer"
+    "checklist_task_id": {
+      "type": "integer"
     }
   },
   "ResponseParameters": {
@@ -2975,278 +4956,195 @@
       "type": "integer"
     }
   },
-  "InputMedia": {
+  "RevenueWithdrawalState": {
     "type": [
-      "InputMediaAnimation",
-      "InputMediaDocument",
-      "InputMediaAudio",
-      "InputMediaPhoto",
-      "InputMediaVideo"
+      "RevenueWithdrawalStatePending",
+      "RevenueWithdrawalStateSucceeded",
+      "RevenueWithdrawalStateFailed"
     ]
   },
-  "InputMediaPhoto": {
+  "RevenueWithdrawalStateFailed": {
     "type": {
-      "type": "string",
       "required": true,
-      "required_value": "photo",
-      "default": "photo"
-    },
-    "media": {
       "type": "string",
-      "required": true
-    },
-    "caption": {
-      "type": "string",
-      "max_size": 1024
-    },
-    "parse_mode": {
-      "type": "string"
-    },
-    "caption_entities": {
-      "type": "array",
-      "items": "MessageEntity"
-    },
-    "show_caption_above_media": {
-      "type": "boolean"
-    },
-    "has_spoiler": {
-      "type": "boolean"
+      "required_value": "failed",
+      "default": "failed"
     }
   },
-  "InputMediaVideo": {
+  "RevenueWithdrawalStatePending": {
     "type": {
-      "type": "string",
       "required": true,
-      "required_value": "video",
-      "default": "video"
-    },
-    "media": {
       "type": "string",
-      "required": true
-    },
-    "thumbnail": {
-      "type": "string"
-    },
-    "cover": {
-      "type": "string"
-    },
-    "start_timestamp": {
-      "type": "integer"
-    },
-    "caption": {
-      "type": "string",
-      "max_size": 1024
-    },
-    "parse_mode": {
-      "type": "string"
-    },
-    "caption_entities": {
-      "type": "array",
-      "items": "MessageEntity"
-    },
-    "show_caption_above_media": {
-      "type": "boolean"
-    },
-    "width": {
-      "type": "integer"
-    },
-    "height": {
-      "type": "integer"
-    },
-    "duration": {
-      "type": "integer"
-    },
-    "supports_streaming": {
-      "type": "boolean"
-    },
-    "has_spoiler": {
-      "type": "boolean"
+      "required_value": "pending",
+      "default": "pending"
     }
   },
-  "InputMediaAnimation": {
+  "RevenueWithdrawalStateSucceeded": {
     "type": {
-      "type": "string",
       "required": true,
-      "required_value": "animation",
-      "default": "animation"
-    },
-    "media": {
       "type": "string",
-      "required": true
+      "required_value": "succeeded",
+      "default": "succeeded"
     },
-    "thumbnail": {
+    "date": {
+      "required": true,
+      "type": "integer"
+    },
+    "url": {
+      "required": true,
       "type": "string"
-    },
-    "caption": {
-      "type": "string",
-      "max_size": 1024
-    },
-    "parse_mode": {
-      "type": "string"
-    },
-    "caption_entities": {
-      "type": "array",
-      "items": "MessageEntity"
-    },
-    "show_caption_above_media": {
-      "type": "boolean"
-    },
-    "width": {
-      "type": "integer"
-    },
-    "height": {
-      "type": "integer"
-    },
-    "duration": {
-      "type": "integer"
-    },
-    "has_spoiler": {
-      "type": "boolean"
     }
   },
-  "InputMediaAudio": {
-    "type": {
-      "type": "string",
+  "SentWebAppMessage": {
+    "inline_message_id": {
+      "type": "string"
+    }
+  },
+  "SharedUser": {
+    "user_id": {
       "required": true,
-      "required_value": "audio",
-      "default": "audio"
-    },
-    "media": {
-      "type": "string",
-      "required": true
-    },
-    "thumbnail": {
-      "type": "string"
-    },
-    "caption": {
-      "type": "string",
-      "max_size": 1024
-    },
-    "parse_mode": {
-      "type": "string"
-    },
-    "caption_entities": {
-      "type": "array",
-      "items": "MessageEntity"
-    },
-    "duration": {
       "type": "integer"
     },
-    "performer": {
+    "first_name": {
+      "type": "string"
+    },
+    "last_name": {
+      "type": "string"
+    },
+    "username": {
+      "type": "string"
+    },
+    "photo": {
+      "type": "array",
+      "items": "PhotoSize"
+    }
+  },
+  "ShippingAddress": {
+    "country_code": {
+      "required": true,
+      "type": "string"
+    },
+    "state": {
+      "required": true,
+      "type": "string"
+    },
+    "city": {
+      "required": true,
+      "type": "string"
+    },
+    "street_line1": {
+      "required": true,
+      "type": "string"
+    },
+    "street_line2": {
+      "required": true,
+      "type": "string"
+    },
+    "post_code": {
+      "required": true,
+      "type": "string"
+    }
+  },
+  "ShippingOption": {
+    "id": {
+      "required": true,
       "type": "string"
     },
     "title": {
-      "type": "string"
-    }
-  },
-  "InputMediaDocument": {
-    "type": {
-      "type": "string",
       "required": true,
-      "required_value": "document",
-      "default": "document"
-    },
-    "media": {
-      "type": "string",
-      "required": true
-    },
-    "thumbnail": {
       "type": "string"
     },
-    "caption": {
-      "type": "string",
-      "max_size": 1024
-    },
-    "parse_mode": {
-      "type": "string"
-    },
-    "caption_entities": {
+    "prices": {
+      "required": true,
       "type": "array",
-      "items": "MessageEntity"
-    },
-    "disable_content_type_detection": {
-      "type": "boolean"
+      "items": "LabeledPrice"
     }
   },
-  "InputPaidMedia": {
-    "type": [
-      "InputPaidMediaPhoto",
-      "InputPaidMediaVideo"
-    ]
-  },
-  "InputPaidMediaPhoto": {
-    "type": {
-      "type": "string",
+  "ShippingQuery": {
+    "id": {
       "required": true,
-      "required_value": "photo",
-      "default": "photo"
+      "type": "string"
     },
-    "media": {
-      "type": "string",
-      "required": true
+    "from": {
+      "required": true,
+      "type": "User"
+    },
+    "invoice_payload": {
+      "required": true,
+      "type": "string"
+    },
+    "shipping_address": {
+      "required": true,
+      "type": "ShippingAddress"
     }
   },
-  "InputPaidMediaVideo": {
-    "type": {
-      "type": "string",
+  "StarAmount": {
+    "amount": {
       "required": true,
-      "required_value": "video",
-      "default": "video"
+      "type": "integer"
     },
-    "media": {
-      "type": "string",
-      "required": true
-    },
-    "thumbnail": {
+    "nanostar_amount": {
+      "type": "integer"
+    }
+  },
+  "StarTransaction": {
+    "id": {
+      "required": true,
       "type": "string"
     },
-    "cover": {
-      "type": "string"
-    },
-    "start_timestamp": {
+    "amount": {
+      "required": true,
       "type": "integer"
     },
-    "width": {
+    "nanostar_amount": {
       "type": "integer"
     },
-    "height": {
+    "date": {
+      "required": true,
       "type": "integer"
     },
-    "duration": {
-      "type": "integer"
+    "source": {
+      "type": "TransactionPartner"
     },
-    "supports_streaming": {
-      "type": "boolean"
+    "receiver": {
+      "type": "TransactionPartner"
+    }
+  },
+  "StarTransactions": {
+    "transactions": {
+      "required": true,
+      "type": "array",
+      "items": "StarTransaction"
     }
   },
   "Sticker": {
     "file_id": {
-      "type": "string",
-      "required": true
+      "required": true,
+      "type": "string"
     },
     "file_unique_id": {
-      "type": "string",
-      "required": true
+      "required": true,
+      "type": "string"
     },
     "type": {
-      "type": "string",
-      "required": true
+      "required": true,
+      "type": "string"
     },
     "width": {
-      "type": "integer",
-      "required": true
+      "required": true,
+      "type": "integer"
     },
     "height": {
-      "type": "integer",
-      "required": true
+      "required": true,
+      "type": "integer"
     },
     "is_animated": {
-      "type": "boolean",
-      "required": true
+      "required": true,
+      "type": "boolean"
     },
     "is_video": {
-      "type": "boolean",
-      "required": true
+      "required": true,
+      "type": "boolean"
     },
     "thumbnail": {
       "type": "PhotoSize"
@@ -3276,1320 +5174,174 @@
   },
   "StickerSet": {
     "name": {
-      "type": "string",
-      "required": true
+      "required": true,
+      "type": "string"
     },
     "title": {
-      "type": "string",
-      "required": true
+      "required": true,
+      "type": "string"
     },
     "sticker_type": {
-      "type": "string",
-      "required": true
+      "required": true,
+      "type": "string"
     },
     "stickers": {
-      "type": "array",
       "required": true,
+      "type": "array",
       "items": "Sticker"
     },
     "thumbnail": {
       "type": "PhotoSize"
     }
   },
-  "MaskPosition": {
-    "point": {
-      "type": "string",
-      "required": true
-    },
-    "x_shift": {
-      "type": "number",
-      "required": true
-    },
-    "y_shift": {
-      "type": "number",
-      "required": true
-    },
-    "scale": {
-      "type": "number",
-      "required": true
-    }
-  },
-  "InputSticker": {
-    "sticker": {
-      "type": "string",
-      "required": true
-    },
-    "format": {
-      "type": "string",
-      "required": true
-    },
-    "emoji_list": {
-      "type": "array",
+  "Story": {
+    "chat": {
       "required": true,
-      "items": "string"
+      "type": "Chat"
     },
-    "mask_position": {
-      "type": "MaskPosition"
-    },
-    "keywords": {
-      "type": "array",
-      "items": "string"
-    }
-  },
-  "Gift": {
     "id": {
-      "type": "string",
-      "required": true
-    },
-    "sticker": {
-      "type": "Sticker",
-      "required": true
-    },
-    "star_count": {
-      "type": "integer",
-      "required": true
-    },
-    "upgrade_star_count": {
-      "type": "integer"
-    },
-    "total_count": {
-      "type": "integer"
-    },
-    "remaining_count": {
-      "type": "integer"
-    }
-  },
-  "Gifts": {
-    "gifts": {
-      "type": "array",
       "required": true,
-      "items": "Gift"
+      "type": "integer"
     }
   },
-  "InlineQuery": {
-    "id": {
-      "type": "string",
-      "required": true
+  "StoryArea": {
+    "position": {
+      "required": true,
+      "type": "StoryAreaPosition"
     },
-    "from": {
-      "type": "User",
-      "required": true
-    },
-    "query": {
-      "type": "string",
-      "required": true
-    },
-    "offset": {
-      "type": "string",
-      "required": true
-    },
-    "chat_type": {
-      "type": "string"
-    },
-    "location": {
-      "type": "Location"
+    "type": {
+      "required": true,
+      "type": "StoryAreaType"
     }
   },
-  "InlineQueryResultsButton": {
-    "text": {
-      "type": "string",
-      "required": true
+  "StoryAreaPosition": {
+    "x_percentage": {
+      "required": true,
+      "type": "number"
     },
-    "web_app": {
-      "type": "WebAppInfo"
+    "y_percentage": {
+      "required": true,
+      "type": "number"
     },
-    "start_parameter": {
-      "type": "string",
-      "min_size": 1,
-      "max_size": 64
+    "width_percentage": {
+      "required": true,
+      "type": "number"
+    },
+    "height_percentage": {
+      "required": true,
+      "type": "number"
+    },
+    "rotation_angle": {
+      "required": true,
+      "type": "number"
+    },
+    "corner_radius_percentage": {
+      "required": true,
+      "type": "number"
     }
   },
-  "InlineQueryResult": {
+  "StoryAreaType": {
     "type": [
-      "InlineQueryResultCachedAudio",
-      "InlineQueryResultCachedDocument",
-      "InlineQueryResultCachedGif",
-      "InlineQueryResultCachedMpeg4Gif",
-      "InlineQueryResultCachedPhoto",
-      "InlineQueryResultCachedSticker",
-      "InlineQueryResultCachedVideo",
-      "InlineQueryResultCachedVoice",
-      "InlineQueryResultArticle",
-      "InlineQueryResultAudio",
-      "InlineQueryResultContact",
-      "InlineQueryResultGame",
-      "InlineQueryResultDocument",
-      "InlineQueryResultGif",
-      "InlineQueryResultLocation",
-      "InlineQueryResultMpeg4Gif",
-      "InlineQueryResultPhoto",
-      "InlineQueryResultVenue",
-      "InlineQueryResultVideo",
-      "InlineQueryResultVoice"
+      "StoryAreaTypeLocation",
+      "StoryAreaTypeSuggestedReaction",
+      "StoryAreaTypeLink",
+      "StoryAreaTypeWeather",
+      "StoryAreaTypeUniqueGift"
     ]
   },
-  "InlineQueryResultArticle": {
+  "StoryAreaTypeLink": {
     "type": {
-      "type": "string",
       "required": true,
-      "required_value": "article",
-      "default": "article"
-    },
-    "id": {
       "type": "string",
-      "required": true
-    },
-    "title": {
-      "type": "string",
-      "required": true
-    },
-    "input_message_content": {
-      "type": "InputMessageContent",
-      "required": true
-    },
-    "reply_markup": {
-      "type": "InlineKeyboardMarkup"
+      "required_value": "link",
+      "default": "link"
     },
     "url": {
+      "required": true,
       "type": "string"
-    },
-    "description": {
-      "type": "string"
-    },
-    "thumbnail_url": {
-      "type": "string"
-    },
-    "thumbnail_width": {
-      "type": "integer"
-    },
-    "thumbnail_height": {
-      "type": "integer"
     }
   },
-  "InlineQueryResultPhoto": {
+  "StoryAreaTypeLocation": {
     "type": {
-      "type": "string",
       "required": true,
-      "required_value": "photo",
-      "default": "photo"
-    },
-    "id": {
       "type": "string",
-      "required": true
-    },
-    "photo_url": {
-      "type": "string",
-      "required": true
-    },
-    "thumbnail_url": {
-      "type": "string",
-      "required": true
-    },
-    "photo_width": {
-      "type": "integer"
-    },
-    "photo_height": {
-      "type": "integer"
-    },
-    "title": {
-      "type": "string"
-    },
-    "description": {
-      "type": "string"
-    },
-    "caption": {
-      "type": "string",
-      "max_size": 1024
-    },
-    "parse_mode": {
-      "type": "string"
-    },
-    "caption_entities": {
-      "type": "array",
-      "items": "MessageEntity"
-    },
-    "show_caption_above_media": {
-      "type": "boolean"
-    },
-    "reply_markup": {
-      "type": "InlineKeyboardMarkup"
-    },
-    "input_message_content": {
-      "type": "InputMessageContent"
-    }
-  },
-  "InlineQueryResultGif": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "gif",
-      "default": "gif"
-    },
-    "id": {
-      "type": "string",
-      "required": true
-    },
-    "gif_url": {
-      "type": "string",
-      "required": true
-    },
-    "gif_width": {
-      "type": "integer"
-    },
-    "gif_height": {
-      "type": "integer"
-    },
-    "gif_duration": {
-      "type": "integer"
-    },
-    "thumbnail_url": {
-      "type": "string",
-      "required": true
-    },
-    "thumbnail_mime_type": {
-      "type": "string",
-      "default": "image/jpeg"
-    },
-    "title": {
-      "type": "string"
-    },
-    "caption": {
-      "type": "string",
-      "max_size": 1024
-    },
-    "parse_mode": {
-      "type": "string"
-    },
-    "caption_entities": {
-      "type": "array",
-      "items": "MessageEntity"
-    },
-    "show_caption_above_media": {
-      "type": "boolean"
-    },
-    "reply_markup": {
-      "type": "InlineKeyboardMarkup"
-    },
-    "input_message_content": {
-      "type": "InputMessageContent"
-    }
-  },
-  "InlineQueryResultMpeg4Gif": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "mpeg4_gif",
-      "default": "mpeg4_gif"
-    },
-    "id": {
-      "type": "string",
-      "required": true
-    },
-    "mpeg4_url": {
-      "type": "string",
-      "required": true
-    },
-    "mpeg4_width": {
-      "type": "integer"
-    },
-    "mpeg4_height": {
-      "type": "integer"
-    },
-    "mpeg4_duration": {
-      "type": "integer"
-    },
-    "thumbnail_url": {
-      "type": "string",
-      "required": true
-    },
-    "thumbnail_mime_type": {
-      "type": "string",
-      "default": "image/jpeg"
-    },
-    "title": {
-      "type": "string"
-    },
-    "caption": {
-      "type": "string",
-      "max_size": 1024
-    },
-    "parse_mode": {
-      "type": "string"
-    },
-    "caption_entities": {
-      "type": "array",
-      "items": "MessageEntity"
-    },
-    "show_caption_above_media": {
-      "type": "boolean"
-    },
-    "reply_markup": {
-      "type": "InlineKeyboardMarkup"
-    },
-    "input_message_content": {
-      "type": "InputMessageContent"
-    }
-  },
-  "InlineQueryResultVideo": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "video",
-      "default": "video"
-    },
-    "id": {
-      "type": "string",
-      "required": true
-    },
-    "video_url": {
-      "type": "string",
-      "required": true
-    },
-    "mime_type": {
-      "type": "string",
-      "required": true
-    },
-    "thumbnail_url": {
-      "type": "string",
-      "required": true
-    },
-    "title": {
-      "type": "string",
-      "required": true
-    },
-    "caption": {
-      "type": "string",
-      "max_size": 1024
-    },
-    "parse_mode": {
-      "type": "string"
-    },
-    "caption_entities": {
-      "type": "array",
-      "items": "MessageEntity"
-    },
-    "show_caption_above_media": {
-      "type": "boolean"
-    },
-    "video_width": {
-      "type": "integer"
-    },
-    "video_height": {
-      "type": "integer"
-    },
-    "video_duration": {
-      "type": "integer"
-    },
-    "description": {
-      "type": "string"
-    },
-    "reply_markup": {
-      "type": "InlineKeyboardMarkup"
-    },
-    "input_message_content": {
-      "type": "InputMessageContent"
-    }
-  },
-  "InlineQueryResultAudio": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "audio",
-      "default": "audio"
-    },
-    "id": {
-      "type": "string",
-      "required": true
-    },
-    "audio_url": {
-      "type": "string",
-      "required": true
-    },
-    "title": {
-      "type": "string",
-      "required": true
-    },
-    "caption": {
-      "type": "string",
-      "max_size": 1024
-    },
-    "parse_mode": {
-      "type": "string"
-    },
-    "caption_entities": {
-      "type": "array",
-      "items": "MessageEntity"
-    },
-    "performer": {
-      "type": "string"
-    },
-    "audio_duration": {
-      "type": "integer"
-    },
-    "reply_markup": {
-      "type": "InlineKeyboardMarkup"
-    },
-    "input_message_content": {
-      "type": "InputMessageContent"
-    }
-  },
-  "InlineQueryResultVoice": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "voice",
-      "default": "voice"
-    },
-    "id": {
-      "type": "string",
-      "required": true
-    },
-    "voice_url": {
-      "type": "string",
-      "required": true
-    },
-    "title": {
-      "type": "string",
-      "required": true
-    },
-    "caption": {
-      "type": "string",
-      "max_size": 1024
-    },
-    "parse_mode": {
-      "type": "string"
-    },
-    "caption_entities": {
-      "type": "array",
-      "items": "MessageEntity"
-    },
-    "voice_duration": {
-      "type": "integer"
-    },
-    "reply_markup": {
-      "type": "InlineKeyboardMarkup"
-    },
-    "input_message_content": {
-      "type": "InputMessageContent"
-    }
-  },
-  "InlineQueryResultDocument": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "document",
-      "default": "document"
-    },
-    "id": {
-      "type": "string",
-      "required": true
-    },
-    "title": {
-      "type": "string",
-      "required": true
-    },
-    "caption": {
-      "type": "string",
-      "max_size": 1024
-    },
-    "parse_mode": {
-      "type": "string"
-    },
-    "caption_entities": {
-      "type": "array",
-      "items": "MessageEntity"
-    },
-    "document_url": {
-      "type": "string",
-      "required": true
-    },
-    "mime_type": {
-      "type": "string",
-      "required": true
-    },
-    "description": {
-      "type": "string"
-    },
-    "reply_markup": {
-      "type": "InlineKeyboardMarkup"
-    },
-    "input_message_content": {
-      "type": "InputMessageContent"
-    },
-    "thumbnail_url": {
-      "type": "string"
-    },
-    "thumbnail_width": {
-      "type": "integer"
-    },
-    "thumbnail_height": {
-      "type": "integer"
-    }
-  },
-  "InlineQueryResultLocation": {
-    "type": {
-      "type": "string",
-      "required": true,
       "required_value": "location",
       "default": "location"
     },
-    "id": {
-      "type": "string",
-      "required": true
-    },
     "latitude": {
-      "type": "number",
-      "required": true
-    },
-    "longitude": {
-      "type": "number",
-      "required": true
-    },
-    "title": {
-      "type": "string",
-      "required": true
-    },
-    "horizontal_accuracy": {
+      "required": true,
       "type": "number"
     },
-    "live_period": {
-      "type": "integer"
-    },
-    "heading": {
-      "type": "integer"
-    },
-    "proximity_alert_radius": {
-      "type": "integer"
-    },
-    "reply_markup": {
-      "type": "InlineKeyboardMarkup"
-    },
-    "input_message_content": {
-      "type": "InputMessageContent"
-    },
-    "thumbnail_url": {
-      "type": "string"
-    },
-    "thumbnail_width": {
-      "type": "integer"
-    },
-    "thumbnail_height": {
-      "type": "integer"
-    }
-  },
-  "InlineQueryResultVenue": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "venue",
-      "default": "venue"
-    },
-    "id": {
-      "type": "string",
-      "required": true
-    },
-    "latitude": {
-      "type": "number",
-      "required": true
-    },
     "longitude": {
-      "type": "number",
-      "required": true
-    },
-    "title": {
-      "type": "string",
-      "required": true
-    },
-    "address": {
-      "type": "string",
-      "required": true
-    },
-    "foursquare_id": {
-      "type": "string"
-    },
-    "foursquare_type": {
-      "type": "string"
-    },
-    "google_place_id": {
-      "type": "string"
-    },
-    "google_place_type": {
-      "type": "string"
-    },
-    "reply_markup": {
-      "type": "InlineKeyboardMarkup"
-    },
-    "input_message_content": {
-      "type": "InputMessageContent"
-    },
-    "thumbnail_url": {
-      "type": "string"
-    },
-    "thumbnail_width": {
-      "type": "integer"
-    },
-    "thumbnail_height": {
-      "type": "integer"
-    }
-  },
-  "InlineQueryResultContact": {
-    "type": {
-      "type": "string",
       "required": true,
-      "required_value": "contact",
-      "default": "contact"
-    },
-    "id": {
-      "type": "string",
-      "required": true
-    },
-    "phone_number": {
-      "type": "string",
-      "required": true
-    },
-    "first_name": {
-      "type": "string",
-      "required": true
-    },
-    "last_name": {
-      "type": "string"
-    },
-    "vcard": {
-      "type": "string"
-    },
-    "reply_markup": {
-      "type": "InlineKeyboardMarkup"
-    },
-    "input_message_content": {
-      "type": "InputMessageContent"
-    },
-    "thumbnail_url": {
-      "type": "string"
-    },
-    "thumbnail_width": {
-      "type": "integer"
-    },
-    "thumbnail_height": {
-      "type": "integer"
-    }
-  },
-  "InlineQueryResultGame": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "game",
-      "default": "game"
-    },
-    "id": {
-      "type": "string",
-      "required": true
-    },
-    "game_short_name": {
-      "type": "string",
-      "required": true
-    },
-    "reply_markup": {
-      "type": "InlineKeyboardMarkup"
-    }
-  },
-  "InlineQueryResultCachedPhoto": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "photo",
-      "default": "photo"
-    },
-    "id": {
-      "type": "string",
-      "required": true
-    },
-    "photo_file_id": {
-      "type": "string",
-      "required": true
-    },
-    "title": {
-      "type": "string"
-    },
-    "description": {
-      "type": "string"
-    },
-    "caption": {
-      "type": "string",
-      "max_size": 1024
-    },
-    "parse_mode": {
-      "type": "string"
-    },
-    "caption_entities": {
-      "type": "array",
-      "items": "MessageEntity"
-    },
-    "show_caption_above_media": {
-      "type": "boolean"
-    },
-    "reply_markup": {
-      "type": "InlineKeyboardMarkup"
-    },
-    "input_message_content": {
-      "type": "InputMessageContent"
-    }
-  },
-  "InlineQueryResultCachedGif": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "gif",
-      "default": "gif"
-    },
-    "id": {
-      "type": "string",
-      "required": true
-    },
-    "gif_file_id": {
-      "type": "string",
-      "required": true
-    },
-    "title": {
-      "type": "string"
-    },
-    "caption": {
-      "type": "string",
-      "max_size": 1024
-    },
-    "parse_mode": {
-      "type": "string"
-    },
-    "caption_entities": {
-      "type": "array",
-      "items": "MessageEntity"
-    },
-    "show_caption_above_media": {
-      "type": "boolean"
-    },
-    "reply_markup": {
-      "type": "InlineKeyboardMarkup"
-    },
-    "input_message_content": {
-      "type": "InputMessageContent"
-    }
-  },
-  "InlineQueryResultCachedMpeg4Gif": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "mpeg4_gif",
-      "default": "mpeg4_gif"
-    },
-    "id": {
-      "type": "string",
-      "required": true
-    },
-    "mpeg4_file_id": {
-      "type": "string",
-      "required": true
-    },
-    "title": {
-      "type": "string"
-    },
-    "caption": {
-      "type": "string",
-      "max_size": 1024
-    },
-    "parse_mode": {
-      "type": "string"
-    },
-    "caption_entities": {
-      "type": "array",
-      "items": "MessageEntity"
-    },
-    "show_caption_above_media": {
-      "type": "boolean"
-    },
-    "reply_markup": {
-      "type": "InlineKeyboardMarkup"
-    },
-    "input_message_content": {
-      "type": "InputMessageContent"
-    }
-  },
-  "InlineQueryResultCachedSticker": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "sticker",
-      "default": "sticker"
-    },
-    "id": {
-      "type": "string",
-      "required": true
-    },
-    "sticker_file_id": {
-      "type": "string",
-      "required": true
-    },
-    "reply_markup": {
-      "type": "InlineKeyboardMarkup"
-    },
-    "input_message_content": {
-      "type": "InputMessageContent"
-    }
-  },
-  "InlineQueryResultCachedDocument": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "document",
-      "default": "document"
-    },
-    "id": {
-      "type": "string",
-      "required": true
-    },
-    "title": {
-      "type": "string",
-      "required": true
-    },
-    "document_file_id": {
-      "type": "string",
-      "required": true
-    },
-    "description": {
-      "type": "string"
-    },
-    "caption": {
-      "type": "string",
-      "max_size": 1024
-    },
-    "parse_mode": {
-      "type": "string"
-    },
-    "caption_entities": {
-      "type": "array",
-      "items": "MessageEntity"
-    },
-    "reply_markup": {
-      "type": "InlineKeyboardMarkup"
-    },
-    "input_message_content": {
-      "type": "InputMessageContent"
-    }
-  },
-  "InlineQueryResultCachedVideo": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "video",
-      "default": "video"
-    },
-    "id": {
-      "type": "string",
-      "required": true
-    },
-    "video_file_id": {
-      "type": "string",
-      "required": true
-    },
-    "title": {
-      "type": "string",
-      "required": true
-    },
-    "description": {
-      "type": "string"
-    },
-    "caption": {
-      "type": "string",
-      "max_size": 1024
-    },
-    "parse_mode": {
-      "type": "string"
-    },
-    "caption_entities": {
-      "type": "array",
-      "items": "MessageEntity"
-    },
-    "show_caption_above_media": {
-      "type": "boolean"
-    },
-    "reply_markup": {
-      "type": "InlineKeyboardMarkup"
-    },
-    "input_message_content": {
-      "type": "InputMessageContent"
-    }
-  },
-  "InlineQueryResultCachedVoice": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "voice",
-      "default": "voice"
-    },
-    "id": {
-      "type": "string",
-      "required": true
-    },
-    "voice_file_id": {
-      "type": "string",
-      "required": true
-    },
-    "title": {
-      "type": "string",
-      "required": true
-    },
-    "caption": {
-      "type": "string",
-      "max_size": 1024
-    },
-    "parse_mode": {
-      "type": "string"
-    },
-    "caption_entities": {
-      "type": "array",
-      "items": "MessageEntity"
-    },
-    "reply_markup": {
-      "type": "InlineKeyboardMarkup"
-    },
-    "input_message_content": {
-      "type": "InputMessageContent"
-    }
-  },
-  "InlineQueryResultCachedAudio": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "audio",
-      "default": "audio"
-    },
-    "id": {
-      "type": "string",
-      "required": true
-    },
-    "audio_file_id": {
-      "type": "string",
-      "required": true
-    },
-    "caption": {
-      "type": "string",
-      "max_size": 1024
-    },
-    "parse_mode": {
-      "type": "string"
-    },
-    "caption_entities": {
-      "type": "array",
-      "items": "MessageEntity"
-    },
-    "reply_markup": {
-      "type": "InlineKeyboardMarkup"
-    },
-    "input_message_content": {
-      "type": "InputMessageContent"
-    }
-  },
-  "InputMessageContent": {
-    "type": [
-      "InputTextMessageContent",
-      "InputLocationMessageContent",
-      "InputVenueMessageContent",
-      "InputContactMessageContent",
-      "InputInvoiceMessageContent"
-    ]
-  },
-  "InputTextMessageContent": {
-    "message_text": {
-      "type": "string",
-      "required": true,
-      "min_size": 1,
-      "max_size": 4096
-    },
-    "parse_mode": {
-      "type": "string"
-    },
-    "entities": {
-      "type": "array",
-      "items": "MessageEntity"
-    },
-    "link_preview_options": {
-      "type": "LinkPreviewOptions"
-    }
-  },
-  "InputLocationMessageContent": {
-    "latitude": {
-      "type": "number",
-      "required": true
-    },
-    "longitude": {
-      "type": "number",
-      "required": true
-    },
-    "horizontal_accuracy": {
       "type": "number"
     },
-    "live_period": {
-      "type": "integer"
-    },
-    "heading": {
-      "type": "integer"
-    },
-    "proximity_alert_radius": {
-      "type": "integer"
-    }
-  },
-  "InputVenueMessageContent": {
-    "latitude": {
-      "type": "number",
-      "required": true
-    },
-    "longitude": {
-      "type": "number",
-      "required": true
-    },
-    "title": {
-      "type": "string",
-      "required": true
-    },
     "address": {
-      "type": "string",
-      "required": true
-    },
-    "foursquare_id": {
-      "type": "string"
-    },
-    "foursquare_type": {
-      "type": "string"
-    },
-    "google_place_id": {
-      "type": "string"
-    },
-    "google_place_type": {
-      "type": "string"
+      "type": "LocationAddress"
     }
   },
-  "InputContactMessageContent": {
-    "phone_number": {
-      "type": "string",
-      "required": true
-    },
-    "first_name": {
-      "type": "string",
-      "required": true
-    },
-    "last_name": {
-      "type": "string"
-    },
-    "vcard": {
-      "type": "string"
-    }
-  },
-  "InputInvoiceMessageContent": {
-    "title": {
-      "type": "string",
+  "StoryAreaTypeSuggestedReaction": {
+    "type": {
       "required": true,
-      "min_size": 1,
-      "max_size": 32
-    },
-    "description": {
       "type": "string",
+      "required_value": "suggested_reaction",
+      "default": "suggested_reaction"
+    },
+    "reaction_type": {
       "required": true,
-      "min_size": 1,
-      "max_size": 255
+      "type": "ReactionType"
     },
-    "payload": {
-      "type": "string",
-      "required": true
+    "is_dark": {
+      "type": "boolean"
     },
-    "provider_token": {
-      "type": "string"
-    },
-    "currency": {
-      "type": "string",
-      "required": true
-    },
-    "prices": {
-      "type": "array",
+    "is_flipped": {
+      "type": "boolean"
+    }
+  },
+  "StoryAreaTypeUniqueGift": {
+    "type": {
       "required": true,
-      "items": "LabeledPrice"
-    },
-    "max_tip_amount": {
-      "type": "integer",
-      "default": 0
-    },
-    "suggested_tip_amounts": {
-      "type": "array",
-      "items": "integer"
-    },
-    "provider_data": {
-      "type": "string"
-    },
-    "photo_url": {
-      "type": "string"
-    },
-    "photo_size": {
-      "type": "integer"
-    },
-    "photo_width": {
-      "type": "integer"
-    },
-    "photo_height": {
-      "type": "integer"
-    },
-    "need_name": {
-      "type": "boolean"
-    },
-    "need_phone_number": {
-      "type": "boolean"
-    },
-    "need_email": {
-      "type": "boolean"
-    },
-    "need_shipping_address": {
-      "type": "boolean"
-    },
-    "send_phone_number_to_provider": {
-      "type": "boolean"
-    },
-    "send_email_to_provider": {
-      "type": "boolean"
-    },
-    "is_flexible": {
-      "type": "boolean"
-    }
-  },
-  "ChosenInlineResult": {
-    "result_id": {
       "type": "string",
-      "required": true
+      "required_value": "unique_gift",
+      "default": "unique_gift"
     },
-    "from": {
-      "type": "User",
-      "required": true
-    },
-    "location": {
-      "type": "Location"
-    },
-    "inline_message_id": {
-      "type": "string"
-    },
-    "query": {
-      "type": "string",
-      "required": true
-    }
-  },
-  "SentWebAppMessage": {
-    "inline_message_id": {
-      "type": "string"
-    }
-  },
-  "PreparedInlineMessage": {
-    "id": {
-      "type": "string",
-      "required": true
-    },
-    "expiration_date": {
-      "type": "integer",
-      "required": true
-    }
-  },
-  "LabeledPrice": {
-    "label": {
-      "type": "string",
-      "required": true
-    },
-    "amount": {
-      "type": "integer",
-      "required": true
-    }
-  },
-  "Invoice": {
-    "title": {
-      "type": "string",
-      "required": true
-    },
-    "description": {
-      "type": "string",
-      "required": true
-    },
-    "start_parameter": {
-      "type": "string",
-      "required": true
-    },
-    "currency": {
-      "type": "string",
-      "required": true
-    },
-    "total_amount": {
-      "type": "integer",
-      "required": true
-    }
-  },
-  "ShippingAddress": {
-    "country_code": {
-      "type": "string",
-      "required": true
-    },
-    "state": {
-      "type": "string",
-      "required": true
-    },
-    "city": {
-      "type": "string",
-      "required": true
-    },
-    "street_line1": {
-      "type": "string",
-      "required": true
-    },
-    "street_line2": {
-      "type": "string",
-      "required": true
-    },
-    "post_code": {
-      "type": "string",
-      "required": true
-    }
-  },
-  "OrderInfo": {
     "name": {
+      "required": true,
       "type": "string"
-    },
-    "phone_number": {
-      "type": "string"
-    },
-    "email": {
-      "type": "string"
-    },
-    "shipping_address": {
-      "type": "ShippingAddress"
     }
   },
-  "ShippingOption": {
-    "id": {
-      "type": "string",
-      "required": true
-    },
-    "title": {
-      "type": "string",
-      "required": true
-    },
-    "prices": {
-      "type": "array",
+  "StoryAreaTypeWeather": {
+    "type": {
       "required": true,
-      "items": "LabeledPrice"
+      "type": "string",
+      "required_value": "weather",
+      "default": "weather"
+    },
+    "temperature": {
+      "required": true,
+      "type": "number"
+    },
+    "emoji": {
+      "required": true,
+      "type": "string"
+    },
+    "background_color": {
+      "required": true,
+      "type": "integer"
     }
   },
   "SuccessfulPayment": {
     "currency": {
-      "type": "string",
-      "required": true
+      "required": true,
+      "type": "string"
     },
     "total_amount": {
-      "type": "integer",
-      "required": true
+      "required": true,
+      "type": "integer"
     },
     "invoice_payload": {
-      "type": "string",
-      "required": true
+      "required": true,
+      "type": "string"
     },
     "subscription_expiration_date": {
       "type": "integer"
@@ -4609,149 +5361,130 @@
       "type": "OrderInfo"
     },
     "telegram_payment_charge_id": {
-      "type": "string",
-      "required": true
-    },
-    "provider_payment_charge_id": {
-      "type": "string",
-      "required": true
-    }
-  },
-  "RefundedPayment": {
-    "currency": {
-      "type": "string",
       "required": true,
-      "required_value": "XTR",
-      "default": "XTR"
-    },
-    "total_amount": {
-      "type": "integer",
-      "required": true
-    },
-    "invoice_payload": {
-      "type": "string",
-      "required": true
-    },
-    "telegram_payment_charge_id": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "provider_payment_charge_id": {
+      "required": true,
       "type": "string"
     }
   },
-  "ShippingQuery": {
-    "id": {
-      "type": "string",
-      "required": true
+  "SuggestedPostApprovalFailed": {
+    "suggested_post_message": {
+      "type": "Message"
     },
-    "from": {
-      "type": "User",
-      "required": true
-    },
-    "invoice_payload": {
-      "type": "string",
-      "required": true
-    },
-    "shipping_address": {
-      "type": "ShippingAddress",
-      "required": true
+    "price": {
+      "required": true,
+      "type": "SuggestedPostPrice"
     }
   },
-  "PreCheckoutQuery": {
-    "id": {
-      "type": "string",
-      "required": true
+  "SuggestedPostApproved": {
+    "suggested_post_message": {
+      "type": "Message"
     },
-    "from": {
-      "type": "User",
-      "required": true
+    "price": {
+      "type": "SuggestedPostPrice"
     },
-    "currency": {
-      "type": "string",
-      "required": true
+    "send_date": {
+      "required": true,
+      "type": "integer"
+    }
+  },
+  "SuggestedPostDeclined": {
+    "suggested_post_message": {
+      "type": "Message"
     },
-    "total_amount": {
-      "type": "integer",
-      "required": true
-    },
-    "invoice_payload": {
-      "type": "string",
-      "required": true
-    },
-    "shipping_option_id": {
+    "comment": {
+      "type": "string"
+    }
+  },
+  "SuggestedPostInfo": {
+    "state": {
+      "required": true,
       "type": "string"
     },
-    "order_info": {
-      "type": "OrderInfo"
-    }
-  },
-  "PaidMediaPurchased": {
-    "from": {
-      "type": "User",
-      "required": true
+    "price": {
+      "type": "SuggestedPostPrice"
     },
-    "paid_media_payload": {
-      "type": "string",
-      "required": true
+    "send_date": {
+      "type": "integer"
     }
   },
-  "RevenueWithdrawalState": {
-    "type": [
-      "RevenueWithdrawalStatePending",
-      "RevenueWithdrawalStateSucceeded",
-      "RevenueWithdrawalStateFailed"
-    ]
-  },
-  "RevenueWithdrawalStatePending": {
-    "type": {
-      "type": "string",
+  "SuggestedPostPaid": {
+    "suggested_post_message": {
+      "type": "Message"
+    },
+    "currency": {
       "required": true,
-      "required_value": "pending",
-      "default": "pending"
-    }
-  },
-  "RevenueWithdrawalStateSucceeded": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "succeeded",
-      "default": "succeeded"
-    },
-    "date": {
-      "type": "integer",
-      "required": true
-    },
-    "url": {
-      "type": "string",
-      "required": true
-    }
-  },
-  "RevenueWithdrawalStateFailed": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "failed",
-      "default": "failed"
-    }
-  },
-  "AffiliateInfo": {
-    "affiliate_user": {
-      "type": "User"
-    },
-    "affiliate_chat": {
-      "type": "Chat"
-    },
-    "commission_per_mille": {
-      "type": "integer",
-      "required": true
+      "type": "string"
     },
     "amount": {
-      "type": "integer",
-      "required": true
-    },
-    "nanostar_amount": {
       "type": "integer"
+    },
+    "star_amount": {
+      "type": "StarAmount"
+    }
+  },
+  "SuggestedPostParameters": {
+    "price": {
+      "type": "SuggestedPostPrice"
+    },
+    "send_date": {
+      "type": "integer"
+    }
+  },
+  "SuggestedPostPrice": {
+    "currency": {
+      "required": true,
+      "type": "string"
+    },
+    "amount": {
+      "required": true,
+      "type": "integer"
+    }
+  },
+  "SuggestedPostRefunded": {
+    "suggested_post_message": {
+      "type": "Message"
+    },
+    "reason": {
+      "required": true,
+      "type": "string"
+    }
+  },
+  "SwitchInlineQueryChosenChat": {
+    "query": {
+      "type": "string"
+    },
+    "allow_user_chats": {
+      "type": "boolean"
+    },
+    "allow_bot_chats": {
+      "type": "boolean"
+    },
+    "allow_group_chats": {
+      "type": "boolean"
+    },
+    "allow_channel_chats": {
+      "type": "boolean"
+    }
+  },
+  "TextQuote": {
+    "text": {
+      "required": true,
+      "type": "string"
+    },
+    "entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "position": {
+      "required": true,
+      "type": "integer"
+    },
+    "is_manual": {
+      "type": "boolean",
+      "default": true
     }
   },
   "TransactionPartner": {
@@ -4765,16 +5498,89 @@
       "TransactionPartnerOther"
     ]
   },
+  "TransactionPartnerAffiliateProgram": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "affiliate_program",
+      "default": "affiliate_program"
+    },
+    "sponsor_user": {
+      "type": "User"
+    },
+    "commission_per_mille": {
+      "required": true,
+      "type": "integer"
+    }
+  },
+  "TransactionPartnerChat": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "chat",
+      "default": "chat"
+    },
+    "chat": {
+      "required": true,
+      "type": "Chat"
+    },
+    "gift": {
+      "type": "Gift"
+    }
+  },
+  "TransactionPartnerFragment": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "fragment",
+      "default": "fragment"
+    },
+    "withdrawal_state": {
+      "type": "RevenueWithdrawalState"
+    }
+  },
+  "TransactionPartnerOther": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "other",
+      "default": "other"
+    }
+  },
+  "TransactionPartnerTelegramAds": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "telegram_ads",
+      "default": "telegram_ads"
+    }
+  },
+  "TransactionPartnerTelegramApi": {
+    "type": {
+      "required": true,
+      "type": "string",
+      "required_value": "telegram_api",
+      "default": "telegram_api"
+    },
+    "request_count": {
+      "required": true,
+      "type": "integer"
+    }
+  },
   "TransactionPartnerUser": {
     "type": {
-      "type": "string",
       "required": true,
+      "type": "string",
       "required_value": "user",
       "default": "user"
     },
+    "transaction_type": {
+      "required": true,
+      "type": "string"
+    },
     "user": {
-      "type": "User",
-      "required": true
+      "required": true,
+      "type": "User"
     },
     "affiliate": {
       "type": "AffiliateInfo"
@@ -4794,425 +5600,464 @@
     },
     "gift": {
       "type": "Gift"
+    },
+    "premium_subscription_duration": {
+      "type": "integer"
     }
   },
-  "TransactionPartnerChat": {
-    "type": {
-      "type": "string",
+  "UniqueGift": {
+    "base_name": {
       "required": true,
-      "required_value": "chat",
-      "default": "chat"
+      "type": "string"
     },
-    "chat": {
-      "type": "Chat",
-      "required": true
-    },
-    "gift": {
-      "type": "Gift"
-    }
-  },
-  "TransactionPartnerAffiliateProgram": {
-    "type": {
-      "type": "string",
+    "name": {
       "required": true,
-      "required_value": "affiliate_program",
-      "default": "affiliate_program"
+      "type": "string"
     },
-    "sponsor_user": {
-      "type": "User"
-    },
-    "commission_per_mille": {
-      "type": "integer",
-      "required": true
-    }
-  },
-  "TransactionPartnerFragment": {
-    "type": {
-      "type": "string",
+    "number": {
       "required": true,
-      "required_value": "fragment",
-      "default": "fragment"
-    },
-    "withdrawal_state": {
-      "type": "RevenueWithdrawalState"
-    }
-  },
-  "TransactionPartnerTelegramAds": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "telegram_ads",
-      "default": "telegram_ads"
-    }
-  },
-  "TransactionPartnerTelegramApi": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "telegram_api",
-      "default": "telegram_api"
-    },
-    "request_count": {
-      "type": "integer",
-      "required": true
-    }
-  },
-  "TransactionPartnerOther": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "other",
-      "default": "other"
-    }
-  },
-  "StarTransaction": {
-    "id": {
-      "type": "string",
-      "required": true
-    },
-    "amount": {
-      "type": "integer",
-      "required": true
-    },
-    "nanostar_amount": {
       "type": "integer"
     },
-    "date": {
-      "type": "integer",
-      "required": true
-    },
-    "source": {
-      "type": "TransactionPartner"
-    },
-    "receiver": {
-      "type": "TransactionPartner"
-    }
-  },
-  "StarTransactions": {
-    "transactions": {
-      "type": "array",
+    "model": {
       "required": true,
-      "items": "StarTransaction"
-    }
-  },
-  "PassportData": {
-    "data": {
-      "type": "array",
-      "required": true,
-      "items": "EncryptedPassportElement"
+      "type": "UniqueGiftModel"
     },
-    "credentials": {
-      "type": "EncryptedCredentials",
-      "required": true
+    "symbol": {
+      "required": true,
+      "type": "UniqueGiftSymbol"
+    },
+    "backdrop": {
+      "required": true,
+      "type": "UniqueGiftBackdrop"
+    },
+    "publisher_chat": {
+      "type": "Chat"
     }
   },
-  "PassportFile": {
+  "UniqueGiftBackdrop": {
+    "name": {
+      "required": true,
+      "type": "string"
+    },
+    "colors": {
+      "required": true,
+      "type": "UniqueGiftBackdropColors"
+    },
+    "rarity_per_mille": {
+      "required": true,
+      "type": "integer"
+    }
+  },
+  "UniqueGiftBackdropColors": {
+    "center_color": {
+      "required": true,
+      "type": "integer"
+    },
+    "edge_color": {
+      "required": true,
+      "type": "integer"
+    },
+    "symbol_color": {
+      "required": true,
+      "type": "integer"
+    },
+    "text_color": {
+      "required": true,
+      "type": "integer"
+    }
+  },
+  "UniqueGiftInfo": {
+    "gift": {
+      "required": true,
+      "type": "UniqueGift"
+    },
+    "origin": {
+      "required": true,
+      "type": "string"
+    },
+    "last_resale_star_count": {
+      "type": "integer"
+    },
+    "owned_gift_id": {
+      "type": "string"
+    },
+    "transfer_star_count": {
+      "type": "integer"
+    },
+    "next_transfer_date": {
+      "type": "integer"
+    }
+  },
+  "UniqueGiftModel": {
+    "name": {
+      "required": true,
+      "type": "string"
+    },
+    "sticker": {
+      "required": true,
+      "type": "Sticker"
+    },
+    "rarity_per_mille": {
+      "required": true,
+      "type": "integer"
+    }
+  },
+  "UniqueGiftSymbol": {
+    "name": {
+      "required": true,
+      "type": "string"
+    },
+    "sticker": {
+      "required": true,
+      "type": "Sticker"
+    },
+    "rarity_per_mille": {
+      "required": true,
+      "type": "integer"
+    }
+  },
+  "Update": {
+    "update_id": {
+      "required": true,
+      "type": "integer"
+    },
+    "message": {
+      "type": "Message"
+    },
+    "edited_message": {
+      "type": "Message"
+    },
+    "channel_post": {
+      "type": "Message"
+    },
+    "edited_channel_post": {
+      "type": "Message"
+    },
+    "business_connection": {
+      "type": "BusinessConnection"
+    },
+    "business_message": {
+      "type": "Message"
+    },
+    "edited_business_message": {
+      "type": "Message"
+    },
+    "deleted_business_messages": {
+      "type": "BusinessMessagesDeleted"
+    },
+    "message_reaction": {
+      "type": "MessageReactionUpdated"
+    },
+    "message_reaction_count": {
+      "type": "MessageReactionCountUpdated"
+    },
+    "inline_query": {
+      "type": "InlineQuery"
+    },
+    "chosen_inline_result": {
+      "type": "ChosenInlineResult"
+    },
+    "callback_query": {
+      "type": "CallbackQuery"
+    },
+    "shipping_query": {
+      "type": "ShippingQuery"
+    },
+    "pre_checkout_query": {
+      "type": "PreCheckoutQuery"
+    },
+    "purchased_paid_media": {
+      "type": "PaidMediaPurchased"
+    },
+    "poll": {
+      "type": "Poll"
+    },
+    "poll_answer": {
+      "type": "PollAnswer"
+    },
+    "my_chat_member": {
+      "type": "ChatMemberUpdated"
+    },
+    "chat_member": {
+      "type": "ChatMemberUpdated"
+    },
+    "chat_join_request": {
+      "type": "ChatJoinRequest"
+    },
+    "chat_boost": {
+      "type": "ChatBoostUpdated"
+    },
+    "removed_chat_boost": {
+      "type": "ChatBoostRemoved"
+    }
+  },
+  "User": {
+    "id": {
+      "required": true,
+      "type": "integer"
+    },
+    "is_bot": {
+      "required": true,
+      "type": "boolean"
+    },
+    "first_name": {
+      "required": true,
+      "type": "string"
+    },
+    "last_name": {
+      "type": "string"
+    },
+    "username": {
+      "type": "string"
+    },
+    "language_code": {
+      "type": "string"
+    },
+    "is_premium": {
+      "type": "boolean",
+      "default": true
+    },
+    "added_to_attachment_menu": {
+      "type": "boolean",
+      "default": true
+    },
+    "can_join_groups": {
+      "type": "boolean"
+    },
+    "can_read_all_group_messages": {
+      "type": "boolean"
+    },
+    "supports_inline_queries": {
+      "type": "boolean"
+    },
+    "can_connect_to_business": {
+      "type": "boolean"
+    },
+    "has_main_web_app": {
+      "type": "boolean"
+    }
+  },
+  "UserChatBoosts": {
+    "boosts": {
+      "required": true,
+      "type": "array",
+      "items": "ChatBoost"
+    }
+  },
+  "UserProfilePhotos": {
+    "total_count": {
+      "required": true,
+      "type": "integer"
+    },
+    "photos": {
+      "required": true,
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": "PhotoSize"
+      }
+    }
+  },
+  "UsersShared": {
+    "request_id": {
+      "required": true,
+      "type": "integer"
+    },
+    "users": {
+      "required": true,
+      "type": "array",
+      "items": "SharedUser"
+    }
+  },
+  "Venue": {
+    "location": {
+      "required": true,
+      "type": "Location"
+    },
+    "title": {
+      "required": true,
+      "type": "string"
+    },
+    "address": {
+      "required": true,
+      "type": "string"
+    },
+    "foursquare_id": {
+      "type": "string"
+    },
+    "foursquare_type": {
+      "type": "string"
+    },
+    "google_place_id": {
+      "type": "string"
+    },
+    "google_place_type": {
+      "type": "string"
+    }
+  },
+  "Video": {
     "file_id": {
-      "type": "string",
-      "required": true
+      "required": true,
+      "type": "string"
     },
     "file_unique_id": {
-      "type": "string",
-      "required": true
-    },
-    "file_size": {
-      "type": "integer",
-      "required": true
-    },
-    "file_date": {
-      "type": "integer",
-      "required": true
-    }
-  },
-  "EncryptedPassportElement": {
-    "type": {
-      "type": "string",
-      "required": true
-    },
-    "data": {
+      "required": true,
       "type": "string"
     },
-    "phone_number": {
-      "type": "string"
+    "width": {
+      "required": true,
+      "type": "integer"
     },
-    "email": {
-      "type": "string"
+    "height": {
+      "required": true,
+      "type": "integer"
     },
-    "files": {
+    "duration": {
+      "required": true,
+      "type": "integer"
+    },
+    "thumbnail": {
+      "type": "PhotoSize"
+    },
+    "cover": {
       "type": "array",
-      "items": "PassportFile"
-    },
-    "front_side": {
-      "type": "PassportFile"
-    },
-    "reverse_side": {
-      "type": "PassportFile"
-    },
-    "selfie": {
-      "type": "PassportFile"
-    },
-    "translation": {
-      "type": "array",
-      "items": "PassportFile"
-    },
-    "hash": {
-      "type": "string",
-      "required": true
-    }
-  },
-  "EncryptedCredentials": {
-    "data": {
-      "type": "string",
-      "required": true
-    },
-    "hash": {
-      "type": "string",
-      "required": true
-    },
-    "secret": {
-      "type": "string",
-      "required": true
-    }
-  },
-  "PassportElementError": {
-    "type": [
-      "PassportElementErrorDataField",
-      "PassportElementErrorFrontSide",
-      "PassportElementErrorReverseSide",
-      "PassportElementErrorSelfie",
-      "PassportElementErrorFile",
-      "PassportElementErrorFiles",
-      "PassportElementErrorTranslationFile",
-      "PassportElementErrorTranslationFiles",
-      "PassportElementErrorUnspecified"
-    ]
-  },
-  "PassportElementErrorDataField": {
-    "source": {
-      "type": "string",
-      "required": true,
-      "required_value": "data",
-      "default": "data"
-    },
-    "type": {
-      "type": "string",
-      "required": true
-    },
-    "field_name": {
-      "type": "string",
-      "required": true
-    },
-    "data_hash": {
-      "type": "string",
-      "required": true
-    },
-    "message": {
-      "type": "string",
-      "required": true
-    }
-  },
-  "PassportElementErrorFrontSide": {
-    "source": {
-      "type": "string",
-      "required": true,
-      "required_value": "front_side",
-      "default": "front_side"
-    },
-    "type": {
-      "type": "string",
-      "required": true
-    },
-    "file_hash": {
-      "type": "string",
-      "required": true
-    },
-    "message": {
-      "type": "string",
-      "required": true
-    }
-  },
-  "PassportElementErrorReverseSide": {
-    "source": {
-      "type": "string",
-      "required": true,
-      "required_value": "reverse_side",
-      "default": "reverse_side"
-    },
-    "type": {
-      "type": "string",
-      "required": true
-    },
-    "file_hash": {
-      "type": "string",
-      "required": true
-    },
-    "message": {
-      "type": "string",
-      "required": true
-    }
-  },
-  "PassportElementErrorSelfie": {
-    "source": {
-      "type": "string",
-      "required": true,
-      "required_value": "selfie",
-      "default": "selfie"
-    },
-    "type": {
-      "type": "string",
-      "required": true
-    },
-    "file_hash": {
-      "type": "string",
-      "required": true
-    },
-    "message": {
-      "type": "string",
-      "required": true
-    }
-  },
-  "PassportElementErrorFile": {
-    "source": {
-      "type": "string",
-      "required": true,
-      "required_value": "file",
-      "default": "file"
-    },
-    "type": {
-      "type": "string",
-      "required": true
-    },
-    "file_hash": {
-      "type": "string",
-      "required": true
-    },
-    "message": {
-      "type": "string",
-      "required": true
-    }
-  },
-  "PassportElementErrorFiles": {
-    "source": {
-      "type": "string",
-      "required": true,
-      "required_value": "files",
-      "default": "files"
-    },
-    "type": {
-      "type": "string",
-      "required": true
-    },
-    "file_hashes": {
-      "type": "array",
-      "required": true,
-      "items": "string"
-    },
-    "message": {
-      "type": "string",
-      "required": true
-    }
-  },
-  "PassportElementErrorTranslationFile": {
-    "source": {
-      "type": "string",
-      "required": true,
-      "required_value": "translation_file",
-      "default": "translation_file"
-    },
-    "type": {
-      "type": "string",
-      "required": true
-    },
-    "file_hash": {
-      "type": "string",
-      "required": true
-    },
-    "message": {
-      "type": "string",
-      "required": true
-    }
-  },
-  "PassportElementErrorTranslationFiles": {
-    "source": {
-      "type": "string",
-      "required": true,
-      "required_value": "translation_files",
-      "default": "translation_files"
-    },
-    "type": {
-      "type": "string",
-      "required": true
-    },
-    "file_hashes": {
-      "type": "array",
-      "required": true,
-      "items": "string"
-    },
-    "message": {
-      "type": "string",
-      "required": true
-    }
-  },
-  "PassportElementErrorUnspecified": {
-    "source": {
-      "type": "string",
-      "required": true,
-      "required_value": "unspecified",
-      "default": "unspecified"
-    },
-    "type": {
-      "type": "string",
-      "required": true
-    },
-    "element_hash": {
-      "type": "string",
-      "required": true
-    },
-    "message": {
-      "type": "string",
-      "required": true
-    }
-  },
-  "Game": {
-    "title": {
-      "type": "string",
-      "required": true
-    },
-    "description": {
-      "type": "string",
-      "required": true
-    },
-    "photo": {
-      "type": "array",
-      "required": true,
       "items": "PhotoSize"
     },
-    "text": {
-      "type": "string",
-      "max_size": 4096
+    "start_timestamp": {
+      "type": "integer"
     },
-    "text_entities": {
-      "type": "array",
-      "items": "MessageEntity"
+    "file_name": {
+      "type": "string"
     },
-    "animation": {
-      "type": "Animation"
+    "mime_type": {
+      "type": "string"
+    },
+    "file_size": {
+      "type": "integer"
     }
   },
-  "CallbackGame": {
+  "VideoChatEnded": {
+    "duration": {
+      "required": true,
+      "type": "integer"
+    }
   },
-  "GameHighScore": {
-    "position": {
-      "type": "integer",
-      "required": true
+  "VideoChatParticipantsInvited": {
+    "users": {
+      "required": true,
+      "type": "array",
+      "items": "User"
+    }
+  },
+  "VideoChatScheduled": {
+    "start_date": {
+      "required": true,
+      "type": "integer"
+    }
+  },
+  "VideoChatStarted": {},
+  "VideoNote": {
+    "file_id": {
+      "required": true,
+      "type": "string"
     },
-    "user": {
-      "type": "User",
-      "required": true
+    "file_unique_id": {
+      "required": true,
+      "type": "string"
     },
-    "score": {
-      "type": "integer",
-      "required": true
+    "length": {
+      "required": true,
+      "type": "integer"
+    },
+    "duration": {
+      "required": true,
+      "type": "integer"
+    },
+    "thumbnail": {
+      "type": "PhotoSize"
+    },
+    "file_size": {
+      "type": "integer"
+    }
+  },
+  "Voice": {
+    "file_id": {
+      "required": true,
+      "type": "string"
+    },
+    "file_unique_id": {
+      "required": true,
+      "type": "string"
+    },
+    "duration": {
+      "required": true,
+      "type": "integer"
+    },
+    "mime_type": {
+      "type": "string"
+    },
+    "file_size": {
+      "type": "integer"
+    }
+  },
+  "WebAppData": {
+    "data": {
+      "required": true,
+      "type": "string"
+    },
+    "button_text": {
+      "required": true,
+      "type": "string"
+    }
+  },
+  "WebAppInfo": {
+    "url": {
+      "required": true,
+      "type": "string"
+    }
+  },
+  "WebhookInfo": {
+    "url": {
+      "required": true,
+      "type": "string"
+    },
+    "has_custom_certificate": {
+      "required": true,
+      "type": "boolean"
+    },
+    "pending_update_count": {
+      "required": true,
+      "type": "integer"
+    },
+    "ip_address": {
+      "type": "string"
+    },
+    "last_error_date": {
+      "type": "integer"
+    },
+    "last_error_message": {
+      "type": "string"
+    },
+    "last_synchronization_error_date": {
+      "type": "integer"
+    },
+    "max_connections": {
+      "type": "integer"
+    },
+    "allowed_updates": {
+      "type": "array",
+      "items": "string"
+    }
+  },
+  "WriteAccessAllowed": {
+    "from_request": {
+      "type": "boolean"
+    },
+    "web_app_name": {
+      "type": "string"
+    },
+    "from_attachment_menu": {
+      "type": "boolean"
     }
   }
 }
