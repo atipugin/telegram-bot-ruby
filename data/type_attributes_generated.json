@@ -5436,9 +5436,7 @@
   "SuggestedPostPrice": {
     "currency": {
       "required": true,
-      "type": "string",
-      "required_value": "one",
-      "default": "one"
+      "type": "string"
     },
     "amount": {
       "required": true,

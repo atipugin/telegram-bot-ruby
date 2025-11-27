@@ -200,6 +200,7 @@ class TelegramApiParser
     # Check for special required_value (discriminator fields for union type members)
     # Patterns: 'always "value"' or 'must be value'
     # Note: HTML uses Unicode smart quotes (\u201C and \u201D) instead of regular quotes
+    # Exclude patterns like "must be one of X or Y" (multiple choice, not discriminator)
     discriminator_fields = ['type', 'source', 'status', 'currency']
     if discriminator_fields.include?(field_name)
       # Try "always X" pattern first (with regular or Unicode quotes)
@@ -215,8 +216,9 @@ class TelegramApiParser
         # Must be pattern with quotes: must be "data"
         attribute['required_value'] = match[1].strip
         attribute['default'] = match[1].strip
-      elsif (match = description.match(/must be\s+(\w+)/i))
-        # Must be pattern without quotes: must be data
+      elsif !description.match?(/must be\s+one\s+of/i) && (match = description.match(/must be\s+(\w+)\b/i))
+        # Must be pattern without quotes: must be data, must be default
+        # Explicitly exclude "must be one of" pattern before trying to match
         attribute['required_value'] = match[1].strip
         attribute['default'] = match[1].strip
       end
