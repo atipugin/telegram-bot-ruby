@@ -23,8 +23,9 @@ module Telegram
   end
 end
 
-loader = Zeitwerk::Loader.new
-loader.inflector = Zeitwerk::GemInflector.new(__FILE__)
-loader.inflector.inflect('endpoints' => 'ENDPOINTS')
-loader.push_dir("#{__dir__}/bot", namespace: Telegram::Bot)
-loader.setup
+LOADER = Zeitwerk::Loader.new
+LOADER.inflector = Zeitwerk::GemInflector.new(__FILE__)
+LOADER.inflector.inflect('endpoints' => 'ENDPOINTS')
+LOADER.push_dir("#{__dir__}/bot", namespace: Telegram::Bot)
+LOADER.setup
+LOADER.eager_load if ENV['EAGER_LOAD'] == 'true'
