@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require_relative 'telegram_api_parser'
+require_relative 'docs_parsers/types_parser'
+require_relative 'docs_parsers/methods_parser'
 
 desc 'Parse Telegram Bot API documentation and generate type_attributes.json'
 task :parse_docs do
@@ -9,7 +10,7 @@ task :parse_docs do
   puts "=" * 80
   puts ""
 
-  parser = TelegramApiParser.new
+  parser = DocsParsers::TypesParser.new
   parser.fetch
   parser.parse
   parser.add_custom_types!
@@ -21,6 +22,28 @@ task :parse_docs do
   puts "=" * 80
   puts "Summary:"
   puts "  Generated #{parser.instance_variable_get(:@types).size} types"
+  puts "  File: #{output_file}"
+  puts "=" * 80
+end
+
+desc 'Parse Telegram Bot API documentation and generate methods.json'
+task :parse_methods do
+  puts "=" * 80
+  puts "Telegram Bot API Methods Generator"
+  puts "=" * 80
+  puts ""
+
+  parser = DocsParsers::MethodsParser.new
+  parser.fetch
+  parser.parse
+
+  output_file = ENV['OUTPUT'] || "#{__dir__}/../data/methods.json"
+  parser.save(output_file)
+
+  puts ""
+  puts "=" * 80
+  puts "Summary:"
+  puts "  Generated #{parser.instance_variable_get(:@methods).size} methods"
   puts "  File: #{output_file}"
   puts "=" * 80
 end

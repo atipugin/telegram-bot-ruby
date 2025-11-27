@@ -6,9 +6,10 @@ require 'uri'
 require 'nokogiri'
 require 'json'
 
-# Parser for Telegram Bot API documentation
-# Generates type_attributes.json from https://core.telegram.org/bots/api
-class TelegramApiParser
+module DocsParsers
+  # Parser for Telegram Bot API documentation types
+  # Generates type_attributes.json from https://core.telegram.org/bots/api
+  class TypesParser
   TYPE_MAPPING = {
     'Integer' => 'integer',
     'String' => 'string',
@@ -367,5 +368,6 @@ class TelegramApiParser
     }
 
     puts "  Custom: Error (added manually)"
+  end
   end
 end
