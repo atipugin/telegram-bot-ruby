@@ -15,6 +15,7 @@ Metrics/BlockLength:
   AllowedMethods:
     - context
     - describe
+    - namespace
     - task
 
 Metrics/ClassLength:
