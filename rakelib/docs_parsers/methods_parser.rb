@@ -2,7 +2,6 @@
 
 require 'open-uri'
 require 'nokogiri'
-require 'json'
 
 module DocsParsers
   # Parser for Telegram Bot API documentation methods.
