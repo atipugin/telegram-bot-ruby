@@ -20,4 +20,4 @@ end
 
 require_relative '../lib/telegram/bot'
 
-Telegram::Bot::LOADER.eager_load
+Telegram::Bot.eager_load!
