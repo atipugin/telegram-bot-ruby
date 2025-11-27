@@ -1,4 +1,3 @@
-#!/usr/bin/env ruby
 # frozen_string_literal: true
 
 require 'open-uri'
@@ -213,9 +212,9 @@ module DocsParsers
 
     def fetch
       puts "Fetching #{@url}..."
-      html = URI.open(@url).read
+      html = URI.parse(@url).open
       @doc = Nokogiri::HTML(html)
-      puts "✓ Fetched successfully"
+      puts '✓ Fetched successfully'
     end
 
     def parse
@@ -235,11 +234,11 @@ module DocsParsers
         description = get_description(header)
         return_type = parse_return_type(method_name, description)
 
-        if return_type
-          @methods[method_name] = return_type
-          puts "  Method: #{method_name} => #{return_type}"
-          method_count += 1
-        end
+        next unless return_type
+
+        @methods[method_name] = return_type
+        puts "  Method: #{method_name} => #{return_type}"
+        method_count += 1
       end
 
       puts "\nParsing complete:"
@@ -277,9 +276,7 @@ module DocsParsers
       # "Returns Message or True"
 
       # Pattern 1: "Returns True on success" or "Returns True"
-      if description.match?(/returns?\s+True\b/i) && !description.match?(/\s+or\s+/i)
-        return 'Types::Bool'
-      end
+      return 'Types::Bool' if description.match?(/returns?\s+True\b/i) && !description.match?(/\s+or\s+/i)
 
       # Pattern 2: "Returns an Array of X" or "Returns Array of X"
       if (match = description.match(/returns?\s+(?:an?\s+)?Array of\s+(\w+)/i))
@@ -320,6 +317,7 @@ module DocsParsers
         type_name = match[1].strip
         skip_words = %w[information the message]
         return nil if skip_words.include?(type_name)
+
         return map_type(type_name)
       end
 
@@ -347,7 +345,7 @@ module DocsParsers
 
     public
 
-    def to_json
+    def to_json(*_args)
       # Sort methods alphabetically for consistency
       sorted_methods = @methods.keys.sort.each_with_object({}) do |key, hash|
         hash[key] = @methods[key]
