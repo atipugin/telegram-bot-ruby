@@ -20,12 +20,11 @@ module Telegram
     def self.configure
       yield(configuration)
     end
+
+    LOADER = Zeitwerk::Loader.new
+    LOADER.inflector = Zeitwerk::GemInflector.new(__FILE__)
+    LOADER.inflector.inflect('endpoints' => 'ENDPOINTS')
+    LOADER.push_dir("#{__dir__}/bot", namespace: Telegram::Bot)
+    LOADER.setup
   end
 end
-
-LOADER = Zeitwerk::Loader.new
-LOADER.inflector = Zeitwerk::GemInflector.new(__FILE__)
-LOADER.inflector.inflect('endpoints' => 'ENDPOINTS')
-LOADER.push_dir("#{__dir__}/bot", namespace: Telegram::Bot)
-LOADER.setup
-LOADER.eager_load if ENV['EAGER_LOAD'] == 'true'

@@ -4,7 +4,6 @@ require 'dotenv/load'
 
 ENV['BOT_API_ENV'] ||= 'test'
 ENV['BOT_API_TOKEN'] ||= 'test_api_token'
-ENV['EAGER_LOAD'] = 'true'
 
 require 'vcr'
 
@@ -20,3 +19,5 @@ VCR.configure do |config|
 end
 
 require_relative '../lib/telegram/bot'
+
+Telegram::Bot::LOADER.eager_load
