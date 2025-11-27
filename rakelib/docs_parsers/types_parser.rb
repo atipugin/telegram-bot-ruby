@@ -225,16 +225,13 @@ module DocsParsers
   #
   # @example Basic usage
   #   parser = TypesParser.new
-  #   parser.fetch                   # Fetch HTML from Telegram Bot API
-  #   parser.parse                   # Parse all types from HTML
-  #   parser.add_custom_types!       # Add custom types like Error
-  #   parser.save('types.json')  # Save to file
+  #   types = parser.parse  # Fetch, parse, and return all types as a hash
+  #   File.write('types.json', JSON.pretty_generate(types))
   #
-  # @example Programmatic usage
+  # @example With custom URL
   #   parser = TypesParser.new('https://core.telegram.org/bots/api')
-  #   parser.fetch
   #   types = parser.parse
-  #   json_string = parser.to_json  # Get JSON string without saving
+  #   # Use types hash directly or save to file
   #
   # @see https://core.telegram.org/bots/api Official Telegram Bot API documentation
   #
@@ -275,28 +272,41 @@ module DocsParsers
       /must be\s+["'\u201C\u201D](.+?)["'\u201C\u201D]/i
     ].freeze
 
+    # Creates a new types parser instance.
+    #
+    # @param url [String] The URL of the Telegram Bot API documentation page
+    # @return [TypesParser] A new parser instance
+    #
+    # @example Create parser with default URL
+    #   parser = TypesParser.new
+    #
+    # @example Create parser with custom URL
+    #   parser = TypesParser.new('https://example.com/api')
     def initialize(url = 'https://core.telegram.org/bots/api')
       @url = URI(url)
-      @doc = nil
-      @types = {}
     end
 
-    def fetch
-      puts "Fetching #{@url}..."
-      html = URI.parse(@url).open
-      @doc = Nokogiri::HTML(html)
-      puts '✓ Fetched successfully'
-    end
-
+    # Fetches and parses all type definitions from the Telegram Bot API documentation.
+    #
+    # Downloads the HTML documentation, iterates through all h4 headers to
+    # identify type definitions, categorizes them as regular types, union types,
+    # or empty types, adds custom types, and returns a sorted hash.
+    #
+    # @return [Hash{String => Hash}] A hash mapping type names to their
+    #   attribute definitions, sorted alphabetically by type name
+    # @raise [OpenURI::HTTPError] If the HTTP request fails
+    # @raise [SocketError] If network connection fails
+    #
+    # @example
+    #   parser.parse
+    #   #=> {"User" => {"id" => {"type" => "integer", "required" => true}, ...}}
     def parse
-      return unless @doc
+      types = {}
 
-      type_count = 0
-      union_count = 0
-      empty_count = 0
+      doc = fetch_document
 
       # Find all h4 headers (type definitions)
-      @doc.css('h4').each do |header|
+      doc.css('h4').each do |header|
         type_name = header.text.strip
         next if type_name.empty?
 
@@ -306,28 +316,128 @@ module DocsParsers
         list = find_following_list(header)
 
         if union_type?(description, table, list)
-          parse_union_type(type_name, list)
-          union_count += 1
+          parse_union_type(types, type_name, list)
         elsif empty_type?(description, table)
-          parse_empty_type(type_name)
-          empty_count += 1
+          parse_empty_type(types, type_name)
         elsif table && type_table?(table)
-          parse_regular_type(type_name, table)
-          type_count += 1
+          parse_regular_type(types, type_name, table)
         end
       end
 
-      puts "\nParsing complete:"
-      puts "  Regular types: #{type_count}"
-      puts "  Union types: #{union_count}"
-      puts "  Empty types: #{empty_count}"
-      puts "  Total: #{@types.size}"
+      add_custom_types!(types)
 
-      @types
+      # Sort types alphabetically for consistency
+      types.keys.sort.each_with_object({}) do |key, hash|
+        hash[key] = types[key]
+      end
     end
 
     private
 
+    # Fetches the HTML documentation from the configured URL.
+    #
+    # @return [Nokogiri::HTML::Document] The parsed HTML document
+    # @raise [OpenURI::HTTPError] If the HTTP request fails
+    # @raise [SocketError] If network connection fails
+    def fetch_document
+      html = URI.parse(@url).open
+      Nokogiri::HTML(html)
+    end
+
+    # Adds custom types not present in the official documentation.
+    #
+    # Some types (like Error for API error responses) are not documented
+    # in the official API docs but are needed for proper SDK functionality.
+    #
+    # @param types [Hash] The types hash to add custom types to
+    # @return [void]
+    def add_custom_types!(types)
+      types['Error'] = {
+        'ok' => {
+          'type' => 'boolean',
+          'required' => true
+        },
+        'error_code' => {
+          'type' => 'integer',
+          'required' => true
+        },
+        'description' => {
+          'type' => 'string',
+          'required' => true
+        },
+        'parameters' => {
+          'type' => 'ResponseParameters'
+        }
+      }
+    end
+
+    # Extracts the description text following a type header.
+    #
+    # Collects all paragraph elements between the h4 header and the next
+    # table, list, or section header, concatenating them into a single description.
+    #
+    # @param header [Nokogiri::XML::Element] The h4 element containing the type name
+    # @return [String] The combined description text from all following paragraphs
+    def get_description(header)
+      current = header.next_element
+      descriptions = []
+
+      # Collect all paragraph descriptions before table/list
+      while current && current.name != 'h4' && current.name != 'h3'
+        break if STOP_TAGS.include?(current.name)
+
+        descriptions << current.text.strip if current.name == 'p'
+        current = current.next_element
+      end
+
+      descriptions.join(' ')
+    end
+
+    # Finds the first table element following a header.
+    #
+    # Searches through sibling elements until finding a table or
+    # reaching the next section header.
+    #
+    # @param header [Nokogiri::XML::Element] The starting header element
+    # @return [Nokogiri::XML::Element, nil] The table element, or nil if not found
+    def find_following_table(header)
+      current = header.next_element
+      while current && current.name != 'h4' && current.name != 'h3'
+        return current if current.name == 'table'
+
+        current = current.next_element
+      end
+      nil
+    end
+
+    # Finds the first unordered list element following a header.
+    #
+    # Searches through sibling elements (up to 5) until finding a ul or
+    # reaching the next section header.
+    #
+    # @param header [Nokogiri::XML::Element] The starting header element
+    # @return [Nokogiri::XML::Element, nil] The ul element, or nil if not found
+    def find_following_list(header)
+      current = header.next_element
+      count = 0
+      while current && current.name != 'h4' && current.name != 'h3' && count < 5
+        return current if current.name == 'ul'
+
+        current = current.next_element
+        count += 1
+      end
+      nil
+    end
+
+    # Checks if a type definition represents a union type.
+    #
+    # Union types are identified by having a description with union keywords
+    # and a list of member types, but no field table.
+    #
+    # @param description [String, nil] The type's description text
+    # @param table [Nokogiri::XML::Element, nil] The field table element, if present
+    # @param list [Nokogiri::XML::Element, nil] The member list element, if present
+    # @return [Boolean] true if the type is a union type
     def union_type?(description, table, list)
       return false unless description && list
 
@@ -336,6 +446,14 @@ module DocsParsers
       has_union_keyword && !table
     end
 
+    # Checks if a type definition represents an empty type.
+    #
+    # Empty types are marker types with no fields, identified by descriptions
+    # containing phrases like "currently holds no information".
+    #
+    # @param description [String, nil] The type's description text
+    # @param table [Nokogiri::XML::Element, nil] The field table element, if present
+    # @return [Boolean] true if the type is an empty type
     def empty_type?(description, table)
       return false unless description
       return false if table
@@ -343,12 +461,28 @@ module DocsParsers
       EMPTY_TYPE_KEYWORDS.any? { |pattern| description.match?(pattern) }
     end
 
+    # Checks if a table element is a type field definition table.
+    #
+    # Type tables have headers "Field | Type | Description" as opposed to
+    # method parameter tables which have different headers.
+    #
+    # @param table [Nokogiri::XML::Element] The table element to check
+    # @return [Boolean] true if the table has type field headers
     def type_table?(table)
       headers = table.css('thead tr th, tr:first-child th').map { |x| x.text.strip }
       headers == %w[Field Type Description]
     end
 
-    def parse_union_type(type_name, list)
+    # Parses a union type definition from a list element.
+    #
+    # Extracts member type names from the list items and stores them
+    # as an array under the 'type' key.
+    #
+    # @param types [Hash] The types hash to add the parsed type to
+    # @param type_name [String] The name of the union type
+    # @param list [Nokogiri::XML::Element, nil] The ul element containing member types
+    # @return [void]
+    def parse_union_type(types, type_name, list)
       return unless list
 
       # Extract member type names from the list
@@ -361,16 +495,30 @@ module DocsParsers
 
       return unless members.any?
 
-      @types[type_name] = { 'type' => members }
-      puts "  Union: #{type_name} (#{members.size} members)"
+      types[type_name] = { 'type' => members }
     end
 
-    def parse_empty_type(type_name)
-      @types[type_name] = {}
-      puts "  Empty: #{type_name}"
+    # Parses an empty type definition.
+    #
+    # Creates an empty hash for marker types that have no fields.
+    #
+    # @param types [Hash] The types hash to add the parsed type to
+    # @param type_name [String] The name of the empty type
+    # @return [void]
+    def parse_empty_type(types, type_name)
+      types[type_name] = {}
     end
 
-    def parse_regular_type(type_name, table)
+    # Parses a regular type definition from a table element.
+    #
+    # Extracts field names, types, and descriptions from table rows
+    # and builds a hash of attribute definitions.
+    #
+    # @param types [Hash] The types hash to add the parsed type to
+    # @param type_name [String] The name of the type
+    # @param table [Nokogiri::XML::Element] The table element containing field definitions
+    # @return [void]
+    def parse_regular_type(types, type_name, table)
       attributes = {}
 
       table.css('tbody tr, tr').each do |row|
@@ -390,10 +538,22 @@ module DocsParsers
 
       return unless attributes.any?
 
-      @types[type_name] = attributes
-      puts "  Type: #{type_name} (#{attributes.size} fields)"
+      types[type_name] = attributes
     end
 
+    # Parses a single attribute from a table row.
+    #
+    # Extracts type information, required status, default values,
+    # size constraints, and discriminator values from the field definition.
+    #
+    # @param field_name [String] The name of the field
+    # @param type_html [String] The HTML content of the type cell
+    # @param description [String] The description text for the field
+    # @return [Hash, nil] A hash containing the attribute properties, or nil if invalid
+    #
+    # @example
+    #   parse_attribute('id', 'Integer', 'Unique identifier for this user')
+    #   #=> {"type" => "integer", "required" => true}
     def parse_attribute(field_name, type_html, description)
       attribute = {}
 
@@ -452,21 +612,23 @@ module DocsParsers
       attribute
     end
 
-    def extract_discriminator_value(description)
-      # Try standard patterns first
-      DISCRIMINATOR_PATTERNS.each do |pattern|
-        match = description.match(pattern)
-        return match[1].strip if match
-      end
-
-      # Must be pattern without quotes: must be data, must be default
-      # Explicitly exclude "must be one of" pattern before trying to match
-      return nil if description.match?(/must be\s+one\s+of/i)
-
-      match = description.match(/must be\s+(\w+)\b/i)
-      match ? match[1].strip : nil
-    end
-
+    # Parses type information from HTML content.
+    #
+    # Handles various type formats including nested arrays, regular arrays,
+    # union types, and simple types.
+    #
+    # @param type_html [String] The HTML content containing type information
+    # @return [Hash] A hash with type information
+    #
+    # @example Simple type
+    #   parse_type_info('Integer') #=> {"type" => "integer"}
+    #
+    # @example Array type
+    #   parse_type_info('Array of String') #=> {"type" => "array", "items" => "string"}
+    #
+    # @example Nested array
+    #   parse_type_info('Array of Array of Button')
+    #   #=> {"type" => "array", "items" => {"type" => "array", "items" => "Button"}}
     def parse_type_info(type_html)
       # Parse HTML fragment to extract type text
       doc = Nokogiri::HTML.fragment(type_html)
@@ -521,6 +683,35 @@ module DocsParsers
       { 'type' => map_type(type_name) }
     end
 
+    # Extracts a discriminator value from a field description.
+    #
+    # Looks for patterns like "always X" or "must be X" in the description
+    # to identify constant values for discriminator fields.
+    #
+    # @param description [String] The field description text
+    # @return [String, nil] The discriminator value, or nil if not found
+    def extract_discriminator_value(description)
+      # Try standard patterns first
+      DISCRIMINATOR_PATTERNS.each do |pattern|
+        match = description.match(pattern)
+        return match[1].strip if match
+      end
+
+      # Must be pattern without quotes: must be data, must be default
+      # Explicitly exclude "must be one of" pattern before trying to match
+      return nil if description.match?(/must be\s+one\s+of/i)
+
+      match = description.match(/must be\s+(\w+)\b/i)
+      match ? match[1].strip : nil
+    end
+
+    # Extracts a clean type name from text.
+    #
+    # Removes parenthetical notes and extra text, returning only
+    # the first word as the type name.
+    #
+    # @param text [String] The text containing a type name
+    # @return [String] The extracted type name
     def extract_type_name(text)
       # Extract clean type name from text
       text.strip
@@ -529,84 +720,21 @@ module DocsParsers
           .strip
     end
 
+    # Maps a Telegram API type name to its internal representation.
+    #
+    # Converts primitive type names (Integer, String, etc.) to lowercase
+    # equivalents using TYPE_MAPPING, or returns custom type names as-is.
+    #
+    # @param type_name [String] The type name from the API documentation
+    # @return [String] The mapped type name
+    #
+    # @example Primitive type
+    #   map_type('Integer') #=> "integer"
+    #
+    # @example Custom type
+    #   map_type('Message') #=> "Message"
     def map_type(type_name)
       TYPE_MAPPING[type_name] || type_name
-    end
-
-    def find_following_table(header)
-      current = header.next_element
-      while current && current.name != 'h4' && current.name != 'h3'
-        return current if current.name == 'table'
-
-        current = current.next_element
-      end
-      nil
-    end
-
-    def find_following_list(header)
-      current = header.next_element
-      count = 0
-      while current && current.name != 'h4' && current.name != 'h3' && count < 5
-        return current if current.name == 'ul'
-
-        current = current.next_element
-        count += 1
-      end
-      nil
-    end
-
-    def get_description(header)
-      current = header.next_element
-      descriptions = []
-
-      # Collect all paragraph descriptions before table/list
-      while current && current.name != 'h4' && current.name != 'h3'
-        break if STOP_TAGS.include?(current.name)
-
-        descriptions << current.text.strip if current.name == 'p'
-        current = current.next_element
-      end
-
-      descriptions.join(' ')
-    end
-
-    public
-
-    def to_json(*_args)
-      # Sort types alphabetically for consistency
-      sorted_types = @types.keys.sort.each_with_object({}) do |key, hash|
-        hash[key] = @types[key]
-      end
-
-      JSON.pretty_generate(sorted_types)
-    end
-
-    def save(filename)
-      File.write(filename, to_json)
-      puts "\n✓ Saved to #{filename}"
-    end
-
-    def add_custom_types!
-      # Add Error type (custom type for API error responses, not in official docs)
-      @types['Error'] = {
-        'ok' => {
-          'type' => 'boolean',
-          'required' => true
-        },
-        'error_code' => {
-          'type' => 'integer',
-          'required' => true
-        },
-        'description' => {
-          'type' => 'string',
-          'required' => true
-        },
-        'parameters' => {
-          'type' => 'ResponseParameters'
-        }
-      }
-
-      puts '  Custom: Error (added manually)'
     end
   end
 end

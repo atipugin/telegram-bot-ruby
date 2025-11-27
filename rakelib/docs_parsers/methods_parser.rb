@@ -170,15 +170,13 @@ module DocsParsers
   #
   # @example Basic usage
   #   parser = MethodsParser.new
-  #   parser.fetch                  # Fetch HTML from Telegram Bot API
-  #   parser.parse                  # Parse all methods from HTML
-  #   parser.save('endpoints.json')   # Save to file
+  #   methods = parser.parse  # Fetch, parse, and return all methods as a hash
+  #   File.write('endpoints.json', JSON.pretty_generate(methods))
   #
-  # @example Programmatic usage
+  # @example With custom URL
   #   parser = MethodsParser.new('https://core.telegram.org/bots/api')
-  #   parser.fetch
-  #   methods = parser.parse        # Returns hash of method_name => return_type
-  #   json_string = parser.to_json  # Get JSON string without saving
+  #   methods = parser.parse
+  #   # Use methods hash directly or save to file
   #
   # @example Generated output format
   #   {
@@ -204,26 +202,41 @@ module DocsParsers
       'Int' => 'Types::Integer'
     }.freeze
 
+    # Creates a new methods parser instance.
+    #
+    # @param url [String] The URL of the Telegram Bot API documentation page
+    # @return [MethodsParser] A new parser instance
+    #
+    # @example Create parser with default URL
+    #   parser = MethodsParser.new
+    #
+    # @example Create parser with custom URL
+    #   parser = MethodsParser.new('https://example.com/api')
     def initialize(url = 'https://core.telegram.org/bots/api')
       @url = URI(url)
-      @doc = nil
-      @methods = {}
     end
 
-    def fetch
-      puts "Fetching #{@url}..."
-      html = URI.parse(@url).open
-      @doc = Nokogiri::HTML(html)
-      puts '✓ Fetched successfully'
-    end
-
+    # Fetches and parses all API methods from the Telegram Bot API documentation.
+    #
+    # Downloads the HTML documentation, iterates through all h4 headers to
+    # identify method definitions, extracts their descriptions, determines
+    # return types, and returns a sorted hash.
+    #
+    # @return [Hash{String => String}] A hash mapping method names to return types,
+    #   sorted alphabetically by method name
+    # @raise [OpenURI::HTTPError] If the HTTP request fails
+    # @raise [SocketError] If network connection fails
+    #
+    # @example
+    #   parser.parse
+    #   #=> {"getMe" => "Types::User", "sendMessage" => "Types::Message"}
     def parse
-      return unless @doc
+      methods = {}
 
-      method_count = 0
+      doc = fetch_document
 
       # Find all h4 headers that represent methods
-      @doc.css('h4').each do |header|
+      doc.css('h4').each do |header|
         method_name = header.text.strip
         next if method_name.empty?
 
@@ -236,19 +249,34 @@ module DocsParsers
 
         next unless return_type
 
-        @methods[method_name] = return_type
-        puts "  Method: #{method_name} => #{return_type}"
-        method_count += 1
+        methods[method_name] = return_type
       end
 
-      puts "\nParsing complete:"
-      puts "  Total methods: #{method_count}"
-
-      @methods
+      # Sort methods alphabetically for consistency
+      methods.keys.sort.each_with_object({}) do |key, hash|
+        hash[key] = methods[key]
+      end
     end
 
     private
 
+    # Fetches the HTML documentation from the configured URL.
+    #
+    # @return [Nokogiri::HTML::Document] The parsed HTML document
+    # @raise [OpenURI::HTTPError] If the HTTP request fails
+    # @raise [SocketError] If network connection fails
+    def fetch_document
+      html = URI.parse(@url).open
+      Nokogiri::HTML(html)
+    end
+
+    # Extracts the description text following a method header.
+    #
+    # Collects all paragraph elements between the h4 header and the next
+    # table or section header, concatenating them into a single description.
+    #
+    # @param header [Nokogiri::XML::Element] The h4 element containing the method name
+    # @return [String] The combined description text from all following paragraphs
     def get_description(header)
       current = header.next_element
       descriptions = []
@@ -264,6 +292,24 @@ module DocsParsers
       descriptions.join(' ')
     end
 
+    # Parses the return type from a method's description text.
+    #
+    # Analyzes the description using multiple regex patterns to identify
+    # what type the method returns. Handles various documentation styles
+    # including boolean returns, arrays, union types, and simple objects.
+    #
+    # @param method_name [String] The name of the method (used for fallback lookups)
+    # @param description [String] The method's description text
+    # @return [String, nil] The dry-types expression for the return type,
+    #   or nil if the type couldn't be determined
+    #
+    # @example Boolean return
+    #   parse_return_type('setWebhook', 'Returns True on success')
+    #   #=> "Types::Bool"
+    #
+    # @example Array return
+    #   parse_return_type('getUpdates', 'Returns an Array of Update objects')
+    #   #=> "Types::Array.of(Types::Update)"
     def parse_return_type(method_name, description)
       return nil if description.empty?
 
@@ -332,28 +378,25 @@ module DocsParsers
       end
     end
 
+    # Maps a Telegram API type name to its dry-types equivalent.
+    #
+    # Looks up the type in TYPE_MAPPING for primitive types (Integer, String, etc.)
+    # and prefixes custom types with "Types::".
+    #
+    # @param type_name [String] The type name from the API documentation
+    # @return [String] The corresponding dry-types type reference
+    #
+    # @example Primitive type
+    #   map_type('Integer') #=> "Types::Integer"
+    #
+    # @example Custom type
+    #   map_type('Message') #=> "Types::Message"
     def map_type(type_name)
       # Check if it's a primitive type
       return TYPE_MAPPING[type_name] if TYPE_MAPPING.key?(type_name)
 
       # Otherwise, assume it's a custom type
       "Types::#{type_name}"
-    end
-
-    public
-
-    def to_json(*_args)
-      # Sort methods alphabetically for consistency
-      sorted_methods = @methods.keys.sort.each_with_object({}) do |key, hash|
-        hash[key] = @methods[key]
-      end
-
-      JSON.pretty_generate(sorted_methods)
-    end
-
-    def save(filename)
-      File.write(filename, to_json)
-      puts "\n✓ Saved to #{filename}"
     end
   end
 end

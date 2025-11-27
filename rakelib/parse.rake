@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'json'
 require_relative 'docs_parsers/types_parser'
 require_relative 'docs_parsers/methods_parser'
 
@@ -9,13 +10,11 @@ namespace :parse do
     output_file = "#{__dir__}/../data/types.json"
 
     parser = DocsParsers::TypesParser.new
-    parser.fetch
-    parser.parse
-    parser.add_custom_types!
-    parser.save(output_file)
+    types = parser.parse
 
-    puts '✓ Parsed types'
-    puts "  Generated #{parser.instance_variable_get(:@types).size} types"
+    File.write(output_file, JSON.pretty_generate(types))
+    puts "\n✓ Saved to #{output_file}"
+    puts "  Generated #{types.size} types"
   end
 
   desc 'Parse Telegram Bot API documentation and generate endpoints.json'
@@ -23,11 +22,10 @@ namespace :parse do
     output_file = "#{__dir__}/../data/endpoints.json"
 
     parser = DocsParsers::MethodsParser.new
-    parser.fetch
-    parser.parse
-    parser.save(output_file)
+    methods = parser.parse
 
-    puts '✓ Parsed methods'
-    puts "  Generated #{parser.instance_variable_get(:@methods).size} methods"
+    File.write(output_file, JSON.pretty_generate(methods))
+    puts "\n✓ Saved to #{output_file}"
+    puts "  Generated #{methods.size} methods"
   end
 end
