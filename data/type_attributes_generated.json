@@ -112,7 +112,9 @@
   "BackgroundFillFreeformGradient": {
     "type": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "freeform_gradient",
+      "default": "freeform_gradient"
     },
     "colors": {
       "required": true,
@@ -123,7 +125,9 @@
   "BackgroundFillGradient": {
     "type": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "gradient",
+      "default": "gradient"
     },
     "top_color": {
       "required": true,
@@ -141,7 +145,9 @@
   "BackgroundFillSolid": {
     "type": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "solid",
+      "default": "solid"
     },
     "color": {
       "required": true,
@@ -159,7 +165,9 @@
   "BackgroundTypeChatTheme": {
     "type": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "chat_theme",
+      "default": "chat_theme"
     },
     "theme_name": {
       "required": true,
@@ -169,7 +177,9 @@
   "BackgroundTypeFill": {
     "type": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "fill",
+      "default": "fill"
     },
     "fill": {
       "required": true,
@@ -183,7 +193,9 @@
   "BackgroundTypePattern": {
     "type": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "pattern",
+      "default": "pattern"
     },
     "document": {
       "required": true,
@@ -209,7 +221,9 @@
   "BackgroundTypeWallpaper": {
     "type": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "wallpaper",
+      "default": "wallpaper"
     },
     "document": {
       "required": true,
@@ -667,7 +681,9 @@
   "ChatBoostSourceGiftCode": {
     "source": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "gift_code",
+      "default": "gift_code"
     },
     "user": {
       "required": true,
@@ -677,7 +693,9 @@
   "ChatBoostSourceGiveaway": {
     "source": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "giveaway",
+      "default": "giveaway"
     },
     "giveaway_message_id": {
       "required": true,
@@ -697,7 +715,9 @@
   "ChatBoostSourcePremium": {
     "source": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "premium",
+      "default": "premium"
     },
     "user": {
       "required": true,
@@ -963,7 +983,9 @@
   "ChatMemberAdministrator": {
     "status": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "administrator",
+      "default": "administrator"
     },
     "user": {
       "required": true,
@@ -1039,7 +1061,9 @@
   "ChatMemberBanned": {
     "status": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "kicked",
+      "default": "kicked"
     },
     "user": {
       "required": true,
@@ -1053,7 +1077,9 @@
   "ChatMemberLeft": {
     "status": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "left",
+      "default": "left"
     },
     "user": {
       "required": true,
@@ -1063,7 +1089,9 @@
   "ChatMemberMember": {
     "status": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "member",
+      "default": "member"
     },
     "user": {
       "required": true,
@@ -1076,7 +1104,9 @@
   "ChatMemberOwner": {
     "status": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "creator",
+      "default": "creator"
     },
     "user": {
       "required": true,
@@ -1093,7 +1123,9 @@
   "ChatMemberRestricted": {
     "status": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "restricted",
+      "default": "restricted"
     },
     "user": {
       "required": true,
@@ -4000,7 +4032,9 @@
   "MessageOriginChannel": {
     "type": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "channel",
+      "default": "channel"
     },
     "date": {
       "required": true,
@@ -4021,7 +4055,9 @@
   "MessageOriginChat": {
     "type": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "chat",
+      "default": "chat"
     },
     "date": {
       "required": true,
@@ -4038,7 +4074,9 @@
   "MessageOriginHiddenUser": {
     "type": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "hidden_user",
+      "default": "hidden_user"
     },
     "date": {
       "required": true,
@@ -4052,7 +4090,9 @@
   "MessageOriginUser": {
     "type": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "user",
+      "default": "user"
     },
     "date": {
       "required": true,
@@ -4135,7 +4175,9 @@
   "OwnedGiftRegular": {
     "type": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "regular",
+      "default": "regular"
     },
     "gift": {
       "required": true,
@@ -4184,7 +4226,9 @@
   "OwnedGiftUnique": {
     "type": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "unique",
+      "default": "unique"
     },
     "gift": {
       "required": true,
@@ -4250,7 +4294,9 @@
   "PaidMediaPhoto": {
     "type": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "photo",
+      "default": "photo"
     },
     "photo": {
       "required": true,
@@ -4261,7 +4307,9 @@
   "PaidMediaPreview": {
     "type": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "preview",
+      "default": "preview"
     },
     "width": {
       "type": "integer"
@@ -4286,7 +4334,9 @@
   "PaidMediaVideo": {
     "type": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "video",
+      "default": "video"
     },
     "video": {
       "required": true,
@@ -4706,7 +4756,9 @@
   "ReactionTypeCustomEmoji": {
     "type": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "custom_emoji",
+      "default": "custom_emoji"
     },
     "custom_emoji_id": {
       "required": true,
@@ -4716,7 +4768,9 @@
   "ReactionTypeEmoji": {
     "type": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "emoji",
+      "default": "emoji"
     },
     "emoji": {
       "required": true,
@@ -4726,13 +4780,17 @@
   "ReactionTypePaid": {
     "type": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "paid",
+      "default": "paid"
     }
   },
   "RefundedPayment": {
     "currency": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "XTR",
+      "default": "XTR"
     },
     "total_amount": {
       "required": true,
@@ -4828,19 +4886,25 @@
   "RevenueWithdrawalStateFailed": {
     "type": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "failed",
+      "default": "failed"
     }
   },
   "RevenueWithdrawalStatePending": {
     "type": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "pending",
+      "default": "pending"
     }
   },
   "RevenueWithdrawalStateSucceeded": {
     "type": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "succeeded",
+      "default": "succeeded"
     },
     "date": {
       "required": true,
@@ -5108,7 +5172,9 @@
   "StoryAreaTypeLink": {
     "type": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "link",
+      "default": "link"
     },
     "url": {
       "required": true,
@@ -5118,7 +5184,9 @@
   "StoryAreaTypeLocation": {
     "type": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "location",
+      "default": "location"
     },
     "latitude": {
       "required": true,
@@ -5135,7 +5203,9 @@
   "StoryAreaTypeSuggestedReaction": {
     "type": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "suggested_reaction",
+      "default": "suggested_reaction"
     },
     "reaction_type": {
       "required": true,
@@ -5151,7 +5221,9 @@
   "StoryAreaTypeUniqueGift": {
     "type": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "unique_gift",
+      "default": "unique_gift"
     },
     "name": {
       "required": true,
@@ -5161,7 +5233,9 @@
   "StoryAreaTypeWeather": {
     "type": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "weather",
+      "default": "weather"
     },
     "temperature": {
       "required": true,
@@ -5282,7 +5356,9 @@
   "SuggestedPostPrice": {
     "currency": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "one",
+      "default": "one"
     },
     "amount": {
       "required": true,
@@ -5347,7 +5423,9 @@
   "TransactionPartnerAffiliateProgram": {
     "type": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "affiliate_program",
+      "default": "affiliate_program"
     },
     "sponsor_user": {
       "type": "User"
@@ -5360,7 +5438,9 @@
   "TransactionPartnerChat": {
     "type": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "chat",
+      "default": "chat"
     },
     "chat": {
       "required": true,
@@ -5373,7 +5453,9 @@
   "TransactionPartnerFragment": {
     "type": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "fragment",
+      "default": "fragment"
     },
     "withdrawal_state": {
       "type": "RevenueWithdrawalState"
@@ -5382,19 +5464,25 @@
   "TransactionPartnerOther": {
     "type": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "other",
+      "default": "other"
     }
   },
   "TransactionPartnerTelegramAds": {
     "type": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "telegram_ads",
+      "default": "telegram_ads"
     }
   },
   "TransactionPartnerTelegramApi": {
     "type": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "telegram_api",
+      "default": "telegram_api"
     },
     "request_count": {
       "required": true,
@@ -5404,7 +5492,9 @@
   "TransactionPartnerUser": {
     "type": {
       "required": true,
-      "type": "string"
+      "type": "string",
+      "required_value": "user",
+      "default": "user"
     },
     "transaction_type": {
       "required": true,
