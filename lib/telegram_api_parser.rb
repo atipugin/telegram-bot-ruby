@@ -173,21 +173,20 @@ class TelegramApiParser
     end
 
     # Parse default from description: "Defaults to X" or "defaults to X"
+    # Only accept quoted strings or specific values (true/false/numbers)
+    # Skip patterns like "defaults to the value of X" (references to other fields)
     if (match = description.match(/defaults to\s+["'\u201C\u201D](.+?)["'\u201C\u201D]/i))
       # Default value in quotes: Defaults to "image/jpeg"
       attribute['default'] = match[1].strip
-    elsif (match = description.match(/defaults to\s+(\w+)/i))
-      # Default without quotes: defaults to true
-      value = match[1].strip
-      # Try to cast to appropriate type
-      if value =~ /^(true|false)$/i
-        attribute['default'] = value.downcase == 'true'
-      elsif value =~ /^\d+$/
-        attribute['default'] = value.to_i
-      else
-        attribute['default'] = value
-      end
+    elsif (match = description.match(/defaults to\s+(true|false)\b/i))
+      # Boolean default: defaults to true
+      attribute['default'] = match[1].downcase == 'true'
+    elsif (match = description.match(/defaults to\s+(\d+)\b/i))
+      # Numeric default: defaults to 0
+      attribute['default'] = match[1].to_i
     end
+    # Note: We intentionally skip unquoted word defaults to avoid capturing
+    # references like "defaults to the value of other_field"
 
     # Parse min_size and max_size from description
     # Patterns: "1-32 characters", "0-4096 characters", etc.

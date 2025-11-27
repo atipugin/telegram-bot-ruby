@@ -1283,8 +1283,7 @@
       "type": "boolean"
     },
     "can_manage_topics": {
-      "type": "boolean",
-      "default": "the"
+      "type": "boolean"
     }
   },
   "ChatPhoto": {
@@ -6049,8 +6048,7 @@
     },
     "allowed_updates": {
       "type": "array",
-      "items": "string",
-      "default": "all"
+      "items": "string"
     }
   },
   "WriteAccessAllowed": {
