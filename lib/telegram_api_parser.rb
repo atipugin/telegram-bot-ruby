@@ -181,9 +181,10 @@ class TelegramApiParser
     elsif (match = description.match(/defaults to\s+(true|false)\b/i))
       # Boolean default: defaults to true
       attribute['default'] = match[1].downcase == 'true'
-    elsif (match = description.match(/defaults to\s+(\d+)\b/i))
-      # Numeric default: defaults to 0
-      attribute['default'] = match[1].to_i
+    elsif (match = description.match(/defaults to\s+(\d+\.?\d*)\b/i))
+      # Numeric default: defaults to 0 or 0.0
+      value = match[1]
+      attribute['default'] = value.include?('.') ? value.to_f : value.to_i
     end
     # Note: We intentionally skip unquoted word defaults to avoid capturing
     # references like "defaults to the value of other_field"

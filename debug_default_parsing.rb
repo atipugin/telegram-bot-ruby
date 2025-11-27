@@ -31,13 +31,15 @@ if (match = description.match(/defaults to\s+(true|false)\b/i))
 end
 
 # Pattern 3 - Numeric
-if (match = description.match(/defaults to\s+(\d+)\b/i))
-  puts "3. Numeric: #{match[1].inspect}"
+if (match = description.match(/defaults to\s+(\d+\.?\d*)\b/i))
+  value = match[1]
+  result = value.include?('.') ? value.to_f : value.to_i
+  puts "3. Numeric: #{match[1].inspect} -> #{result.inspect}"
 end
 
 if !description.match(/defaults to\s+["'\u201C\u201D](.+?)["'\u201C\u201D]/i) &&
    !description.match(/defaults to\s+(true|false)\b/i) &&
-   !description.match(/defaults to\s+(\d+)\b/i)
+   !description.match(/defaults to\s+(\d+\.?\d*)\b/i)
   puts "NO MATCH (correctly skipping field reference)"
 end
 
