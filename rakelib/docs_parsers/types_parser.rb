@@ -7,16 +7,10 @@ module DocsParsers
   # Parser for Telegram Bot API documentation types.
   #
   # This parser automatically extracts type definitions from the official Telegram Bot API
-  # documentation page (https://core.telegram.org/bots/api) and generates a structured
-  # JSON file (types.json) that describes all API types with their fields,
-  # constraints, and metadata.
+  # documentation page (https://core.telegram.org/bots/api) and returns a structured
+  # hash that describes all API types with their fields, constraints, and metadata.
   #
   # == Why This Parser Exists
-  #
-  # The OpenAPI schema for Telegram Bot API is no longer being maintained by Telegram,
-  # making it necessary to parse the HTML documentation directly to keep type definitions
-  # up-to-date with the latest Bot API changes. This parser provides an automated solution
-  # to extract and structure type information from the official HTML documentation.
   #
   # The Telegram Bot API documentation is the single source of truth for API types, but
   # it's only available as HTML. To provide proper type checking, validation, and
@@ -29,18 +23,18 @@ module DocsParsers
   #
   # == Output Format
   #
-  # The parser generates a JSON file with the following structure:
+  # The #parse method returns a Ruby hash with the following structure:
   #
   #   {
-  #     "TypeName": {
-  #       "field_name": {
-  #         "type": "string|integer|boolean|number|array|CustomType",
-  #         "required": true,           // Present if field is required
-  #         "default": value,            // For boolean fields or fields with defaults
-  #         "items": "ItemType",         // For array types
-  #         "min_size": 1,              // For string fields with size constraints
-  #         "max_size": 32,             // For string fields with size constraints
-  #         "required_value": "value"    // For discriminator fields in union type members
+  #     "TypeName" => {
+  #       "field_name" => {
+  #         "type" => "string|integer|boolean|number|array|CustomType",
+  #         "required" => true,           # Present if field is required
+  #         "default" => value,           # For boolean fields or fields with defaults
+  #         "items" => "ItemType",        # For array types
+  #         "min_size" => 1,              # For string fields with size constraints
+  #         "max_size" => 32,             # For string fields with size constraints
+  #         "required_value" => "value"   # For discriminator fields in union type members
   #       }
   #     }
   #   }

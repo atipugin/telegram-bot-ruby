@@ -7,19 +7,16 @@ module DocsParsers
   # Parser for Telegram Bot API documentation methods.
   #
   # This parser automatically extracts method definitions from the official Telegram Bot API
-  # documentation page (https://core.telegram.org/bots/api) and generates a structured
-  # JSON file (endpoints.json) that maps method names to their return types.
+  # documentation page (https://core.telegram.org/bots/api) and returns a structured
+  # hash that maps method names to their return types.
   #
   # == Why This Parser Exists
   #
-  # The OpenAPI schema for Telegram Bot API is no longer being maintained by Telegram,
-  # making it necessary to parse the HTML documentation directly. While type definitions
-  # are important, knowing what each API method returns is equally crucial for proper
-  # type inference and SDK functionality. This parser provides an automated solution to
-  # extract method return type information from the official HTML documentation.
-  #
-  # The Telegram Bot API provides dozens of methods (sendMessage, getUpdates, etc.), each
-  # with specific return types. To provide accurate type information in the Ruby SDK, we need
+  # The Telegram Bot API documentation is the single source of truth for API methods, but
+  # it's only available as HTML. To provide proper type inference and SDK functionality,
+  # we need structured data about method return types. The Telegram Bot API provides dozens
+  # of methods (sendMessage, getUpdates, etc.), each with specific return types. To provide
+  # accurate type information in the Ruby SDK, we need
   # to know what each method returns. This parser:
   # - Eliminates manual maintenance of return type mappings
   # - Ensures the SDK stays in sync with the official API
@@ -29,14 +26,14 @@ module DocsParsers
   #
   # == Output Format
   #
-  # The parser generates a JSON file with the following structure:
+  # The #parse method returns a Ruby hash with the following structure:
   #
   #   {
-  #     "getMe": "Types::User",
-  #     "sendMessage": "Types::Message",
-  #     "getUpdates": "Types::Array.of(Types::Update)",
-  #     "stopPoll": "Types::Poll | Types::Bool",
-  #     "setWebhook": "Types::Bool"
+  #     "getMe" => "Types::User",
+  #     "sendMessage" => "Types::Message",
+  #     "getUpdates" => "Types::Array.of(Types::Update)",
+  #     "stopPoll" => "Types::Poll | Types::Bool",
+  #     "setWebhook" => "Types::Bool"
   #   }
   #
   # Each key is a method name (camelCase) and each value is a Ruby dry-types type expression.
