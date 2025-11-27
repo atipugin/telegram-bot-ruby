@@ -1,8 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require 'net/http'
-require 'uri'
+require 'open-uri'
 require 'nokogiri'
 require 'json'
 
@@ -42,10 +41,8 @@ module DocsParsers
 
   def fetch
     puts "Fetching #{@url}..."
-    response = Net::HTTP.get_response(@url)
-    raise "Failed to fetch: #{response.code}" unless response.is_a?(Net::HTTPSuccess)
-
-    @doc = Nokogiri::HTML(response.body)
+    html = URI.open(@url).read
+    @doc = Nokogiri::HTML(html)
     puts "✓ Fetched successfully"
   end
 
