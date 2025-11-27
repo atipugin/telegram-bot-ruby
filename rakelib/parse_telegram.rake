@@ -3,7 +3,7 @@
 require_relative 'telegram_api_parser'
 
 desc 'Parse Telegram Bot API documentation and generate type_attributes.json'
-task :parse_telegram do
+task :parse_docs do
   puts "=" * 80
   puts "Telegram Bot API Type Attributes Generator"
   puts "=" * 80
