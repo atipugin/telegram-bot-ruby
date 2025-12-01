@@ -1,0 +1,173 @@
+TELEGRAM BOT API METHODS VERIFICATION REPORT
+Generated: 2025-12-01 04:58:25 +0000
+
+Summary:
+--------
+Total methods in Telegram Bot API: 147
+Total methods in codebase: 111
+Missing methods: 44
+Extra methods: 8
+
+Missing Methods:
+----------------
+1. answerWebAppQuery
+2. copyMessage
+3. copyMessages
+4. createChatInviteLink
+5. createForumTopic
+6. createInvoiceLink
+7. editChatInviteLink
+8. editMessageCaption
+9. editMessageChecklist
+10. editMessageLiveLocation
+11. editMessageMedia
+12. editMessageReplyMarkup
+13. editMessageText
+14. exportChatInviteLink
+15. forwardMessage
+16. forwardMessages
+17. getBusinessAccountGifts
+18. getBusinessAccountStarBalance
+19. getFile
+20. getStarTransactions
+21. getStickerSet
+22. revokeChatInviteLink
+23. sendAnimation
+24. sendAudio
+25. sendChecklist
+26. sendContact
+27. sendDice
+28. sendDocument
+29. sendGame
+30. sendInvoice
+31. sendLocation
+32. sendMediaGroup
+33. sendMessage
+34. sendPaidMedia
+35. sendPhoto
+36. sendPoll
+37. sendSticker
+38. sendVenue
+39. sendVideo
+40. sendVideoNote
+41. sendVoice
+42. stopMessageLiveLocation
+43. stopPoll
+44. uploadStickerFile
+
+Extra Methods (in codebase but not in API docs):
+-------------------------------------------------
+1. editUserStarSubscription
+2. removeChatVerification
+3. removeUserVerification
+4. savePreparedInlineMessage
+5. setUserEmojiStatus
+6. unpinAllGeneralForumTopicMessages
+7. verifyChat
+8. verifyUser
+
+Methods Present in Both:
+------------------------
+1. addStickerToSet
+2. answerCallbackQuery
+3. answerInlineQuery
+4. answerPreCheckoutQuery
+5. answerShippingQuery
+6. approveChatJoinRequest
+7. approveSuggestedPost
+8. banChatMember
+9. banChatSenderChat
+10. close
+11. closeForumTopic
+12. closeGeneralForumTopic
+13. convertGiftToStars
+14. createNewStickerSet
+15. declineChatJoinRequest
+16. declineSuggestedPost
+17. deleteBusinessMessages
+18. deleteChatPhoto
+19. deleteChatStickerSet
+20. deleteForumTopic
+21. deleteMessage
+22. deleteMessages
+23. deleteMyCommands
+24. deleteStickerFromSet
+25. deleteStickerSet
+26. deleteStory
+27. deleteWebhook
+28. editForumTopic
+29. editGeneralForumTopic
+30. editStory
+31. getBusinessConnection
+32. getChat
+33. getChatAdministrators
+34. getChatMember
+35. getChatMemberCount
+36. getChatMenuButton
+37. getCustomEmojiStickers
+38. getForumTopicIconStickers
+39. getGameHighScores
+40. getMe
+41. getMyCommands
+42. getMyDefaultAdministratorRights
+43. getMyDescription
+44. getMyName
+45. getMyShortDescription
+46. getMyStarBalance
+47. getUpdates
+48. getUserChatBoosts
+49. getUserProfilePhotos
+50. getWebhookInfo
+51. giftPremiumSubscription
+52. hideGeneralForumTopic
+53. leaveChat
+54. logOut
+55. pinChatMessage
+56. postStory
+57. promoteChatMember
+58. readBusinessMessage
+59. refundStarPayment
+60. removeBusinessAccountProfilePhoto
+61. reopenForumTopic
+62. reopenGeneralForumTopic
+63. replaceStickerInSet
+64. restrictChatMember
+65. sendChatAction
+66. sendGift
+67. setBusinessAccountBio
+68. setBusinessAccountGiftSettings
+69. setBusinessAccountName
+70. setBusinessAccountProfilePhoto
+71. setBusinessAccountUsername
+72. setChatAdministratorCustomTitle
+73. setChatDescription
+74. setChatMenuButton
+75. setChatPermissions
+76. setChatPhoto
+77. setChatStickerSet
+78. setChatTitle
+79. setCustomEmojiStickerSetThumbnail
+80. setGameScore
+81. setMessageReaction
+82. setMyCommands
+83. setMyDefaultAdministratorRights
+84. setMyDescription
+85. setMyName
+86. setMyShortDescription
+87. setPassportDataErrors
+88. setStickerEmojiList
+89. setStickerKeywords
+90. setStickerMaskPosition
+91. setStickerPositionInSet
+92. setStickerSetThumbnail
+93. setStickerSetTitle
+94. setWebhook
+95. transferBusinessAccountStars
+96. transferGift
+97. unbanChatMember
+98. unbanChatSenderChat
+99. unhideGeneralForumTopic
+100. unpinAllChatMessages
+101. unpinAllForumTopicMessages
+102. unpinChatMessage
+103. upgradeGift
