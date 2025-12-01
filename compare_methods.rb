@@ -154,9 +154,9 @@ telegram_api_methods = [
   "uploadStickerFile"
 ]
 
-# Load methods from codebase
-endpoints_json = File.read('data/endpoints.json')
-codebase_methods = JSON.parse(endpoints_json).keys.sort
+# Load methods from codebase (parse endpoints.rb file)
+endpoints_rb = File.read('lib/telegram/bot/api/endpoints.rb')
+codebase_methods = endpoints_rb.scan(/'([^']+)'\s*=>/).flatten.sort
 
 # Find missing methods
 missing_methods = telegram_api_methods - codebase_methods
