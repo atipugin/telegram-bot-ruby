@@ -13,8 +13,8 @@ namespace :parse do
 
     puts "Found #{result.keys.count} types"
 
-    File.write "#{__dir__}/../data/type_attributes.json", JSON.pretty_generate(result)
-    puts 'Written to data/type_attributes.json'
+    File.write "#{__dir__}/../data/types.json", JSON.pretty_generate(result)
+    puts 'Written to data/types.json'
   end
 
   desc 'Parse methods from Telegram Bot API HTML documentation'
@@ -25,7 +25,7 @@ namespace :parse do
 
     puts "Found #{result.keys.count} methods"
 
-    File.write "#{__dir__}/../data/method_return_types.json", JSON.pretty_generate(result)
-    puts 'Written to data/method_return_types.json'
+    File.write "#{__dir__}/../data/methods.json", JSON.pretty_generate(result)
+    puts 'Written to data/methods.json'
   end
 end

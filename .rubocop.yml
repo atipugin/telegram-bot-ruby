@@ -19,6 +19,8 @@ Metrics/BlockLength:
 Metrics/ClassLength:
   Exclude:
     - lib/telegram/bot/api/endpoints.rb
+    - rakelib/builders/type_builder.rb
+
 Metrics/MethodLength:
   Exclude:
     - spec/**/*
