@@ -1,21 +1,4 @@
 {
-  "Error": {
-    "ok": {
-      "type": "boolean",
-      "required": true
-    },
-    "error_code": {
-      "type": "integer",
-      "required": true
-    },
-    "description": {
-      "type": "string",
-      "required": true
-    },
-    "parameters": {
-      "type": "ResponseParameters"
-    }
-  },
   "Update": {
     "update_id": {
       "type": "integer",
@@ -194,6 +177,10 @@
     "is_forum": {
       "type": "boolean",
       "default": true
+    },
+    "is_direct_messages": {
+      "type": "boolean",
+      "default": true
     }
   },
   "ChatFullInfo": {
@@ -218,6 +205,10 @@
       "type": "string"
     },
     "is_forum": {
+      "type": "boolean",
+      "default": true
+    },
+    "is_direct_messages": {
       "type": "boolean",
       "default": true
     },
@@ -249,6 +240,9 @@
       "type": "BusinessOpeningHours"
     },
     "personal_chat": {
+      "type": "Chat"
+    },
+    "parent_chat": {
       "type": "Chat"
     },
     "available_reactions": {
@@ -301,9 +295,9 @@
     "permissions": {
       "type": "ChatPermissions"
     },
-    "can_send_gift": {
-      "type": "boolean",
-      "default": true
+    "accepted_gift_types": {
+      "type": "AcceptedGiftTypes",
+      "required": true
     },
     "can_send_paid_media": {
       "type": "boolean",
@@ -359,6 +353,9 @@
     "message_thread_id": {
       "type": "integer"
     },
+    "direct_messages_topic": {
+      "type": "DirectMessagesTopic"
+    },
     "from": {
       "type": "User"
     },
@@ -405,6 +402,9 @@
     "reply_to_story": {
       "type": "Story"
     },
+    "reply_to_checklist_task_id": {
+      "type": "integer"
+    },
     "via_bot": {
       "type": "User"
     },
@@ -419,11 +419,18 @@
       "type": "boolean",
       "default": true
     },
+    "is_paid_post": {
+      "type": "boolean",
+      "default": true
+    },
     "media_group_id": {
       "type": "string"
     },
     "author_signature": {
       "type": "string"
+    },
+    "paid_star_count": {
+      "type": "integer"
     },
     "text": {
       "type": "string"
@@ -434,6 +441,9 @@
     },
     "link_preview_options": {
       "type": "LinkPreviewOptions"
+    },
+    "suggested_post_info": {
+      "type": "SuggestedPostInfo"
     },
     "effect_id": {
       "type": "string"
@@ -483,6 +493,9 @@
     "has_media_spoiler": {
       "type": "boolean",
       "default": true
+    },
+    "checklist": {
+      "type": "Checklist"
     },
     "contact": {
       "type": "Contact"
@@ -559,6 +572,12 @@
     "chat_shared": {
       "type": "ChatShared"
     },
+    "gift": {
+      "type": "GiftInfo"
+    },
+    "unique_gift": {
+      "type": "UniqueGiftInfo"
+    },
     "connected_website": {
       "type": "string"
     },
@@ -576,6 +595,15 @@
     },
     "chat_background_set": {
       "type": "ChatBackground"
+    },
+    "checklist_tasks_done": {
+      "type": "ChecklistTasksDone"
+    },
+    "checklist_tasks_added": {
+      "type": "ChecklistTasksAdded"
+    },
+    "direct_message_price_changed": {
+      "type": "DirectMessagePriceChanged"
     },
     "forum_topic_created": {
       "type": "ForumTopicCreated"
@@ -606,6 +634,24 @@
     },
     "giveaway_completed": {
       "type": "GiveawayCompleted"
+    },
+    "paid_message_price_changed": {
+      "type": "PaidMessagePriceChanged"
+    },
+    "suggested_post_approved": {
+      "type": "SuggestedPostApproved"
+    },
+    "suggested_post_approval_failed": {
+      "type": "SuggestedPostApprovalFailed"
+    },
+    "suggested_post_declined": {
+      "type": "SuggestedPostDeclined"
+    },
+    "suggested_post_paid": {
+      "type": "SuggestedPostPaid"
+    },
+    "suggested_post_refunded": {
+      "type": "SuggestedPostRefunded"
     },
     "video_chat_scheduled": {
       "type": "VideoChatScheduled"
@@ -745,6 +791,9 @@
       "type": "boolean",
       "default": true
     },
+    "checklist": {
+      "type": "Checklist"
+    },
     "contact": {
       "type": "Contact"
     },
@@ -799,6 +848,9 @@
       "items": "MessageEntity"
     },
     "quote_position": {
+      "type": "integer"
+    },
+    "checklist_task_id": {
       "type": "integer"
     }
   },
@@ -1095,8 +1147,8 @@
     },
     "paid_media": {
       "type": "array",
-      "required": true,
-      "items": "PaidMedia"
+      "items": "PaidMedia",
+      "required": true
     }
   },
   "PaidMedia": {
@@ -1132,8 +1184,8 @@
     },
     "photo": {
       "type": "array",
-      "required": true,
-      "items": "PhotoSize"
+      "items": "PhotoSize",
+      "required": true
     }
   },
   "PaidMediaVideo": {
@@ -1221,8 +1273,8 @@
     },
     "option_ids": {
       "type": "array",
-      "required": true,
-      "items": "integer"
+      "items": "integer",
+      "required": true
     }
   },
   "Poll": {
@@ -1242,8 +1294,8 @@
     },
     "options": {
       "type": "array",
-      "required": true,
-      "items": "PollOption"
+      "items": "PollOption",
+      "required": true
     },
     "total_voter_count": {
       "type": "integer",
@@ -1281,6 +1333,117 @@
     },
     "close_date": {
       "type": "integer"
+    }
+  },
+  "ChecklistTask": {
+    "id": {
+      "type": "integer",
+      "required": true
+    },
+    "text": {
+      "type": "string",
+      "required": true
+    },
+    "text_entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "completed_by_user": {
+      "type": "User"
+    },
+    "completion_date": {
+      "type": "integer"
+    }
+  },
+  "Checklist": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "title_entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "tasks": {
+      "type": "array",
+      "items": "ChecklistTask",
+      "required": true
+    },
+    "others_can_add_tasks": {
+      "type": "boolean",
+      "default": true
+    },
+    "others_can_mark_tasks_as_done": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "InputChecklistTask": {
+    "id": {
+      "type": "integer",
+      "required": true
+    },
+    "text": {
+      "type": "string",
+      "required": true,
+      "min_size": 1,
+      "max_size": 100
+    },
+    "parse_mode": {
+      "type": "string"
+    },
+    "text_entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    }
+  },
+  "InputChecklist": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "min_size": 1,
+      "max_size": 255
+    },
+    "parse_mode": {
+      "type": "string"
+    },
+    "title_entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "tasks": {
+      "type": "array",
+      "items": "InputChecklistTask",
+      "required": true
+    },
+    "others_can_add_tasks": {
+      "type": "boolean"
+    },
+    "others_can_mark_tasks_as_done": {
+      "type": "boolean"
+    }
+  },
+  "ChecklistTasksDone": {
+    "checklist_message": {
+      "type": "Message"
+    },
+    "marked_as_done_task_ids": {
+      "type": "array",
+      "items": "integer"
+    },
+    "marked_as_not_done_task_ids": {
+      "type": "array",
+      "items": "integer"
+    }
+  },
+  "ChecklistTasksAdded": {
+    "checklist_message": {
+      "type": "Message"
+    },
+    "tasks": {
+      "type": "array",
+      "items": "ChecklistTask",
+      "required": true
     }
   },
   "Location": {
@@ -1415,8 +1578,8 @@
     },
     "colors": {
       "type": "array",
-      "required": true,
-      "items": "integer"
+      "items": "integer",
+      "required": true
     }
   },
   "BackgroundType": {
@@ -1526,8 +1689,7 @@
       "type": "string"
     }
   },
-  "ForumTopicClosed": {
-  },
+  "ForumTopicClosed": {},
   "ForumTopicEdited": {
     "name": {
       "type": "string"
@@ -1536,12 +1698,9 @@
       "type": "string"
     }
   },
-  "ForumTopicReopened": {
-  },
-  "GeneralForumTopicHidden": {
-  },
-  "GeneralForumTopicUnhidden": {
-  },
+  "ForumTopicReopened": {},
+  "GeneralForumTopicHidden": {},
+  "GeneralForumTopicUnhidden": {},
   "SharedUser": {
     "user_id": {
       "type": "integer",
@@ -1568,8 +1727,8 @@
     },
     "users": {
       "type": "array",
-      "required": true,
-      "items": "SharedUser"
+      "items": "SharedUser",
+      "required": true
     }
   },
   "ChatShared": {
@@ -1609,8 +1768,7 @@
       "required": true
     }
   },
-  "VideoChatStarted": {
-  },
+  "VideoChatStarted": {},
   "VideoChatEnded": {
     "duration": {
       "type": "integer",
@@ -1620,8 +1778,77 @@
   "VideoChatParticipantsInvited": {
     "users": {
       "type": "array",
-      "required": true,
-      "items": "User"
+      "items": "User",
+      "required": true
+    }
+  },
+  "PaidMessagePriceChanged": {
+    "paid_message_star_count": {
+      "type": "integer",
+      "required": true
+    }
+  },
+  "DirectMessagePriceChanged": {
+    "are_direct_messages_enabled": {
+      "type": "boolean",
+      "required": true
+    },
+    "direct_message_star_count": {
+      "type": "integer",
+      "default": 0
+    }
+  },
+  "SuggestedPostApproved": {
+    "suggested_post_message": {
+      "type": "Message"
+    },
+    "price": {
+      "type": "SuggestedPostPrice"
+    },
+    "send_date": {
+      "type": "integer",
+      "required": true
+    }
+  },
+  "SuggestedPostApprovalFailed": {
+    "suggested_post_message": {
+      "type": "Message"
+    },
+    "price": {
+      "type": "SuggestedPostPrice",
+      "required": true
+    }
+  },
+  "SuggestedPostDeclined": {
+    "suggested_post_message": {
+      "type": "Message"
+    },
+    "comment": {
+      "type": "string"
+    }
+  },
+  "SuggestedPostPaid": {
+    "suggested_post_message": {
+      "type": "Message"
+    },
+    "currency": {
+      "type": "string",
+      "required": true
+    },
+    "amount": {
+      "type": "integer"
+    },
+    "star_amount": {
+      "type": "StarAmount"
+    }
+  },
+  "SuggestedPostRefunded": {
+    "suggested_post_message": {
+      "type": "Message"
+    },
+    "reason": {
+      "type": "string",
+      "required": true
     }
   },
   "GiveawayCreated": {
@@ -1632,8 +1859,8 @@
   "Giveaway": {
     "chats": {
       "type": "array",
-      "required": true,
-      "items": "Chat"
+      "items": "Chat",
+      "required": true
     },
     "winners_selection_date": {
       "type": "integer",
@@ -1684,8 +1911,8 @@
     },
     "winners": {
       "type": "array",
-      "required": true,
-      "items": "User"
+      "items": "User",
+      "required": true
     },
     "additional_chat_count": {
       "type": "integer"
@@ -1744,6 +1971,47 @@
       "type": "boolean"
     }
   },
+  "SuggestedPostPrice": {
+    "currency": {
+      "type": "string",
+      "required": true
+    },
+    "amount": {
+      "type": "integer",
+      "required": true,
+      "min_size": 5,
+      "max_size": 100000
+    }
+  },
+  "SuggestedPostInfo": {
+    "state": {
+      "type": "string",
+      "required": true
+    },
+    "price": {
+      "type": "SuggestedPostPrice"
+    },
+    "send_date": {
+      "type": "integer"
+    }
+  },
+  "SuggestedPostParameters": {
+    "price": {
+      "type": "SuggestedPostPrice"
+    },
+    "send_date": {
+      "type": "integer"
+    }
+  },
+  "DirectMessagesTopic": {
+    "topic_id": {
+      "type": "integer",
+      "required": true
+    },
+    "user": {
+      "type": "User"
+    }
+  },
   "UserProfilePhotos": {
     "total_count": {
       "type": "integer",
@@ -1751,11 +2019,11 @@
     },
     "photos": {
       "type": "array",
-      "required": true,
       "items": {
         "type": "array",
         "items": "PhotoSize"
-      }
+      },
+      "required": true
     }
   },
   "File": {
@@ -1783,11 +2051,11 @@
   "ReplyKeyboardMarkup": {
     "keyboard": {
       "type": "array",
-      "required": true,
       "items": {
         "type": "array",
         "items": "KeyboardButton"
-      }
+      },
+      "required": true
     },
     "is_persistent": {
       "type": "boolean",
@@ -1914,11 +2182,11 @@
   "InlineKeyboardMarkup": {
     "inline_keyboard": {
       "type": "array",
-      "required": true,
       "items": {
         "type": "array",
         "items": "InlineKeyboardButton"
-      }
+      },
+      "required": true
     }
   },
   "InlineKeyboardButton": {
@@ -2152,6 +2420,9 @@
     },
     "can_manage_topics": {
       "type": "boolean"
+    },
+    "can_manage_direct_messages": {
+      "type": "boolean"
     }
   },
   "ChatMemberUpdated": {
@@ -2283,6 +2554,9 @@
       "type": "boolean"
     },
     "can_manage_topics": {
+      "type": "boolean"
+    },
+    "can_manage_direct_messages": {
       "type": "boolean"
     },
     "custom_title": {
@@ -2526,8 +2800,149 @@
     },
     "opening_hours": {
       "type": "array",
+      "items": "BusinessOpeningHoursInterval",
+      "required": true
+    }
+  },
+  "StoryAreaPosition": {
+    "x_percentage": {
+      "type": "number",
+      "required": true
+    },
+    "y_percentage": {
+      "type": "number",
+      "required": true
+    },
+    "width_percentage": {
+      "type": "number",
+      "required": true
+    },
+    "height_percentage": {
+      "type": "number",
+      "required": true
+    },
+    "rotation_angle": {
+      "type": "number",
+      "required": true
+    },
+    "corner_radius_percentage": {
+      "type": "number",
+      "required": true
+    }
+  },
+  "LocationAddress": {
+    "country_code": {
+      "type": "string",
+      "required": true
+    },
+    "state": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "street": {
+      "type": "string"
+    }
+  },
+  "StoryAreaType": {
+    "type": [
+      "StoryAreaTypeLocation",
+      "StoryAreaTypeSuggestedReaction",
+      "StoryAreaTypeLink",
+      "StoryAreaTypeWeather",
+      "StoryAreaTypeUniqueGift"
+    ]
+  },
+  "StoryAreaTypeLocation": {
+    "type": {
+      "type": "string",
       "required": true,
-      "items": "BusinessOpeningHoursInterval"
+      "required_value": "location",
+      "default": "location"
+    },
+    "latitude": {
+      "type": "number",
+      "required": true
+    },
+    "longitude": {
+      "type": "number",
+      "required": true
+    },
+    "address": {
+      "type": "LocationAddress"
+    }
+  },
+  "StoryAreaTypeSuggestedReaction": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "suggested_reaction",
+      "default": "suggested_reaction"
+    },
+    "reaction_type": {
+      "type": "ReactionType",
+      "required": true
+    },
+    "is_dark": {
+      "type": "boolean"
+    },
+    "is_flipped": {
+      "type": "boolean"
+    }
+  },
+  "StoryAreaTypeLink": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "link",
+      "default": "link"
+    },
+    "url": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "StoryAreaTypeWeather": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "weather",
+      "default": "weather"
+    },
+    "temperature": {
+      "type": "number",
+      "required": true
+    },
+    "emoji": {
+      "type": "string",
+      "required": true
+    },
+    "background_color": {
+      "type": "integer",
+      "required": true
+    }
+  },
+  "StoryAreaTypeUniqueGift": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "unique_gift",
+      "default": "unique_gift"
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "StoryArea": {
+    "position": {
+      "type": "StoryAreaPosition",
+      "required": true
+    },
+    "type": {
+      "type": "StoryAreaType",
+      "required": true
     }
   },
   "ChatLocation": {
@@ -2612,13 +3027,13 @@
     },
     "old_reaction": {
       "type": "array",
-      "required": true,
-      "items": "ReactionType"
+      "items": "ReactionType",
+      "required": true
     },
     "new_reaction": {
       "type": "array",
-      "required": true,
-      "items": "ReactionType"
+      "items": "ReactionType",
+      "required": true
     }
   },
   "MessageReactionCountUpdated": {
@@ -2636,8 +3051,8 @@
     },
     "reactions": {
       "type": "array",
-      "required": true,
-      "items": "ReactionCount"
+      "items": "ReactionCount",
+      "required": true
     }
   },
   "ForumTopic": {
@@ -2655,6 +3070,314 @@
     },
     "icon_custom_emoji_id": {
       "type": "string"
+    }
+  },
+  "Gift": {
+    "id": {
+      "type": "string",
+      "required": true
+    },
+    "sticker": {
+      "type": "Sticker",
+      "required": true
+    },
+    "star_count": {
+      "type": "integer",
+      "required": true
+    },
+    "upgrade_star_count": {
+      "type": "integer"
+    },
+    "total_count": {
+      "type": "integer"
+    },
+    "remaining_count": {
+      "type": "integer"
+    },
+    "publisher_chat": {
+      "type": "Chat"
+    }
+  },
+  "Gifts": {
+    "gifts": {
+      "type": "array",
+      "items": "Gift",
+      "required": true
+    }
+  },
+  "UniqueGiftModel": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "sticker": {
+      "type": "Sticker",
+      "required": true
+    },
+    "rarity_per_mille": {
+      "type": "integer",
+      "required": true
+    }
+  },
+  "UniqueGiftSymbol": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "sticker": {
+      "type": "Sticker",
+      "required": true
+    },
+    "rarity_per_mille": {
+      "type": "integer",
+      "required": true
+    }
+  },
+  "UniqueGiftBackdropColors": {
+    "center_color": {
+      "type": "integer",
+      "required": true
+    },
+    "edge_color": {
+      "type": "integer",
+      "required": true
+    },
+    "symbol_color": {
+      "type": "integer",
+      "required": true
+    },
+    "text_color": {
+      "type": "integer",
+      "required": true
+    }
+  },
+  "UniqueGiftBackdrop": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "colors": {
+      "type": "UniqueGiftBackdropColors",
+      "required": true
+    },
+    "rarity_per_mille": {
+      "type": "integer",
+      "required": true
+    }
+  },
+  "UniqueGift": {
+    "base_name": {
+      "type": "string",
+      "required": true
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "number": {
+      "type": "integer",
+      "required": true
+    },
+    "model": {
+      "type": "UniqueGiftModel",
+      "required": true
+    },
+    "symbol": {
+      "type": "UniqueGiftSymbol",
+      "required": true
+    },
+    "backdrop": {
+      "type": "UniqueGiftBackdrop",
+      "required": true
+    },
+    "publisher_chat": {
+      "type": "Chat"
+    }
+  },
+  "GiftInfo": {
+    "gift": {
+      "type": "Gift",
+      "required": true
+    },
+    "owned_gift_id": {
+      "type": "string"
+    },
+    "convert_star_count": {
+      "type": "integer"
+    },
+    "prepaid_upgrade_star_count": {
+      "type": "integer"
+    },
+    "can_be_upgraded": {
+      "type": "boolean",
+      "default": true
+    },
+    "text": {
+      "type": "string"
+    },
+    "entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "is_private": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "UniqueGiftInfo": {
+    "gift": {
+      "type": "UniqueGift",
+      "required": true
+    },
+    "origin": {
+      "type": "string",
+      "required": true
+    },
+    "last_resale_star_count": {
+      "type": "integer"
+    },
+    "owned_gift_id": {
+      "type": "string"
+    },
+    "transfer_star_count": {
+      "type": "integer"
+    },
+    "next_transfer_date": {
+      "type": "integer"
+    }
+  },
+  "OwnedGift": {
+    "type": [
+      "OwnedGiftRegular",
+      "OwnedGiftUnique"
+    ]
+  },
+  "OwnedGiftRegular": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "regular",
+      "default": "regular"
+    },
+    "gift": {
+      "type": "Gift",
+      "required": true
+    },
+    "owned_gift_id": {
+      "type": "string"
+    },
+    "sender_user": {
+      "type": "User"
+    },
+    "send_date": {
+      "type": "integer",
+      "required": true
+    },
+    "text": {
+      "type": "string"
+    },
+    "entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "is_private": {
+      "type": "boolean",
+      "default": true
+    },
+    "is_saved": {
+      "type": "boolean",
+      "default": true
+    },
+    "can_be_upgraded": {
+      "type": "boolean",
+      "default": true
+    },
+    "was_refunded": {
+      "type": "boolean",
+      "default": true
+    },
+    "convert_star_count": {
+      "type": "integer"
+    },
+    "prepaid_upgrade_star_count": {
+      "type": "integer"
+    }
+  },
+  "OwnedGiftUnique": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "unique",
+      "default": "unique"
+    },
+    "gift": {
+      "type": "UniqueGift",
+      "required": true
+    },
+    "owned_gift_id": {
+      "type": "string"
+    },
+    "sender_user": {
+      "type": "User"
+    },
+    "send_date": {
+      "type": "integer",
+      "required": true
+    },
+    "is_saved": {
+      "type": "boolean",
+      "default": true
+    },
+    "can_be_transferred": {
+      "type": "boolean",
+      "default": true
+    },
+    "transfer_star_count": {
+      "type": "integer"
+    },
+    "next_transfer_date": {
+      "type": "integer"
+    }
+  },
+  "OwnedGifts": {
+    "total_count": {
+      "type": "integer",
+      "required": true
+    },
+    "gifts": {
+      "type": "array",
+      "items": "OwnedGift",
+      "required": true
+    },
+    "next_offset": {
+      "type": "string"
+    }
+  },
+  "AcceptedGiftTypes": {
+    "unlimited_gifts": {
+      "type": "boolean",
+      "required": true
+    },
+    "limited_gifts": {
+      "type": "boolean",
+      "required": true
+    },
+    "unique_gifts": {
+      "type": "boolean",
+      "required": true
+    },
+    "premium_subscription": {
+      "type": "boolean",
+      "required": true
+    }
+  },
+  "StarAmount": {
+    "amount": {
+      "type": "integer",
+      "required": true
+    },
+    "nanostar_amount": {
+      "type": "integer"
     }
   },
   "BotCommand": {
@@ -2922,8 +3645,66 @@
   "UserChatBoosts": {
     "boosts": {
       "type": "array",
-      "required": true,
-      "items": "ChatBoost"
+      "items": "ChatBoost",
+      "required": true
+    }
+  },
+  "BusinessBotRights": {
+    "can_reply": {
+      "type": "boolean",
+      "default": true
+    },
+    "can_read_messages": {
+      "type": "boolean",
+      "default": true
+    },
+    "can_delete_sent_messages": {
+      "type": "boolean",
+      "default": true
+    },
+    "can_delete_all_messages": {
+      "type": "boolean",
+      "default": true
+    },
+    "can_edit_name": {
+      "type": "boolean",
+      "default": true
+    },
+    "can_edit_bio": {
+      "type": "boolean",
+      "default": true
+    },
+    "can_edit_profile_photo": {
+      "type": "boolean",
+      "default": true
+    },
+    "can_edit_username": {
+      "type": "boolean",
+      "default": true
+    },
+    "can_change_gift_settings": {
+      "type": "boolean",
+      "default": true
+    },
+    "can_view_gifts_and_stars": {
+      "type": "boolean",
+      "default": true
+    },
+    "can_convert_gifts_to_stars": {
+      "type": "boolean",
+      "default": true
+    },
+    "can_transfer_and_upgrade_gifts": {
+      "type": "boolean",
+      "default": true
+    },
+    "can_transfer_stars": {
+      "type": "boolean",
+      "default": true
+    },
+    "can_manage_stories": {
+      "type": "boolean",
+      "default": true
     }
   },
   "BusinessConnection": {
@@ -2943,9 +3724,8 @@
       "type": "integer",
       "required": true
     },
-    "can_reply": {
-      "type": "boolean",
-      "required": true
+    "rights": {
+      "type": "BusinessBotRights"
     },
     "is_enabled": {
       "type": "boolean",
@@ -2963,8 +3743,8 @@
     },
     "message_ids": {
       "type": "array",
-      "required": true,
-      "items": "integer"
+      "items": "integer",
+      "required": true
     }
   },
   "ResponseParameters": {
@@ -3168,6 +3948,7 @@
       "type": "boolean"
     }
   },
+  "InputFile": {},
   "InputPaidMedia": {
     "type": [
       "InputPaidMediaPhoto",
@@ -3216,6 +3997,80 @@
       "type": "integer"
     },
     "supports_streaming": {
+      "type": "boolean"
+    }
+  },
+  "InputProfilePhoto": {
+    "type": [
+      "InputProfilePhotoStatic",
+      "InputProfilePhotoAnimated"
+    ]
+  },
+  "InputProfilePhotoStatic": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "static",
+      "default": "static"
+    },
+    "photo": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "InputProfilePhotoAnimated": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "animated",
+      "default": "animated"
+    },
+    "animation": {
+      "type": "string",
+      "required": true
+    },
+    "main_frame_timestamp": {
+      "type": "number",
+      "default": 0.0
+    }
+  },
+  "InputStoryContent": {
+    "type": [
+      "InputStoryContentPhoto",
+      "InputStoryContentVideo"
+    ]
+  },
+  "InputStoryContentPhoto": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "photo",
+      "default": "photo"
+    },
+    "photo": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "InputStoryContentVideo": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "video",
+      "default": "video"
+    },
+    "video": {
+      "type": "string",
+      "required": true
+    },
+    "duration": {
+      "type": "number"
+    },
+    "cover_frame_timestamp": {
+      "type": "number",
+      "default": 0.0
+    },
+    "is_animation": {
       "type": "boolean"
     }
   },
@@ -3289,8 +4144,8 @@
     },
     "stickers": {
       "type": "array",
-      "required": true,
-      "items": "Sticker"
+      "items": "Sticker",
+      "required": true
     },
     "thumbnail": {
       "type": "PhotoSize"
@@ -3325,8 +4180,8 @@
     },
     "emoji_list": {
       "type": "array",
-      "required": true,
-      "items": "string"
+      "items": "string",
+      "required": true
     },
     "mask_position": {
       "type": "MaskPosition"
@@ -3334,36 +4189,6 @@
     "keywords": {
       "type": "array",
       "items": "string"
-    }
-  },
-  "Gift": {
-    "id": {
-      "type": "string",
-      "required": true
-    },
-    "sticker": {
-      "type": "Sticker",
-      "required": true
-    },
-    "star_count": {
-      "type": "integer",
-      "required": true
-    },
-    "upgrade_star_count": {
-      "type": "integer"
-    },
-    "total_count": {
-      "type": "integer"
-    },
-    "remaining_count": {
-      "type": "integer"
-    }
-  },
-  "Gifts": {
-    "gifts": {
-      "type": "array",
-      "required": true,
-      "items": "Gift"
     }
   },
   "InlineQuery": {
@@ -4408,8 +5233,8 @@
     },
     "prices": {
       "type": "array",
-      "required": true,
-      "items": "LabeledPrice"
+      "items": "LabeledPrice",
+      "required": true
     },
     "max_tip_amount": {
       "type": "integer",
@@ -4574,8 +5399,8 @@
     },
     "prices": {
       "type": "array",
-      "required": true,
-      "items": "LabeledPrice"
+      "items": "LabeledPrice",
+      "required": true
     }
   },
   "SuccessfulPayment": {
@@ -4772,6 +5597,10 @@
       "required_value": "user",
       "default": "user"
     },
+    "transaction_type": {
+      "type": "string",
+      "required": true
+    },
     "user": {
       "type": "User",
       "required": true
@@ -4794,6 +5623,9 @@
     },
     "gift": {
       "type": "Gift"
+    },
+    "premium_subscription_duration": {
+      "type": "integer"
     }
   },
   "TransactionPartnerChat": {
@@ -4891,15 +5723,15 @@
   "StarTransactions": {
     "transactions": {
       "type": "array",
-      "required": true,
-      "items": "StarTransaction"
+      "items": "StarTransaction",
+      "required": true
     }
   },
   "PassportData": {
     "data": {
       "type": "array",
-      "required": true,
-      "items": "EncryptedPassportElement"
+      "items": "EncryptedPassportElement",
+      "required": true
     },
     "credentials": {
       "type": "EncryptedCredentials",
@@ -5104,8 +5936,8 @@
     },
     "file_hashes": {
       "type": "array",
-      "required": true,
-      "items": "string"
+      "items": "string",
+      "required": true
     },
     "message": {
       "type": "string",
@@ -5145,8 +5977,8 @@
     },
     "file_hashes": {
       "type": "array",
-      "required": true,
-      "items": "string"
+      "items": "string",
+      "required": true
     },
     "message": {
       "type": "string",
@@ -5184,8 +6016,8 @@
     },
     "photo": {
       "type": "array",
-      "required": true,
-      "items": "PhotoSize"
+      "items": "PhotoSize",
+      "required": true
     },
     "text": {
       "type": "string",
@@ -5199,8 +6031,7 @@
       "type": "Animation"
     }
   },
-  "CallbackGame": {
-  },
+  "CallbackGame": {},
   "GameHighScore": {
     "position": {
       "type": "integer",
