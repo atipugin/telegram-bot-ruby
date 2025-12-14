@@ -29,7 +29,7 @@ Please make sure it doesn't break your existing code before upgrading to 1.0.
 Add following line to your Gemfile:
 
 ```ruby
-gem 'telegram-bot-ruby', '~> 2.1'
+gem 'telegram-bot-ruby', '~> 2.5'
 ```
 
 And then execute:
@@ -239,7 +239,7 @@ end
 
 ## Logging
 
-By default, bot doesn't log anything (uses `NullLoger`).
+By default, bot doesn't log anything (uses `NullLogger`).
 You can change this behavior and provide your own logger class.
 See example below:
 
@@ -265,12 +265,27 @@ Telegram::Bot.configure do |config|
 end
 ```
 
-## Boilerplates
+## Maintenance
 
-If you don't know how to setup database for your bot or how to use it with different languages
-here are some boilerplates which can help you to start faster:
+This gem provides rake tasks to parse the official [Telegram Bot API documentation](https://core.telegram.org/bots/api) and regenerate types and API methods.
 
-- [Ruby Telegram Bot boilerplate](https://github.com/telegram-bots/ruby-telegram-bot-boilerplate)
+### Parsing
+
+Parse types and methods from the official documentation:
+
+```shell
+rake parse:types    # Parses types to data/types.json
+rake parse:methods  # Parses methods to data/methods.json
+```
+
+### Rebuilding
+
+Regenerate Ruby code from the parsed JSON data:
+
+```shell
+rake rebuild:types    # Rebuilds lib/telegram/bot/types/*.rb
+rake rebuild:methods  # Rebuilds lib/telegram/bot/api/endpoints.rb
+```
 
 ## Contributing
 
