@@ -19,6 +19,7 @@ module Telegram
         attribute? :video_note, VideoNote
         attribute? :voice, Voice
         attribute? :has_media_spoiler, Types::True
+        attribute? :checklist, Checklist
         attribute? :contact, Contact
         attribute? :dice, Dice
         attribute? :game, Game

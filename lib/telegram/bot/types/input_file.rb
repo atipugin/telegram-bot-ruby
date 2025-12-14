@@ -2,6 +2,9 @@
 
 module Telegram
   module Bot
-    VERSION = '2.5.0'
+    module Types
+      class InputFile < Base
+      end
+    end
   end
 end

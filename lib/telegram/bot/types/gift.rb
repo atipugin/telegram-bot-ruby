@@ -10,6 +10,7 @@ module Telegram
         attribute? :upgrade_star_count, Types::Integer
         attribute? :total_count, Types::Integer
         attribute? :remaining_count, Types::Integer
+        attribute? :publisher_chat, Chat
       end
     end
   end

@@ -8,7 +8,7 @@ module Telegram
         attribute :user, User
         attribute :user_chat_id, Types::Integer
         attribute :date, Types::Integer
-        attribute :can_reply, Types::Bool
+        attribute? :rights, BusinessBotRights
         attribute :is_enabled, Types::Bool
       end
     end

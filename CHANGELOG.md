@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.5.0
+
+### Added
+
+- Docs parsers for types and methods
+- [Bot API 9.2](https://core.telegram.org/bots/api-changelog#august-15-2025) [#325](https://github.com/atipugin/telegram-bot-ruby/pull/325)
+
 ## 2.4.0
 
 ### Added
