@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'nokogiri'
-require 'open-uri'
+require 'net/http'
 
 module Parsers
   class MethodsParser
@@ -25,7 +25,9 @@ module Parsers
     private
 
     def fetch_document
-      Nokogiri::HTML(URI.open(API_URL))
+      uri = URI.parse(API_URL)
+      response = Net::HTTP.get(uri)
+      Nokogiri::HTML(response)
     end
 
     def method_headers(doc)

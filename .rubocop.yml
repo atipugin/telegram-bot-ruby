@@ -16,19 +16,36 @@ Metrics/BlockLength:
     - context
     - describe
     - task
+
 Metrics/ClassLength:
   Exclude:
     - lib/telegram/bot/api/endpoints.rb
+    - lib/telegram/bot/types/message.rb
     - rakelib/builders/type_builder.rb
+    - rakelib/parsers/**/*
 
 Metrics/MethodLength:
   Exclude:
     - spec/**/*
+    - rakelib/parsers/**/*
+
+Metrics/AbcSize:
+  Exclude:
+    - rakelib/parsers/**/*
+
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - rakelib/parsers/**/*
+
+Metrics/PerceivedComplexity:
+  Exclude:
+    - rakelib/parsers/**/*
 
 Layout/LineLength:
   Max: 120
 
 RSpec/MultipleMemoizedHelpers:
   Enabled: false
+
 RSpec/NestedGroups:
   Enabled: false

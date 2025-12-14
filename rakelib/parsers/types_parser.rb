@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'nokogiri'
-require 'open-uri'
+require 'net/http'
 
 module Parsers
   class TypesParser
@@ -33,7 +33,9 @@ module Parsers
     private
 
     def fetch_document
-      Nokogiri::HTML(URI.open(API_URL))
+      uri = URI.parse(API_URL)
+      response = Net::HTTP.get(uri)
+      Nokogiri::HTML(response)
     end
 
     def type_headers(doc)
@@ -72,7 +74,7 @@ module Parsers
     end
 
     def parse_union_type(ul_element)
-      types = ul_element.css('li a').map(&:text).map(&:strip)
+      types = ul_element.css('li a').map { |a| a.text.strip }
       { 'type' => types }
     end
 
