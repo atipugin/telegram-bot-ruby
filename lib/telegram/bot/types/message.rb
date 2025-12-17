@@ -107,7 +107,9 @@ module Telegram
         attribute? :web_app_data, WebAppData
         attribute? :reply_markup, InlineKeyboardMarkup
 
-        alias to_s text
+        def to_s
+          text.to_s
+        end
       end
     end
   end
