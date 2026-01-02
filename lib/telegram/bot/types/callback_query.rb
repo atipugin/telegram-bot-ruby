@@ -11,6 +11,10 @@ module Telegram
         attribute :chat_instance, Types::String
         attribute? :data, Types::String
         attribute? :game_short_name, Types::String
+
+        def to_s
+          data.to_s
+        end
       end
     end
   end
