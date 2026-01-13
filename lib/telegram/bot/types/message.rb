@@ -107,6 +107,10 @@ module Telegram
         attribute? :video_chat_participants_invited, VideoChatParticipantsInvited
         attribute? :web_app_data, WebAppData
         attribute? :reply_markup, InlineKeyboardMarkup
+
+        def to_s
+          text.to_s
+        end
       end
     end
   end
