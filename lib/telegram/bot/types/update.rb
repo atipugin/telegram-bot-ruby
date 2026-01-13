@@ -28,11 +28,6 @@ module Telegram
         attribute? :chat_join_request, ChatJoinRequest
         attribute? :chat_boost, ChatBoostUpdated
         attribute? :removed_chat_boost, ChatBoostRemoved
-
-        def current_message
-          @current_message ||=
-            Hash[*attributes.find { |k, v| k != :update_id && v }].values.first
-        end
       end
     end
   end

@@ -51,6 +51,9 @@ module Telegram
         attribute? :custom_emoji_sticker_set_name, Types::String
         attribute? :linked_chat_id, Types::Integer
         attribute? :location, ChatLocation
+        attribute? :rating, UserRating
+        attribute? :unique_gift_colors, UniqueGiftColors
+        attribute? :paid_message_star_count, Types::Integer
       end
     end
   end

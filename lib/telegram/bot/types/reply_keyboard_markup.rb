@@ -10,17 +10,6 @@ module Telegram
         attribute? :one_time_keyboard, Types::Bool.default(false)
         attribute? :input_field_placeholder, Types::String.constrained(min_size: 1, max_size: 64)
         attribute? :selective, Types::Bool
-
-        def to_compact_hash
-          hsh = super
-          hsh[:keyboard].map! do |arr|
-            arr.map do |item|
-              item.is_a?(KeyboardButton) ? item.to_compact_hash : item
-            end
-          end
-
-          hsh
-        end
       end
     end
   end

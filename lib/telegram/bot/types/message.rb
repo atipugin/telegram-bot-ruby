@@ -75,6 +75,7 @@ module Telegram
         attribute? :chat_shared, ChatShared
         attribute? :gift, GiftInfo
         attribute? :unique_gift, UniqueGiftInfo
+        attribute? :gift_upgrade_sent, GiftInfo
         attribute? :connected_website, Types::String
         attribute? :write_access_allowed, WriteAccessAllowed
         attribute? :passport_data, PassportData
@@ -106,10 +107,6 @@ module Telegram
         attribute? :video_chat_participants_invited, VideoChatParticipantsInvited
         attribute? :web_app_data, WebAppData
         attribute? :reply_markup, InlineKeyboardMarkup
-
-        def to_s
-          text.to_s
-        end
       end
     end
   end

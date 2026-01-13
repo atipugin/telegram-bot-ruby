@@ -9,8 +9,6 @@ module Telegram
         attribute? :location, Location
         attribute? :inline_message_id, Types::String
         attribute :query, Types::String
-
-        alias to_s query
       end
     end
   end

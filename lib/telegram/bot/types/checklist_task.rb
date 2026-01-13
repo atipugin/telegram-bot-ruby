@@ -8,6 +8,7 @@ module Telegram
         attribute :text, Types::String
         attribute? :text_entities, Types::Array.of(MessageEntity)
         attribute? :completed_by_user, User
+        attribute? :completed_by_chat, Chat
         attribute? :completion_date, Types::Integer
       end
     end
