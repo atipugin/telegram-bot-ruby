@@ -151,6 +151,9 @@
     },
     "has_main_web_app": {
       "type": "boolean"
+    },
+    "has_topics_enabled": {
+      "type": "boolean"
     }
   },
   "Chat": {
@@ -343,6 +346,15 @@
     },
     "location": {
       "type": "ChatLocation"
+    },
+    "rating": {
+      "type": "UserRating"
+    },
+    "unique_gift_colors": {
+      "type": "UniqueGiftColors"
+    },
+    "paid_message_star_count": {
+      "type": "integer"
     }
   },
   "Message": {
@@ -577,6 +589,9 @@
     },
     "unique_gift": {
       "type": "UniqueGiftInfo"
+    },
+    "gift_upgrade_sent": {
+      "type": "GiftInfo"
     },
     "connected_website": {
       "type": "string"
@@ -1351,6 +1366,9 @@
     "completed_by_user": {
       "type": "User"
     },
+    "completed_by_chat": {
+      "type": "Chat"
+    },
     "completion_date": {
       "type": "integer"
     }
@@ -1687,9 +1705,14 @@
     },
     "icon_custom_emoji_id": {
       "type": "string"
+    },
+    "is_name_implicit": {
+      "type": "boolean",
+      "default": true
     }
   },
-  "ForumTopicClosed": {},
+  "ForumTopicClosed": {
+  },
   "ForumTopicEdited": {
     "name": {
       "type": "string"
@@ -1698,9 +1721,12 @@
       "type": "string"
     }
   },
-  "ForumTopicReopened": {},
-  "GeneralForumTopicHidden": {},
-  "GeneralForumTopicUnhidden": {},
+  "ForumTopicReopened": {
+  },
+  "GeneralForumTopicHidden": {
+  },
+  "GeneralForumTopicUnhidden": {
+  },
   "SharedUser": {
     "user_id": {
       "type": "integer",
@@ -1768,7 +1794,8 @@
       "required": true
     }
   },
-  "VideoChatStarted": {},
+  "VideoChatStarted": {
+  },
   "VideoChatEnded": {
     "duration": {
       "type": "integer",
@@ -2804,6 +2831,23 @@
       "required": true
     }
   },
+  "UserRating": {
+    "level": {
+      "type": "integer",
+      "required": true
+    },
+    "rating": {
+      "type": "integer",
+      "required": true
+    },
+    "current_level_rating": {
+      "type": "integer",
+      "required": true
+    },
+    "next_level_rating": {
+      "type": "integer"
+    }
+  },
   "StoryAreaPosition": {
     "x_percentage": {
       "type": "number",
@@ -3070,6 +3114,24 @@
     },
     "icon_custom_emoji_id": {
       "type": "string"
+    },
+    "is_name_implicit": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "GiftBackground": {
+    "center_color": {
+      "type": "integer",
+      "required": true
+    },
+    "edge_color": {
+      "type": "integer",
+      "required": true
+    },
+    "text_color": {
+      "type": "integer",
+      "required": true
     }
   },
   "Gift": {
@@ -3088,10 +3150,30 @@
     "upgrade_star_count": {
       "type": "integer"
     },
+    "is_premium": {
+      "type": "boolean",
+      "default": true
+    },
+    "has_colors": {
+      "type": "boolean",
+      "default": true
+    },
     "total_count": {
       "type": "integer"
     },
     "remaining_count": {
+      "type": "integer"
+    },
+    "personal_total_count": {
+      "type": "integer"
+    },
+    "personal_remaining_count": {
+      "type": "integer"
+    },
+    "background": {
+      "type": "GiftBackground"
+    },
+    "unique_gift_variant_count": {
       "type": "integer"
     },
     "publisher_chat": {
@@ -3165,7 +3247,39 @@
       "required": true
     }
   },
+  "UniqueGiftColors": {
+    "model_custom_emoji_id": {
+      "type": "string",
+      "required": true
+    },
+    "symbol_custom_emoji_id": {
+      "type": "string",
+      "required": true
+    },
+    "light_theme_main_color": {
+      "type": "integer",
+      "required": true
+    },
+    "light_theme_other_colors": {
+      "type": "array",
+      "items": "integer",
+      "required": true
+    },
+    "dark_theme_main_color": {
+      "type": "integer",
+      "required": true
+    },
+    "dark_theme_other_colors": {
+      "type": "array",
+      "items": "integer",
+      "required": true
+    }
+  },
   "UniqueGift": {
+    "gift_id": {
+      "type": "string",
+      "required": true
+    },
     "base_name": {
       "type": "string",
       "required": true
@@ -3190,6 +3304,17 @@
       "type": "UniqueGiftBackdrop",
       "required": true
     },
+    "is_premium": {
+      "type": "boolean",
+      "default": true
+    },
+    "is_from_blockchain": {
+      "type": "boolean",
+      "default": true
+    },
+    "colors": {
+      "type": "UniqueGiftColors"
+    },
     "publisher_chat": {
       "type": "Chat"
     }
@@ -3208,6 +3333,10 @@
     "prepaid_upgrade_star_count": {
       "type": "integer"
     },
+    "is_upgrade_separate": {
+      "type": "boolean",
+      "default": true
+    },
     "can_be_upgraded": {
       "type": "boolean",
       "default": true
@@ -3222,6 +3351,9 @@
     "is_private": {
       "type": "boolean",
       "default": true
+    },
+    "unique_gift_number": {
+      "type": "integer"
     }
   },
   "UniqueGiftInfo": {
@@ -3233,7 +3365,10 @@
       "type": "string",
       "required": true
     },
-    "last_resale_star_count": {
+    "last_resale_currency": {
+      "type": "string"
+    },
+    "last_resale_amount": {
       "type": "integer"
     },
     "owned_gift_id": {
@@ -3301,6 +3436,13 @@
     },
     "prepaid_upgrade_star_count": {
       "type": "integer"
+    },
+    "is_upgrade_separate": {
+      "type": "boolean",
+      "default": true
+    },
+    "unique_gift_number": {
+      "type": "integer"
     }
   },
   "OwnedGiftUnique": {
@@ -3367,6 +3509,10 @@
       "required": true
     },
     "premium_subscription": {
+      "type": "boolean",
+      "required": true
+    },
+    "gifts_from_channels": {
       "type": "boolean",
       "required": true
     }
@@ -3948,7 +4094,8 @@
       "type": "boolean"
     }
   },
-  "InputFile": {},
+  "InputFile": {
+  },
   "InputPaidMedia": {
     "type": [
       "InputPaidMediaPhoto",
@@ -6031,7 +6178,8 @@
       "type": "Animation"
     }
   },
-  "CallbackGame": {},
+  "CallbackGame": {
+  },
   "GameHighScore": {
     "position": {
       "type": "integer",

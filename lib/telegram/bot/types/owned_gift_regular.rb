@@ -17,6 +17,8 @@ module Telegram
         attribute? :was_refunded, Types::True
         attribute? :convert_star_count, Types::Integer
         attribute? :prepaid_upgrade_star_count, Types::Integer
+        attribute? :is_upgrade_separate, Types::True
+        attribute? :unique_gift_number, Types::Integer
       end
     end
   end

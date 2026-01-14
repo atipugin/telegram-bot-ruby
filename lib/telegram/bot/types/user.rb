@@ -17,6 +17,7 @@ module Telegram
         attribute? :supports_inline_queries, Types::Bool
         attribute? :can_connect_to_business, Types::Bool
         attribute? :has_main_web_app, Types::Bool
+        attribute? :has_topics_enabled, Types::Bool
       end
     end
   end
