@@ -270,6 +270,8 @@ rake rebuild:types    # Rebuilds lib/telegram/bot/types/*.rb
 rake rebuild:methods  # Rebuilds lib/telegram/bot/api/endpoints.rb
 ```
 
+Test on [RapidAPI](https://rapidapi.com/package/TelegramBot/functions?utm_source=TelegramGitHub&utm_medium=button)
+
 ## Contributing
 
 1. Fork it.
