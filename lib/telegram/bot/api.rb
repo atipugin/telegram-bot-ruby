@@ -73,7 +73,7 @@ module Telegram
       end
 
       def jsonify_value?(value)
-        value.respond_to?(:to_compact_hash) || value.is_a?(Array)
+        value.respond_to?(:to_compact_hash) || value.is_a?(Array) || value.is_a?(Hash)
       end
 
       def camelize(method_name)
