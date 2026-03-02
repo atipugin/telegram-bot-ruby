@@ -42,6 +42,7 @@ module Telegram
         'restrictChatMember' => Types::Bool,
         'promoteChatMember' => Types::Bool,
         'setChatAdministratorCustomTitle' => Types::Bool,
+        'setChatMemberTag' => Types::Bool,
         'banChatSenderChat' => Types::Bool,
         'unbanChatSenderChat' => Types::Bool,
         'setChatPermissions' => Types::Bool,
@@ -165,7 +166,10 @@ module Telegram
         'setPassportDataErrors' => Types::Bool,
         'sendGame' => Types::Message,
         'setGameScore' => Types::Message | Types::Bool,
-        'getGameHighScores' => Types::Array.of(Types::GameHighScore)
+        'getGameHighScores' => Types::Array.of(Types::GameHighScore),
+        'setMyProfilePhoto' => Types::Bool,
+        'removeMyProfilePhoto' => Types::Bool,
+        'getUserProfileAudios' => Types::UserProfileAudios
       }.freeze
     end
   end

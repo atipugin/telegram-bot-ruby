@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.6.0
+
+### Added
+
+- [Bot API 9.5](https://core.telegram.org/bots/api-changelog#march-1-2026)
+- [Bot API 9.4](https://core.telegram.org/bots/api-changelog#february-9-2026)
+
 ## 2.5.0
 
 ### Added

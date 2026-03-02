@@ -20,6 +20,7 @@ module Telegram
         attribute? :can_pin_messages, Types::Bool
         attribute? :can_manage_topics, Types::Bool
         attribute? :can_manage_direct_messages, Types::Bool
+        attribute? :can_manage_tags, Types::Bool
       end
     end
   end
