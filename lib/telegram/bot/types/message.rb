@@ -11,6 +11,7 @@ module Telegram
         attribute? :sender_chat, Chat
         attribute? :sender_boost_count, Types::Integer
         attribute? :sender_business_bot, User
+        attribute? :sender_tag, Types::String
         attribute :date, Types::Integer
         attribute? :business_connection_id, Types::String
         attribute :chat, Chat

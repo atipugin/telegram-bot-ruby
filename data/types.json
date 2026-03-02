@@ -386,6 +386,9 @@
     "sender_business_bot": {
       "type": "User"
     },
+    "sender_tag": {
+      "type": "string"
+    },
     "date": {
       "type": "integer",
       "required": true
@@ -748,6 +751,12 @@
       "type": "string"
     },
     "custom_emoji_id": {
+      "type": "string"
+    },
+    "unix_time": {
+      "type": "integer"
+    },
+    "date_time_format": {
       "type": "string"
     }
   },
@@ -2509,6 +2518,9 @@
     },
     "can_manage_direct_messages": {
       "type": "boolean"
+    },
+    "can_manage_tags": {
+      "type": "boolean"
     }
   },
   "ChatMemberUpdated": {
@@ -2645,6 +2657,9 @@
     "can_manage_direct_messages": {
       "type": "boolean"
     },
+    "can_manage_tags": {
+      "type": "boolean"
+    },
     "custom_title": {
       "type": "string"
     }
@@ -2655,6 +2670,9 @@
       "required": true,
       "required_value": "member",
       "default": "member"
+    },
+    "tag": {
+      "type": "string"
     },
     "user": {
       "type": "User",
@@ -2670,6 +2688,9 @@
       "required": true,
       "required_value": "restricted",
       "default": "restricted"
+    },
+    "tag": {
+      "type": "string"
     },
     "user": {
       "type": "User",
@@ -2716,6 +2737,10 @@
       "required": true
     },
     "can_add_web_page_previews": {
+      "type": "boolean",
+      "required": true
+    },
+    "can_edit_tag": {
       "type": "boolean",
       "required": true
     },
@@ -2821,6 +2846,9 @@
       "type": "boolean"
     },
     "can_add_web_page_previews": {
+      "type": "boolean"
+    },
+    "can_edit_tag": {
       "type": "boolean"
     },
     "can_change_info": {

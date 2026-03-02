@@ -42,6 +42,7 @@ module Telegram
         'restrictChatMember' => Types::Bool,
         'promoteChatMember' => Types::Bool,
         'setChatAdministratorCustomTitle' => Types::Bool,
+        'setChatMemberTag' => Types::Bool,
         'banChatSenderChat' => Types::Bool,
         'unbanChatSenderChat' => Types::Bool,
         'setChatPermissions' => Types::Bool,

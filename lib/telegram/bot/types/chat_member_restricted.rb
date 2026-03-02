@@ -5,6 +5,7 @@ module Telegram
     module Types
       class ChatMemberRestricted < Base
         attribute :status, Types::String.constrained(eql: 'restricted').default('restricted')
+        attribute? :tag, Types::String
         attribute :user, User
         attribute :is_member, Types::Bool
         attribute :can_send_messages, Types::Bool
@@ -17,6 +18,7 @@ module Telegram
         attribute :can_send_polls, Types::Bool
         attribute :can_send_other_messages, Types::Bool
         attribute :can_add_web_page_previews, Types::Bool
+        attribute :can_edit_tag, Types::Bool
         attribute :can_change_info, Types::Bool
         attribute :can_invite_users, Types::Bool
         attribute :can_pin_messages, Types::Bool

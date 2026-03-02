@@ -38,6 +38,7 @@
   "restrictChatMember": "Boolean",
   "promoteChatMember": "Boolean",
   "setChatAdministratorCustomTitle": "Boolean",
+  "setChatMemberTag": "Boolean",
   "banChatSenderChat": "Boolean",
   "unbanChatSenderChat": "Boolean",
   "setChatPermissions": "Boolean",
