@@ -18,6 +18,7 @@ module Telegram
         attribute? :can_connect_to_business, Types::Bool
         attribute? :has_main_web_app, Types::Bool
         attribute? :has_topics_enabled, Types::Bool
+        attribute? :allows_users_to_create_topics, Types::Bool
       end
     end
   end

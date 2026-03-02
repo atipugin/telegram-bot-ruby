@@ -58,6 +58,8 @@ module Telegram
         attribute? :location, Location
         attribute? :new_chat_members, Types::Array.of(User)
         attribute? :left_chat_member, User
+        attribute? :chat_owner_left, ChatOwnerLeft
+        attribute? :chat_owner_changed, ChatOwnerChanged
         attribute? :new_chat_title, Types::String
         attribute? :new_chat_photo, Types::Array.of(PhotoSize)
         attribute? :delete_chat_photo, Types::True

@@ -165,7 +165,10 @@ module Telegram
         'setPassportDataErrors' => Types::Bool,
         'sendGame' => Types::Message,
         'setGameScore' => Types::Message | Types::Bool,
-        'getGameHighScores' => Types::Array.of(Types::GameHighScore)
+        'getGameHighScores' => Types::Array.of(Types::GameHighScore),
+        'setMyProfilePhoto' => Types::Bool,
+        'removeMyProfilePhoto' => Types::Bool,
+        'getUserProfileAudios' => Types::UserProfileAudios
       }.freeze
     end
   end
