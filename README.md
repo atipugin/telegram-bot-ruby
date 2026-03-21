@@ -98,6 +98,16 @@ Telegram::Bot::Client.run(token, url: 'https://proxy.example.com') do |bot|
 end
 ```
 
+If you want to use a SOCKS5 proxy with the [Excon](https://github.com/excon/excon) adapter,
+you can configure it like this:
+
+```ruby
+Telegram::Bot.configure do |config|
+  config.adapter = :excon
+  config.adapter_options = { socks5_proxy: 'socks5://socks.proxy:1080' }
+end
+```
+
 ## Custom keyboards
 
 You can use your own [custom keyboards](https://core.telegram.org/bots#keyboards).
@@ -245,6 +255,15 @@ require 'net/http/persistent'
 
 Telegram::Bot.configure do |config|
   config.adapter = :net_http_persistent
+end
+```
+
+If your adapter supports additional configuration, you can pass options as a hash:
+
+```ruby
+Telegram::Bot.configure do |config|
+  config.adapter = :httpx
+  config.adapter_options = { persistent: false }
 end
 ```
 
