@@ -15,7 +15,7 @@ module Telegram
         @connection ||= Faraday.new(url: url) do |faraday|
           faraday.request :multipart
           faraday.request :url_encoded
-          faraday.adapter Telegram::Bot.configuration.adapter
+          configure_adapter(faraday)
           faraday.options.timeout = Telegram::Bot.configuration.connection_timeout
           faraday.options.open_timeout = Telegram::Bot.configuration.connection_open_timeout
         end
@@ -51,6 +51,18 @@ module Telegram
       end
 
       private
+
+      def configure_adapter(faraday)
+        if adapter_options.empty?
+          faraday.adapter Telegram::Bot.configuration.adapter
+        else
+          faraday.adapter Telegram::Bot.configuration.adapter, **adapter_options
+        end
+      end
+
+      def adapter_options
+        Telegram::Bot.configuration.adapter_options || {}
+      end
 
       def build_params(params)
         params.transform_values do |value|

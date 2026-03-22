@@ -258,4 +258,48 @@ RSpec.describe Telegram::Bot::Api, :vcr do
       it { is_expected.to eq expected_data }
     end
   end
+
+  describe '#connection' do
+    let(:builder_options) { Struct.new(:timeout, :open_timeout).new }
+    let(:builder) { instance_double(Faraday::Connection, options: builder_options) }
+    let(:connection) { instance_double(Faraday::Connection) }
+    let(:configured_adapter) { :net_http_persistent }
+    let(:adapter_options) { nil }
+
+    around do |example|
+      original_configuration = Telegram::Bot.configuration
+      Telegram::Bot.configuration = Telegram::Bot::Configuration.new
+
+      example.run
+    ensure
+      Telegram::Bot.configuration = original_configuration
+    end
+
+    before do
+      allow(builder).to receive(:request)
+      allow(builder).to receive(:adapter)
+      allow(Faraday).to receive(:new).with(url: api.url).and_yield(builder).and_return(connection)
+      Telegram::Bot.configure do |config|
+        config.adapter = configured_adapter
+        config.adapter_options = adapter_options
+      end
+    end
+
+    it 'uses the configured adapter when adapter options are not set' do
+      api.connection
+
+      expect(builder).to have_received(:adapter).with(:net_http_persistent)
+    end
+
+    context 'when adapter options are set' do
+      let(:configured_adapter) { :excon }
+      let(:adapter_options) { { persistent: true, nonblock: false } }
+
+      it 'passes adapter options to Faraday' do
+        api.connection
+
+        expect(builder).to have_received(:adapter).with(:excon, persistent: true, nonblock: false)
+      end
+    end
+  end
 end
