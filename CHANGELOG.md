@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.6.0
+
+### Added
+
+- [Bot API 9.4](https://core.telegram.org/bots/api-changelog#february-9-2026) + [Bot API 9.5](https://core.telegram.org/bots/api-changelog#march-1-2026) [#334](https://github.com/atipugin/telegram-bot-ruby/pull/334)
+- Support for configuring Faraday adapter options [#333](https://github.com/atipugin/telegram-bot-ruby/pull/333) (thx [@dmeremyanin](https://github.com/dmeremyanin))
+- [Bot API 9.3](https://core.telegram.org/bots/api-changelog#december-31-2025) [#328](https://github.com/atipugin/telegram-bot-ruby/pull/328)
+- `CallbackQuery#to_s` for improved logging [#327](https://github.com/atipugin/telegram-bot-ruby/pull/327) (thx [@projecteurlumiere](https://github.com/projecteurlumiere))
+
 ## 2.5.0
 
 ### Added
