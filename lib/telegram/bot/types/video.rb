@@ -12,6 +12,7 @@ module Telegram
         attribute? :thumbnail, PhotoSize
         attribute? :cover, Types::Array.of(PhotoSize)
         attribute? :start_timestamp, Types::Integer
+        attribute? :qualities, Types::Array.of(VideoQuality)
         attribute? :file_name, Types::String
         attribute? :mime_type, Types::String
         attribute? :file_size, Types::Integer

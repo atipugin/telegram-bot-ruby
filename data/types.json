@@ -154,6 +154,9 @@
     },
     "has_topics_enabled": {
       "type": "boolean"
+    },
+    "allows_users_to_create_topics": {
+      "type": "boolean"
     }
   },
   "Chat": {
@@ -350,6 +353,9 @@
     "rating": {
       "type": "UserRating"
     },
+    "first_profile_audio": {
+      "type": "Audio"
+    },
     "unique_gift_colors": {
       "type": "UniqueGiftColors"
     },
@@ -379,6 +385,9 @@
     },
     "sender_business_bot": {
       "type": "User"
+    },
+    "sender_tag": {
+      "type": "string"
     },
     "date": {
       "type": "integer",
@@ -533,6 +542,12 @@
     },
     "left_chat_member": {
       "type": "User"
+    },
+    "chat_owner_left": {
+      "type": "ChatOwnerLeft"
+    },
+    "chat_owner_changed": {
+      "type": "ChatOwnerChanged"
     },
     "new_chat_title": {
       "type": "string"
@@ -736,6 +751,12 @@
       "type": "string"
     },
     "custom_emoji_id": {
+      "type": "string"
+    },
+    "unix_time": {
+      "type": "integer"
+    },
+    "date_time_format": {
       "type": "string"
     }
   },
@@ -1070,6 +1091,31 @@
       "required": true
     }
   },
+  "VideoQuality": {
+    "file_id": {
+      "type": "string",
+      "required": true
+    },
+    "file_unique_id": {
+      "type": "string",
+      "required": true
+    },
+    "width": {
+      "type": "integer",
+      "required": true
+    },
+    "height": {
+      "type": "integer",
+      "required": true
+    },
+    "codec": {
+      "type": "string",
+      "required": true
+    },
+    "file_size": {
+      "type": "integer"
+    }
+  },
   "Video": {
     "file_id": {
       "type": "string",
@@ -1100,6 +1146,10 @@
     },
     "start_timestamp": {
       "type": "integer"
+    },
+    "qualities": {
+      "type": "array",
+      "items": "VideoQuality"
     },
     "file_name": {
       "type": "string"
@@ -1711,8 +1761,7 @@
       "default": true
     }
   },
-  "ForumTopicClosed": {
-  },
+  "ForumTopicClosed": {},
   "ForumTopicEdited": {
     "name": {
       "type": "string"
@@ -1721,12 +1770,9 @@
       "type": "string"
     }
   },
-  "ForumTopicReopened": {
-  },
-  "GeneralForumTopicHidden": {
-  },
-  "GeneralForumTopicUnhidden": {
-  },
+  "ForumTopicReopened": {},
+  "GeneralForumTopicHidden": {},
+  "GeneralForumTopicUnhidden": {},
   "SharedUser": {
     "user_id": {
       "type": "integer",
@@ -1794,8 +1840,7 @@
       "required": true
     }
   },
-  "VideoChatStarted": {
-  },
+  "VideoChatStarted": {},
   "VideoChatEnded": {
     "duration": {
       "type": "integer",
@@ -2053,6 +2098,17 @@
       "required": true
     }
   },
+  "UserProfileAudios": {
+    "total_count": {
+      "type": "integer",
+      "required": true
+    },
+    "audios": {
+      "type": "array",
+      "items": "Audio",
+      "required": true
+    }
+  },
   "File": {
     "file_id": {
       "type": "string",
@@ -2109,6 +2165,12 @@
     "text": {
       "type": "string",
       "required": true
+    },
+    "icon_custom_emoji_id": {
+      "type": "string"
+    },
+    "style": {
+      "type": "string"
     },
     "request_users": {
       "type": "KeyboardButtonRequestUsers"
@@ -2220,6 +2282,12 @@
     "text": {
       "type": "string",
       "required": true
+    },
+    "icon_custom_emoji_id": {
+      "type": "string"
+    },
+    "style": {
+      "type": "string"
     },
     "url": {
       "type": "string"
@@ -2450,6 +2518,9 @@
     },
     "can_manage_direct_messages": {
       "type": "boolean"
+    },
+    "can_manage_tags": {
+      "type": "boolean"
     }
   },
   "ChatMemberUpdated": {
@@ -2586,6 +2657,9 @@
     "can_manage_direct_messages": {
       "type": "boolean"
     },
+    "can_manage_tags": {
+      "type": "boolean"
+    },
     "custom_title": {
       "type": "string"
     }
@@ -2596,6 +2670,9 @@
       "required": true,
       "required_value": "member",
       "default": "member"
+    },
+    "tag": {
+      "type": "string"
     },
     "user": {
       "type": "User",
@@ -2611,6 +2688,9 @@
       "required": true,
       "required_value": "restricted",
       "default": "restricted"
+    },
+    "tag": {
+      "type": "string"
     },
     "user": {
       "type": "User",
@@ -2657,6 +2737,10 @@
       "required": true
     },
     "can_add_web_page_previews": {
+      "type": "boolean",
+      "required": true
+    },
+    "can_edit_tag": {
       "type": "boolean",
       "required": true
     },
@@ -2762,6 +2846,9 @@
       "type": "boolean"
     },
     "can_add_web_page_previews": {
+      "type": "boolean"
+    },
+    "can_edit_tag": {
       "type": "boolean"
     },
     "can_change_info": {
@@ -3199,6 +3286,9 @@
     "rarity_per_mille": {
       "type": "integer",
       "required": true
+    },
+    "rarity": {
+      "type": "string"
     }
   },
   "UniqueGiftSymbol": {
@@ -3305,6 +3395,10 @@
       "required": true
     },
     "is_premium": {
+      "type": "boolean",
+      "default": true
+    },
+    "is_burned": {
       "type": "boolean",
       "default": true
     },
@@ -3788,6 +3882,17 @@
       "required": true
     }
   },
+  "ChatOwnerLeft": {
+    "new_owner": {
+      "type": "User"
+    }
+  },
+  "ChatOwnerChanged": {
+    "new_owner": {
+      "type": "User",
+      "required": true
+    }
+  },
   "UserChatBoosts": {
     "boosts": {
       "type": "array",
@@ -4094,8 +4199,7 @@
       "type": "boolean"
     }
   },
-  "InputFile": {
-  },
+  "InputFile": {},
   "InputPaidMedia": {
     "type": [
       "InputPaidMediaPhoto",
@@ -6178,8 +6282,7 @@
       "type": "Animation"
     }
   },
-  "CallbackGame": {
-  },
+  "CallbackGame": {},
   "GameHighScore": {
     "position": {
       "type": "integer",

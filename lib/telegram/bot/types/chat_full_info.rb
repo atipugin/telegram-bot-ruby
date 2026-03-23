@@ -52,6 +52,7 @@ module Telegram
         attribute? :linked_chat_id, Types::Integer
         attribute? :location, ChatLocation
         attribute? :rating, UserRating
+        attribute? :first_profile_audio, Audio
         attribute? :unique_gift_colors, UniqueGiftColors
         attribute? :paid_message_star_count, Types::Integer
       end
