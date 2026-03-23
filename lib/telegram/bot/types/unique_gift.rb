@@ -12,6 +12,7 @@ module Telegram
         attribute :symbol, UniqueGiftSymbol
         attribute :backdrop, UniqueGiftBackdrop
         attribute? :is_premium, Types::True
+        attribute? :is_burned, Types::True
         attribute? :is_from_blockchain, Types::True
         attribute? :colors, UniqueGiftColors
         attribute? :publisher_chat, Chat

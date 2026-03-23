@@ -7,6 +7,7 @@ module Telegram
         attribute :name, Types::String
         attribute :sticker, Sticker
         attribute :rarity_per_mille, Types::Integer
+        attribute? :rarity, Types::String
       end
     end
   end

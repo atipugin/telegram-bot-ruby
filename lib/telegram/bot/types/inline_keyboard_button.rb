@@ -5,6 +5,8 @@ module Telegram
     module Types
       class InlineKeyboardButton < Base
         attribute :text, Types::String
+        attribute? :icon_custom_emoji_id, Types::String
+        attribute? :style, Types::String
         attribute? :url, Types::String
         attribute? :callback_data, Types::String
         attribute? :web_app, WebAppInfo

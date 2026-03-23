@@ -14,6 +14,7 @@ module Telegram
         attribute? :can_send_polls, Types::Bool
         attribute? :can_send_other_messages, Types::Bool
         attribute? :can_add_web_page_previews, Types::Bool
+        attribute? :can_edit_tag, Types::Bool
         attribute? :can_change_info, Types::Bool
         attribute? :can_invite_users, Types::Bool
         attribute? :can_pin_messages, Types::Bool

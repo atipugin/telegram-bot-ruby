@@ -11,6 +11,7 @@ module Telegram
         attribute? :sender_chat, Chat
         attribute? :sender_boost_count, Types::Integer
         attribute? :sender_business_bot, User
+        attribute? :sender_tag, Types::String
         attribute :date, Types::Integer
         attribute? :business_connection_id, Types::String
         attribute :chat, Chat
@@ -58,6 +59,8 @@ module Telegram
         attribute? :location, Location
         attribute? :new_chat_members, Types::Array.of(User)
         attribute? :left_chat_member, User
+        attribute? :chat_owner_left, ChatOwnerLeft
+        attribute? :chat_owner_changed, ChatOwnerChanged
         attribute? :new_chat_title, Types::String
         attribute? :new_chat_photo, Types::Array.of(PhotoSize)
         attribute? :delete_chat_photo, Types::True
