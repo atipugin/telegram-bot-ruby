@@ -72,6 +72,9 @@
     },
     "removed_chat_boost": {
       "type": "ChatBoostRemoved"
+    },
+    "managed_bot": {
+      "type": "ManagedBotUpdated"
     }
   },
   "WebhookInfo": {
@@ -156,6 +159,9 @@
       "type": "boolean"
     },
     "allows_users_to_create_topics": {
+      "type": "boolean"
+    },
+    "can_manage_bots": {
       "type": "boolean"
     }
   },
@@ -426,6 +432,9 @@
     "reply_to_checklist_task_id": {
       "type": "integer"
     },
+    "reply_to_poll_option_id": {
+      "type": "string"
+    },
     "via_bot": {
       "type": "User"
     },
@@ -665,8 +674,17 @@
     "giveaway_completed": {
       "type": "GiveawayCompleted"
     },
+    "managed_bot_created": {
+      "type": "ManagedBotCreated"
+    },
     "paid_message_price_changed": {
       "type": "PaidMessagePriceChanged"
+    },
+    "poll_option_added": {
+      "type": "PollOptionAdded"
+    },
+    "poll_option_deleted": {
+      "type": "PollOptionDeleted"
     },
     "suggested_post_approved": {
       "type": "SuggestedPostApproved"
@@ -888,6 +906,9 @@
     },
     "checklist_task_id": {
       "type": "integer"
+    },
+    "poll_option_id": {
+      "type": "string"
     }
   },
   "MessageOrigin": {
@@ -1295,6 +1316,10 @@
     }
   },
   "PollOption": {
+    "persistent_id": {
+      "type": "string",
+      "required": true
+    },
     "text": {
       "type": "string",
       "required": true,
@@ -1308,6 +1333,15 @@
     "voter_count": {
       "type": "integer",
       "required": true
+    },
+    "added_by_user": {
+      "type": "User"
+    },
+    "added_by_chat": {
+      "type": "Chat"
+    },
+    "addition_date": {
+      "type": "integer"
     }
   },
   "InputPollOption": {
@@ -1339,6 +1373,11 @@
     "option_ids": {
       "type": "array",
       "items": "integer",
+      "required": true
+    },
+    "option_persistent_ids": {
+      "type": "array",
+      "items": "string",
       "required": true
     }
   },
@@ -1382,8 +1421,13 @@
       "type": "boolean",
       "required": true
     },
-    "correct_option_id": {
-      "type": "integer"
+    "allows_revoting": {
+      "type": "boolean",
+      "required": true
+    },
+    "correct_option_ids": {
+      "type": "array",
+      "items": "integer"
     },
     "explanation": {
       "type": "string",
@@ -1398,6 +1442,13 @@
     },
     "close_date": {
       "type": "integer"
+    },
+    "description": {
+      "type": "string"
+    },
+    "description_entities": {
+      "type": "array",
+      "items": "MessageEntity"
     }
   },
   "ChecklistTask": {
@@ -1590,6 +1641,56 @@
     "message_auto_delete_time": {
       "type": "integer",
       "required": true
+    }
+  },
+  "ManagedBotCreated": {
+    "bot": {
+      "type": "User",
+      "required": true
+    }
+  },
+  "ManagedBotUpdated": {
+    "user": {
+      "type": "User",
+      "required": true
+    },
+    "bot": {
+      "type": "User",
+      "required": true
+    }
+  },
+  "PollOptionAdded": {
+    "poll_message": {
+      "type": "MaybeInaccessibleMessage"
+    },
+    "option_persistent_id": {
+      "type": "string",
+      "required": true
+    },
+    "option_text": {
+      "type": "string",
+      "required": true
+    },
+    "option_text_entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    }
+  },
+  "PollOptionDeleted": {
+    "poll_message": {
+      "type": "MaybeInaccessibleMessage"
+    },
+    "option_persistent_id": {
+      "type": "string",
+      "required": true
+    },
+    "option_text": {
+      "type": "string",
+      "required": true
+    },
+    "option_text_entities": {
+      "type": "array",
+      "items": "MessageEntity"
     }
   },
   "ChatBoostAdded": {
@@ -2178,6 +2279,9 @@
     "request_chat": {
       "type": "KeyboardButtonRequestChat"
     },
+    "request_managed_bot": {
+      "type": "KeyboardButtonRequestManagedBot"
+    },
     "request_contact": {
       "type": "boolean"
     },
@@ -2251,6 +2355,18 @@
     },
     "request_photo": {
       "type": "boolean"
+    }
+  },
+  "KeyboardButtonRequestManagedBot": {
+    "request_id": {
+      "type": "integer",
+      "required": true
+    },
+    "suggested_name": {
+      "type": "string"
+    },
+    "suggested_username": {
+      "type": "string"
     }
   },
   "KeyboardButtonPollType": {
@@ -3998,6 +4114,27 @@
       "required": true
     }
   },
+  "SentWebAppMessage": {
+    "inline_message_id": {
+      "type": "string"
+    }
+  },
+  "PreparedInlineMessage": {
+    "id": {
+      "type": "string",
+      "required": true
+    },
+    "expiration_date": {
+      "type": "integer",
+      "required": true
+    }
+  },
+  "PreparedKeyboardButton": {
+    "id": {
+      "type": "string",
+      "required": true
+    }
+  },
   "ResponseParameters": {
     "migrate_to_chat_id": {
       "type": "integer"
@@ -5549,21 +5686,6 @@
     },
     "query": {
       "type": "string",
-      "required": true
-    }
-  },
-  "SentWebAppMessage": {
-    "inline_message_id": {
-      "type": "string"
-    }
-  },
-  "PreparedInlineMessage": {
-    "id": {
-      "type": "string",
-      "required": true
-    },
-    "expiration_date": {
-      "type": "integer",
       "required": true
     }
   },
