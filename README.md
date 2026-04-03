@@ -5,14 +5,13 @@ Ruby wrapper for [Telegram's Bot API](https://core.telegram.org/bots/api).
 [![Gem Version](https://badge.fury.io/rb/telegram-bot-ruby.svg)](http://badge.fury.io/rb/telegram-bot-ruby)
 [![Build Status](https://github.com/atipugin/telegram-bot-ruby/actions/workflows/ci.yml/badge.svg)](https://github.com/atipugin/telegram-bot-ruby/actions)
 [![Maintainability](https://api.codeclimate.com/v1/badges/7e61fbf5bec86e118fb1/maintainability)](https://codeclimate.com/github/atipugin/telegram-bot-ruby/maintainability)
-[![Say Thanks!](https://img.shields.io/badge/Say%20Thanks!-🦉-1EAEDB.svg)](https://saythanks.io/to/atipugin)
 
 ## Installation
 
 Add following line to your Gemfile:
 
 ```ruby
-gem 'telegram-bot-ruby', '~> 2.5'
+gem 'telegram-bot-ruby', '~> 2.7'
 ```
 
 And then execute:
@@ -200,11 +199,9 @@ bot.listen do |message|
 end
 ```
 
-Now, with `inline` mode enabled, your `message` object can be an instance of
-[Message](https://core.telegram.org/bots/api#message),
-[InlineQuery](https://core.telegram.org/bots/api#inlinequery) or
-[ChosenInlineResult](https://core.telegram.org/bots/api#choseninlineresult).
-That's why you need to check type of each message and decide how to handle it.
+Now, with `inline` mode enabled, your `message` object can be an instance of any
+[update type](https://core.telegram.org/bots/api#update) supported by the Bot API.
+That's why you need to check the type of each message and decide how to handle it.
 
 Using `answer_inline_query` you can send query results to user.
 `results` field must be an array of [query result objects](https://core.telegram.org/bots/api#inlinequeryresult).
@@ -225,7 +222,7 @@ bot.listen do |message|
   case message.text
   when '/photo'
     path_to_photo = File.expand_path('~/Desktop/jennifer.jpg')
-    bot.api.send_photo(chat_id: message.chat.id, photo: Faraday::UploadIO.new(path_to_photo, 'image/jpeg'))
+    bot.api.send_photo(chat_id: message.chat.id, photo: Faraday::Multipart::FilePart.new(path_to_photo, 'image/jpeg'))
   end
 end
 ```
@@ -247,7 +244,7 @@ end
 
 ## Connection adapters
 
-Since version `0.5.0` we rely on [faraday](https://github.com/lostisland/faraday) under the hood.
+We rely on [faraday](https://github.com/lostisland/faraday) under the hood.
 You can use any of supported adapters (for example, `net/http/persistent`):
 
 ```ruby
