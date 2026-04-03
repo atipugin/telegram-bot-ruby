@@ -28,6 +28,7 @@ module Telegram
         attribute? :chat_join_request, ChatJoinRequest
         attribute? :chat_boost, ChatBoostUpdated
         attribute? :removed_chat_boost, ChatBoostRemoved
+        attribute? :managed_bot, ManagedBotUpdated
 
         def current_message
           @current_message ||=

@@ -23,6 +23,7 @@ module Telegram
         attribute? :quote, TextQuote
         attribute? :reply_to_story, Story
         attribute? :reply_to_checklist_task_id, Types::Integer
+        attribute? :reply_to_poll_option_id, Types::String
         attribute? :via_bot, User
         attribute? :edit_date, Types::Integer
         attribute? :has_protected_content, Types::True
@@ -98,7 +99,10 @@ module Telegram
         attribute? :giveaway, Giveaway
         attribute? :giveaway_winners, GiveawayWinners
         attribute? :giveaway_completed, GiveawayCompleted
+        attribute? :managed_bot_created, ManagedBotCreated
         attribute? :paid_message_price_changed, PaidMessagePriceChanged
+        attribute? :poll_option_added, PollOptionAdded
+        attribute? :poll_option_deleted, PollOptionDeleted
         attribute? :suggested_post_approved, SuggestedPostApproved
         attribute? :suggested_post_approval_failed, SuggestedPostApprovalFailed
         attribute? :suggested_post_declined, SuggestedPostDeclined

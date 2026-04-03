@@ -13,7 +13,8 @@ jobs:
       matrix:
         ruby:
           - 2.7
-          - 3.2
+          - 3.4
+          - 4.0
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -31,7 +32,8 @@ jobs:
       matrix:
         ruby:
           - 2.7
-          - 3.2
+          - 3.4
+          - 4.0
     steps:
       - name: Checkout
         uses: actions/checkout@v3
