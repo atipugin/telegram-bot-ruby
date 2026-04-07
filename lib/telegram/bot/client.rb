@@ -36,6 +36,10 @@ module Telegram
         end
       rescue Faraday::TimeoutError, Faraday::ConnectionFailed
         retry if @running
+      rescue Faraday::SSLError => e
+        raise unless e.message.include?('SSL_read: unexpected eof while reading')
+
+        retry if @running
       end
 
       def handle_update(update)
