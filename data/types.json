@@ -28,6 +28,9 @@
     "deleted_business_messages": {
       "type": "BusinessMessagesDeleted"
     },
+    "guest_message": {
+      "type": "Message"
+    },
     "message_reaction": {
       "type": "MessageReactionUpdated"
     },
@@ -144,6 +147,9 @@
       "type": "boolean"
     },
     "can_read_all_group_messages": {
+      "type": "boolean"
+    },
+    "supports_guest_queries": {
       "type": "boolean"
     },
     "supports_inline_queries": {
@@ -399,6 +405,9 @@
       "type": "integer",
       "required": true
     },
+    "guest_query_id": {
+      "type": "string"
+    },
     "business_connection_id": {
       "type": "string"
     },
@@ -437,6 +446,12 @@
     },
     "via_bot": {
       "type": "User"
+    },
+    "guest_bot_caller_user": {
+      "type": "User"
+    },
+    "guest_bot_caller_chat": {
+      "type": "Chat"
     },
     "edit_date": {
       "type": "integer"
@@ -486,6 +501,9 @@
     },
     "document": {
       "type": "Document"
+    },
+    "live_photo": {
+      "type": "LivePhoto"
     },
     "paid_media": {
       "type": "PaidMediaInfo"
@@ -819,6 +837,9 @@
     "document": {
       "type": "Document"
     },
+    "live_photo": {
+      "type": "LivePhoto"
+    },
     "paid_media": {
       "type": "PaidMediaInfo"
     },
@@ -1102,6 +1123,38 @@
       "type": "integer"
     }
   },
+  "LivePhoto": {
+    "photo": {
+      "type": "array",
+      "items": "PhotoSize"
+    },
+    "file_id": {
+      "type": "string",
+      "required": true
+    },
+    "file_unique_id": {
+      "type": "string",
+      "required": true
+    },
+    "width": {
+      "type": "integer",
+      "required": true
+    },
+    "height": {
+      "type": "integer",
+      "required": true
+    },
+    "duration": {
+      "type": "integer",
+      "required": true
+    },
+    "mime_type": {
+      "type": "string"
+    },
+    "file_size": {
+      "type": "integer"
+    }
+  },
   "Story": {
     "chat": {
       "type": "Chat",
@@ -1239,10 +1292,36 @@
   },
   "PaidMedia": {
     "type": [
-      "PaidMediaPreview",
+      "PaidMediaLivePhoto",
       "PaidMediaPhoto",
+      "PaidMediaPreview",
       "PaidMediaVideo"
     ]
+  },
+  "PaidMediaLivePhoto": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "live_photo",
+      "default": "live_photo"
+    },
+    "live_photo": {
+      "type": "LivePhoto",
+      "required": true
+    }
+  },
+  "PaidMediaPhoto": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "photo",
+      "default": "photo"
+    },
+    "photo": {
+      "type": "array",
+      "items": "PhotoSize",
+      "required": true
+    }
   },
   "PaidMediaPreview": {
     "type": {
@@ -1259,19 +1338,6 @@
     },
     "duration": {
       "type": "integer"
-    }
-  },
-  "PaidMediaPhoto": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "photo",
-      "default": "photo"
-    },
-    "photo": {
-      "type": "array",
-      "items": "PhotoSize",
-      "required": true
     }
   },
   "PaidMediaVideo": {
@@ -1315,6 +1381,59 @@
       "required": true
     }
   },
+  "PollMedia": {
+    "animation": {
+      "type": "Animation"
+    },
+    "audio": {
+      "type": "Audio"
+    },
+    "document": {
+      "type": "Document"
+    },
+    "live_photo": {
+      "type": "LivePhoto"
+    },
+    "location": {
+      "type": "Location"
+    },
+    "photo": {
+      "type": "array",
+      "items": "PhotoSize"
+    },
+    "sticker": {
+      "type": "Sticker"
+    },
+    "venue": {
+      "type": "Venue"
+    },
+    "video": {
+      "type": "Video"
+    }
+  },
+  "InputPollMedia": {
+    "type": [
+      "InputMediaAnimation",
+      "InputMediaAudio",
+      "InputMediaDocument",
+      "InputMediaLivePhoto",
+      "InputMediaLocation",
+      "InputMediaPhoto",
+      "InputMediaVenue",
+      "InputMediaVideo"
+    ]
+  },
+  "InputPollOptionMedia": {
+    "type": [
+      "InputMediaAnimation",
+      "InputMediaLivePhoto",
+      "InputMediaLocation",
+      "InputMediaPhoto",
+      "InputMediaSticker",
+      "InputMediaVenue",
+      "InputMediaVideo"
+    ]
+  },
   "PollOption": {
     "persistent_id": {
       "type": "string",
@@ -1329,6 +1448,9 @@
     "text_entities": {
       "type": "array",
       "items": "MessageEntity"
+    },
+    "media": {
+      "type": "PollMedia"
     },
     "voter_count": {
       "type": "integer",
@@ -1357,6 +1479,9 @@
     "text_entities": {
       "type": "array",
       "items": "MessageEntity"
+    },
+    "media": {
+      "type": "InputPollOptionMedia"
     }
   },
   "PollAnswer": {
@@ -1425,6 +1550,14 @@
       "type": "boolean",
       "required": true
     },
+    "members_only": {
+      "type": "boolean",
+      "required": true
+    },
+    "country_codes": {
+      "type": "array",
+      "items": "string"
+    },
     "correct_option_ids": {
       "type": "array",
       "items": "integer"
@@ -1436,6 +1569,9 @@
     "explanation_entities": {
       "type": "array",
       "items": "MessageEntity"
+    },
+    "explanation_media": {
+      "type": "PollMedia"
     },
     "open_period": {
       "type": "integer"
@@ -1449,6 +1585,9 @@
     "description_entities": {
       "type": "array",
       "items": "MessageEntity"
+    },
+    "media": {
+      "type": "PollMedia"
     }
   },
   "ChecklistTask": {
@@ -2856,6 +2995,10 @@
       "type": "boolean",
       "required": true
     },
+    "can_react_to_messages": {
+      "type": "boolean",
+      "required": true
+    },
     "can_edit_tag": {
       "type": "boolean",
       "required": true
@@ -2962,6 +3105,9 @@
       "type": "boolean"
     },
     "can_add_web_page_previews": {
+      "type": "boolean"
+    },
+    "can_react_to_messages": {
       "type": "boolean"
     },
     "can_edit_tag": {
@@ -3705,6 +3851,16 @@
       "type": "string"
     }
   },
+  "BotAccessSettings": {
+    "is_access_restricted": {
+      "type": "boolean",
+      "required": true
+    },
+    "added_users": {
+      "type": "array",
+      "items": "User"
+    }
+  },
   "AcceptedGiftTypes": {
     "unlimited_gifts": {
       "type": "boolean",
@@ -4119,6 +4275,12 @@
       "type": "string"
     }
   },
+  "SentGuestMessage": {
+    "inline_message_id": {
+      "type": "string",
+      "required": true
+    }
+  },
   "PreparedInlineMessage": {
     "id": {
       "type": "string",
@@ -4146,90 +4308,12 @@
   "InputMedia": {
     "type": [
       "InputMediaAnimation",
-      "InputMediaDocument",
       "InputMediaAudio",
+      "InputMediaDocument",
+      "InputMediaLivePhoto",
       "InputMediaPhoto",
       "InputMediaVideo"
     ]
-  },
-  "InputMediaPhoto": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "photo",
-      "default": "photo"
-    },
-    "media": {
-      "type": "string",
-      "required": true
-    },
-    "caption": {
-      "type": "string",
-      "max_size": 1024
-    },
-    "parse_mode": {
-      "type": "string"
-    },
-    "caption_entities": {
-      "type": "array",
-      "items": "MessageEntity"
-    },
-    "show_caption_above_media": {
-      "type": "boolean"
-    },
-    "has_spoiler": {
-      "type": "boolean"
-    }
-  },
-  "InputMediaVideo": {
-    "type": {
-      "type": "string",
-      "required": true,
-      "required_value": "video",
-      "default": "video"
-    },
-    "media": {
-      "type": "string",
-      "required": true
-    },
-    "thumbnail": {
-      "type": "string"
-    },
-    "cover": {
-      "type": "string"
-    },
-    "start_timestamp": {
-      "type": "integer"
-    },
-    "caption": {
-      "type": "string",
-      "max_size": 1024
-    },
-    "parse_mode": {
-      "type": "string"
-    },
-    "caption_entities": {
-      "type": "array",
-      "items": "MessageEntity"
-    },
-    "show_caption_above_media": {
-      "type": "boolean"
-    },
-    "width": {
-      "type": "integer"
-    },
-    "height": {
-      "type": "integer"
-    },
-    "duration": {
-      "type": "integer"
-    },
-    "supports_streaming": {
-      "type": "boolean"
-    },
-    "has_spoiler": {
-      "type": "boolean"
-    }
   },
   "InputMediaAnimation": {
     "type": {
@@ -4336,12 +4420,211 @@
       "type": "boolean"
     }
   },
+  "InputMediaLivePhoto": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "live_photo",
+      "default": "live_photo"
+    },
+    "media": {
+      "type": "string",
+      "required": true
+    },
+    "photo": {
+      "type": "string",
+      "required": true
+    },
+    "caption": {
+      "type": "string",
+      "max_size": 1024
+    },
+    "parse_mode": {
+      "type": "string"
+    },
+    "caption_entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "show_caption_above_media": {
+      "type": "boolean"
+    },
+    "has_spoiler": {
+      "type": "boolean"
+    }
+  },
+  "InputMediaLocation": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "location",
+      "default": "location"
+    },
+    "latitude": {
+      "type": "number",
+      "required": true
+    },
+    "longitude": {
+      "type": "number",
+      "required": true
+    },
+    "horizontal_accuracy": {
+      "type": "number"
+    }
+  },
+  "InputMediaPhoto": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "photo",
+      "default": "photo"
+    },
+    "media": {
+      "type": "string",
+      "required": true
+    },
+    "caption": {
+      "type": "string",
+      "max_size": 1024
+    },
+    "parse_mode": {
+      "type": "string"
+    },
+    "caption_entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "show_caption_above_media": {
+      "type": "boolean"
+    },
+    "has_spoiler": {
+      "type": "boolean"
+    }
+  },
+  "InputMediaSticker": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "sticker",
+      "default": "sticker"
+    },
+    "media": {
+      "type": "string",
+      "required": true
+    },
+    "emoji": {
+      "type": "string"
+    }
+  },
+  "InputMediaVenue": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "venue",
+      "default": "venue"
+    },
+    "latitude": {
+      "type": "number",
+      "required": true
+    },
+    "longitude": {
+      "type": "number",
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "address": {
+      "type": "string",
+      "required": true
+    },
+    "foursquare_id": {
+      "type": "string"
+    },
+    "foursquare_type": {
+      "type": "string"
+    },
+    "google_place_id": {
+      "type": "string"
+    },
+    "google_place_type": {
+      "type": "string"
+    }
+  },
+  "InputMediaVideo": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "video",
+      "default": "video"
+    },
+    "media": {
+      "type": "string",
+      "required": true
+    },
+    "thumbnail": {
+      "type": "string"
+    },
+    "cover": {
+      "type": "string"
+    },
+    "start_timestamp": {
+      "type": "integer"
+    },
+    "caption": {
+      "type": "string",
+      "max_size": 1024
+    },
+    "parse_mode": {
+      "type": "string"
+    },
+    "caption_entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "show_caption_above_media": {
+      "type": "boolean"
+    },
+    "width": {
+      "type": "integer"
+    },
+    "height": {
+      "type": "integer"
+    },
+    "duration": {
+      "type": "integer"
+    },
+    "supports_streaming": {
+      "type": "boolean"
+    },
+    "has_spoiler": {
+      "type": "boolean"
+    }
+  },
   "InputFile": {},
   "InputPaidMedia": {
     "type": [
+      "InputPaidMediaLivePhoto",
       "InputPaidMediaPhoto",
       "InputPaidMediaVideo"
     ]
+  },
+  "InputPaidMediaLivePhoto": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "live_photo",
+      "default": "live_photo"
+    },
+    "media": {
+      "type": "string",
+      "required": true
+    },
+    "photo": {
+      "type": "string",
+      "required": true
+    }
   },
   "InputPaidMediaPhoto": {
     "type": {
@@ -5066,7 +5349,9 @@
       "type": "number"
     },
     "live_period": {
-      "type": "integer"
+      "type": "integer",
+      "min_size": 60,
+      "max_size": 86400
     },
     "heading": {
       "type": "integer"
@@ -5540,7 +5825,9 @@
       "type": "number"
     },
     "live_period": {
-      "type": "integer"
+      "type": "integer",
+      "min_size": 60,
+      "max_size": 86400
     },
     "heading": {
       "type": "integer"

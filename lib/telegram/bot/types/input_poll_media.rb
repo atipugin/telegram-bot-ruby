@@ -5,12 +5,14 @@ module Telegram
     module Types
       ## Just for classes consistency
       # rubocop:disable Naming/ConstantName
-      InputMedia = (
+      InputPollMedia = (
         InputMediaAnimation |
         InputMediaAudio |
         InputMediaDocument |
         InputMediaLivePhoto |
+        InputMediaLocation |
         InputMediaPhoto |
+        InputMediaVenue |
         InputMediaVideo
       )
       # rubocop:enable Naming/ConstantName

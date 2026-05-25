@@ -13,6 +13,7 @@ module Telegram
         attribute? :sender_business_bot, User
         attribute? :sender_tag, Types::String
         attribute :date, Types::Integer
+        attribute? :guest_query_id, Types::String
         attribute? :business_connection_id, Types::String
         attribute :chat, Chat
         attribute? :forward_origin, MessageOrigin
@@ -25,6 +26,8 @@ module Telegram
         attribute? :reply_to_checklist_task_id, Types::Integer
         attribute? :reply_to_poll_option_id, Types::String
         attribute? :via_bot, User
+        attribute? :guest_bot_caller_user, User
+        attribute? :guest_bot_caller_chat, Chat
         attribute? :edit_date, Types::Integer
         attribute? :has_protected_content, Types::True
         attribute? :is_from_offline, Types::True
@@ -40,6 +43,7 @@ module Telegram
         attribute? :animation, Animation
         attribute? :audio, Audio
         attribute? :document, Document
+        attribute? :live_photo, LivePhoto
         attribute? :paid_media, PaidMediaInfo
         attribute? :photo, Types::Array.of(PhotoSize)
         attribute? :sticker, Sticker
