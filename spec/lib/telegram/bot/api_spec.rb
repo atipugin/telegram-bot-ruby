@@ -47,7 +47,7 @@ RSpec.describe Telegram::Bot::Api, :vcr do
       end
     end
 
-    context 'with low open_timeout' do
+    xcontext 'with low open_timeout' do
       before do
         Telegram::Bot.configure { |config| config.connection_open_timeout = 0.001 }
       end

@@ -4,6 +4,7 @@ require 'logger'
 require 'json'
 require 'faraday'
 require 'faraday/multipart'
+require 'faraday/typhoeus'
 require 'zeitwerk'
 require 'dry-struct'
 
