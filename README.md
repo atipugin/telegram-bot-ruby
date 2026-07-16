@@ -5,31 +5,13 @@ Ruby wrapper for [Telegram's Bot API](https://core.telegram.org/bots/api).
 [![Gem Version](https://badge.fury.io/rb/telegram-bot-ruby.svg)](http://badge.fury.io/rb/telegram-bot-ruby)
 [![Build Status](https://github.com/atipugin/telegram-bot-ruby/actions/workflows/ci.yml/badge.svg)](https://github.com/atipugin/telegram-bot-ruby/actions)
 [![Maintainability](https://api.codeclimate.com/v1/badges/7e61fbf5bec86e118fb1/maintainability)](https://codeclimate.com/github/atipugin/telegram-bot-ruby/maintainability)
-[![Say Thanks!](https://img.shields.io/badge/Say%20Thanks!-🦉-1EAEDB.svg)](https://saythanks.io/to/atipugin)
-
-## 🚧 Upgrading to 1.0
-
-Since v1.0 `telegram-bot-ruby` uses [`dry-struct`](https://github.com/dry-rb/dry-struct)
-instead of [`virtus`](https://github.com/solnic/virtus).
-This means that type objects are now immutable and you can't change them after initialization:
-
-```ruby
-# This won't work
-kb = Telegram::Bot::Types::ReplyKeyboardRemove.new
-kb.remove_keyboard = true
-
-# You have to set attributes in constructor instead
-kb = Telegram::Bot::Types::ReplyKeyboardRemove.new(remove_keyboard: true)
-```
-
-Please make sure it doesn't break your existing code before upgrading to 1.0.
 
 ## Installation
 
 Add following line to your Gemfile:
 
 ```ruby
-gem 'telegram-bot-ruby', '~> 1.0'
+gem 'telegram-bot-ruby', '~> 2.7'
 ```
 
 And then execute:
@@ -112,6 +94,16 @@ In this case you need to configure API URL:
 ```ruby
 Telegram::Bot::Client.run(token, url: 'https://proxy.example.com') do |bot|
   # ...
+end
+```
+
+If you want to use a SOCKS5 proxy with the [Excon](https://github.com/excon/excon) adapter,
+you can configure it like this:
+
+```ruby
+Telegram::Bot.configure do |config|
+  config.adapter = :excon
+  config.adapter_options = { socks5_proxy: 'socks5://socks.proxy:1080' }
 end
 ```
 
@@ -207,11 +199,9 @@ bot.listen do |message|
 end
 ```
 
-Now, with `inline` mode enabled, your `message` object can be an instance of
-[Message](https://core.telegram.org/bots/api#message),
-[InlineQuery](https://core.telegram.org/bots/api#inlinequery) or
-[ChosenInlineResult](https://core.telegram.org/bots/api#choseninlineresult).
-That's why you need to check type of each message and decide how to handle it.
+Now, with `inline` mode enabled, your `message` object can be an instance of any
+[update type](https://core.telegram.org/bots/api#update) supported by the Bot API.
+That's why you need to check the type of each message and decide how to handle it.
 
 Using `answer_inline_query` you can send query results to user.
 `results` field must be an array of [query result objects](https://core.telegram.org/bots/api#inlinequeryresult).
@@ -232,14 +222,14 @@ bot.listen do |message|
   case message.text
   when '/photo'
     path_to_photo = File.expand_path('~/Desktop/jennifer.jpg')
-    bot.api.send_photo(chat_id: message.chat.id, photo: Faraday::UploadIO.new(path_to_photo, 'image/jpeg'))
+    bot.api.send_photo(chat_id: message.chat.id, photo: Faraday::Multipart::FilePart.new(path_to_photo, 'image/jpeg'))
   end
 end
 ```
 
 ## Logging
 
-By default, bot doesn't log anything (uses `NullLoger`).
+By default, bot doesn't log anything (uses `NullLogger`).
 You can change this behavior and provide your own logger class.
 See example below:
 
@@ -254,7 +244,7 @@ end
 
 ## Connection adapters
 
-Since version `0.5.0` we rely on [faraday](https://github.com/lostisland/faraday) under the hood.
+We rely on [faraday](https://github.com/lostisland/faraday) under the hood.
 You can use any of supported adapters (for example, `net/http/persistent`):
 
 ```ruby
@@ -265,12 +255,36 @@ Telegram::Bot.configure do |config|
 end
 ```
 
-## Boilerplates
+If your adapter supports additional configuration, you can pass options as a hash:
 
-If you don't know how to setup database for your bot or how to use it with different languages
-here are some boilerplates which can help you to start faster:
+```ruby
+Telegram::Bot.configure do |config|
+  config.adapter = :httpx
+  config.adapter_options = { persistent: false }
+end
+```
 
-- [Ruby Telegram Bot boilerplate](https://github.com/telegram-bots/ruby-telegram-bot-boilerplate)
+## Maintenance
+
+This gem provides rake tasks to parse the official [Telegram Bot API documentation](https://core.telegram.org/bots/api) and regenerate types and API methods.
+
+### Parsing
+
+Parse types and methods from the official documentation:
+
+```shell
+rake parse:types    # Parses types to data/types.json
+rake parse:methods  # Parses methods to data/methods.json
+```
+
+### Rebuilding
+
+Regenerate Ruby code from the parsed JSON data:
+
+```shell
+rake rebuild:types    # Rebuilds lib/telegram/bot/types/*.rb
+rake rebuild:methods  # Rebuilds lib/telegram/bot/api/endpoints.rb
+```
 
 ## Contributing
 

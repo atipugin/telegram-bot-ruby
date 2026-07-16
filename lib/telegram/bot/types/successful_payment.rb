@@ -7,6 +7,9 @@ module Telegram
         attribute :currency, Types::String
         attribute :total_amount, Types::Integer
         attribute :invoice_payload, Types::String
+        attribute? :subscription_expiration_date, Types::Integer
+        attribute? :is_recurring, Types::True
+        attribute? :is_first_recurring, Types::True
         attribute? :shipping_option_id, Types::String
         attribute? :order_info, OrderInfo
         attribute :telegram_payment_charge_id, Types::String

@@ -1,10 +1,56 @@
 # Changelog
 
+## 2.7.0
+
+### Added
+
+- [Bot API 9.6](https://core.telegram.org/bots/api-changelog#april-3-2026) [#335](https://github.com/atipugin/telegram-bot-ruby/pull/335)
+
+## 2.6.0
+
+### Added
+
+- [Bot API 9.4](https://core.telegram.org/bots/api-changelog#february-9-2026) + [Bot API 9.5](https://core.telegram.org/bots/api-changelog#march-1-2026) [#334](https://github.com/atipugin/telegram-bot-ruby/pull/334)
+- Support for configuring Faraday adapter options [#333](https://github.com/atipugin/telegram-bot-ruby/pull/333) (thx [@dmeremyanin](https://github.com/dmeremyanin))
+- [Bot API 9.3](https://core.telegram.org/bots/api-changelog#december-31-2025) [#328](https://github.com/atipugin/telegram-bot-ruby/pull/328)
+- `CallbackQuery#to_s` for improved logging [#327](https://github.com/atipugin/telegram-bot-ruby/pull/327) (thx [@projecteurlumiere](https://github.com/projecteurlumiere))
+
+## 2.5.0
+
+### Added
+
+- Docs parsers for types and methods
+- [Bot API 9.2](https://core.telegram.org/bots/api-changelog#august-15-2025) [#325](https://github.com/atipugin/telegram-bot-ruby/pull/325)
+
+## 2.4.0
+
+### Added
+
+- [Bot API 8.3](https://core.telegram.org/bots/api-changelog#february-12-2025) [#323](https://github.com/atipugin/telegram-bot-ruby/pull/323)
+
+## 2.3.0
+
+### Added
+
+- [Bot API 8.2](https://core.telegram.org/bots/api#january-1-2025) [#322](https://github.com/atipugin/telegram-bot-ruby/pull/322)
+
+## 2.2.0
+
+### Added
+
+- [Bot API 8.1](https://core.telegram.org/bots/api-changelog#december-4-2024) [#319](https://github.com/atipugin/telegram-bot-ruby/pull/319)
+
+## 2.1.0
+
+### Added
+
+- [Bot API 8.0](https://core.telegram.org/bots/api-changelog#november-17-2024) (thx [@seorgiy](https://github.com/seorgiy))
+
 ## 2.0.0
 
 ### Added
 
-- [Bot API 7.0](https://core.telegram.org/bots/api#december-29-2023)
+- [Bot API 7.0](https://core.telegram.org/bots/api-changelog#december-29-2023)
 
 ### Changed
 
@@ -14,8 +60,8 @@
 
 - Replace [virtus](https://github.com/solnic/virtus) with [dry-struct](https://github.com/dry-rb/dry-struct)
 - Use [zeitwerk](https://github.com/fxn/zeitwerk) for code loading
-- Implement [Bot API 6.4](https://core.telegram.org/bots/api#december-30-2022)
-- Implement [Bot API 6.5](https://core.telegram.org/bots/api#february-3-2023)
+- Implement [Bot API 6.4](https://core.telegram.org/bots/api-changelog#december-30-2022)
+- Implement [Bot API 6.5](https://core.telegram.org/bots/api-changelog#february-3-2023)
 
 ## 0.23.0
 
@@ -26,8 +72,8 @@
 
 ## 0.21.0
 
-- Implement [Bot API 6.1](https://core.telegram.org/bots/api#june-20-2022)
-- Implement [Bot API 6.2](https://core.telegram.org/bots/api#august-12-2022)
+- Implement [Bot API 6.1](https://core.telegram.org/bots/api-changelog#june-20-2022)
+- Implement [Bot API 6.2](https://core.telegram.org/bots/api-changelog#august-12-2022)
 
 ## 0.20.0
 
@@ -58,11 +104,11 @@
 
 ## 0.15.0
 
-- Implement [Bot API 5.1](https://core.telegram.org/bots/api#march-9-2021)
+- Implement [Bot API 5.1](https://core.telegram.org/bots/api-changelog#march-9-2021)
 
 ## 0.14.0
 
-- Implement [Bot API 5.0](https://core.telegram.org/bots/api#november-4-2020)
+- Implement [Bot API 5.0](https://core.telegram.org/bots/api-changelog#november-4-2020)
 
 ## 0.13.0
 
@@ -76,7 +122,7 @@
 
 ## 0.11.0
 
-- Implement [Bot API 4.4](https://core.telegram.org/bots/api#july-29-2019)
+- Implement [Bot API 4.4](https://core.telegram.org/bots/api-changelog#july-29-2019)
 
 ## 0.10.1
 
@@ -84,7 +130,7 @@
 
 ## 0.10.0
 
-- Implement [Bot API 4.3](https://core.telegram.org/bots/api#may-31-2019)
+- Implement [Bot API 4.3](https://core.telegram.org/bots/api-changelog#may-31-2019)
 
 ## 0.9.1
 
@@ -103,23 +149,23 @@
 
 ## 0.8.6
 
-- Implement [Bot API 3.5](https://core.telegram.org/bots/api#november-17-2017)
+- Implement [Bot API 3.5](https://core.telegram.org/bots/api-changelog#november-17-2017)
 
 ## 0.8.5
 
-- Implement [Bot API 3.4](https://core.telegram.org/bots/api#october-11-2017) (thx [@ivanovaleksey][])
+- Implement [Bot API 3.4](https://core.telegram.org/bots/api-changelog#october-11-2017) (thx [@ivanovaleksey][])
 
 ## 0.8.4
 
-- Implement [Bot API 3.3](https://core.telegram.org/bots/api#august-23-2017) (thx [@ivanovaleksey][])
+- Implement [Bot API 3.3](https://core.telegram.org/bots/api-changelog#august-23-2017) (thx [@ivanovaleksey][])
 
 ## 0.8.3
 
-- Implement [Bot API 3.2](https://core.telegram.org/bots/api#july-21-2017) (thx [@ivanovaleksey][])
+- Implement [Bot API 3.2](https://core.telegram.org/bots/api-changelog#july-21-2017) (thx [@ivanovaleksey][])
 
 ## 0.8.2
 
-- Implement [Bot API 3.1](https://core.telegram.org/bots/api#june-30-2017) (thx [@ivanovaleksey][])
+- Implement [Bot API 3.1](https://core.telegram.org/bots/api-changelog#june-30-2017) (thx [@ivanovaleksey][])
 
 ## 0.8.1
 
@@ -127,7 +173,7 @@
 
 ## 0.8.0
 
-- Implement [Bot API 3.0](https://core.telegram.org/bots/api#may-18-2017) (thx [@ivanovaleksey][])
+- Implement [Bot API 3.0](https://core.telegram.org/bots/api-changelog#may-18-2017) (thx [@ivanovaleksey][])
 
 ## 0.7.2
 

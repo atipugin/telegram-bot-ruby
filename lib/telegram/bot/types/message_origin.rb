@@ -3,12 +3,15 @@
 module Telegram
   module Bot
     module Types
-      MessageOrigin = ( # rubocop:disable Naming/ConstantName
+      ## Just for classes consistency
+      # rubocop:disable Naming/ConstantName
+      MessageOrigin = (
         MessageOriginUser |
         MessageOriginHiddenUser |
         MessageOriginChat |
         MessageOriginChannel
       )
+      # rubocop:enable Naming/ConstantName
     end
   end
 end

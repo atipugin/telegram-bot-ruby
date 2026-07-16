@@ -10,7 +10,6 @@ module Telegram
         attribute :input_message_content, InputMessageContent
         attribute? :reply_markup, InlineKeyboardMarkup
         attribute? :url, Types::String
-        attribute? :hide_url, Types::Bool
         attribute? :description, Types::String
         attribute? :thumbnail_url, Types::String
         attribute? :thumbnail_width, Types::Integer

@@ -1,0 +1,13 @@
+# frozen_string_literal: true
+
+module Telegram
+  module Bot
+    module Types
+      class <%= name %> < Base
+      <% attributes.each_pair do |name, properties| %>
+        <%= "#{properties[:required] ? 'attribute' : 'attribute?'} :#{name}, #{properties[:type]}" %>
+      <% end %>
+      end
+    end
+  end
+end

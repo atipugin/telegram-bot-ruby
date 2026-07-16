@@ -3,7 +3,10 @@
 module Telegram
   module Bot
     module Types
-      class Story < Base; end
+      class Story < Base
+        attribute :chat, Chat
+        attribute :id, Types::Integer
+      end
     end
   end
 end

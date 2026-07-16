@@ -11,6 +11,7 @@ module Telegram
         attribute? :has_public_winners, Types::True
         attribute? :prize_description, Types::String
         attribute? :country_codes, Types::Array.of(Types::String)
+        attribute? :prize_star_count, Types::Integer
         attribute? :premium_subscription_month_count, Types::Integer
       end
     end

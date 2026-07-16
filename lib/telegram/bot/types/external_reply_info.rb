@@ -11,6 +11,7 @@ module Telegram
         attribute? :animation, Animation
         attribute? :audio, Audio
         attribute? :document, Document
+        attribute? :paid_media, PaidMediaInfo
         attribute? :photo, Types::Array.of(PhotoSize)
         attribute? :sticker, Sticker
         attribute? :story, Story
@@ -18,6 +19,7 @@ module Telegram
         attribute? :video_note, VideoNote
         attribute? :voice, Voice
         attribute? :has_media_spoiler, Types::True
+        attribute? :checklist, Checklist
         attribute? :contact, Contact
         attribute? :dice, Dice
         attribute? :game, Game

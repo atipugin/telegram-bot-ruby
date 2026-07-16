@@ -6,9 +6,14 @@ module Telegram
       class Message < Base
         attribute :message_id, Types::Integer
         attribute? :message_thread_id, Types::Integer
+        attribute? :direct_messages_topic, DirectMessagesTopic
         attribute? :from, User
         attribute? :sender_chat, Chat
+        attribute? :sender_boost_count, Types::Integer
+        attribute? :sender_business_bot, User
+        attribute? :sender_tag, Types::String
         attribute :date, Types::Integer
+        attribute? :business_connection_id, Types::String
         attribute :chat, Chat
         attribute? :forward_origin, MessageOrigin
         attribute? :is_topic_message, Types::True
@@ -16,17 +21,26 @@ module Telegram
         attribute? :reply_to_message, Message
         attribute? :external_reply, ExternalReplyInfo
         attribute? :quote, TextQuote
+        attribute? :reply_to_story, Story
+        attribute? :reply_to_checklist_task_id, Types::Integer
+        attribute? :reply_to_poll_option_id, Types::String
         attribute? :via_bot, User
         attribute? :edit_date, Types::Integer
         attribute? :has_protected_content, Types::True
+        attribute? :is_from_offline, Types::True
+        attribute? :is_paid_post, Types::True
         attribute? :media_group_id, Types::String
         attribute? :author_signature, Types::String
+        attribute? :paid_star_count, Types::Integer
         attribute? :text, Types::String
         attribute? :entities, Types::Array.of(MessageEntity)
         attribute? :link_preview_options, LinkPreviewOptions
+        attribute? :suggested_post_info, SuggestedPostInfo
+        attribute? :effect_id, Types::String
         attribute? :animation, Animation
         attribute? :audio, Audio
         attribute? :document, Document
+        attribute? :paid_media, PaidMediaInfo
         attribute? :photo, Types::Array.of(PhotoSize)
         attribute? :sticker, Sticker
         attribute? :story, Story
@@ -35,7 +49,9 @@ module Telegram
         attribute? :voice, Voice
         attribute? :caption, Types::String
         attribute? :caption_entities, Types::Array.of(MessageEntity)
+        attribute? :show_caption_above_media, Types::True
         attribute? :has_media_spoiler, Types::True
+        attribute? :checklist, Checklist
         attribute? :contact, Contact
         attribute? :dice, Dice
         attribute? :game, Game
@@ -44,6 +60,8 @@ module Telegram
         attribute? :location, Location
         attribute? :new_chat_members, Types::Array.of(User)
         attribute? :left_chat_member, User
+        attribute? :chat_owner_left, ChatOwnerLeft
+        attribute? :chat_owner_changed, ChatOwnerChanged
         attribute? :new_chat_title, Types::String
         attribute? :new_chat_photo, Types::Array.of(PhotoSize)
         attribute? :delete_chat_photo, Types::True
@@ -56,12 +74,21 @@ module Telegram
         attribute? :pinned_message, MaybeInaccessibleMessage
         attribute? :invoice, Invoice
         attribute? :successful_payment, SuccessfulPayment
+        attribute? :refunded_payment, RefundedPayment
         attribute? :users_shared, UsersShared
         attribute? :chat_shared, ChatShared
+        attribute? :gift, GiftInfo
+        attribute? :unique_gift, UniqueGiftInfo
+        attribute? :gift_upgrade_sent, GiftInfo
         attribute? :connected_website, Types::String
         attribute? :write_access_allowed, WriteAccessAllowed
         attribute? :passport_data, PassportData
         attribute? :proximity_alert_triggered, ProximityAlertTriggered
+        attribute? :boost_added, ChatBoostAdded
+        attribute? :chat_background_set, ChatBackground
+        attribute? :checklist_tasks_done, ChecklistTasksDone
+        attribute? :checklist_tasks_added, ChecklistTasksAdded
+        attribute? :direct_message_price_changed, DirectMessagePriceChanged
         attribute? :forum_topic_created, ForumTopicCreated
         attribute? :forum_topic_edited, ForumTopicEdited
         attribute? :forum_topic_closed, ForumTopicClosed
@@ -72,6 +99,15 @@ module Telegram
         attribute? :giveaway, Giveaway
         attribute? :giveaway_winners, GiveawayWinners
         attribute? :giveaway_completed, GiveawayCompleted
+        attribute? :managed_bot_created, ManagedBotCreated
+        attribute? :paid_message_price_changed, PaidMessagePriceChanged
+        attribute? :poll_option_added, PollOptionAdded
+        attribute? :poll_option_deleted, PollOptionDeleted
+        attribute? :suggested_post_approved, SuggestedPostApproved
+        attribute? :suggested_post_approval_failed, SuggestedPostApprovalFailed
+        attribute? :suggested_post_declined, SuggestedPostDeclined
+        attribute? :suggested_post_paid, SuggestedPostPaid
+        attribute? :suggested_post_refunded, SuggestedPostRefunded
         attribute? :video_chat_scheduled, VideoChatScheduled
         attribute? :video_chat_started, VideoChatStarted
         attribute? :video_chat_ended, VideoChatEnded
@@ -79,7 +115,9 @@ module Telegram
         attribute? :web_app_data, WebAppData
         attribute? :reply_markup, InlineKeyboardMarkup
 
-        alias to_s text
+        def to_s
+          text.to_s
+        end
       end
     end
   end

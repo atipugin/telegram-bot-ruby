@@ -13,6 +13,8 @@ module Telegram
         attribute? :expire_date, Types::Integer
         attribute? :member_limit, Types::Integer
         attribute? :pending_join_request_count, Types::Integer
+        attribute? :subscription_period, Types::Integer
+        attribute? :subscription_price, Types::Integer
       end
     end
   end

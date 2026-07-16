@@ -5,7 +5,7 @@ module Telegram
     module Types
       class ReplyKeyboardRemove < Base
         attribute :remove_keyboard, Types::True
-        attribute? :selective, Types::Bool.default(false)
+        attribute? :selective, Types::Bool
       end
     end
   end

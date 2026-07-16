@@ -12,6 +12,9 @@ module Telegram
         attribute? :user_administrator_rights, ChatAdministratorRights
         attribute? :bot_administrator_rights, ChatAdministratorRights
         attribute? :bot_is_member, Types::Bool
+        attribute? :request_title, Types::Bool
+        attribute? :request_username, Types::Bool
+        attribute? :request_photo, Types::Bool
       end
     end
   end

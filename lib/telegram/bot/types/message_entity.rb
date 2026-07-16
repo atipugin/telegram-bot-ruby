@@ -11,6 +11,8 @@ module Telegram
         attribute? :user, User
         attribute? :language, Types::String
         attribute? :custom_emoji_id, Types::String
+        attribute? :unix_time, Types::Integer
+        attribute? :date_time_format, Types::String
       end
     end
   end

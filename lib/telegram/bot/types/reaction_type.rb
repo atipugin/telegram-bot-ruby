@@ -3,10 +3,14 @@
 module Telegram
   module Bot
     module Types
-      ReactionType = ( # rubocop:disable Naming/ConstantName
+      ## Just for classes consistency
+      # rubocop:disable Naming/ConstantName
+      ReactionType = (
         ReactionTypeEmoji |
-        ReactionTypeCustomEmoji
+        ReactionTypeCustomEmoji |
+        ReactionTypePaid
       )
+      # rubocop:enable Naming/ConstantName
     end
   end
 end
