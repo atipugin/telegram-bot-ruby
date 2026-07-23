@@ -55,6 +55,8 @@ module Telegram
         attribute? :first_profile_audio, Audio
         attribute? :unique_gift_colors, UniqueGiftColors
         attribute? :paid_message_star_count, Types::Integer
+        attribute? :guard_bot, User
+        attribute? :community, Community
       end
     end
   end

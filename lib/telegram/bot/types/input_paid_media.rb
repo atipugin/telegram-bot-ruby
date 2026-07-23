@@ -6,6 +6,7 @@ module Telegram
       ## Just for classes consistency
       # rubocop:disable Naming/ConstantName
       InputPaidMedia = (
+        InputPaidMediaLivePhoto |
         InputPaidMediaPhoto |
         InputPaidMediaVideo
       )

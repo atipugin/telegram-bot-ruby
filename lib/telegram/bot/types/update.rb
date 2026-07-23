@@ -13,6 +13,7 @@ module Telegram
         attribute? :business_message, Message
         attribute? :edited_business_message, Message
         attribute? :deleted_business_messages, BusinessMessagesDeleted
+        attribute? :guest_message, Message
         attribute? :message_reaction, MessageReactionUpdated
         attribute? :message_reaction_count, MessageReactionCountUpdated
         attribute? :inline_query, InlineQuery
@@ -29,6 +30,7 @@ module Telegram
         attribute? :chat_boost, ChatBoostUpdated
         attribute? :removed_chat_boost, ChatBoostRemoved
         attribute? :managed_bot, ManagedBotUpdated
+        attribute? :subscription, BotSubscriptionUpdated
 
         def current_message
           @current_message ||=

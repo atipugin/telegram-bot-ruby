@@ -14,12 +14,14 @@ module Telegram
         attribute? :added_to_attachment_menu, Types::True
         attribute? :can_join_groups, Types::Bool
         attribute? :can_read_all_group_messages, Types::Bool
+        attribute? :supports_guest_queries, Types::Bool
         attribute? :supports_inline_queries, Types::Bool
         attribute? :can_connect_to_business, Types::Bool
         attribute? :has_main_web_app, Types::Bool
         attribute? :has_topics_enabled, Types::Bool
         attribute? :allows_users_to_create_topics, Types::Bool
         attribute? :can_manage_bots, Types::Bool
+        attribute? :supports_join_request_queries, Types::Bool
       end
     end
   end

@@ -7,6 +7,7 @@ module Telegram
       # rubocop:disable Naming/ConstantName
       InputMessageContent = (
         InputTextMessageContent |
+        InputRichMessageContent |
         InputLocationMessageContent |
         InputVenueMessageContent |
         InputContactMessageContent |

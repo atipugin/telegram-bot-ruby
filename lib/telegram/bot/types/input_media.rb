@@ -7,8 +7,9 @@ module Telegram
       # rubocop:disable Naming/ConstantName
       InputMedia = (
         InputMediaAnimation |
-        InputMediaDocument |
         InputMediaAudio |
+        InputMediaDocument |
+        InputMediaLivePhoto |
         InputMediaPhoto |
         InputMediaVideo
       )

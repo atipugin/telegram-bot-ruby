@@ -7,6 +7,7 @@ module Telegram
         attribute :text, Types::String.constrained(min_size: 1, max_size: 100)
         attribute? :text_parse_mode, Types::String
         attribute? :text_entities, Types::Array.of(MessageEntity)
+        attribute? :media, InputPollOptionMedia
       end
     end
   end

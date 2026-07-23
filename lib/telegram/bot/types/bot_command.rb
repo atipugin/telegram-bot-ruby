@@ -6,6 +6,7 @@ module Telegram
       class BotCommand < Base
         attribute :command, Types::String.constrained(min_size: 1, max_size: 32)
         attribute :description, Types::String.constrained(min_size: 1, max_size: 256)
+        attribute? :is_ephemeral, Types::Bool
       end
     end
   end
