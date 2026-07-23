@@ -8,10 +8,11 @@ module Builders
 
     attr_reader :name, :attributes, :templates_dir
 
-    def initialize(name, attributes, templates_dir:)
+    def initialize(name, attributes, templates_dir:, dependencies:)
       @name = name
       @attributes = deep_dup(attributes)
       @templates_dir = templates_dir
+      @dependencies = dependencies
     end
 
     def build
@@ -81,7 +82,8 @@ module Builders
       if properties[:items].is_a?(String)
         attributes[attr_name][:type] += ".of(#{add_module_types(properties[:items])})"
       elsif properties[:items] && properties[:items][:type] == 'array'
-        attributes[attr_name][:type] += ".of(Types::Array.of(#{properties[:items][:items]}))"
+        item_type = add_module_types(properties[:items][:items])
+        attributes[attr_name][:type] += ".of(Types::Array.of(#{item_type}))"
       end
     end
 
@@ -108,6 +110,7 @@ module Builders
 
     def add_module_types(type)
       return 'Types::Float' if type == 'number'
+      return "Types.deferred(:#{type})" if @dependencies.deferred?(owner: name, target: type)
 
       DRY_TYPES.include?(type) ? "Types::#{type.capitalize}" : type
     end

@@ -10,6 +10,7 @@ module Telegram
         attribute :date, Types::Integer
         attribute? :bio, Types::String
         attribute? :invite_link, ChatInviteLink
+        attribute? :query_id, Types::String
       end
     end
   end

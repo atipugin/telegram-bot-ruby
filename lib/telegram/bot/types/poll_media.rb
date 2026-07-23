@@ -7,6 +7,7 @@ module Telegram
         attribute? :animation, Animation
         attribute? :audio, Audio
         attribute? :document, Document
+        attribute? :link, Link
         attribute? :live_photo, LivePhoto
         attribute? :location, Location
         attribute? :photo, Types::Array.of(PhotoSize)

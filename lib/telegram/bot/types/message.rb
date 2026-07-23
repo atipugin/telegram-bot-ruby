@@ -12,6 +12,8 @@ module Telegram
         attribute? :sender_boost_count, Types::Integer
         attribute? :sender_business_bot, User
         attribute? :sender_tag, Types::String
+        attribute? :receiver_user, User
+        attribute? :ephemeral_message_id, Types::Integer
         attribute :date, Types::Integer
         attribute? :guest_query_id, Types::String
         attribute? :business_connection_id, Types::String
@@ -40,6 +42,7 @@ module Telegram
         attribute? :link_preview_options, LinkPreviewOptions
         attribute? :suggested_post_info, SuggestedPostInfo
         attribute? :effect_id, Types::String
+        attribute? :rich_message, RichMessage
         attribute? :animation, Animation
         attribute? :audio, Audio
         attribute? :document, Document
@@ -75,7 +78,7 @@ module Telegram
         attribute? :message_auto_delete_timer_changed, MessageAutoDeleteTimerChanged
         attribute? :migrate_to_chat_id, Types::Integer
         attribute? :migrate_from_chat_id, Types::Integer
-        attribute? :pinned_message, MaybeInaccessibleMessage
+        attribute? :pinned_message, Types.deferred(:MaybeInaccessibleMessage)
         attribute? :invoice, Invoice
         attribute? :successful_payment, SuccessfulPayment
         attribute? :refunded_payment, RefundedPayment
@@ -92,6 +95,8 @@ module Telegram
         attribute? :chat_background_set, ChatBackground
         attribute? :checklist_tasks_done, ChecklistTasksDone
         attribute? :checklist_tasks_added, ChecklistTasksAdded
+        attribute? :community_chat_added, CommunityChatAdded
+        attribute? :community_chat_removed, CommunityChatRemoved
         attribute? :direct_message_price_changed, DirectMessagePriceChanged
         attribute? :forum_topic_created, ForumTopicCreated
         attribute? :forum_topic_edited, ForumTopicEdited

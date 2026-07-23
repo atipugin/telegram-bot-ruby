@@ -21,6 +21,7 @@ module Telegram
         attribute? :has_topics_enabled, Types::Bool
         attribute? :allows_users_to_create_topics, Types::Bool
         attribute? :can_manage_bots, Types::Bool
+        attribute? :supports_join_request_queries, Types::Bool
       end
     end
   end

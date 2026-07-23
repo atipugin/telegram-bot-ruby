@@ -2,16 +2,19 @@
 
 require 'json'
 require_relative 'builders/type_builder'
+require_relative 'builders/type_dependencies'
 require_relative 'builders/endpoints_builder'
 
 namespace :rebuild do
   desc 'Rebuild types from type_attributes.json'
   task :types do
     types = JSON.parse(File.read("#{__dir__}/../data/types.json"), symbolize_names: true)
+    dependencies = Builders::TypeDependencies.new(types)
     templates_dir = "#{__dir__}/templates"
 
     types.each_pair do |name, attributes|
-      builder = Builders::TypeBuilder.new(name.to_s, attributes, templates_dir: templates_dir)
+      builder = Builders::TypeBuilder.new(name.to_s, attributes,
+                                          templates_dir: templates_dir, dependencies: dependencies)
       output_path = "#{__dir__}/../lib/telegram/bot/types/#{Builders::TypeBuilder.underscore(name)}.rb"
 
       File.write(output_path, builder.build)

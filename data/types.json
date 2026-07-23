@@ -78,6 +78,9 @@
     },
     "managed_bot": {
       "type": "ManagedBotUpdated"
+    },
+    "subscription": {
+      "type": "BotSubscriptionUpdated"
     }
   },
   "WebhookInfo": {
@@ -168,6 +171,9 @@
       "type": "boolean"
     },
     "can_manage_bots": {
+      "type": "boolean"
+    },
+    "supports_join_request_queries": {
       "type": "boolean"
     }
   },
@@ -373,6 +379,12 @@
     },
     "paid_message_star_count": {
       "type": "integer"
+    },
+    "guard_bot": {
+      "type": "User"
+    },
+    "community": {
+      "type": "Community"
     }
   },
   "Message": {
@@ -400,6 +412,12 @@
     },
     "sender_tag": {
       "type": "string"
+    },
+    "receiver_user": {
+      "type": "User"
+    },
+    "ephemeral_message_id": {
+      "type": "integer"
     },
     "date": {
       "type": "integer",
@@ -492,6 +510,9 @@
     },
     "effect_id": {
       "type": "string"
+    },
+    "rich_message": {
+      "type": "RichMessage"
     },
     "animation": {
       "type": "Animation"
@@ -658,6 +679,12 @@
     },
     "checklist_tasks_added": {
       "type": "ChecklistTasksAdded"
+    },
+    "community_chat_added": {
+      "type": "CommunityChatAdded"
+    },
+    "community_chat_removed": {
+      "type": "CommunityChatRemoved"
     },
     "direct_message_price_changed": {
       "type": "DirectMessagePriceChanged"
@@ -899,14 +926,16 @@
   },
   "ReplyParameters": {
     "message_id": {
-      "type": "integer",
-      "required": true
+      "type": "integer"
     },
     "chat_id": {
       "type": [
         "integer",
         "string"
       ]
+    },
+    "ephemeral_message_id": {
+      "type": "integer"
     },
     "allow_sending_without_reply": {
       "type": "boolean"
@@ -1381,6 +1410,12 @@
       "required": true
     }
   },
+  "Link": {
+    "url": {
+      "type": "string",
+      "required": true
+    }
+  },
   "PollMedia": {
     "animation": {
       "type": "Animation"
@@ -1390,6 +1425,9 @@
     },
     "document": {
       "type": "Document"
+    },
+    "link": {
+      "type": "Link"
     },
     "live_photo": {
       "type": "LivePhoto"
@@ -1426,6 +1464,7 @@
   "InputPollOptionMedia": {
     "type": [
       "InputMediaAnimation",
+      "InputMediaLink",
       "InputMediaLivePhoto",
       "InputMediaLocation",
       "InputMediaPhoto",
@@ -1681,29 +1720,6 @@
       "type": "boolean"
     }
   },
-  "ChecklistTasksDone": {
-    "checklist_message": {
-      "type": "Message"
-    },
-    "marked_as_done_task_ids": {
-      "type": "array",
-      "items": "integer"
-    },
-    "marked_as_not_done_task_ids": {
-      "type": "array",
-      "items": "integer"
-    }
-  },
-  "ChecklistTasksAdded": {
-    "checklist_message": {
-      "type": "Message"
-    },
-    "tasks": {
-      "type": "array",
-      "items": "ChecklistTask",
-      "required": true
-    }
-  },
   "Location": {
     "latitude": {
       "type": "number",
@@ -1795,6 +1811,20 @@
     },
     "bot": {
       "type": "User",
+      "required": true
+    }
+  },
+  "BotSubscriptionUpdated": {
+    "user": {
+      "type": "User",
+      "required": true
+    },
+    "invoice_payload": {
+      "type": "string",
+      "required": true
+    },
+    "state": {
+      "type": "string",
       "required": true
     }
   },
@@ -1984,6 +2014,36 @@
       "required": true
     }
   },
+  "ChecklistTasksDone": {
+    "checklist_message": {
+      "type": "Message"
+    },
+    "marked_as_done_task_ids": {
+      "type": "array",
+      "items": "integer"
+    },
+    "marked_as_not_done_task_ids": {
+      "type": "array",
+      "items": "integer"
+    }
+  },
+  "ChecklistTasksAdded": {
+    "checklist_message": {
+      "type": "Message"
+    },
+    "tasks": {
+      "type": "array",
+      "items": "ChecklistTask",
+      "required": true
+    }
+  },
+  "CommunityChatAdded": {
+    "community": {
+      "type": "Community",
+      "required": true
+    }
+  },
+  "CommunityChatRemoved": {},
   "ForumTopicCreated": {
     "name": {
       "type": "string",
@@ -2656,6 +2716,16 @@
       "type": "boolean"
     }
   },
+  "Community": {
+    "id": {
+      "type": "integer",
+      "required": true
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    }
+  },
   "ChatPhoto": {
     "small_file_id": {
       "type": "string",
@@ -3074,6 +3144,9 @@
     },
     "invite_link": {
       "type": "ChatInviteLink"
+    },
+    "query_id": {
+      "type": "string"
     }
   },
   "ChatPermissions": {
@@ -3904,6 +3977,9 @@
       "required": true,
       "min_size": 1,
       "max_size": 256
+    },
+    "is_ephemeral": {
+      "type": "boolean"
     }
   },
   "BotCommandScope": {
@@ -4420,6 +4496,18 @@
       "type": "boolean"
     }
   },
+  "InputMediaLink": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "link",
+      "default": "link"
+    },
+    "url": {
+      "type": "string",
+      "required": true
+    }
+  },
   "InputMediaLivePhoto": {
     "type": {
       "type": "string",
@@ -4600,6 +4688,32 @@
     },
     "has_spoiler": {
       "type": "boolean"
+    }
+  },
+  "InputMediaVoiceNote": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "voice_note",
+      "default": "voice_note"
+    },
+    "media": {
+      "type": "string",
+      "required": true
+    },
+    "caption": {
+      "type": "string",
+      "max_size": 1024
+    },
+    "parse_mode": {
+      "type": "string"
+    },
+    "caption_entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "duration": {
+      "type": "integer"
     }
   },
   "InputFile": {},
@@ -4860,6 +4974,1236 @@
     "keywords": {
       "type": "array",
       "items": "string"
+    }
+  },
+  "RichMessage": {
+    "blocks": {
+      "type": "array",
+      "items": "RichBlock",
+      "required": true
+    },
+    "is_rtl": {
+      "type": "boolean"
+    }
+  },
+  "InputRichMessage": {
+    "blocks": {
+      "type": "array",
+      "items": "InputRichBlock"
+    },
+    "html": {
+      "type": "string"
+    },
+    "markdown": {
+      "type": "string"
+    },
+    "media": {
+      "type": "array",
+      "items": "InputRichMessageMedia"
+    },
+    "is_rtl": {
+      "type": "boolean"
+    },
+    "skip_entity_detection": {
+      "type": "boolean"
+    }
+  },
+  "InputRichMessageMedia": {
+    "id": {
+      "type": "string",
+      "required": true,
+      "min_size": 1,
+      "max_size": 64
+    },
+    "media": {
+      "type": [
+        "InputMediaAnimation",
+        "InputMediaAudio",
+        "InputMediaPhoto",
+        "InputMediaVideo",
+        "InputMediaVoiceNote"
+      ],
+      "required": true
+    }
+  },
+  "RichText": {
+    "type": [
+      "RichTextBold",
+      "RichTextItalic",
+      "RichTextUnderline",
+      "RichTextStrikethrough",
+      "RichTextSpoiler",
+      "RichTextDateTime",
+      "RichTextTextMention",
+      "RichTextSubscript",
+      "RichTextSuperscript",
+      "RichTextMarked",
+      "RichTextCode",
+      "RichTextCustomEmoji",
+      "RichTextMathematicalExpression",
+      "RichTextUrl",
+      "RichTextEmailAddress",
+      "RichTextPhoneNumber",
+      "RichTextBankCardNumber",
+      "RichTextMention",
+      "RichTextHashtag",
+      "RichTextCashtag",
+      "RichTextBotCommand",
+      "RichTextAnchor",
+      "RichTextAnchorLink",
+      "RichTextReference",
+      "RichTextReferenceLink"
+    ]
+  },
+  "RichTextBold": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "bold",
+      "default": "bold"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
+    }
+  },
+  "RichTextItalic": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "italic",
+      "default": "italic"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
+    }
+  },
+  "RichTextUnderline": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "underline",
+      "default": "underline"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
+    }
+  },
+  "RichTextStrikethrough": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "strikethrough",
+      "default": "strikethrough"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
+    }
+  },
+  "RichTextSpoiler": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "spoiler",
+      "default": "spoiler"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
+    }
+  },
+  "RichTextDateTime": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "date_time",
+      "default": "date_time"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
+    },
+    "unix_time": {
+      "type": "integer",
+      "required": true
+    },
+    "date_time_format": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "RichTextTextMention": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "text_mention",
+      "default": "text_mention"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
+    },
+    "user": {
+      "type": "User",
+      "required": true
+    }
+  },
+  "RichTextSubscript": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "subscript",
+      "default": "subscript"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
+    }
+  },
+  "RichTextSuperscript": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "superscript",
+      "default": "superscript"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
+    }
+  },
+  "RichTextMarked": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "marked",
+      "default": "marked"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
+    }
+  },
+  "RichTextCode": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "code",
+      "default": "code"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
+    }
+  },
+  "RichTextCustomEmoji": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "custom_emoji",
+      "default": "custom_emoji"
+    },
+    "custom_emoji_id": {
+      "type": "string",
+      "required": true
+    },
+    "alternative_text": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "RichTextMathematicalExpression": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "mathematical_expression",
+      "default": "mathematical_expression"
+    },
+    "expression": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "RichTextUrl": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "url",
+      "default": "url"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
+    },
+    "url": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "RichTextEmailAddress": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "email_address",
+      "default": "email_address"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
+    },
+    "email_address": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "RichTextPhoneNumber": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "phone_number",
+      "default": "phone_number"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
+    },
+    "phone_number": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "RichTextBankCardNumber": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "bank_card_number",
+      "default": "bank_card_number"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
+    },
+    "bank_card_number": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "RichTextMention": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "mention",
+      "default": "mention"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
+    },
+    "username": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "RichTextHashtag": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "hashtag",
+      "default": "hashtag"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
+    },
+    "hashtag": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "RichTextCashtag": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "cashtag",
+      "default": "cashtag"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
+    },
+    "cashtag": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "RichTextBotCommand": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "bot_command",
+      "default": "bot_command"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
+    },
+    "bot_command": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "RichTextAnchor": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "anchor",
+      "default": "anchor"
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "RichTextAnchorLink": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "anchor_link",
+      "default": "anchor_link"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
+    },
+    "anchor_name": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "RichTextReference": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "reference",
+      "default": "reference"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "RichTextReferenceLink": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "reference_link",
+      "default": "reference_link"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
+    },
+    "reference_name": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "RichBlockCaption": {
+    "text": {
+      "type": "RichText",
+      "required": true
+    },
+    "credit": {
+      "type": "RichText"
+    }
+  },
+  "RichBlockTableCell": {
+    "text": {
+      "type": "RichText"
+    },
+    "is_header": {
+      "type": "boolean",
+      "default": true
+    },
+    "colspan": {
+      "type": "integer"
+    },
+    "rowspan": {
+      "type": "integer"
+    },
+    "align": {
+      "type": "string",
+      "required": true
+    },
+    "valign": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "RichBlockListItem": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "blocks": {
+      "type": "array",
+      "items": "RichBlock",
+      "required": true
+    },
+    "has_checkbox": {
+      "type": "boolean",
+      "default": true
+    },
+    "is_checked": {
+      "type": "boolean",
+      "default": true
+    },
+    "value": {
+      "type": "integer"
+    },
+    "type": {
+      "type": "string"
+    }
+  },
+  "RichBlock": {
+    "type": [
+      "RichBlockParagraph",
+      "RichBlockSectionHeading",
+      "RichBlockPreformatted",
+      "RichBlockFooter",
+      "RichBlockDivider",
+      "RichBlockMathematicalExpression",
+      "RichBlockAnchor",
+      "RichBlockList",
+      "RichBlockBlockQuotation",
+      "RichBlockPullQuotation",
+      "RichBlockCollage",
+      "RichBlockSlideshow",
+      "RichBlockTable",
+      "RichBlockDetails",
+      "RichBlockMap",
+      "RichBlockAnimation",
+      "RichBlockAudio",
+      "RichBlockPhoto",
+      "RichBlockVideo",
+      "RichBlockVoiceNote",
+      "RichBlockThinking"
+    ]
+  },
+  "RichBlockParagraph": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "paragraph",
+      "default": "paragraph"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
+    }
+  },
+  "RichBlockSectionHeading": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "heading",
+      "default": "heading"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
+    },
+    "size": {
+      "type": "integer",
+      "required": true
+    }
+  },
+  "RichBlockPreformatted": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "pre",
+      "default": "pre"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
+    },
+    "language": {
+      "type": "string"
+    }
+  },
+  "RichBlockFooter": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "footer",
+      "default": "footer"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
+    }
+  },
+  "RichBlockDivider": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "divider",
+      "default": "divider"
+    }
+  },
+  "RichBlockMathematicalExpression": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "mathematical_expression",
+      "default": "mathematical_expression"
+    },
+    "expression": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "RichBlockAnchor": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "anchor",
+      "default": "anchor"
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "RichBlockList": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "list",
+      "default": "list"
+    },
+    "items": {
+      "type": "array",
+      "items": "RichBlockListItem",
+      "required": true
+    }
+  },
+  "RichBlockBlockQuotation": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "blockquote",
+      "default": "blockquote"
+    },
+    "blocks": {
+      "type": "array",
+      "items": "RichBlock",
+      "required": true
+    },
+    "credit": {
+      "type": "RichText"
+    }
+  },
+  "RichBlockPullQuotation": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "pullquote",
+      "default": "pullquote"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
+    },
+    "credit": {
+      "type": "RichText"
+    }
+  },
+  "RichBlockCollage": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "collage",
+      "default": "collage"
+    },
+    "blocks": {
+      "type": "array",
+      "items": "RichBlock",
+      "required": true
+    },
+    "caption": {
+      "type": "RichBlockCaption"
+    }
+  },
+  "RichBlockSlideshow": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "slideshow",
+      "default": "slideshow"
+    },
+    "blocks": {
+      "type": "array",
+      "items": "RichBlock",
+      "required": true
+    },
+    "caption": {
+      "type": "RichBlockCaption"
+    }
+  },
+  "RichBlockTable": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "table",
+      "default": "table"
+    },
+    "cells": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": "RichBlockTableCell"
+      },
+      "required": true
+    },
+    "is_bordered": {
+      "type": "boolean",
+      "default": true
+    },
+    "is_striped": {
+      "type": "boolean",
+      "default": true
+    },
+    "caption": {
+      "type": "RichText"
+    }
+  },
+  "RichBlockDetails": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "details",
+      "default": "details"
+    },
+    "summary": {
+      "type": "RichText",
+      "required": true
+    },
+    "blocks": {
+      "type": "array",
+      "items": "RichBlock",
+      "required": true
+    },
+    "is_open": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "RichBlockMap": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "map",
+      "default": "map"
+    },
+    "location": {
+      "type": "Location",
+      "required": true
+    },
+    "zoom": {
+      "type": "integer",
+      "required": true
+    },
+    "width": {
+      "type": "integer",
+      "required": true
+    },
+    "height": {
+      "type": "integer",
+      "required": true
+    },
+    "caption": {
+      "type": "RichBlockCaption"
+    }
+  },
+  "RichBlockAnimation": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "animation",
+      "default": "animation"
+    },
+    "animation": {
+      "type": "Animation",
+      "required": true
+    },
+    "has_spoiler": {
+      "type": "boolean",
+      "default": true
+    },
+    "caption": {
+      "type": "RichBlockCaption"
+    }
+  },
+  "RichBlockAudio": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "audio",
+      "default": "audio"
+    },
+    "audio": {
+      "type": "Audio",
+      "required": true
+    },
+    "caption": {
+      "type": "RichBlockCaption"
+    }
+  },
+  "RichBlockPhoto": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "photo",
+      "default": "photo"
+    },
+    "photo": {
+      "type": "array",
+      "items": "PhotoSize",
+      "required": true
+    },
+    "has_spoiler": {
+      "type": "boolean",
+      "default": true
+    },
+    "caption": {
+      "type": "RichBlockCaption"
+    }
+  },
+  "RichBlockVideo": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "video",
+      "default": "video"
+    },
+    "video": {
+      "type": "Video",
+      "required": true
+    },
+    "has_spoiler": {
+      "type": "boolean",
+      "default": true
+    },
+    "caption": {
+      "type": "RichBlockCaption"
+    }
+  },
+  "RichBlockVoiceNote": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "voice_note",
+      "default": "voice_note"
+    },
+    "voice_note": {
+      "type": "Voice",
+      "required": true
+    },
+    "caption": {
+      "type": "RichBlockCaption"
+    }
+  },
+  "RichBlockThinking": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "thinking",
+      "default": "thinking"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
+    }
+  },
+  "InputRichBlockListItem": {
+    "blocks": {
+      "type": "array",
+      "items": "InputRichBlock",
+      "required": true
+    },
+    "has_checkbox": {
+      "type": "boolean",
+      "default": true
+    },
+    "is_checked": {
+      "type": "boolean",
+      "default": true
+    },
+    "value": {
+      "type": "integer"
+    },
+    "type": {
+      "type": "string"
+    }
+  },
+  "InputRichBlock": {
+    "type": [
+      "InputRichBlockParagraph",
+      "InputRichBlockSectionHeading",
+      "InputRichBlockPreformatted",
+      "InputRichBlockFooter",
+      "InputRichBlockDivider",
+      "InputRichBlockMathematicalExpression",
+      "InputRichBlockAnchor",
+      "InputRichBlockList",
+      "InputRichBlockBlockQuotation",
+      "InputRichBlockPullQuotation",
+      "InputRichBlockCollage",
+      "InputRichBlockSlideshow",
+      "InputRichBlockTable",
+      "InputRichBlockDetails",
+      "InputRichBlockMap",
+      "InputRichBlockAnimation",
+      "InputRichBlockAudio",
+      "InputRichBlockPhoto",
+      "InputRichBlockVideo",
+      "InputRichBlockVoiceNote",
+      "InputRichBlockThinking"
+    ]
+  },
+  "InputRichBlockParagraph": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "paragraph",
+      "default": "paragraph"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
+    }
+  },
+  "InputRichBlockSectionHeading": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "heading",
+      "default": "heading"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
+    },
+    "size": {
+      "type": "integer",
+      "required": true
+    }
+  },
+  "InputRichBlockPreformatted": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "pre",
+      "default": "pre"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
+    },
+    "language": {
+      "type": "string"
+    }
+  },
+  "InputRichBlockFooter": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "footer",
+      "default": "footer"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
+    }
+  },
+  "InputRichBlockDivider": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "divider",
+      "default": "divider"
+    }
+  },
+  "InputRichBlockMathematicalExpression": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "mathematical_expression",
+      "default": "mathematical_expression"
+    },
+    "expression": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "InputRichBlockAnchor": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "anchor",
+      "default": "anchor"
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "InputRichBlockList": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "list",
+      "default": "list"
+    },
+    "items": {
+      "type": "array",
+      "items": "InputRichBlockListItem",
+      "required": true
+    }
+  },
+  "InputRichBlockBlockQuotation": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "blockquote",
+      "default": "blockquote"
+    },
+    "blocks": {
+      "type": "array",
+      "items": "InputRichBlock",
+      "required": true
+    },
+    "credit": {
+      "type": "RichText"
+    }
+  },
+  "InputRichBlockPullQuotation": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "pullquote",
+      "default": "pullquote"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
+    },
+    "credit": {
+      "type": "RichText"
+    }
+  },
+  "InputRichBlockCollage": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "collage",
+      "default": "collage"
+    },
+    "blocks": {
+      "type": "array",
+      "items": "InputRichBlock",
+      "required": true
+    },
+    "caption": {
+      "type": "RichBlockCaption"
+    }
+  },
+  "InputRichBlockSlideshow": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "slideshow",
+      "default": "slideshow"
+    },
+    "blocks": {
+      "type": "array",
+      "items": "InputRichBlock",
+      "required": true
+    },
+    "caption": {
+      "type": "RichBlockCaption"
+    }
+  },
+  "InputRichBlockTable": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "table",
+      "default": "table"
+    },
+    "cells": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": "RichBlockTableCell"
+      },
+      "required": true
+    },
+    "is_bordered": {
+      "type": "boolean",
+      "default": true
+    },
+    "is_striped": {
+      "type": "boolean",
+      "default": true
+    },
+    "caption": {
+      "type": "RichText"
+    }
+  },
+  "InputRichBlockDetails": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "details",
+      "default": "details"
+    },
+    "summary": {
+      "type": "RichText",
+      "required": true
+    },
+    "blocks": {
+      "type": "array",
+      "items": "InputRichBlock",
+      "required": true
+    },
+    "is_open": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "InputRichBlockMap": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "map",
+      "default": "map"
+    },
+    "location": {
+      "type": "Location",
+      "required": true
+    },
+    "zoom": {
+      "type": "integer",
+      "required": true
+    },
+    "width": {
+      "type": "integer",
+      "required": true
+    },
+    "height": {
+      "type": "integer",
+      "required": true
+    },
+    "caption": {
+      "type": "RichBlockCaption"
+    }
+  },
+  "InputRichBlockAnimation": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "animation",
+      "default": "animation"
+    },
+    "animation": {
+      "type": "InputMediaAnimation",
+      "required": true
+    },
+    "caption": {
+      "type": "RichBlockCaption"
+    }
+  },
+  "InputRichBlockAudio": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "audio",
+      "default": "audio"
+    },
+    "audio": {
+      "type": "InputMediaAudio",
+      "required": true
+    },
+    "caption": {
+      "type": "RichBlockCaption"
+    }
+  },
+  "InputRichBlockPhoto": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "photo",
+      "default": "photo"
+    },
+    "photo": {
+      "type": "InputMediaPhoto",
+      "required": true
+    },
+    "caption": {
+      "type": "RichBlockCaption"
+    }
+  },
+  "InputRichBlockVideo": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "video",
+      "default": "video"
+    },
+    "video": {
+      "type": "InputMediaVideo",
+      "required": true
+    },
+    "caption": {
+      "type": "RichBlockCaption"
+    }
+  },
+  "InputRichBlockVoiceNote": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "voice_note",
+      "default": "voice_note"
+    },
+    "voice_note": {
+      "type": "InputMediaVoiceNote",
+      "required": true
+    },
+    "caption": {
+      "type": "RichBlockCaption"
+    }
+  },
+  "InputRichBlockThinking": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "thinking",
+      "default": "thinking"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
     }
   },
   "InlineQuery": {
@@ -5788,6 +7132,7 @@
   "InputMessageContent": {
     "type": [
       "InputTextMessageContent",
+      "InputRichMessageContent",
       "InputLocationMessageContent",
       "InputVenueMessageContent",
       "InputContactMessageContent",
@@ -5810,6 +7155,12 @@
     },
     "link_preview_options": {
       "type": "LinkPreviewOptions"
+    }
+  },
+  "InputRichMessageContent": {
+    "rich_message": {
+      "type": "InputRichMessage",
+      "required": true
     }
   },
   "InputLocationMessageContent": {

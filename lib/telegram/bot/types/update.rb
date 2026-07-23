@@ -30,6 +30,7 @@ module Telegram
         attribute? :chat_boost, ChatBoostUpdated
         attribute? :removed_chat_boost, ChatBoostRemoved
         attribute? :managed_bot, ManagedBotUpdated
+        attribute? :subscription, BotSubscriptionUpdated
 
         def current_message
           @current_message ||=
