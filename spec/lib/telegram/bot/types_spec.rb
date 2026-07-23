@@ -44,9 +44,8 @@ RSpec.describe Telegram::Bot::Types do
     end
 
     it 'raises during unsafe coercion' do
-      # Error class varies by dry-struct version, so accept either.
       expect { deferred_type[invalid_value] }
-        .to raise_error(a_kind_of(Dry::Types::CoercionError).or(a_kind_of(Dry::Struct::Error)))
+        .to raise_error(Dry::Types::CoercionError)
     end
   end
 
