@@ -137,7 +137,7 @@ module Parsers
       attribute['required'] = true unless description.start_with?('Optional')
 
       # Parse required_value (always "X" or must be <em>X</em>)
-      required_value = extract_required_value(description, description_html)
+      required_value = extract_required_value(description, description_html, attribute['type'])
       if required_value
         attribute['required_value'] = required_value
         attribute['default'] = required_value
@@ -218,14 +218,17 @@ module Parsers
       PRIMITIVE_TYPES[type] || type
     end
 
-    def extract_required_value(description, description_html)
+    def extract_required_value(description, description_html, type)
       # Pattern: always "X" or always "X" (smart quotes)
       match = description.match(/always ["\u201c]([^"\u201d]+)["\u201d]/i)
-      return match[1].delete('\\') if match
+      return cast_default_value(match[1].delete('\\'), type) if match
 
-      # Pattern: must be <em>X</em> (check inner HTML)
-      match = description_html.match(%r{must be <em>([^<]+)</em>}i)
-      return match[1] if match
+      # Pattern: must be <em>X</em> (check inner HTML). Only used for string discriminators:
+      # in boolean descriptions "must be <em>False</em>" is conditional prose, not a constraint.
+      unless type == 'boolean'
+        match = description_html.match(%r{must be <em>([^<]+)</em>}i)
+        return cast_default_value(match[1], type) if match
+      end
 
       nil
     end
