@@ -5,6 +5,7 @@ module Telegram
     module Types
       class InlineKeyboardMarkup < Base
         attribute :inline_keyboard, Types::Array.of(Types::Array.of(InlineKeyboardButton))
+        attribute? :force_reply, Types::Bool
 
         def to_compact_hash
           hsh = super

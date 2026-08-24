@@ -96,6 +96,7 @@ module Telegram
         attribute? :checklist_tasks_done, ChecklistTasksDone
         attribute? :checklist_tasks_added, ChecklistTasksAdded
         attribute? :community_chat_added, CommunityChatAdded
+        attribute? :community_chat_joined, CommunityChatJoined
         attribute? :community_chat_removed, CommunityChatRemoved
         attribute? :direct_message_price_changed, DirectMessagePriceChanged
         attribute? :forum_topic_created, ForumTopicCreated

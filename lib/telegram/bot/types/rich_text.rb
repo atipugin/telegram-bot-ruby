@@ -29,6 +29,7 @@ module Telegram
         RichTextHashtag |
         RichTextCashtag |
         RichTextBotCommand |
+        RichTextButton |
         RichTextAnchor |
         RichTextAnchorLink |
         RichTextReference |

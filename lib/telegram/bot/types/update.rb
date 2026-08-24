@@ -31,6 +31,7 @@ module Telegram
         attribute? :removed_chat_boost, ChatBoostRemoved
         attribute? :managed_bot, ManagedBotUpdated
         attribute? :subscription, BotSubscriptionUpdated
+        attribute? :stopped_message_generation, MessageGenerationStopped
 
         def current_message
           @current_message ||=

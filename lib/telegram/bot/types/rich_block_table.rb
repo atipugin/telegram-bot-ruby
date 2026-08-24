@@ -8,6 +8,7 @@ module Telegram
         attribute :cells, Types::Array.of(Types::Array.of(RichBlockTableCell))
         attribute? :is_bordered, Types::True
         attribute? :is_striped, Types::True
+        attribute? :is_compact, Types::True
         attribute? :caption, RichText
       end
     end
