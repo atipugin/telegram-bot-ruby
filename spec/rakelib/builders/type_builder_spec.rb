@@ -102,5 +102,15 @@ RSpec.describe Builders::TypeBuilder do
 
       it { is_expected.not_to include('constrained') }
     end
+
+    # max_size_parsed is measured on the text after markup is parsed, which
+    # the client cannot compute, so it is recorded but never emitted.
+    context 'with a maximum measured after entities parsing' do
+      let(:field) { { type: 'string', min_size: 1, max_size_parsed: 255 } }
+
+      it { is_expected.to include('Types::String.constrained(min_size: 1)') }
+
+      it { is_expected.not_to include('255') }
+    end
   end
 end

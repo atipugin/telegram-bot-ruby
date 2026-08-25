@@ -947,7 +947,8 @@
       "type": "boolean"
     },
     "quote": {
-      "type": "string"
+      "type": "string",
+      "max_size_parsed": 1024
     },
     "quote_parse_mode": {
       "type": "string"
@@ -1699,7 +1700,9 @@
     },
     "text": {
       "type": "string",
-      "required": true
+      "required": true,
+      "min_size": 1,
+      "max_size_parsed": 100
     },
     "parse_mode": {
       "type": "string"
@@ -1712,7 +1715,9 @@
   "InputChecklist": {
     "title": {
       "type": "string",
-      "required": true
+      "required": true,
+      "min_size": 1,
+      "max_size_parsed": 255
     },
     "parse_mode": {
       "type": "string"
@@ -4467,7 +4472,8 @@
       "type": "string"
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size_parsed": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -4507,7 +4513,8 @@
       "type": "string"
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size_parsed": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -4541,7 +4548,8 @@
       "type": "string"
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size_parsed": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -4582,7 +4590,8 @@
       "required": true
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size_parsed": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -4629,7 +4638,8 @@
       "required": true
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size_parsed": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -4717,7 +4727,8 @@
       "type": "integer"
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size_parsed": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -4757,7 +4768,8 @@
       "required": true
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size_parsed": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -6547,7 +6559,8 @@
       "type": "string"
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size_parsed": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -6602,7 +6615,8 @@
       "type": "string"
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size_parsed": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -6657,7 +6671,8 @@
       "type": "string"
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size_parsed": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -6704,7 +6719,8 @@
       "required": true
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size_parsed": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -6755,7 +6771,8 @@
       "required": true
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size_parsed": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -6797,7 +6814,8 @@
       "required": true
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size_parsed": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -6832,7 +6850,8 @@
       "required": true
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size_parsed": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -7058,7 +7077,8 @@
       "type": "string"
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size_parsed": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -7096,7 +7116,8 @@
       "type": "string"
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size_parsed": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -7134,7 +7155,8 @@
       "type": "string"
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size_parsed": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -7198,7 +7220,8 @@
       "type": "string"
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size_parsed": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -7237,7 +7260,8 @@
       "type": "string"
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size_parsed": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -7276,7 +7300,8 @@
       "required": true
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size_parsed": 1024
     },
     "parse_mode": {
       "type": "string"
@@ -7308,7 +7333,8 @@
       "required": true
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "max_size_parsed": 1024
     },
     "parse_mode": {
       "type": "string"

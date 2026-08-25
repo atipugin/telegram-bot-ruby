@@ -163,13 +163,21 @@ RSpec.describe Parsers::AttributeParser do
       it { is_expected.not_to have_key('min_size') }
     end
 
-    # These limits are measured on the text after markup is parsed, a length
-    # the client cannot compute, so enforcing them locally rejects input
-    # Telegram accepts.
+    # Measured on the text after markup is parsed. Markup only ever adds
+    # characters, so raw >= parsed: the minimum still holds on the raw string,
+    # but the maximum does not and would reject input Telegram accepts.
     context 'with a limit measured after entities parsing' do
-      let(:description) { 'Caption of the photo, 0-1024 characters after entities parsing' }
+      let(:description) { 'Title of the checklist; 1-255 characters after entities parsing' }
+
+      it 'keeps the minimum, which still holds' do
+        expect(attribute).to include('min_size' => 1)
+      end
 
       it { is_expected.not_to have_key('max_size') }
+
+      it 'records the maximum under its own key' do
+        expect(attribute).to include('max_size_parsed' => 255)
+      end
     end
 
     context 'with a non-string discriminator phrase' do

@@ -11,10 +11,15 @@ module Parsers
   class AttributeParser
     CHARACTER_RANGE = /(\d+)-(\d+) characters/.freeze
     BOUNDED_RANGE = /must be between (\d+) and (\d+)/.freeze
-    # Limits worded this way are measured on the text after markup is parsed,
-    # a length the client cannot compute: "<b>x</b>" is 8 raw characters and 1
-    # parsed. Enforcing them locally rejects input Telegram accepts, so they
-    # are not emitted at all.
+    # Telegram measures some limits on the text after markup is parsed, a
+    # length the client cannot compute: "<b>x</b>" is 8 raw characters and 1
+    # parsed.
+    #
+    # The two bounds are not symmetric. Markup only ever adds characters, so
+    # raw >= parsed: a parsed length above the minimum implies a raw length
+    # above it too, and the minimum stays enforceable. The maximum does not
+    # carry over -- 102 raw characters can be 95 parsed -- so it is recorded
+    # under its own name and left for a caller that can measure it.
     PARSED_LENGTH = /after entities parsing/.freeze
 
     def initialize(row)
@@ -71,14 +76,19 @@ module Parsers
       minimum, maximum = size_range
       return unless maximum
 
-      low, high = attribute['type'] == 'integer' ? %w[min max] : %w[min_size max_size]
+      low, high = size_keys(attribute['type'])
       attribute[low] = minimum if minimum
       attribute[high] = maximum
     end
 
-    def size_range
-      return [nil, nil] if @description.match?(PARSED_LENGTH)
+    def size_keys(type)
+      return %w[min max] if type == 'integer'
+      return %w[min_size max_size_parsed] if @description.match?(PARSED_LENGTH)
 
+      %w[min_size max_size]
+    end
+
+    def size_range
       if (found = @description.match(CHARACTER_RANGE))
         minimum = found[1].to_i
         [(minimum if minimum.positive?), found[2].to_i]
