@@ -49,7 +49,9 @@ RSpec.describe Parsers::AttributeParser do
     context 'with an array type' do
       let(:type) { 'Array of <a href="#PhotoSize">PhotoSize</a>' }
 
-      it { is_expected.to include('type' => 'array', 'items' => 'PhotoSize') }
+      it { is_expected.to include('type' => 'array') }
+
+      it { is_expected.to include('items' => 'PhotoSize') }
     end
 
     context 'with a nested array type' do
@@ -67,13 +69,17 @@ RSpec.describe Parsers::AttributeParser do
     context 'with a quoted discriminator' do
       let(:description) { 'Type of the result, always “article”' }
 
-      it { is_expected.to include('required_value' => 'article', 'default' => 'article') }
+      it { is_expected.to include('required_value' => 'article') }
+
+      it { is_expected.to include('default' => 'article') }
     end
 
     context 'with an emphasised discriminator' do
       let(:description) { 'Scope type, must be <em>default</em>' }
 
-      it { is_expected.to include('required_value' => 'default', 'default' => 'default') }
+      it { is_expected.to include('required_value' => 'default') }
+
+      it { is_expected.to include('default' => 'default') }
     end
 
     # Regression: a Boolean field reading "... Must be False for callback
@@ -130,7 +136,9 @@ RSpec.describe Parsers::AttributeParser do
     context 'with a character range' do
       let(:description) { 'Text, 1-64 characters' }
 
-      it { is_expected.to include('min_size' => 1, 'max_size' => 64) }
+      it { is_expected.to include('min_size' => 1) }
+
+      it { is_expected.to include('max_size' => 64) }
     end
 
     context 'with a zero-based character range' do
@@ -145,7 +153,9 @@ RSpec.describe Parsers::AttributeParser do
       let(:type) { 'Integer' }
       let(:description) { 'Period, must be between 60 and 86400' }
 
-      it { is_expected.to include('min_size' => 60, 'max_size' => 86_400) }
+      it { is_expected.to include('min_size' => 60) }
+
+      it { is_expected.to include('max_size' => 86_400) }
     end
 
     # data/types.json is written with JSON.pretty_generate, so insertion
