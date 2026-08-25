@@ -100,13 +100,30 @@ module Builders
       attributes[attr_name][:type] += ".constrained(eql: #{typecast(original_type, properties[:required_value])})"
     end
 
-    def apply_min_max!(attr_name, properties)
-      return unless properties[:min_size] || properties[:max_size]
+    # String length limits use min_size/max_size; numeric ranges use
+    # gteq/lteq, because dry-types measures `size` and Integer#size is the
+    # byte width, which made every numeric range vacuously true.
+    CONSTRAINTS = { min_size: :min_size, max_size: :max_size, min: :gteq, max: :lteq }.freeze
 
-      constrain = '.constrained(minmax)'
-      constrain = properties[:min_size] ? constrain.gsub('min', "min_size: #{properties[:min_size]}, ") : ''
-      constrain = constrain.gsub('max', "max_size: #{properties[:max_size]}") if properties[:max_size]
-      attributes[attr_name][:type] += constrain
+    def apply_min_max!(attr_name, properties)
+      constrained = CONSTRAINTS.filter_map do |key, predicate|
+        "#{predicate}: #{numeral(properties[key])}" if properties[key]
+      end
+      return if constrained.empty?
+
+      attributes[attr_name][:type] += ".constrained(#{constrained.join(', ')})"
+    end
+
+    # Emit 86_400 rather than 86400, so generated files satisfy
+    # Style/NumericLiterals without a manual rubocop pass. Its MinDigits is 5,
+    # so shorter numbers are left alone.
+    NUMERIC_LITERAL_MIN_DIGITS = 5
+
+    def numeral(value)
+      digits = value.to_s
+      return digits if digits.length < NUMERIC_LITERAL_MIN_DIGITS
+
+      digits.reverse.scan(/\d{1,3}/).join('_').reverse
     end
 
     def apply_default!(attr_name, properties, original_type)

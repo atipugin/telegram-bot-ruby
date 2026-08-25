@@ -15,14 +15,17 @@ module Telegram
         RichBlockAnchor |
         RichBlockList |
         RichBlockBlockQuotation |
+        RichBlockExpandableBlockQuotation |
         RichBlockPullQuotation |
         RichBlockCollage |
         RichBlockSlideshow |
         RichBlockTable |
         RichBlockDetails |
         RichBlockMap |
+        RichBlockButtons |
         RichBlockAnimation |
         RichBlockAudio |
+        RichBlockDocument |
         RichBlockPhoto |
         RichBlockVideo |
         RichBlockVoiceNote |

@@ -8,7 +8,7 @@ require 'rspec/core/rake_task'
 RuboCop::RakeTask.new(:rubocop) do |task|
   task.fail_on_error = false
   task.options = %w[--force-exclusion]
-  task.patterns = %w[{lib,spec}/**/*.rb Rakefile]
+  task.patterns = %w[{lib,rakelib,spec}/**/*.rb Rakefile rakelib/**/*.rake]
   task.requires << 'rubocop-rspec'
 end
 

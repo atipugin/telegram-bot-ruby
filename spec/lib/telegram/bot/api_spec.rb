@@ -77,6 +77,17 @@ RSpec.describe Telegram::Bot::Api, :vcr do
         expect(api).to respond_to(endpoint)
       end
     end
+
+    # getChatMemberCount was missing from ENDPOINTS: the parser matched only
+    # "Returns <em>Int</em>" while the docs say "Returns <em>Integer</em>", so
+    # the endpoint silently never generated and this call raised NoMethodError.
+    context 'when the endpoint returns a bare Integer' do
+      let(:endpoint) { 'get_chat_member_count' }
+
+      it 'responds to the endpoint' do
+        expect(api).to respond_to(endpoint)
+      end
+    end
   end
 
   describe '#getMe' do

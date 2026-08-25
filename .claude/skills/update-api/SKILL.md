@@ -16,12 +16,20 @@ Update generated types and API endpoints from the latest Telegram Bot API docume
 
 ## Step 2: Parse
 
-Run both parse tasks to scrape the latest Telegram Bot API docs:
+Download the docs once and parse both types and methods from that snapshot:
 
 ```
-bundle exec rake parse:types
-bundle exec rake parse:methods
+bundle exec rake parse:all
 ```
+
+`parse:all` is `parse:fetch` (cache the page under `tmp/api.html`) followed by
+`parse:types` and `parse:methods`. Re-run `parse:types` / `parse:methods` alone to
+re-parse the cached page without hitting the network.
+
+`parse:methods` **aborts** if any documented method's return type cannot be read.
+That is a parser bug, not a missing endpoint — a new phrasing has appeared in the
+docs and `rakelib/parsers/return_type_rules.rb` needs a rule for it. Do not proceed
+with a partial `data/methods.json`.
 
 ## Step 3: Rebuild
 
@@ -68,3 +76,18 @@ bundle exec rake spec
 ```
 
 If rubocop or tests fail, fix the issues before finishing.
+
+## Step 7: Verify the parser did not drift
+
+When the intent is *only* to pick up a new Bot API version, the parser changes in
+`data/` should be exactly the documented additions. If a re-parse of an unchanged
+docs page produces any diff at all, the parser has drifted and that must be
+understood before shipping:
+
+```
+bundle exec rake parse:all
+git diff data/
+```
+
+This is the regression test for `rakelib/docs/` and `rakelib/parsers/`; it needs
+network, so it is not part of CI.
