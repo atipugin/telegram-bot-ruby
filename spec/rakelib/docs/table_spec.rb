@@ -12,35 +12,45 @@ RSpec.describe Docs::Table do
   end
 
   let(:fields) { table(%w[Field Type Description], ['update_id', 'Integer', 'The update id']) }
+  let(:parameters) { table(%w[Parameter Type Required Description], %w[chat_id Integer Yes Target]) }
 
   describe '#columns' do
-    it 'reads the header row' do
-      expect(fields.columns).to eq(%w[Field Type Description])
-    end
+    subject { fields.columns }
+
+    it { is_expected.to eq(%w[Field Type Description]) }
   end
 
-  describe 'row access' do
-    it 'addresses cells by column name', :aggregate_failures do
-      row = fields.first
+  describe '#[]' do
+    subject(:row) { fields.first }
 
+    it 'reads the first column' do
       expect(row['Field'].to_s).to eq('update_id')
+    end
+
+    it 'reads a middle column' do
       expect(row['Type'].to_s).to eq('Integer')
+    end
+
+    it 'reads the last column' do
       expect(row['Description'].to_s).to eq('The update id')
     end
   end
 
   describe '#expect_columns!' do
-    it 'returns the table when the columns match' do
-      expect(fields.expect_columns!(%w[Field Type Description])).to be(fields)
+    subject(:assert) { subject_table.expect_columns!(%w[Field Type Description]) }
+
+    context 'when the columns match' do
+      let(:subject_table) { fields }
+
+      it { is_expected.to be(fields) }
     end
 
     # Method tables carry a fourth "Required" column. Reading one with the
     # three-column layout used to silently yield "Optional" as the description.
-    it 'raises when handed a table of a different shape' do
-      parameters = table(%w[Parameter Type Required Description], %w[chat_id Integer Yes Target])
+    context 'when the table has a different shape' do
+      let(:subject_table) { parameters }
 
-      expect { parameters.expect_columns!(%w[Field Type Description]) }
-        .to raise_error(Docs::Error, /Parameter/)
+      it { expect { assert }.to raise_error(Docs::Error, /Parameter/) }
     end
   end
 end

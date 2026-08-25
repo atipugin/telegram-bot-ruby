@@ -5,121 +5,157 @@ require_relative '../../../rakelib/docs'
 require_relative '../../../rakelib/parsers/attribute_parser'
 
 RSpec.describe Parsers::AttributeParser do
-  # Builds a single "Field | Type | Description" row, the way the docs do.
-  def attribute(type, description, field: 'field')
-    html = '<table><thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>' \
-           "<tbody><tr><td>#{field}</td><td>#{type}</td><td>#{description}</td></tr></tbody></table>"
-    row = Docs::Table.new(Nokogiri::HTML.fragment(html).at('table')).first
-    described_class.new(row).to_h
-  end
+  describe '#to_h' do
+    subject(:attribute) { described_class.new(row).to_h }
 
-  describe 'requiredness' do
-    it 'marks a field required when the description does not open with Optional' do
-      expect(attribute('Integer', 'Unique identifier')).to eq('type' => 'integer', 'required' => true)
+    # A single "Field | Type | Description" row, the way the docs write one.
+    let(:row) do
+      html = '<table><thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>' \
+             "<tbody><tr><td>field</td><td>#{type}</td><td>#{description}</td></tr></tbody></table>"
+      Docs::Table.new(Nokogiri::HTML.fragment(html).at('table')).first
+    end
+    let(:type) { 'String' }
+    let(:description) { 'Some text' }
+
+    context 'when not marked Optional' do
+      let(:type) { 'Integer' }
+
+      it { is_expected.to eq('type' => 'integer', 'required' => true) }
     end
 
-    it 'leaves an optional field unmarked' do
-      expect(attribute('Integer', '<em>Optional</em>. Unique identifier')).to eq('type' => 'integer')
-    end
-  end
+    context 'when marked Optional' do
+      let(:type) { 'Integer' }
+      let(:description) { '<em>Optional</em>. Unique identifier' }
 
-  describe 'types' do
-    it 'normalizes primitives', :aggregate_failures do
-      expect(attribute('String', 'Text')['type']).to eq('string')
-      expect(attribute('Float', 'Amount')['type']).to eq('number')
+      it { is_expected.to eq('type' => 'integer') }
     end
 
-    it 'reads a linked struct type' do
-      expect(attribute('<a href="#User">User</a>', 'Sender')['type']).to eq('User')
+    context 'with a String type' do
+      it { is_expected.to include('type' => 'string') }
     end
 
-    it 'reads an array' do
-      expect(attribute('Array of <a href="#PhotoSize">PhotoSize</a>', 'Sizes'))
-        .to include('type' => 'array', 'items' => 'PhotoSize')
+    context 'with a Float type' do
+      let(:type) { 'Float' }
+
+      it { is_expected.to include('type' => 'number') }
     end
 
-    it 'reads a nested array' do
-      expect(attribute('Array of Array of <a href="#PhotoSize">PhotoSize</a>', 'Grid')['items'])
-        .to eq('type' => 'array', 'items' => 'PhotoSize')
+    context 'with a linked struct type' do
+      let(:type) { '<a href="#User">User</a>' }
+
+      it { is_expected.to include('type' => 'User') }
     end
 
-    it 'reads a union of primitives' do
-      expect(attribute('Integer or String', 'Target')['type']).to eq(%w[integer string])
-    end
-  end
+    context 'with an array type' do
+      let(:type) { 'Array of <a href="#PhotoSize">PhotoSize</a>' }
 
-  describe 'discriminators' do
-    it 'reads a quoted constant' do
-      expect(attribute('String', 'Type of the result, always “article”'))
-        .to include('required_value' => 'article', 'default' => 'article')
+      it { is_expected.to include('type' => 'array', 'items' => 'PhotoSize') }
     end
 
-    it 'reads an emphasised constant' do
-      expect(attribute('String', 'Scope type, must be <em>default</em>'))
-        .to include('required_value' => 'default', 'default' => 'default')
+    context 'with a nested array type' do
+      let(:type) { 'Array of Array of <a href="#PhotoSize">PhotoSize</a>' }
+
+      it { is_expected.to include('items' => { 'type' => 'array', 'items' => 'PhotoSize' }) }
+    end
+
+    context 'with a union of primitives' do
+      let(:type) { 'Integer or String' }
+
+      it { is_expected.to include('type' => %w[integer string]) }
+    end
+
+    context 'with a quoted discriminator' do
+      let(:description) { 'Type of the result, always “article”' }
+
+      it { is_expected.to include('required_value' => 'article', 'default' => 'article') }
+    end
+
+    context 'with an emphasised discriminator' do
+      let(:description) { 'Scope type, must be <em>default</em>' }
+
+      it { is_expected.to include('required_value' => 'default', 'default' => 'default') }
     end
 
     # Regression: a Boolean field reading "... Must be False for callback
-    # queries ..." once became Bool.constrained(eql: False), which both
-    # forbade the True the field exists to carry and emitted a bare constant.
-    it 'does not treat sentence-initial conditional prose as a constraint' do
-      description = '<em>Optional</em>. Pass <em>True</em> if the ephemeral message must be shown ' \
-                    'in place of the original message. Must be <em>False</em> for callback queries.'
+    # queries ..." became Bool.constrained(eql: False), which both forbade the
+    # True the field exists to carry and emitted a bare Ruby constant.
+    context 'with sentence-initial conditional prose' do
+      let(:type) { 'Boolean' }
+      let(:description) do
+        '<em>Optional</em>. Pass <em>True</em> if the ephemeral message must be shown ' \
+          'in place of the original message. Must be <em>False</em> for callback queries.'
+      end
 
-      expect(attribute('Boolean', description)).not_to have_key('required_value')
+      it { is_expected.not_to have_key('required_value') }
     end
 
-    it 'does not treat a distant emphasis as a constraint' do
-      description = '<em>Optional</em>. The bot must be an administrator and specify ' \
-                    '<em>message_reaction</em> in the list of allowed updates.'
+    context 'with emphasis far from the phrase' do
+      let(:description) do
+        '<em>Optional</em>. The bot must be an administrator and specify ' \
+          '<em>message_reaction</em> in the list of allowed updates.'
+      end
 
-      expect(attribute('String', description)).not_to have_key('required_value')
-    end
-  end
-
-  describe 'defaults' do
-    it 'reads a bare number' do
-      expect(attribute('Integer', '<em>Optional</em>. Limit. Defaults to 100.')['default']).to eq(100)
+      it { is_expected.not_to have_key('required_value') }
     end
 
-    it 'reads an emphasised boolean' do
-      expect(attribute('Boolean', '<em>Optional</em>. Defaults to <em>true</em>')['default']).to be(true)
+    context 'with a bare numeric default' do
+      let(:type) { 'Integer' }
+      let(:description) { '<em>Optional</em>. Limit. Defaults to 100.' }
+
+      it { is_expected.to include('default' => 100) }
     end
 
-    it 'reads a quoted string' do
-      expect(attribute('String', '<em>Optional</em>. Defaults to “mp4”')['default']).to eq('mp4')
+    context 'with an emphasised boolean default' do
+      let(:type) { 'Boolean' }
+      let(:description) { '<em>Optional</em>. Defaults to <em>true</em>' }
+
+      it { is_expected.to include('default' => true) }
     end
 
-    it 'defaults a True-typed field to true, since it only exists when set' do
-      expect(attribute('True', '<em>Optional</em>. Service message')['default']).to be(true)
-    end
-  end
+    context 'with a quoted string default' do
+      let(:description) { '<em>Optional</em>. Defaults to “mp4”' }
 
-  describe 'size constraints' do
-    it 'reads a character range' do
-      expect(attribute('String', 'Text, 1-64 characters')).to include('min_size' => 1, 'max_size' => 64)
+      it { is_expected.to include('default' => 'mp4') }
     end
 
-    it 'omits a zero minimum', :aggregate_failures do
-      result = attribute('String', 'Quote, 0-1024 characters')
+    # A documented type of True rather than Boolean means the field is only
+    # ever present when it is set.
+    context 'with a True type' do
+      let(:type) { 'True' }
+      let(:description) { '<em>Optional</em>. Service message' }
 
-      expect(result).to include('max_size' => 1024)
-      expect(result).not_to have_key('min_size')
+      it { is_expected.to include('default' => true) }
     end
 
-    it 'reads an explicit range' do
-      expect(attribute('Integer', 'Period, must be between 60 and 86400'))
-        .to include('min_size' => 60, 'max_size' => 86_400)
-    end
-  end
+    context 'with a character range' do
+      let(:description) { 'Text, 1-64 characters' }
 
-  describe 'key order' do
+      it { is_expected.to include('min_size' => 1, 'max_size' => 64) }
+    end
+
+    context 'with a zero-based character range' do
+      let(:description) { 'Quote, 0-1024 characters' }
+
+      it { is_expected.to include('max_size' => 1024) }
+
+      it { is_expected.not_to have_key('min_size') }
+    end
+
+    context 'with an explicit range' do
+      let(:type) { 'Integer' }
+      let(:description) { 'Period, must be between 60 and 86400' }
+
+      it { is_expected.to include('min_size' => 60, 'max_size' => 86_400) }
+    end
+
     # data/types.json is written with JSON.pretty_generate, so insertion
     # order is part of the file.
-    it 'emits type, required, constraint, size, default in a stable order' do
-      result = attribute('String', 'Type of the result, always “article”, 1-64 characters')
+    context 'with every kind of annotation at once' do
+      let(:description) { 'Type of the result, always “article”, 1-64 characters' }
 
-      expect(result.keys).to eq(%w[type required required_value default min_size max_size])
+      it 'keeps a stable key order' do
+        expect(attribute.keys).to eq(%w[type required required_value default min_size max_size])
+      end
     end
   end
 end
