@@ -149,13 +149,34 @@ RSpec.describe Parsers::AttributeParser do
       it { is_expected.not_to have_key('min_size') }
     end
 
-    context 'with an explicit range' do
+    # A number carries a value range, not a length, so it gets different keys.
+    # dry-types measures `size`, and Integer#size is the byte width, which
+    # made every numeric range vacuously true.
+    context 'with a numeric range' do
       let(:type) { 'Integer' }
       let(:description) { 'Period, must be between 60 and 86400' }
 
-      it { is_expected.to include('min_size' => 60) }
+      it { is_expected.to include('min' => 60) }
 
-      it { is_expected.to include('max_size' => 86_400) }
+      it { is_expected.to include('max' => 86_400) }
+
+      it { is_expected.not_to have_key('min_size') }
+    end
+
+    # These limits are measured on the text after markup is parsed, a length
+    # the client cannot compute, so enforcing them locally rejects input
+    # Telegram accepts.
+    context 'with a limit measured after entities parsing' do
+      let(:description) { 'Caption of the photo, 0-1024 characters after entities parsing' }
+
+      it { is_expected.not_to have_key('max_size') }
+    end
+
+    context 'with a non-string discriminator phrase' do
+      let(:type) { 'Integer' }
+      let(:description) { 'Identifier, always 42' }
+
+      it { is_expected.not_to have_key('required_value') }
     end
 
     # data/types.json is written with JSON.pretty_generate, so insertion

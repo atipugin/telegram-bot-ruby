@@ -57,4 +57,50 @@ RSpec.describe Builders::TypeBuilder do
       end
     end
   end
+
+  describe '#build for size and range constraints' do
+    subject(:output) do
+      described_class.new(
+        'Sized', { field: field },
+        templates_dir: templates_dir, dependencies: dependencies
+      ).build
+    end
+
+    let(:types) { { Sized: { field: field } } }
+
+    context 'with a string length range' do
+      let(:field) { { type: 'string', min_size: 1, max_size: 64 } }
+
+      it { is_expected.to include('Types::String.constrained(min_size: 1, max_size: 64)') }
+    end
+
+    # This was dropped entirely: the old placeholder-substitution reset the
+    # constraint to '' whenever min_size was absent, so max-only limits never
+    # reached the generated file.
+    context 'with only a maximum length' do
+      let(:field) { { type: 'string', max_size: 200 } }
+
+      it { is_expected.to include('Types::String.constrained(max_size: 200)') }
+    end
+
+    context 'with only a minimum length' do
+      let(:field) { { type: 'string', min_size: 3 } }
+
+      it { is_expected.to include('Types::String.constrained(min_size: 3)') }
+    end
+
+    # min_size on an Integer compares Integer#size, the byte width, which is 8
+    # for every value -- so the constraint accepted everything.
+    context 'with a numeric range' do
+      let(:field) { { type: 'integer', min: 5, max: 100_000 } }
+
+      it { is_expected.to include('Types::Integer.constrained(gteq: 5, lteq: 100_000)') }
+    end
+
+    context 'with no constraint at all' do
+      let(:field) { { type: 'string' } }
+
+      it { is_expected.not_to include('constrained') }
+    end
+  end
 end

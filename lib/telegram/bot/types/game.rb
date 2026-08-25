@@ -7,7 +7,7 @@ module Telegram
         attribute :title, Types::String
         attribute :description, Types::String
         attribute :photo, Types::Array.of(PhotoSize)
-        attribute? :text, Types::String
+        attribute? :text, Types::String.constrained(max_size: 4096)
         attribute? :text_entities, Types::Array.of(MessageEntity)
         attribute? :animation, Animation
       end

@@ -11,6 +11,11 @@ module Parsers
   class AttributeParser
     CHARACTER_RANGE = /(\d+)-(\d+) characters/.freeze
     BOUNDED_RANGE = /must be between (\d+) and (\d+)/.freeze
+    # Limits worded this way are measured on the text after markup is parsed,
+    # a length the client cannot compute: "<b>x</b>" is 8 raw characters and 1
+    # parsed. Enforcing them locally rejects input Telegram accepts, so they
+    # are not emitted at all.
+    PARSED_LENGTH = /after entities parsing/.freeze
 
     def initialize(row)
       @type = row['Type']
@@ -34,11 +39,12 @@ module Parsers
 
     # A discriminator: `always "photo"` or `..., must be <em>photo</em>`.
     #
-    # `must be` is matched case-sensitively and only when the <em> follows it
-    # immediately. All 57 real discriminators are lowercase and mid-sentence;
-    # the one false positive is a sentence-initial "Must be <em>False</em>" of
-    # conditional prose. That distinction is what the pattern keys on, so no
-    # type-specific carve-out is needed.
+    # Two independent guards, since either alone has failed before. The type
+    # check states what a discriminator is. `must be` is then matched
+    # case-sensitively and only when the <em> follows it immediately: all 57
+    # real discriminators are lowercase and mid-sentence, and the known false
+    # positive is a sentence-initial "Must be <em>False</em>" of conditional
+    # prose.
     def apply_constant(attribute)
       value = constant(attribute['type'])
       return unless value
@@ -48,22 +54,31 @@ module Parsers
     end
 
     def constant(type)
-      quoted = @description.quoted_after('always')
-      return cast(quoted.delete('\\'), type) if quoted
+      # required_value becomes .constrained(eql: 'photo'), which is only
+      # coherent for a string discriminator; all 176 in the docs are strings.
+      return nil unless type == 'string'
 
-      emphasised = @description.emphasised_after('must be')
-      emphasised && cast(emphasised, type)
+      quoted = @description.quoted_after('always')
+      return quoted.delete('\\') if quoted
+
+      @description.emphasised_after('must be')
     end
 
+    # A string carries a length limit, a number a value range. They are
+    # different constraints, so they get different keys rather than leaving
+    # the builder to infer one from the type.
     def apply_size(attribute)
       minimum, maximum = size_range
       return unless maximum
 
-      attribute['min_size'] = minimum if minimum
-      attribute['max_size'] = maximum
+      low, high = attribute['type'] == 'integer' ? %w[min max] : %w[min_size max_size]
+      attribute[low] = minimum if minimum
+      attribute[high] = maximum
     end
 
     def size_range
+      return [nil, nil] if @description.match?(PARSED_LENGTH)
+
       if (found = @description.match(CHARACTER_RANGE))
         minimum = found[1].to_i
         [(minimum if minimum.positive?), found[2].to_i]
