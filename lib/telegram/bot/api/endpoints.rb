@@ -68,6 +68,7 @@ module Telegram
         'leaveChat' => Types::Bool,
         'getChat' => Types::ChatFullInfo,
         'getChatAdministrators' => Types::Array.of(Types::ChatMember),
+        'getChatMemberCount' => Types::Integer,
         'getChatMember' => Types::ChatMember,
         'getUserPersonalChatMessages' => Types::Array.of(Types::Message),
         'setChatStickerSet' => Types::Bool,

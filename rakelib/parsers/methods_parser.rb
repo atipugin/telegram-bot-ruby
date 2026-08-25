@@ -103,8 +103,8 @@ module Parsers
         return match[1]
       end
 
-      # Pattern: Returns <em>Int</em> or Integer
-      return 'Integer' if html.match?(%r{Returns <em>Int</em>}i)
+      # Pattern: Returns <em>Int</em> / <em>Integer</em>
+      return 'Integer' if html.match?(%r{Returns <em>Int(?:eger)?</em>}i)
 
       # Pattern: Returns ... as <em>String</em>
       return 'String' if html.match?(%r{as <em>String</em>}i)
