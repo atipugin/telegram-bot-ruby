@@ -14,14 +14,17 @@ Update generated types and API endpoints from the latest Telegram Bot API docume
 3. List all Bot API versions that are newer than the lib's current version, with a summary of changes for each.
 4. If the lib is already up to date, stop here and inform the user.
 
-## Step 2: Parse
+## Step 2: Fetch and parse
 
-Run both parse tasks to scrape the latest Telegram Bot API docs:
+Download the latest Telegram Bot API docs to `data/bot_api.html`, then parse that snapshot:
 
 ```
+bundle exec rake docs:fetch
 bundle exec rake parse:types
 bundle exec rake parse:methods
 ```
+
+If parsing raises `Parsers::Error`, the docs page changed in a way the parser does not understand. See `rakelib/README.md` for where to fix it.
 
 ## Step 3: Rebuild
 
