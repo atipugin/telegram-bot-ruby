@@ -10,6 +10,7 @@ module Telegram
         attribute? :one_time_keyboard, Types::Bool.default(false)
         attribute? :input_field_placeholder, Types::String.constrained(min_size: 1, max_size: 64)
         attribute? :selective, Types::Bool
+        attribute? :force_reply, Types::Bool
 
         def to_compact_hash
           hsh = super

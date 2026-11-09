@@ -3,14 +3,8 @@
 module Telegram
   module Bot
     module Types
-      class StoryAreaPosition < Base
-        attribute :x_percentage, Types::Float
-        attribute :y_percentage, Types::Float
-        attribute :width_percentage, Types::Float
-        attribute :height_percentage, Types::Float
-        attribute :rotation_angle, Types::Float
-        attribute :corner_radius_percentage, Types::Float
-      end
+      # Renamed to AreaPosition in Bot API 10.4. Kept for backward compatibility.
+      StoryAreaPosition = AreaPosition
     end
   end
 end

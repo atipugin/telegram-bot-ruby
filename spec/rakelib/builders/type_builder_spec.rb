@@ -57,4 +57,36 @@ RSpec.describe Builders::TypeBuilder do
       end
     end
   end
+
+  describe '#build for object types' do
+    subject(:output) { builder.build }
+
+    let(:type_name) { 'InputRichMessageMedia' }
+    let(:types) { { type_name => attributes } }
+    let(:attributes) { { media: { type: members, required: true } } }
+
+    context 'with a union that fits on one line' do
+      let(:members) { %w[InputMediaPhoto InputMediaVideo] }
+
+      it 'keeps it on the attribute line' do
+        expect(output).to include('attribute :media, InputMediaPhoto | InputMediaVideo')
+      end
+    end
+
+    context 'with a union longer than a line' do
+      let(:members) do
+        %w[InputMediaAnimation InputMediaAudio InputMediaDocument InputMediaPhoto InputMediaVideo InputMediaVoiceNote]
+      end
+
+      it 'puts one member per line, aligned after the attribute name' do
+        expect(output).to include(
+          "attribute :media, InputMediaAnimation |\n                          InputMediaAudio |\n"
+        )
+      end
+
+      it 'keeps every line within the limit' do
+        expect(output.lines.map { |line| line.chomp.length }.max).to be <= 120
+      end
+    end
+  end
 end

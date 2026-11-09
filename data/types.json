@@ -46,6 +46,12 @@
     "callback_query": {
       "type": "CallbackQuery"
     },
+    "widget_query": {
+      "type": "WidgetQuery"
+    },
+    "shared_widget_query": {
+      "type": "SharedWidgetQuery"
+    },
     "shipping_query": {
       "type": "ShippingQuery"
     },
@@ -81,6 +87,9 @@
     },
     "subscription": {
       "type": "BotSubscriptionUpdated"
+    },
+    "stopped_message_generation": {
+      "type": "MessageGenerationStopped"
     }
   },
   "WebhookInfo": {
@@ -385,6 +394,12 @@
     },
     "community": {
       "type": "Community"
+    },
+    "ton_wallet_card": {
+      "type": "TonWalletCard"
+    },
+    "share_theme": {
+      "type": "ChatShareTheme"
     }
   },
   "Message": {
@@ -548,6 +563,9 @@
     "voice": {
       "type": "Voice"
     },
+    "widget": {
+      "type": "Widget"
+    },
     "caption": {
       "type": "string"
     },
@@ -683,6 +701,9 @@
     "community_chat_added": {
       "type": "CommunityChatAdded"
     },
+    "community_chat_joined": {
+      "type": "CommunityChatJoined"
+    },
     "community_chat_removed": {
       "type": "CommunityChatRemoved"
     },
@@ -725,6 +746,9 @@
     "paid_message_price_changed": {
       "type": "PaidMessagePriceChanged"
     },
+    "paid_messages_waived": {
+      "type": "PaidMessagesWaived"
+    },
     "poll_option_added": {
       "type": "PollOptionAdded"
     },
@@ -745,6 +769,9 @@
     },
     "suggested_post_refunded": {
       "type": "SuggestedPostRefunded"
+    },
+    "ton_wallet_transfer": {
+      "type": "TonWalletTransfer"
     },
     "video_chat_scheduled": {
       "type": "VideoChatScheduled"
@@ -832,6 +859,10 @@
       "type": "array",
       "items": "MessageEntity"
     },
+    "rich_texts": {
+      "type": "array",
+      "items": "RichText"
+    },
     "position": {
       "type": "integer",
       "required": true
@@ -888,6 +919,9 @@
     },
     "voice": {
       "type": "Voice"
+    },
+    "widget": {
+      "type": "Widget"
     },
     "has_media_spoiler": {
       "type": "boolean",
@@ -951,6 +985,10 @@
       "type": "array",
       "items": "MessageEntity"
     },
+    "quote_rich_texts": {
+      "type": "array",
+      "items": "RichText"
+    },
     "quote_position": {
       "type": "integer"
     },
@@ -959,6 +997,17 @@
     },
     "poll_option_id": {
       "type": "string"
+    }
+  },
+  "EphemeralMessageParameters": {
+    "receiver_user_id": {
+      "type": "integer"
+    },
+    "callback_query_id": {
+      "type": "string"
+    },
+    "replace_callback_query_message": {
+      "type": "boolean"
     }
   },
   "MessageOrigin": {
@@ -1306,6 +1355,27 @@
     },
     "file_size": {
       "type": "integer"
+    }
+  },
+  "Widget": {
+    "id": {
+      "type": "string"
+    },
+    "width": {
+      "type": "integer"
+    },
+    "height": {
+      "type": "integer"
+    },
+    "html": {
+      "type": "string",
+      "required": true
+    },
+    "public_data": {
+      "type": "string"
+    },
+    "chat_data": {
+      "type": "string"
     }
   },
   "PaidMediaInfo": {
@@ -1828,6 +1898,19 @@
       "required": true
     }
   },
+  "MessageGenerationStopped": {
+    "chat": {
+      "type": "Chat",
+      "required": true
+    },
+    "message_thread_id": {
+      "type": "integer"
+    },
+    "draft_id": {
+      "type": "integer",
+      "required": true
+    }
+  },
   "PollOptionAdded": {
     "poll_message": {
       "type": "MaybeInaccessibleMessage"
@@ -2043,6 +2126,12 @@
       "required": true
     }
   },
+  "CommunityChatJoined": {
+    "community": {
+      "type": "Community",
+      "required": true
+    }
+  },
   "CommunityChatRemoved": {},
   "ForumTopicCreated": {
     "name": {
@@ -2221,6 +2310,24 @@
     "reason": {
       "type": "string",
       "required": true
+    }
+  },
+  "PaidMessagesWaived": {},
+  "TonWalletTransfer": {
+    "transaction_id": {
+      "type": "string",
+      "required": true
+    },
+    "peer_address": {
+      "type": "string",
+      "required": true
+    },
+    "amount": {
+      "type": "string",
+      "required": true
+    },
+    "comment": {
+      "type": "string"
     }
   },
   "GiveawayCreated": {
@@ -2459,6 +2566,9 @@
     },
     "selective": {
       "type": "boolean"
+    },
+    "force_reply": {
+      "type": "boolean"
     }
   },
   "KeyboardButton": {
@@ -2591,6 +2701,9 @@
         "items": "InlineKeyboardButton"
       },
       "required": true
+    },
+    "force_reply": {
+      "type": "boolean"
     }
   },
   "InlineKeyboardButton": {
@@ -2633,6 +2746,9 @@
     },
     "pay": {
       "type": "boolean"
+    },
+    "disabled": {
+      "type": "DisabledButton"
     }
   },
   "LoginUrl": {
@@ -2675,6 +2791,7 @@
       "max_size": 256
     }
   },
+  "DisabledButton": {},
   "CallbackQuery": {
     "id": {
       "type": "string",
@@ -2699,6 +2816,131 @@
     },
     "game_short_name": {
       "type": "string"
+    }
+  },
+  "WidgetQueryType": {
+    "type": [
+      "WidgetQueryTypeData",
+      "WidgetQueryTypeSignData",
+      "WidgetQueryTypeSentTransaction"
+    ]
+  },
+  "WidgetQueryTypeData": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "data",
+      "default": "data"
+    },
+    "wallet_card": {
+      "type": "TonWalletCard"
+    }
+  },
+  "WidgetQueryTypeSignData": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "sign_data",
+      "default": "sign_data"
+    },
+    "wallet": {
+      "type": "WidgetQueryWallet",
+      "required": true
+    },
+    "sign_data": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "WidgetQueryTypeSentTransaction": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "sent_transaction",
+      "default": "sent_transaction"
+    },
+    "wallet": {
+      "type": "WidgetQueryWallet",
+      "required": true
+    },
+    "msg_hash": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "WidgetQueryWallet": {
+    "address": {
+      "type": "string",
+      "required": true
+    },
+    "amount": {
+      "type": "string",
+      "required": true
+    },
+    "public_key": {
+      "type": "string"
+    },
+    "state_init": {
+      "type": "string"
+    }
+  },
+  "WidgetQuery": {
+    "id": {
+      "type": "string",
+      "required": true
+    },
+    "from": {
+      "type": "User",
+      "required": true
+    },
+    "chat": {
+      "type": "Chat"
+    },
+    "message_id": {
+      "type": "integer"
+    },
+    "inline_message_id": {
+      "type": "string"
+    },
+    "chat_instance": {
+      "type": "string",
+      "required": true
+    },
+    "chat_type": {
+      "type": "string"
+    },
+    "type": {
+      "type": "WidgetQueryType",
+      "required": true
+    },
+    "data": {
+      "type": "string",
+      "required": true
+    },
+    "widget_id": {
+      "type": "string"
+    }
+  },
+  "SharedWidgetQuery": {
+    "id": {
+      "type": "string",
+      "required": true
+    },
+    "from": {
+      "type": "User",
+      "required": true
+    },
+    "type": {
+      "type": "WidgetQueryType",
+      "required": true
+    },
+    "data": {
+      "type": "string",
+      "required": true
+    },
+    "widget_id": {
+      "type": "string",
+      "required": true
     }
   },
   "ForceReply": {
@@ -2846,6 +3088,10 @@
     },
     "can_manage_tags": {
       "type": "boolean"
+    },
+    "can_send_welcome_messages": {
+      "type": "boolean",
+      "required": true
     }
   },
   "ChatMemberUpdated": {
@@ -2984,6 +3230,10 @@
     },
     "can_manage_tags": {
       "type": "boolean"
+    },
+    "can_send_welcome_messages": {
+      "type": "boolean",
+      "required": true
     },
     "custom_title": {
       "type": "string"
@@ -3270,7 +3520,7 @@
       "type": "integer"
     }
   },
-  "StoryAreaPosition": {
+  "AreaPosition": {
     "x_percentage": {
       "type": "number",
       "required": true
@@ -3293,6 +3543,157 @@
     },
     "corner_radius_percentage": {
       "type": "number",
+      "required": true
+    }
+  },
+  "TonNft": {
+    "address": {
+      "type": "string",
+      "required": true
+    },
+    "collection_address": {
+      "type": "string"
+    },
+    "index": {
+      "type": "string",
+      "required": true
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "string",
+      "required": true
+    },
+    "attributes": {
+      "type": "array",
+      "items": "TonNftAttribute"
+    },
+    "gift": {
+      "type": "UniqueGift"
+    }
+  },
+  "TonNftAttribute": {
+    "trait_type": {
+      "type": "string",
+      "required": true
+    },
+    "value": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "TonWalletCardSticker": {
+    "position": {
+      "type": "AreaPosition",
+      "required": true
+    },
+    "nft": {
+      "type": "TonNft",
+      "required": true
+    }
+  },
+  "TonWalletCard": {
+    "address": {
+      "type": "string",
+      "required": true
+    },
+    "amount": {
+      "type": "string",
+      "required": true
+    },
+    "stickers": {
+      "type": "array",
+      "items": "TonWalletCardSticker",
+      "required": true
+    },
+    "background_nft_address": {
+      "type": "string"
+    }
+  },
+  "EmojiType": {
+    "type": [
+      "EmojiTypeEmoji",
+      "EmojiTypeCustomEmoji"
+    ]
+  },
+  "EmojiTypeEmoji": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "emoji",
+      "default": "emoji"
+    },
+    "emoji": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "EmojiTypeCustomEmoji": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "custom_emoji",
+      "default": "custom_emoji"
+    },
+    "custom_emoji_id": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "ChatShareTheme": {
+    "type": [
+      "ChatShareThemeEmoji",
+      "ChatShareThemeUniqueGift"
+    ]
+  },
+  "ChatShareThemeEmoji": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "emoji",
+      "default": "emoji"
+    },
+    "emojis": {
+      "type": "array",
+      "items": "EmojiType",
+      "required": true
+    },
+    "background_backdrop_id": {
+      "type": "integer"
+    }
+  },
+  "ChatShareThemeUniqueGift": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "unique_gift",
+      "default": "unique_gift"
+    },
+    "gift": {
+      "type": "UniqueGift",
+      "required": true
+    }
+  },
+  "ChatShareThemeBackdrops": {
+    "backdrops": {
+      "type": "array",
+      "items": "ChatShareThemeBackdrop",
+      "required": true
+    }
+  },
+  "ChatShareThemeBackdrop": {
+    "id": {
+      "type": "integer",
+      "required": true
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "colors": {
+      "type": "UniqueGiftBackdropColors",
       "required": true
     }
   },
@@ -3403,7 +3804,7 @@
   },
   "StoryArea": {
     "position": {
-      "type": "StoryAreaPosition",
+      "type": "AreaPosition",
       "required": true
     },
     "type": {
@@ -3793,6 +4194,17 @@
     "origin": {
       "type": "string",
       "required": true
+    },
+    "text": {
+      "type": "string"
+    },
+    "entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "is_private": {
+      "type": "boolean",
+      "default": true
     },
     "last_resale_currency": {
       "type": "string"
@@ -5019,11 +5431,48 @@
       "type": [
         "InputMediaAnimation",
         "InputMediaAudio",
+        "InputMediaDocument",
         "InputMediaPhoto",
         "InputMediaVideo",
         "InputMediaVoiceNote"
       ],
       "required": true
+    }
+  },
+  "RichMessageButton": {
+    "text": {
+      "type": "RichText",
+      "required": true
+    },
+    "style": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "callback_data": {
+      "type": "string"
+    },
+    "web_app": {
+      "type": "WebAppInfo"
+    },
+    "login_url": {
+      "type": "LoginUrl"
+    },
+    "switch_inline_query": {
+      "type": "string"
+    },
+    "switch_inline_query_current_chat": {
+      "type": "string"
+    },
+    "switch_inline_query_chosen_chat": {
+      "type": "SwitchInlineQueryChosenChat"
+    },
+    "copy_text": {
+      "type": "CopyTextButton"
+    },
+    "disabled": {
+      "type": "DisabledButton"
     }
   },
   "RichText": {
@@ -5047,10 +5496,12 @@
       "RichTextEmailAddress",
       "RichTextPhoneNumber",
       "RichTextBankCardNumber",
+      "RichTextTonAddress",
       "RichTextMention",
       "RichTextHashtag",
       "RichTextCashtag",
       "RichTextBotCommand",
+      "RichTextButton",
       "RichTextAnchor",
       "RichTextAnchorLink",
       "RichTextReference",
@@ -5293,6 +5744,22 @@
       "required": true
     }
   },
+  "RichTextTonAddress": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "ton_address",
+      "default": "ton_address"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
+    },
+    "address": {
+      "type": "string",
+      "required": true
+    }
+  },
   "RichTextMention": {
     "type": {
       "type": "string",
@@ -5354,6 +5821,18 @@
     },
     "bot_command": {
       "type": "string",
+      "required": true
+    }
+  },
+  "RichTextButton": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "button",
+      "default": "button"
+    },
+    "button": {
+      "type": "RichMessageButton",
       "required": true
     }
   },
@@ -5485,14 +5964,17 @@
       "RichBlockAnchor",
       "RichBlockList",
       "RichBlockBlockQuotation",
+      "RichBlockExpandableBlockQuotation",
       "RichBlockPullQuotation",
       "RichBlockCollage",
       "RichBlockSlideshow",
       "RichBlockTable",
       "RichBlockDetails",
       "RichBlockMap",
+      "RichBlockButtons",
       "RichBlockAnimation",
       "RichBlockAudio",
+      "RichBlockDocument",
       "RichBlockPhoto",
       "RichBlockVideo",
       "RichBlockVoiceNote",
@@ -5615,6 +6097,21 @@
       "type": "RichText"
     }
   },
+  "RichBlockExpandableBlockQuotation": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "expandable_blockquote",
+      "default": "expandable_blockquote"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
+    },
+    "credit": {
+      "type": "RichText"
+    }
+  },
   "RichBlockPullQuotation": {
     "type": {
       "type": "string",
@@ -5685,6 +6182,10 @@
       "type": "boolean",
       "default": true
     },
+    "is_compact": {
+      "type": "boolean",
+      "default": true
+    },
     "caption": {
       "type": "RichText"
     }
@@ -5737,6 +6238,22 @@
       "type": "RichBlockCaption"
     }
   },
+  "RichBlockButtons": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "buttons",
+      "default": "buttons"
+    },
+    "buttons": {
+      "type": "array",
+      "items": "RichMessageButton",
+      "required": true
+    },
+    "align": {
+      "type": "string"
+    }
+  },
   "RichBlockAnimation": {
     "type": {
       "type": "string",
@@ -5765,6 +6282,21 @@
     },
     "audio": {
       "type": "Audio",
+      "required": true
+    },
+    "caption": {
+      "type": "RichBlockCaption"
+    }
+  },
+  "RichBlockDocument": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "document",
+      "default": "document"
+    },
+    "document": {
+      "type": "Document",
       "required": true
     },
     "caption": {
@@ -5869,14 +6401,17 @@
       "InputRichBlockAnchor",
       "InputRichBlockList",
       "InputRichBlockBlockQuotation",
+      "InputRichBlockExpandableBlockQuotation",
       "InputRichBlockPullQuotation",
       "InputRichBlockCollage",
       "InputRichBlockSlideshow",
       "InputRichBlockTable",
       "InputRichBlockDetails",
       "InputRichBlockMap",
+      "InputRichBlockButtons",
       "InputRichBlockAnimation",
       "InputRichBlockAudio",
+      "InputRichBlockDocument",
       "InputRichBlockPhoto",
       "InputRichBlockVideo",
       "InputRichBlockVoiceNote",
@@ -5999,6 +6534,21 @@
       "type": "RichText"
     }
   },
+  "InputRichBlockExpandableBlockQuotation": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "expandable_blockquote",
+      "default": "expandable_blockquote"
+    },
+    "text": {
+      "type": "RichText",
+      "required": true
+    },
+    "credit": {
+      "type": "RichText"
+    }
+  },
   "InputRichBlockPullQuotation": {
     "type": {
       "type": "string",
@@ -6069,6 +6619,10 @@
       "type": "boolean",
       "default": true
     },
+    "is_compact": {
+      "type": "boolean",
+      "default": true
+    },
     "caption": {
       "type": "RichText"
     }
@@ -6106,19 +6660,32 @@
       "required": true
     },
     "zoom": {
-      "type": "integer",
-      "required": true
+      "type": "integer"
     },
     "width": {
-      "type": "integer",
-      "required": true
+      "type": "integer"
     },
     "height": {
-      "type": "integer",
-      "required": true
+      "type": "integer"
     },
     "caption": {
       "type": "RichBlockCaption"
+    }
+  },
+  "InputRichBlockButtons": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "buttons",
+      "default": "buttons"
+    },
+    "buttons": {
+      "type": "array",
+      "items": "RichMessageButton",
+      "required": true
+    },
+    "align": {
+      "type": "string"
     }
   },
   "InputRichBlockAnimation": {
@@ -6145,6 +6712,21 @@
     },
     "audio": {
       "type": "InputMediaAudio",
+      "required": true
+    },
+    "caption": {
+      "type": "RichBlockCaption"
+    }
+  },
+  "InputRichBlockDocument": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "required_value": "document",
+      "default": "document"
+    },
+    "document": {
+      "type": "InputMediaDocument",
       "required": true
     },
     "caption": {
@@ -7138,7 +7720,9 @@
       "InputLocationMessageContent",
       "InputVenueMessageContent",
       "InputContactMessageContent",
-      "InputInvoiceMessageContent"
+      "InputInvoiceMessageContent",
+      "InputWidgetMessageContent",
+      "InputSharedWidgetMessageContent"
     ]
   },
   "InputTextMessageContent": {
@@ -7306,6 +7890,67 @@
       "type": "boolean"
     },
     "is_flexible": {
+      "type": "boolean"
+    }
+  },
+  "InputWidgetMessageContent": {
+    "html": {
+      "type": "string",
+      "required": true
+    },
+    "width": {
+      "type": "integer"
+    },
+    "height": {
+      "type": "integer"
+    },
+    "public_data": {
+      "type": "string"
+    },
+    "chat_data": {
+      "type": "string"
+    },
+    "caption": {
+      "type": "string",
+      "max_size": 1024
+    },
+    "parse_mode": {
+      "type": "string"
+    },
+    "caption_entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "show_caption_above_media": {
+      "type": "boolean"
+    },
+    "allow_queries": {
+      "type": "boolean"
+    },
+    "is_shared": {
+      "type": "boolean"
+    }
+  },
+  "InputSharedWidgetMessageContent": {
+    "widget_id": {
+      "type": "string",
+      "required": true
+    },
+    "chat_data": {
+      "type": "string"
+    },
+    "caption": {
+      "type": "string",
+      "max_size": 1024
+    },
+    "parse_mode": {
+      "type": "string"
+    },
+    "caption_entities": {
+      "type": "array",
+      "items": "MessageEntity"
+    },
+    "show_caption_above_media": {
       "type": "boolean"
     }
   },

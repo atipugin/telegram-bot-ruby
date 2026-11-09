@@ -17,6 +17,7 @@ module Telegram
         attribute? :copy_text, CopyTextButton
         attribute? :callback_game, CallbackGame
         attribute? :pay, Types::Bool
+        attribute? :disabled, DisabledButton
       end
     end
   end

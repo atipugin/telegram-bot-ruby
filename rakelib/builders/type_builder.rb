@@ -4,6 +4,7 @@ require 'erb'
 
 module Builders
   class TypeBuilder
+    MAX_LINE_LENGTH = 120
     DRY_TYPES = %w[string integer float decimal array hash symbol boolean date date_time time range].freeze
 
     attr_reader :name, :attributes, :templates_dir
@@ -79,10 +80,19 @@ module Builders
 
     def process_type!(attr_name, properties)
       attributes[attr_name][:type] = if properties[:type].is_a?(Array)
-                                       properties[:type].map { |t| add_module_types(t) }.join(' | ')
+                                       union_type(attr_name, properties)
                                      else
                                        add_module_types(properties[:type])
                                      end
+    end
+
+    # Puts one member per line when the union does not fit on the attribute line.
+    def union_type(attr_name, properties)
+      members = properties[:type].map { |t| add_module_types(t) }
+      prefix = "        #{properties[:required] ? 'attribute' : 'attribute?'} :#{attr_name}, "
+      return members.join(' | ') if prefix.length + members.join(' | ').length <= MAX_LINE_LENGTH
+
+      members.join(" |\n#{' ' * prefix.length}")
     end
 
     def process_items!(attr_name, properties)

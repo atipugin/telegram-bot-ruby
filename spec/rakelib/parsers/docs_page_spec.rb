@@ -144,6 +144,12 @@ RSpec.describe Parsers::DocsPage do
       expect(field('InputMediaPhoto', 'type').description.fixed_value).to eq('photo')
     end
 
+    it 'ignores a value that is required only under a condition' do
+      description = field('EphemeralMessageParameters', 'replace_callback_query_message').description
+
+      expect([description.fixed_value, description.default]).to eq([nil, nil])
+    end
+
     it 'reads a default value' do
       expect(field('KeyboardButtonRequestUsers', 'max_quantity').description.default).to eq('1')
     end

@@ -4,7 +4,9 @@ require_relative 'page_object'
 
 module Parsers
   class Description < PageObject
-    FIXED = [/must be /i, %r{must be <em>([^<]+)</em>}i].freeze
+    # "Type of the result, must be <em>article</em>" fixes the value, but
+    # "Must be <em>False</em> for callback queries from …" only applies in some cases.
+    FIXED = [/must be /i, %r{must be <em>([^<]+)</em>(?!\s+(?:for|if|when|unless)\b)}i].freeze
     DEFAULT = [/Defaults to /i, %r{Defaults to <em>([^<]+)</em>}i].freeze
 
     def text

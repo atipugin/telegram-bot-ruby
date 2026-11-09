@@ -5,8 +5,12 @@ module Telegram
     module Types
       class InputRichMessageMedia < Base
         attribute :id, Types::String.constrained(min_size: 1, max_size: 64)
-        attribute :media,
-                  InputMediaAnimation | InputMediaAudio | InputMediaPhoto | InputMediaVideo | InputMediaVoiceNote
+        attribute :media, InputMediaAnimation |
+                          InputMediaAudio |
+                          InputMediaDocument |
+                          InputMediaPhoto |
+                          InputMediaVideo |
+                          InputMediaVoiceNote
       end
     end
   end
