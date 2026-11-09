@@ -160,6 +160,21 @@ RSpec.describe Parsers::DocsPage do
       expect([description.min_size, description.max_size]).to eq([1, 100])
     end
 
+    context 'with a description written for the spec' do
+      def description(text)
+        row = "<tr><td>foo</td><td>Integer</td><td>#{text}</td></tr>"
+        page_with("<h4>Foo</h4>#{fields_table(row)}").api_type('Foo').fields.first.description
+      end
+
+      it 'treats anything after a "must be" value as a condition' do
+        expect(description('Must be <em>True</em> in private chats').fixed_value).to be_nil
+      end
+
+      it 'reads a range only when the value must be in it' do
+        expect(description('Any code between 1 and 126').ranges).to eq([])
+      end
+    end
+
     it 'does not read number ranges as size limits' do
       description = field('InputLocationMessageContent', 'live_period').description
 

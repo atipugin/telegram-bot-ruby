@@ -4,9 +4,10 @@ require_relative 'page_object'
 
 module Parsers
   class Description < PageObject
-    # "Type of the result, must be <em>article</em>" fixes the value, but
-    # "Must be <em>False</em> for callback queries from …" only applies in some cases.
-    FIXED = [/must be /i, %r{must be <em>([^<]+)</em>(?!\s+(?:for|if|when|unless)\b)}i].freeze
+    # A fixed value ends the description: "Type of the result, must be <em>article</em>". Anything after it is a
+    # condition, as in "Must be <em>False</em> for callback queries from …".
+    FIXED = [/must be /i, %r{must be <em>([^<]+)</em>\.?\s*\z}i].freeze
+    RANGE = /must be between (\d+) and (\d+)(?:, or (0x\h+|\d+))?/i.freeze
     DEFAULT = [/Defaults to /i, %r{Defaults to <em>([^<]+)</em>}i].freeze
 
     def text
@@ -35,14 +36,11 @@ module Parsers
       size_range[1]
     end
 
-    # Allowed values of a number, as [min, max] pairs. A value can be in any of them: "must be between 60 and 86400,
-    # or 0x7FFFFFFF for …" and "price in Telegram Stars must be between 5 and 100000, and price in nanograms must be
-    # between 10000000 and 10000000000000" each allow two.
+    # Allowed values of a number as [min, max] pairs, e.g. "must be between 60 and 86400, or 0x7FFFFFFF" gives two.
     def ranges
-      bounds = text.scan(/between (\d+) and (\d+)/i).map { |min, max| [min.to_i, max.to_i] }
-      return bounds if bounds.empty?
-
-      bounds + text.scan(/, or (0x\h+|\d+) for /).map { |(value)| [Integer(value)] * 2 }
+      text.scan(RANGE).flat_map do |min, max, extra|
+        [[min.to_i, max.to_i], ([Integer(extra)] * 2 if extra)].compact
+      end
     end
 
     private
