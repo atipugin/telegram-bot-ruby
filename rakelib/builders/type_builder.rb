@@ -68,6 +68,7 @@ module Builders
       original_type = properties[:type]
       apply_required!(attr_name, properties, original_type)
       apply_min_max!(attr_name, properties)
+      apply_ranges!(attr_name, properties)
       apply_default!(attr_name, properties, original_type)
 
       normalize_boolean_type!(attr_name)
@@ -86,9 +87,12 @@ module Builders
                                      end
     end
 
-    # Puts one member per line when the union does not fit on the attribute line.
     def union_type(attr_name, properties)
-      members = properties[:type].map { |t| add_module_types(t) }
+      join_union(attr_name, properties, properties[:type].map { |t| add_module_types(t) })
+    end
+
+    # Puts one member per line when the union does not fit on the attribute line.
+    def join_union(attr_name, properties, members)
       prefix = "        #{properties[:required] ? 'attribute' : 'attribute?'} :#{attr_name}, "
       return members.join(' | ') if prefix.length + members.join(' | ').length <= MAX_LINE_LENGTH
 
@@ -117,6 +121,20 @@ module Builders
       constrain = properties[:min_size] ? constrain.gsub('min', "min_size: #{literal(properties[:min_size])}, ") : ''
       constrain = constrain.gsub('max', "max_size: #{literal(properties[:max_size])}") if properties[:max_size]
       attributes[attr_name][:type] += constrain
+    end
+
+    # A value can be in any of the ranges, so each one is a member of a union.
+    def apply_ranges!(attr_name, properties)
+      return unless properties[:ranges]
+      raise ArgumentError, "#{name}.#{attr_name}: both ranges and a default" unless properties[:default].nil?
+
+      type = attributes[attr_name][:type]
+      members = properties[:ranges].map { |min, max| "#{type}.constrained(#{bounds(min, max)})" }
+      attributes[attr_name][:type] = join_union(attr_name, properties, members)
+    end
+
+    def bounds(min, max)
+      min == max ? "eql: #{literal(min)}" : "gteq: #{literal(min)}, lteq: #{literal(max)}"
     end
 
     def apply_default!(attr_name, properties, original_type)

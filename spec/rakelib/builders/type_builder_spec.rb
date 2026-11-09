@@ -106,5 +106,16 @@ RSpec.describe Builders::TypeBuilder do
         expect(output).to include('attribute? :is_enabled, Types::Bool.constrained(eql: false).default(false)')
       end
     end
+
+    context 'with ranges of values' do
+      let(:attributes) { { live_period: { type: 'integer', ranges: [[60, 86_400], [0x7FFFFFFF, 0x7FFFFFFF]] } } }
+
+      it 'allows a value in any of them' do
+        expect(output).to include(
+          "attribute? :live_period, Types::Integer.constrained(gteq: 60, lteq: 86_400) |\n#{' ' * 33}" \
+          'Types::Integer.constrained(eql: 2_147_483_647)'
+        )
+      end
+    end
   end
 end

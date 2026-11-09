@@ -35,6 +35,16 @@ module Parsers
       size_range[1]
     end
 
+    # Allowed values of a number, as [min, max] pairs. A value can be in any of them: "must be between 60 and 86400,
+    # or 0x7FFFFFFF for …" and "price in Telegram Stars must be between 5 and 100000, and price in nanograms must be
+    # between 10000000 and 10000000000000" each allow two.
+    def ranges
+      bounds = text.scan(/between (\d+) and (\d+)/i).map { |min, max| [min.to_i, max.to_i] }
+      return bounds if bounds.empty?
+
+      bounds + text.scan(/, or (0x\h+|\d+) for /).map { |(value)| [Integer(value)] * 2 }
+    end
+
     private
 
     # Serializing a cell is slow, so it is only done for the few that mention the phrase.
@@ -42,8 +52,7 @@ module Parsers
       node.inner_html[pattern, 1] if text.match?(mention)
     end
 
-    # Only string lengths are limits. Numbers are documented as "must be between 60 and 86400, or 0x7FFFFFFF"
-    # or with a range per currency, so their ranges are not limits and are left to the server to check.
+    # Lengths of strings. Numbers are checked by value, see #ranges.
     def size_range
       @size_range ||= if (match = text.match(/(\d+)-(\d+) characters/))
                         min = match[1].to_i

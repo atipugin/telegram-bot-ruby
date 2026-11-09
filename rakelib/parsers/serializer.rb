@@ -49,15 +49,15 @@ module Parsers
     end
 
     def attribute(field)
-      fixed = field.description.fixed_value
-      fixed = cast(fixed, field.type) unless fixed.nil?
+      fixed = fixed_value(field)
 
       type_ref(field.type).merge(
         'required' => (true if field.required?),
         'required_value' => fixed,
         'default' => fixed.nil? ? default(field) : fixed,
         'min_size' => field.description.min_size,
-        'max_size' => field.description.max_size
+        'max_size' => field.description.max_size,
+        'ranges' => ranges(field)
       ).compact
     end
 
@@ -73,6 +73,19 @@ module Parsers
 
     def primitive(name)
       PRIMITIVES.fetch(name, name)
+    end
+
+    def fixed_value(field)
+      value = field.description.fixed_value
+      cast(value, field.type) unless value.nil?
+    end
+
+    def ranges(field)
+      ranges = field.description.ranges
+      return if ranges.empty?
+      raise Error, "#{field.name}: a range of values on a #{field.type} field" unless field.type.to_s == 'Integer'
+
+      ranges
     end
 
     def default(field)

@@ -161,10 +161,19 @@ RSpec.describe Parsers::DocsPage do
     end
 
     it 'does not read number ranges as size limits' do
-      ranges = [field('InputLocationMessageContent', 'live_period'), field('SuggestedPostPrice', 'amount')]
-               .map { |field| [field.description.min_size, field.description.max_size] }
+      description = field('InputLocationMessageContent', 'live_period').description
 
-      expect(ranges).to eq([[nil, nil], [nil, nil]])
+      expect([description.min_size, description.max_size]).to eq([nil, nil])
+    end
+
+    {
+      %w[InputLocationMessageContent heading] => [[1, 360]],
+      %w[InputLocationMessageContent live_period] => [[60, 86_400], [0x7FFFFFFF, 0x7FFFFFFF]],
+      %w[SuggestedPostPrice amount] => [[5, 100_000], [10_000_000, 10_000_000_000_000]]
+    }.each do |(type, name), ranges|
+      it "reads the allowed values of #{type}.#{name}" do
+        expect(field(type, name).description.ranges).to eq(ranges)
+      end
     end
 
     it 'raises on a row with a missing cell' do

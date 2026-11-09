@@ -2457,7 +2457,17 @@
     },
     "amount": {
       "type": "integer",
-      "required": true
+      "required": true,
+      "ranges": [
+        [
+          5,
+          100000
+        ],
+        [
+          10000000,
+          10000000000000
+        ]
+      ]
     }
   },
   "SuggestedPostInfo": {
@@ -7275,13 +7285,35 @@
       "type": "number"
     },
     "live_period": {
-      "type": "integer"
+      "type": "integer",
+      "ranges": [
+        [
+          60,
+          86400
+        ],
+        [
+          2147483647,
+          2147483647
+        ]
+      ]
     },
     "heading": {
-      "type": "integer"
+      "type": "integer",
+      "ranges": [
+        [
+          1,
+          360
+        ]
+      ]
     },
     "proximity_alert_radius": {
-      "type": "integer"
+      "type": "integer",
+      "ranges": [
+        [
+          1,
+          100000
+        ]
+      ]
     },
     "reply_markup": {
       "type": "InlineKeyboardMarkup"
@@ -7758,13 +7790,35 @@
       "type": "number"
     },
     "live_period": {
-      "type": "integer"
+      "type": "integer",
+      "ranges": [
+        [
+          60,
+          86400
+        ],
+        [
+          2147483647,
+          2147483647
+        ]
+      ]
     },
     "heading": {
-      "type": "integer"
+      "type": "integer",
+      "ranges": [
+        [
+          1,
+          360
+        ]
+      ]
     },
     "proximity_alert_radius": {
-      "type": "integer"
+      "type": "integer",
+      "ranges": [
+        [
+          1,
+          100000
+        ]
+      ]
     }
   },
   "InputVenueMessageContent": {
