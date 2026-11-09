@@ -63,6 +63,7 @@
   "leaveChat": "Boolean",
   "getChat": "ChatFullInfo",
   "getChatAdministrators": "Array<ChatMember>",
+  "getChatMemberCount": "Integer",
   "getChatMember": "ChatMember",
   "getUserPersonalChatMessages": "Array<Message>",
   "setChatStickerSet": "Boolean",

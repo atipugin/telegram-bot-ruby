@@ -266,11 +266,19 @@ end
 
 ## Maintenance
 
-This gem provides rake tasks to parse the official [Telegram Bot API documentation](https://core.telegram.org/bots/api) and regenerate types and API methods.
+This gem provides rake tasks to parse the official [Telegram Bot API documentation](https://core.telegram.org/bots/api) and regenerate types and API methods. See [rakelib/README.md](rakelib/README.md) for how the parser works.
+
+### Fetching
+
+Download the latest documentation to the snapshot kept in the repository:
+
+```shell
+rake docs:fetch     # Downloads the documentation to data/bot_api.html
+```
 
 ### Parsing
 
-Parse types and methods from the official documentation:
+Parse types and methods from the snapshot:
 
 ```shell
 rake parse:types    # Parses types to data/types.json
@@ -284,6 +292,12 @@ Regenerate Ruby code from the parsed JSON data:
 ```shell
 rake rebuild:types    # Rebuilds lib/telegram/bot/types/*.rb
 rake rebuild:methods  # Rebuilds lib/telegram/bot/api/endpoints.rb
+```
+
+`rebuild:types` overwrites every type file, including the few that contain hand-written methods. List the files that lost a method, restore those methods, then run the specs and RuboCop:
+
+```shell
+git diff -G'^\s*(def|alias) ' --stat -- lib/telegram/bot/types
 ```
 
 ## Contributing
