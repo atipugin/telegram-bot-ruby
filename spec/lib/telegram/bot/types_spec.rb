@@ -20,6 +20,18 @@ RSpec.describe Telegram::Bot::Types do
     end
   end
 
+  describe 'live locations' do
+    [120, 0x7FFFFFFF].each do |live_period|
+      it "accepts a live_period of #{live_period}" do
+        content = described_class::InputLocationMessageContent.new(
+          latitude: 1.0, longitude: 2.0, live_period: live_period
+        )
+
+        expect(content.live_period).to eq(live_period)
+      end
+    end
+  end
+
   describe '.deferred' do
     let(:deferred_type) { described_class.deferred(:RichText) }
     let(:invalid_value) { { type: 'bold', text: { type: 'unknown' } } }

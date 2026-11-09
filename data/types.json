@@ -2457,9 +2457,7 @@
     },
     "amount": {
       "type": "integer",
-      "required": true,
-      "min_size": 5,
-      "max_size": 100000
+      "required": true
     }
   },
   "SuggestedPostInfo": {
@@ -7277,9 +7275,7 @@
       "type": "number"
     },
     "live_period": {
-      "type": "integer",
-      "min_size": 60,
-      "max_size": 86400
+      "type": "integer"
     },
     "heading": {
       "type": "integer"
@@ -7762,9 +7758,7 @@
       "type": "number"
     },
     "live_period": {
-      "type": "integer",
-      "min_size": 60,
-      "max_size": 86400
+      "type": "integer"
     },
     "heading": {
       "type": "integer"

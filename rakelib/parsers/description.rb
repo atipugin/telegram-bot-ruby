@@ -42,12 +42,12 @@ module Parsers
       node.inner_html[pattern, 1] if text.match?(mention)
     end
 
+    # Only string lengths are limits. Numbers are documented as "must be between 60 and 86400, or 0x7FFFFFFF"
+    # or with a range per currency, so their ranges are not limits and are left to the server to check.
     def size_range
       @size_range ||= if (match = text.match(/(\d+)-(\d+) characters/))
                         min = match[1].to_i
                         [(min if min.positive?), match[2].to_i]
-                      elsif (match = text.match(/must be between (\d+) and (\d+)/))
-                        [match[1].to_i, match[2].to_i]
                       else
                         []
                       end

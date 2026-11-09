@@ -88,5 +88,23 @@ RSpec.describe Builders::TypeBuilder do
         expect(output.lines.map { |line| line.chomp.length }.max).to be <= 120
       end
     end
+
+    context 'with large numbers' do
+      let(:attributes) do
+        { text: { type: 'string', min_size: 1, max_size: 32_768 }, limit: { type: 'integer', default: 100_000 } }
+      end
+
+      it 'separates thousands' do
+        expect(output).to include('min_size: 1, max_size: 32_768').and include('.default(100_000)')
+      end
+    end
+
+    context 'with a fixed false value' do
+      let(:attributes) { { is_enabled: { type: 'boolean', required_value: false, default: false } } }
+
+      it 'constrains to the literal false' do
+        expect(output).to include('attribute? :is_enabled, Types::Bool.constrained(eql: false).default(false)')
+      end
+    end
   end
 end

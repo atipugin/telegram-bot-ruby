@@ -160,6 +160,13 @@ RSpec.describe Parsers::DocsPage do
       expect([description.min_size, description.max_size]).to eq([1, 100])
     end
 
+    it 'does not read number ranges as size limits' do
+      ranges = [field('InputLocationMessageContent', 'live_period'), field('SuggestedPostPrice', 'amount')]
+               .map { |field| [field.description.min_size, field.description.max_size] }
+
+      expect(ranges).to eq([[nil, nil], [nil, nil]])
+    end
+
     it 'raises on a row with a missing cell' do
       broken = page_with("<h4>Foo</h4>#{fields_table('<tr><td>id</td><td>Integer</td></tr>')}")
 

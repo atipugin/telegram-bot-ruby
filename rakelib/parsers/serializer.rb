@@ -50,11 +50,12 @@ module Parsers
 
     def attribute(field)
       fixed = field.description.fixed_value
+      fixed = cast(fixed, field.type) unless fixed.nil?
 
       type_ref(field.type).merge(
         'required' => (true if field.required?),
         'required_value' => fixed,
-        'default' => fixed || default(field),
+        'default' => fixed.nil? ? default(field) : fixed,
         'min_size' => field.description.min_size,
         'max_size' => field.description.max_size
       ).compact
