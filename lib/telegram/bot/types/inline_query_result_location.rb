@@ -10,9 +10,10 @@ module Telegram
         attribute :longitude, Types::Float
         attribute :title, Types::String
         attribute? :horizontal_accuracy, Types::Float
-        attribute? :live_period, Types::Integer.constrained(min_size: 60, max_size: 86_400)
-        attribute? :heading, Types::Integer
-        attribute? :proximity_alert_radius, Types::Integer
+        attribute? :live_period, Types::Integer.constrained(gteq: 60, lteq: 86_400) |
+                                 Types::Integer.constrained(eql: 2_147_483_647)
+        attribute? :heading, Types::Integer.constrained(gteq: 1, lteq: 360)
+        attribute? :proximity_alert_radius, Types::Integer.constrained(gteq: 1, lteq: 100_000)
         attribute? :reply_markup, InlineKeyboardMarkup
         attribute? :input_message_content, InputMessageContent
         attribute? :thumbnail_url, Types::String

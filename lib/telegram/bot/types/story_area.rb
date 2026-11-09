@@ -4,7 +4,7 @@ module Telegram
   module Bot
     module Types
       class StoryArea < Base
-        attribute :position, StoryAreaPosition
+        attribute :position, AreaPosition
         attribute :type, StoryAreaType
       end
     end

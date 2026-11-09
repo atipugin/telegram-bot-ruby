@@ -46,6 +46,8 @@ git diff -G'^\s*(def|alias) ' --stat -- lib/telegram/bot/types
 
 In each listed file, put back the methods and aliases that `git diff` shows as removed. Keep everything else as generated.
 
+If `rebuild:types` warns about files that are not in `data/types.json`, a type was renamed or removed. Turn a renamed type's old file into an alias of the new name (`OldName = NewName`) so existing code keeps working, and add it to `HAND_WRITTEN_TYPES` in `rakelib/rebuild.rake`. Delete a removed type's file.
+
 ## 4. Check
 
 ```

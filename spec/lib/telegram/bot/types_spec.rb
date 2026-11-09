@@ -20,6 +20,33 @@ RSpec.describe Telegram::Bot::Types do
     end
   end
 
+  describe 'number ranges' do
+    def location(**attributes)
+      described_class::InputLocationMessageContent.new(latitude: 1.0, longitude: 2.0, **attributes)
+    end
+
+    it 'accepts live periods in the range and the indefinite one' do
+      expect([120, 0x7FFFFFFF].map { |period| location(live_period: period).live_period }).to eq([120, 0x7FFFFFFF])
+    end
+
+    it 'rejects live periods outside the range' do
+      expect { location(live_period: 59) }.to raise_error(Dry::Struct::Error)
+    end
+
+    it 'accepts a price in either currency range' do
+      amounts = [5, 10_000_000].map do |amount|
+        described_class::SuggestedPostPrice.new(currency: 'XTR', amount: amount)
+      end
+
+      expect(amounts.map(&:amount)).to eq([5, 10_000_000])
+    end
+
+    it 'rejects a price outside both ranges' do
+      expect { described_class::SuggestedPostPrice.new(currency: 'XTR', amount: 1_000_000) }
+        .to raise_error(Dry::Struct::Error)
+    end
+  end
+
   describe '.deferred' do
     let(:deferred_type) { described_class.deferred(:RichText) }
     let(:invalid_value) { { type: 'bold', text: { type: 'unknown' } } }

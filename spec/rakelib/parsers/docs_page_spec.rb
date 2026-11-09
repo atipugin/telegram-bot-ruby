@@ -144,6 +144,12 @@ RSpec.describe Parsers::DocsPage do
       expect(field('InputMediaPhoto', 'type').description.fixed_value).to eq('photo')
     end
 
+    it 'ignores a value that is required only under a condition' do
+      description = field('EphemeralMessageParameters', 'replace_callback_query_message').description
+
+      expect([description.fixed_value, description.default]).to eq([nil, nil])
+    end
+
     it 'reads a default value' do
       expect(field('KeyboardButtonRequestUsers', 'max_quantity').description.default).to eq('1')
     end
@@ -152,6 +158,37 @@ RSpec.describe Parsers::DocsPage do
       description = field('PollOption', 'text').description
 
       expect([description.min_size, description.max_size]).to eq([1, 100])
+    end
+
+    context 'with a description written for the spec' do
+      def description(text)
+        row = "<tr><td>foo</td><td>Integer</td><td>#{text}</td></tr>"
+        page_with("<h4>Foo</h4>#{fields_table(row)}").api_type('Foo').fields.first.description
+      end
+
+      it 'treats anything after a "must be" value as a condition' do
+        expect(description('Must be <em>True</em> in private chats').fixed_value).to be_nil
+      end
+
+      it 'reads a range only when the value must be in it' do
+        expect(description('Any code between 1 and 126').ranges).to eq([])
+      end
+    end
+
+    it 'does not read number ranges as size limits' do
+      description = field('InputLocationMessageContent', 'live_period').description
+
+      expect([description.min_size, description.max_size]).to eq([nil, nil])
+    end
+
+    {
+      %w[InputLocationMessageContent heading] => [[1, 360]],
+      %w[InputLocationMessageContent live_period] => [[60, 86_400], [0x7FFFFFFF, 0x7FFFFFFF]],
+      %w[SuggestedPostPrice amount] => [[5, 100_000], [10_000_000, 10_000_000_000_000]]
+    }.each do |(type, name), ranges|
+      it "reads the allowed values of #{type}.#{name}" do
+        expect(field(type, name).description.ranges).to eq(ranges)
+      end
     end
 
     it 'raises on a row with a missing cell' do
