@@ -5,7 +5,7 @@ description: Commit current changes as Conventional Commits, split by concern. U
 
 1. Review `git status --short` and `git diff HEAD`, and read untracked files in full — the diff doesn't show them. Check staged and unstaged changes separately so existing staging choices aren't lost.
 
-2. Split changes into one commit per concern. Keep implementation, tests, documentation and generated files together when they support the same change. Separate unrelated changes; each commit should be coherent and independently valid. Stage with paths; for mixed hunks in one file, stage via `git apply --cached` with a hand-made patch.
+2. Split changes into one commit per concern. Keep implementation, tests, documentation and generated files together when they support the same change. Separate unrelated changes; each commit should be coherent and independently valid. Adding paths does not exclude changes already staged. For whole-file commits, use `git commit --only -- <paths>` to leave unrelated staged files out of the commit. For selected hunks, preserve unrelated staged changes, temporarily remove them from the index, stage the approved hunks via `git apply --cached`, and verify `git diff --cached` contains only that concern before committing. Restore unrelated staging afterward, including if the commit fails. Do not use `--only` for selected-hunk commits: it takes whole files from the working tree.
 
 3. Message format: [Conventional Commits](https://www.conventionalcommits.org) — `type(scope): subject`, all lowercase, imperative, no trailing period, about 50 characters, in English.
 
