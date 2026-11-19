@@ -1,5 +1,21 @@
 # Changelog
 
+## 2.9.0
+
+### Added
+
+- [Bot API 10.3](https://core.telegram.org/bots/api-changelog#august-24-2026) + [Bot API 10.4](https://core.telegram.org/bots/api-changelog#november-9-2026) [#345](https://github.com/atipugin/telegram-bot-ruby/pull/345)
+
+### Changed
+
+- Story areas now use `AreaPosition`, renamed from `StoryAreaPosition` in Bot API 10.4. The old class remains available for compatibility.
+
+### Fixed
+
+- Parse conditional field requirements without treating them as unconditional fixed values.
+- Preserve minimum-only and maximum-only size constraints when generating types, including the 32-item rich-quote limit.
+- Leave text limits measured after entity parsing to Telegram instead of constraining raw Markdown or HTML.
+
 ## 2.8.1
 
 ### Fixed
