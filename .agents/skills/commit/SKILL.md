@@ -13,4 +13,6 @@ description: Commit current changes as Conventional Commits, split by concern. U
 
    Add a body only when the subject doesn't explain the change: what changed and why, wrapped at 72 characters. Footers: `BREAKING CHANGE: …` for incompatible changes; `Refs: #123` for a related GitHub issue, when known. Never invent issue references.
 
+   Append an `Assisted-by: <agent-name>/<model-id>` Git trailer to every commit message, including message-only proposals. Use the actual agent name and model ID from the current session; if unavailable, ask rather than guess. Place trailers at the end of the message, separated from the subject or body by a blank line.
+
 4. Show the planned commits (files + messages) and wait for approval before staging or committing. If asked only for a commit message, return the proposed message without staging or committing.
