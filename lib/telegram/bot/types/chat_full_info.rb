@@ -57,6 +57,8 @@ module Telegram
         attribute? :paid_message_star_count, Types::Integer
         attribute? :guard_bot, User
         attribute? :community, Community
+        attribute? :ton_wallet_card, TonWalletCard
+        attribute? :share_theme, ChatShareTheme
       end
     end
   end

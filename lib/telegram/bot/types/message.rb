@@ -54,6 +54,7 @@ module Telegram
         attribute? :video, Video
         attribute? :video_note, VideoNote
         attribute? :voice, Voice
+        attribute? :widget, Widget
         attribute? :caption, Types::String
         attribute? :caption_entities, Types::Array.of(MessageEntity)
         attribute? :show_caption_above_media, Types::True
@@ -96,6 +97,7 @@ module Telegram
         attribute? :checklist_tasks_done, ChecklistTasksDone
         attribute? :checklist_tasks_added, ChecklistTasksAdded
         attribute? :community_chat_added, CommunityChatAdded
+        attribute? :community_chat_joined, CommunityChatJoined
         attribute? :community_chat_removed, CommunityChatRemoved
         attribute? :direct_message_price_changed, DirectMessagePriceChanged
         attribute? :forum_topic_created, ForumTopicCreated
@@ -110,6 +112,7 @@ module Telegram
         attribute? :giveaway_completed, GiveawayCompleted
         attribute? :managed_bot_created, ManagedBotCreated
         attribute? :paid_message_price_changed, PaidMessagePriceChanged
+        attribute? :paid_messages_waived, PaidMessagesWaived
         attribute? :poll_option_added, PollOptionAdded
         attribute? :poll_option_deleted, PollOptionDeleted
         attribute? :suggested_post_approved, SuggestedPostApproved
@@ -117,6 +120,7 @@ module Telegram
         attribute? :suggested_post_declined, SuggestedPostDeclined
         attribute? :suggested_post_paid, SuggestedPostPaid
         attribute? :suggested_post_refunded, SuggestedPostRefunded
+        attribute? :ton_wallet_transfer, TonWalletTransfer
         attribute? :video_chat_scheduled, VideoChatScheduled
         attribute? :video_chat_started, VideoChatStarted
         attribute? :video_chat_ended, VideoChatEnded

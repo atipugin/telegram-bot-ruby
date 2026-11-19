@@ -11,7 +11,9 @@ module Telegram
         InputLocationMessageContent |
         InputVenueMessageContent |
         InputContactMessageContent |
-        InputInvoiceMessageContent
+        InputInvoiceMessageContent |
+        InputWidgetMessageContent |
+        InputSharedWidgetMessageContent
       )
       # rubocop:enable Naming/ConstantName
     end
