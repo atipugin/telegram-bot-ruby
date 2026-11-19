@@ -25,10 +25,12 @@ module Telegram
         RichTextEmailAddress |
         RichTextPhoneNumber |
         RichTextBankCardNumber |
+        RichTextTonAddress |
         RichTextMention |
         RichTextHashtag |
         RichTextCashtag |
         RichTextBotCommand |
+        RichTextButton |
         RichTextAnchor |
         RichTextAnchorLink |
         RichTextReference |

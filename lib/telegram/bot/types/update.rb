@@ -19,6 +19,8 @@ module Telegram
         attribute? :inline_query, InlineQuery
         attribute? :chosen_inline_result, ChosenInlineResult
         attribute? :callback_query, CallbackQuery
+        attribute? :widget_query, WidgetQuery
+        attribute? :shared_widget_query, SharedWidgetQuery
         attribute? :shipping_query, ShippingQuery
         attribute? :pre_checkout_query, PreCheckoutQuery
         attribute? :purchased_paid_media, PaidMediaPurchased
@@ -31,6 +33,7 @@ module Telegram
         attribute? :removed_chat_boost, ChatBoostRemoved
         attribute? :managed_bot, ManagedBotUpdated
         attribute? :subscription, BotSubscriptionUpdated
+        attribute? :stopped_message_generation, MessageGenerationStopped
 
         def current_message
           @current_message ||=

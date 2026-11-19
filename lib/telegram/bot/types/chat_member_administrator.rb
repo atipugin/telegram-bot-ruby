@@ -24,6 +24,7 @@ module Telegram
         attribute? :can_manage_topics, Types::Bool
         attribute? :can_manage_direct_messages, Types::Bool
         attribute? :can_manage_tags, Types::Bool
+        attribute :can_send_welcome_messages, Types::Bool
         attribute? :custom_title, Types::String
       end
     end

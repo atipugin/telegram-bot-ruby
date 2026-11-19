@@ -20,6 +20,65 @@ RSpec.describe Telegram::Bot::Types do
     end
   end
 
+  describe 'Bot API 10.3 and 10.4 types' do
+    let(:widget_update) do
+      described_class::Update.new(
+        update_id: 1,
+        widget_query: {
+          id: 'query', from: { id: 2, is_bot: false, first_name: 'A' },
+          chat_instance: 'chat', type: { type: 'data' }, data: 'hello'
+        }
+      )
+    end
+
+    it 'allows ephemeral callback replies without a receiver and with replacement enabled' do
+      parameters = described_class::EphemeralMessageParameters.new(
+        callback_query_id: 'query', replace_callback_query_message: true
+      )
+
+      expect(parameters.to_compact_hash).to eq(callback_query_id: 'query', replace_callback_query_message: true)
+    end
+
+    it 'coerces widget queries in updates' do
+      expect(widget_update.current_message.type).to be_a(described_class::WidgetQueryTypeData)
+    end
+
+    it 'coerces buttons nested in rich text' do
+      text = described_class::RichText[type: 'button', button: { text: 'Hello', callback_data: 'hello' }]
+
+      expect(text.button).to be_a(described_class::RichMessageButton)
+    end
+
+    it 'rejects more than eight input rich message buttons' do
+      expect { described_class::InputRichBlockButtons.new(buttons: Array.new(9) { { text: 'Hello' } }) }
+        .to raise_error(Dry::Struct::Error)
+    end
+
+    it 'allows exactly 32 quoted texts' do
+      parameters = described_class::ReplyParameters.new(quote_rich_texts: Array.new(32, 'quote'))
+
+      expect(parameters.quote_rich_texts.size).to eq(32)
+    end
+
+    it 'rejects more than 32 quoted texts' do
+      expect { described_class::ReplyParameters.new(quote_rich_texts: Array.new(33, 'quote')) }
+        .to raise_error(Dry::Struct::Error)
+    end
+
+    %w[InputWidgetMessageContent InputSharedWidgetMessageContent].each do |type_name|
+      it "leaves #{type_name} parsed caption limits to the server" do
+        type = described_class.const_get(type_name)
+        attributes = { html: '<b>Widget</b>', widget_id: 'widget', caption: "<b>#{'a' * 1024}</b>", parse_mode: 'HTML' }
+
+        expect(type.new(attributes).caption).to eq(attributes[:caption])
+      end
+    end
+
+    it 'allows an empty emoji share theme' do
+      expect(described_class::ChatShareThemeEmoji.new(emojis: []).emojis).to eq([])
+    end
+  end
+
   describe '.deferred' do
     let(:deferred_type) { described_class.deferred(:RichText) }
     let(:invalid_value) { { type: 'bold', text: { type: 'unknown' } } }

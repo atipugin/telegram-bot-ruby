@@ -17,7 +17,7 @@ module Telegram
         attribute :members_only, Types::Bool
         attribute? :country_codes, Types::Array.of(Types::String)
         attribute? :correct_option_ids, Types::Array.of(Types::Integer)
-        attribute? :explanation, Types::String
+        attribute? :explanation, Types::String.constrained(max_size: 200)
         attribute? :explanation_entities, Types::Array.of(MessageEntity)
         attribute? :explanation_media, PollMedia
         attribute? :open_period, Types::Integer

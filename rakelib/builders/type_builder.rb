@@ -103,10 +103,9 @@ module Builders
     def apply_min_max!(attr_name, properties)
       return unless properties[:min_size] || properties[:max_size]
 
-      constrain = '.constrained(minmax)'
-      constrain = properties[:min_size] ? constrain.gsub('min', "min_size: #{properties[:min_size]}, ") : ''
-      constrain = constrain.gsub('max', "max_size: #{properties[:max_size]}") if properties[:max_size]
-      attributes[attr_name][:type] += constrain
+      bounds = properties.slice(:min_size, :max_size).compact
+      constraints = bounds.map { |key, value| "#{key}: #{value}" }.join(', ')
+      attributes[attr_name][:type] += ".constrained(#{constraints})"
     end
 
     def apply_default!(attr_name, properties, original_type)

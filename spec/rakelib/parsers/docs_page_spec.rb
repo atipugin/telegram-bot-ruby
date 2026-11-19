@@ -144,6 +144,32 @@ RSpec.describe Parsers::DocsPage do
       expect(field('InputMediaPhoto', 'type').description.fixed_value).to eq('photo')
     end
 
+    it 'does not treat a conditional requirement as a fixed value' do
+      expect(field('EphemeralMessageParameters', 'replace_callback_query_message').description.fixed_value).to be_nil
+    end
+
+    it 'reads button list size limits' do
+      description = field('InputRichBlockButtons', 'buttons').description
+
+      expect([description.min_size, description.max_size]).to eq([1, 8])
+    end
+
+    it 'reads emoji list size limits' do
+      description = field('ChatShareThemeEmoji', 'emojis').description
+
+      expect([description.min_size, description.max_size]).to eq([0, 6])
+    end
+
+    it 'reads the rich quote count limit' do
+      expect(field('ReplyParameters', 'quote_rich_texts').description.max_size).to eq(32)
+    end
+
+    it 'leaves post-entity-parsing caption limits to the server' do
+      description = field('InputWidgetMessageContent', 'caption').description
+
+      expect([description.min_size, description.max_size]).to eq([nil, nil])
+    end
+
     it 'reads a default value' do
       expect(field('KeyboardButtonRequestUsers', 'max_quantity').description.default).to eq('1')
     end

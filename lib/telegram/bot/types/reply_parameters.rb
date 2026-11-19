@@ -11,6 +11,7 @@ module Telegram
         attribute? :quote, Types::String
         attribute? :quote_parse_mode, Types::String
         attribute? :quote_entities, Types::Array.of(MessageEntity)
+        attribute? :quote_rich_texts, Types::Array.of(RichText).constrained(max_size: 32)
         attribute? :quote_position, Types::Integer
         attribute? :checklist_task_id, Types::Integer
         attribute? :poll_option_id, Types::String
