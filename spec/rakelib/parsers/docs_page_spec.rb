@@ -196,7 +196,8 @@ RSpec.describe Parsers::DocsPage do
 
   describe '#api_methods' do
     {
-      'getMe' => 'User',
+      'getMe' => 'BotFullInfo',
+      'setMySettings' => 'Boolean',
       'getUpdates' => 'Array<Update>',
       'sendMessage' => 'Message',
       'setWebhook' => 'Boolean',

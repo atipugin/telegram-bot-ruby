@@ -145,6 +145,20 @@ RSpec.describe Telegram::Bot::Types do
     end
   end
 
+  describe 'expandable rich block quotations' do
+    %w[RichBlock InputRichBlock].each do |type_name|
+      context "with #{type_name}" do
+        subject(:quotation) { described_class.const_get(type_name).call(payload) }
+
+        let(:payload) { { type: 'expandable_blockquote', blocks: [{ type: 'paragraph', text: 'Quoted text' }] } }
+
+        it { is_expected.to be_a(described_class.const_get("#{type_name}ExpandableBlockQuotation")) }
+        it { expect(quotation.blocks.first).to be_a(described_class.const_get("#{type_name}Paragraph")) }
+        it { expect(quotation.to_h).to eq(payload) }
+      end
+    end
+  end
+
   describe 'RichText plain string and array forms' do
     subject(:message) { described_class::RichMessage.new(payload) }
 

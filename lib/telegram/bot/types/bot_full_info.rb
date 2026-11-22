@@ -1,0 +1,28 @@
+# frozen_string_literal: true
+
+module Telegram
+  module Bot
+    module Types
+      class BotFullInfo < Base
+        attribute :id, Types::Integer
+        attribute :is_bot, Types::True
+        attribute :first_name, Types::String
+        attribute? :username, Types::String
+        attribute? :active_usernames, Types::Array.of(Types::String)
+        attribute :can_join_groups, Types::Bool
+        attribute :can_read_all_group_messages, Types::Bool
+        attribute :supports_guest_queries, Types::Bool
+        attribute :supports_inline_queries, Types::Bool
+        attribute? :inline_query_placeholder, Types::String
+        attribute :needs_inline_query_location, Types::Bool
+        attribute :can_connect_to_business, Types::Bool
+        attribute :has_main_web_app, Types::Bool
+        attribute :has_topics_enabled, Types::Bool
+        attribute :allows_users_to_create_topics, Types::Bool
+        attribute :has_topic_sidebar, Types::Bool
+        attribute :can_manage_bots, Types::Bool
+        attribute :supports_join_request_queries, Types::Bool
+      end
+    end
+  end
+end
