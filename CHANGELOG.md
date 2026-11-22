@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- [Bot API 10.5](https://core.telegram.org/bots/api-changelog#november-22-2026), including `set_my_settings` and `WriteAccessAllowed#inviter`.
+
+### Changed
+
+- `get_me` now returns `BotFullInfo`. Bot settings previously exposed on `User` are now fields on `BotFullInfo`.
+- Incoming and outgoing expandable block quotations now use `blocks` in place of `text`.
+
 ## 2.9.0
 
 ### Added

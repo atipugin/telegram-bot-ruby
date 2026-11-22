@@ -125,6 +125,79 @@
       "items": "string"
     }
   },
+  "BotFullInfo": {
+    "id": {
+      "type": "integer",
+      "required": true
+    },
+    "is_bot": {
+      "type": "boolean",
+      "required": true,
+      "default": true
+    },
+    "first_name": {
+      "type": "string",
+      "required": true
+    },
+    "username": {
+      "type": "string"
+    },
+    "active_usernames": {
+      "type": "array",
+      "items": "string"
+    },
+    "can_join_groups": {
+      "type": "boolean",
+      "required": true
+    },
+    "can_read_all_group_messages": {
+      "type": "boolean",
+      "required": true
+    },
+    "supports_guest_queries": {
+      "type": "boolean",
+      "required": true
+    },
+    "supports_inline_queries": {
+      "type": "boolean",
+      "required": true
+    },
+    "inline_query_placeholder": {
+      "type": "string"
+    },
+    "needs_inline_query_location": {
+      "type": "boolean",
+      "required": true
+    },
+    "can_connect_to_business": {
+      "type": "boolean",
+      "required": true
+    },
+    "has_main_web_app": {
+      "type": "boolean",
+      "required": true
+    },
+    "has_topics_enabled": {
+      "type": "boolean",
+      "required": true
+    },
+    "allows_users_to_create_topics": {
+      "type": "boolean",
+      "required": true
+    },
+    "has_topic_sidebar": {
+      "type": "boolean",
+      "required": true
+    },
+    "can_manage_bots": {
+      "type": "boolean",
+      "required": true
+    },
+    "supports_join_request_queries": {
+      "type": "boolean",
+      "required": true
+    }
+  },
   "User": {
     "id": {
       "type": "integer",
@@ -154,36 +227,6 @@
     "added_to_attachment_menu": {
       "type": "boolean",
       "default": true
-    },
-    "can_join_groups": {
-      "type": "boolean"
-    },
-    "can_read_all_group_messages": {
-      "type": "boolean"
-    },
-    "supports_guest_queries": {
-      "type": "boolean"
-    },
-    "supports_inline_queries": {
-      "type": "boolean"
-    },
-    "can_connect_to_business": {
-      "type": "boolean"
-    },
-    "has_main_web_app": {
-      "type": "boolean"
-    },
-    "has_topics_enabled": {
-      "type": "boolean"
-    },
-    "allows_users_to_create_topics": {
-      "type": "boolean"
-    },
-    "can_manage_bots": {
-      "type": "boolean"
-    },
-    "supports_join_request_queries": {
-      "type": "boolean"
     }
   },
   "Chat": {
@@ -2217,6 +2260,9 @@
     },
     "from_attachment_menu": {
       "type": "boolean"
+    },
+    "inviter": {
+      "type": "User"
     }
   },
   "VideoChatScheduled": {
@@ -6095,8 +6141,9 @@
       "required_value": "expandable_blockquote",
       "default": "expandable_blockquote"
     },
-    "text": {
-      "type": "RichText",
+    "blocks": {
+      "type": "array",
+      "items": "RichBlock",
       "required": true
     },
     "credit": {
@@ -6532,8 +6579,9 @@
       "required_value": "expandable_blockquote",
       "default": "expandable_blockquote"
     },
-    "text": {
-      "type": "RichText",
+    "blocks": {
+      "type": "array",
+      "items": "InputRichBlock",
       "required": true
     },
     "credit": {

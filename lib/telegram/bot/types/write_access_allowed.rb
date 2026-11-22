@@ -7,6 +7,7 @@ module Telegram
         attribute? :from_request, Types::Bool
         attribute? :web_app_name, Types::String
         attribute? :from_attachment_menu, Types::Bool
+        attribute? :inviter, User
       end
     end
   end

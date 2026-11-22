@@ -10,6 +10,26 @@
 <p>Subscribe to <a href="https://t.me/botnews">@BotNews</a> to be the first to know about the latest updates and join the discussion in <a href="https://t.me/bottalk">@BotTalk</a></p>
 </blockquote>
 <h4>
+<a class="anchor" name="november-22-2026" href="#november-22-2026"><i class="anchor-icon"></i></a>November 22, 2026</h4>
+<p><strong>Bot API 10.5</strong></p>
+<p><strong>Bot Settings</strong></p>
+<ul>
+<li>Added the method <a href="#setmysettings">setMySettings</a>, allowing bots to change their settings, including inline mode settings, privacy mode, the ability to be added to groups, forum topic mode in private chats, and the mode of receiving callback queries.</li>
+<li>Added the ability to receive callback queries from buttons in messages sent by the bot with the field <em>inline_message_id</em> instead of the field <em>message</em> in the class <a href="#callbackquery">CallbackQuery</a>, depending on the parameter <em>callback_query_mode</em> of the method <a href="#setmysettings">setMySettings</a>.</li>
+<li>Added the ability for bots to show the list of topics in a sidebar in private chats with the bot using the parameter <em>has_topic_sidebar</em> of the method <a href="#setmysettings">setMySettings</a>.</li>
+<li>Split out the class <a href="#botfullinfo">BotFullInfo</a> from the class <a href="#user">User</a> and changed the return type of the method <a href="#getme">getMe</a> to <em>BotFullInfo</em>. The fields that were returned only in <a href="#getme">getMe</a> were removed from the class <a href="#user">User</a>.</li>
+<li>Added the field <em>active_usernames</em> to the class <a href="#botfullinfo">BotFullInfo</a>, allowing the bot to get the list of all its active usernames.</li>
+<li>Added the field <em>inline_query_placeholder</em> to the class <a href="#botfullinfo">BotFullInfo</a>, allowing the bot to get its placeholder for inline queries.</li>
+<li>Added the field <em>needs_inline_query_location</em> to the class <a href="#botfullinfo">BotFullInfo</a>, allowing the bot to check whether it requests the location of the user with every inline query.</li>
+<li>Added the field <em>has_topic_sidebar</em> to the class <a href="#botfullinfo">BotFullInfo</a>, allowing the bot to check whether topics in private chats with the bot are shown in a sidebar.</li>
+</ul>
+<p><strong>General</strong></p>
+<ul>
+<li>Added the ability for bot owners to invite up to 10 users at once to private chats with the bot by pressing the link <code>https://t.me/botinvite/&lt;bot_username&gt;</code>. The bot can send messages to the invited users.</li>
+<li>Added the field <em>inviter</em> to the class <a href="#writeaccessallowed">WriteAccessAllowed</a> for service messages about users invited to the private chat with the bot by the owner of the bot.</li>
+<li>Replaced the field <em>text</em> with the field <em>blocks</em> in the classes <a href="#richblockexpandableblockquotation">RichBlockExpandableBlockQuotation</a> and <a href="#inputrichblockexpandableblockquotation">InputRichBlockExpandableBlockQuotation</a>, allowing expandable block quotations to contain arbitrary blocks.</li>
+</ul>
+<h4>
 <a class="anchor" name="november-9-2026" href="#november-9-2026"><i class="anchor-icon"></i></a>November 9, 2026</h4>
 <p><strong>Bot API 10.4</strong></p>
 <p><strong>Widgets</strong></p>
@@ -275,7 +295,7 @@
 <td>chosen_inline_result</td>
 <td><a href="#choseninlineresult">ChosenInlineResult</a></td>
 <td>
-<em>Optional</em>. The result of an <a href="#inline-mode">inline</a> query that was chosen by a user and sent to their chat partner. Please see our documentation on the <a href="/bots/inline#collecting-feedback">feedback collecting</a> for details on how to enable these updates for your bot.</td>
+<em>Optional</em>. The result of an <a href="#inline-mode">inline</a> query that was chosen by a user and sent to their chat partner. Please see our documentation on the <a href="/bots/inline#collecting-feedback">feedback collecting</a> for details on how to enable these updates for your bot. The updates can also be enabled using the parameter <em>inline_feedback_share_denominator</em> of the method <a href="#setmysettings">setMySettings</a>.</td>
 </tr>
 <tr>
 <td>callback_query</td>
@@ -577,6 +597,126 @@
 <p><strong>Optional</strong> fields may be not returned when irrelevant.</p>
 </blockquote>
 <h4>
+<a class="anchor" name="botfullinfo" href="#botfullinfo"><i class="anchor-icon"></i></a>BotFullInfo</h4>
+<p>This object contains full information about the bot itself.</p>
+<table class="table">
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>Integer</td>
+<td>Unique identifier for this bot. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier.</td>
+</tr>
+<tr>
+<td>is_bot</td>
+<td>True</td>
+<td>Always <em>True</em>
+</td>
+</tr>
+<tr>
+<td>first_name</td>
+<td>String</td>
+<td>Bot's first name</td>
+</tr>
+<tr>
+<td>username</td>
+<td>String</td>
+<td>
+<em>Optional</em>. Bot's username</td>
+</tr>
+<tr>
+<td>active_usernames</td>
+<td>Array of String</td>
+<td>
+<em>Optional</em>. If non-empty, the list of all <a href="https://telegram.org/blog/topics-in-groups-collectible-usernames#collectible-usernames">active usernames</a> of the bot</td>
+</tr>
+<tr>
+<td>can_join_groups</td>
+<td>Boolean</td>
+<td>
+<em>True</em>, if the bot can be added to groups</td>
+</tr>
+<tr>
+<td>can_read_all_group_messages</td>
+<td>Boolean</td>
+<td>
+<em>True</em>, if <a href="/bots/features#privacy-mode">privacy mode</a> is disabled for the bot</td>
+</tr>
+<tr>
+<td>supports_guest_queries</td>
+<td>Boolean</td>
+<td>
+<em>True</em>, if the bot supports guest queries from chats it is not a member of</td>
+</tr>
+<tr>
+<td>supports_inline_queries</td>
+<td>Boolean</td>
+<td>
+<em>True</em>, if the bot supports inline queries</td>
+</tr>
+<tr>
+<td>inline_query_placeholder</td>
+<td>String</td>
+<td>
+<em>Optional</em>. Placeholder for inline queries, which is shown in the input field after the bot's username; omitted if the default placeholder is used</td>
+</tr>
+<tr>
+<td>needs_inline_query_location</td>
+<td>Boolean</td>
+<td>
+<em>True</em>, if the bot requests the location of the user with every inline query</td>
+</tr>
+<tr>
+<td>can_connect_to_business</td>
+<td>Boolean</td>
+<td>
+<em>True</em>, if the bot can be connected to a user account to manage it</td>
+</tr>
+<tr>
+<td>has_main_web_app</td>
+<td>Boolean</td>
+<td>
+<em>True</em>, if the bot has a main Web App</td>
+</tr>
+<tr>
+<td>has_topics_enabled</td>
+<td>Boolean</td>
+<td>
+<em>True</em>, if the bot has forum topic mode enabled in private chats</td>
+</tr>
+<tr>
+<td>allows_users_to_create_topics</td>
+<td>Boolean</td>
+<td>
+<em>True</em>, if the bot allows users to create and delete topics in private chats</td>
+</tr>
+<tr>
+<td>has_topic_sidebar</td>
+<td>Boolean</td>
+<td>
+<em>True</em>, if topics in private chats with the bot are shown in a sidebar</td>
+</tr>
+<tr>
+<td>can_manage_bots</td>
+<td>Boolean</td>
+<td>
+<em>True</em>, if other bots can be created to be controlled by the bot</td>
+</tr>
+<tr>
+<td>supports_join_request_queries</td>
+<td>Boolean</td>
+<td>
+<em>True</em>, if the bot supports join request queries and can be assigned to process them</td>
+</tr>
+</tbody>
+</table>
+<h4>
 <a class="anchor" name="user" href="#user"><i class="anchor-icon"></i></a>User</h4>
 <p>This object represents a Telegram user or bot.</p>
 <table class="table">
@@ -633,66 +773,6 @@
 <td>True</td>
 <td>
 <em>Optional</em>. <em>True</em>, if this user added the bot to the attachment menu</td>
-</tr>
-<tr>
-<td>can_join_groups</td>
-<td>Boolean</td>
-<td>
-<em>Optional</em>. <em>True</em>, if the bot can be invited to groups. Returned only in <a href="#getme">getMe</a>.</td>
-</tr>
-<tr>
-<td>can_read_all_group_messages</td>
-<td>Boolean</td>
-<td>
-<em>Optional</em>. <em>True</em>, if <a href="/bots/features#privacy-mode">privacy mode</a> is disabled for the bot. Returned only in <a href="#getme">getMe</a>.</td>
-</tr>
-<tr>
-<td>supports_guest_queries</td>
-<td>Boolean</td>
-<td>
-<em>Optional</em>. <em>True</em>, if the bot supports guest queries from chats it is not a member of. Returned only in <a href="#getme">getMe</a>.</td>
-</tr>
-<tr>
-<td>supports_inline_queries</td>
-<td>Boolean</td>
-<td>
-<em>Optional</em>. <em>True</em>, if the bot supports inline queries. Returned only in <a href="#getme">getMe</a>.</td>
-</tr>
-<tr>
-<td>can_connect_to_business</td>
-<td>Boolean</td>
-<td>
-<em>Optional</em>. <em>True</em>, if the bot can be connected to a user account to manage it. Returned only in <a href="#getme">getMe</a>.</td>
-</tr>
-<tr>
-<td>has_main_web_app</td>
-<td>Boolean</td>
-<td>
-<em>Optional</em>. <em>True</em>, if the bot has a main Web App. Returned only in <a href="#getme">getMe</a>.</td>
-</tr>
-<tr>
-<td>has_topics_enabled</td>
-<td>Boolean</td>
-<td>
-<em>Optional</em>. <em>True</em>, if the bot has forum topic mode enabled in private chats. Returned only in <a href="#getme">getMe</a>.</td>
-</tr>
-<tr>
-<td>allows_users_to_create_topics</td>
-<td>Boolean</td>
-<td>
-<em>Optional</em>. <em>True</em>, if the bot allows users to create and delete topics in private chats. Returned only in <a href="#getme">getMe</a>.</td>
-</tr>
-<tr>
-<td>can_manage_bots</td>
-<td>Boolean</td>
-<td>
-<em>Optional</em>. <em>True</em>, if other bots can be created to be controlled by the bot. Returned only in <a href="#getme">getMe</a>.</td>
-</tr>
-<tr>
-<td>supports_join_request_queries</td>
-<td>Boolean</td>
-<td>
-<em>Optional</em>. <em>True</em>, if the bot supports join request queries and can be assigned to process them. Returned only in <a href="#getme">getMe</a>.</td>
 </tr>
 </tbody>
 </table>
@@ -1629,8 +1709,7 @@
 <td>write_access_allowed</td>
 <td><a href="#writeaccessallowed">WriteAccessAllowed</a></td>
 <td>
-<em>Optional</em>. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method <a href="/bots/webapps#initializing-mini-apps">requestWriteAccess</a>
-</td>
+<em>Optional</em>. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method <a href="/bots/webapps#initializing-mini-apps">requestWriteAccess</a>, or the user was invited to the private chat with the bot by the owner of the bot</td>
 </tr>
 <tr>
 <td>passport_data</td>
@@ -4724,7 +4803,7 @@
 </table>
 <h4>
 <a class="anchor" name="writeaccessallowed" href="#writeaccessallowed"><i class="anchor-icon"></i></a>WriteAccessAllowed</h4>
-<p>This object represents a service message about a user allowing a bot to write messages after adding it to the attachment menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method <a href="/bots/webapps#initializing-mini-apps">requestWriteAccess</a>.</p>
+<p>This object represents a service message about a user allowing a bot to write messages after adding it to the attachment menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method <a href="/bots/webapps#initializing-mini-apps">requestWriteAccess</a>, or about a user being invited to the private chat with the bot by the owner of the bot.</p>
 <table class="table">
 <thead>
 <tr>
@@ -4752,6 +4831,12 @@
 <td>Boolean</td>
 <td>
 <em>Optional</em>. <em>True</em>, if the access was granted when the bot was added to the attachment or side menu</td>
+</tr>
+<tr>
+<td>inviter</td>
+<td><a href="#user">User</a></td>
+<td>
+<em>Optional</em>. The owner of the bot, if the access was granted when the owner invited the user to the private chat with the bot. Bot owners can invite up to 10 users at once by pressing the link <code>https://t.me/botinvite/&lt;bot_username&gt;</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -5608,7 +5693,7 @@
 <td>request_managed_bot</td>
 <td><a href="#keyboardbuttonrequestmanagedbot">KeyboardButtonRequestManagedBot</a></td>
 <td>
-<em>Optional</em>. If specified, pressing the button will ask the user to create and share a bot that will be managed by the current bot. Available for bots that enabled management of other bots in the <a href="https://t.me/BotFather">@BotFather</a> Mini App. Available in private chats only.</td>
+<em>Optional</em>. If specified, pressing the button will ask the user to create and share a bot that will be managed by the current bot. Available for bots that enabled management of other bots in the <a href="https://t.me/BotFather">@BotFather</a> Mini App or using the parameter <em>can_manage_bots</em> of the method <a href="#setmysettings">setMySettings</a>. Available in private chats only.</td>
 </tr>
 <tr>
 <td>request_contact</td>
@@ -6080,7 +6165,7 @@
 <p>This object represents a disabled button which does nothing. Currently holds no information.</p>
 <h4>
 <a class="anchor" name="callbackquery" href="#callbackquery"><i class="anchor-icon"></i></a>CallbackQuery</h4>
-<p>This object represents an incoming callback query from a callback button in an <a href="/bots/features#inline-keyboards">inline keyboard</a>. If the button that originated the query was attached to a message sent by the bot, the field <em>message</em> will be present. If the button was attached to a message sent via the bot (in <a href="#inline-mode">inline mode</a>), the field <em>inline_message_id</em> will be present. Exactly one of the fields <em>data</em> or <em>game_short_name</em> will be present.</p>
+<p>This object represents an incoming callback query from a callback button in an <a href="/bots/features#inline-keyboards">inline keyboard</a> or in a <a href="#richmessage">rich message</a>. If the button that originated the query belongs to a message sent by the bot, the field <em>message</em> will be present, unless the field <em>inline_message_id</em> is used instead as specified by the parameter <em>callback_query_mode</em> of the method <a href="#setmysettings">setMySettings</a>. If the button belongs to a message sent via the bot (in <a href="#inline-mode">inline mode</a>), the field <em>inline_message_id</em> will be present. Exactly one of the fields <em>data</em> or <em>game_short_name</em> will be present.</p>
 <table class="table">
 <thead>
 <tr>
@@ -6110,7 +6195,7 @@
 <td>inline_message_id</td>
 <td>String</td>
 <td>
-<em>Optional</em>. Identifier of the message sent via the bot in inline mode, that originated the query</td>
+<em>Optional</em>. Identifier of the message sent via the bot in inline mode, that originated the query. Can also be present for messages sent by the bot, depending on the parameter <em>callback_query_mode</em> of the method <a href="#setmysettings">setMySettings</a>.</td>
 </tr>
 <tr>
 <td>chat_instance</td>
@@ -11176,7 +11261,7 @@
 </blockquote>
 <h4>
 <a class="anchor" name="getme" href="#getme"><i class="anchor-icon"></i></a>getMe</h4>
-<p>A simple method for testing your bot's authentication token. Requires no parameters. Returns basic information about the bot in form of a <a href="#user">User</a> object.</p>
+<p>A simple method for testing your bot's authentication token. Requires no parameters. Returns information about the bot in form of a <a href="#botfullinfo">BotFullInfo</a> object.</p>
 <h4>
 <a class="anchor" name="logout" href="#logout"><i class="anchor-icon"></i></a>logOut</h4>
 <p>Use this method to log out from the cloud Bot API server before launching the bot locally. You <strong>must</strong> log out the bot before running it locally, otherwise there is no guarantee that the bot will receive updates. After a successful call, you can immediately log in on a local server, but will not be able to log in back to the cloud Bot API server for 10 minutes. Returns <em>True</em> on success. Requires no parameters.</p>
@@ -15848,7 +15933,7 @@ pre-formatted fixed-width code block written in the Python programming language
 </table>
 <h4>
 <a class="anchor" name="answercallbackquery" href="#answercallbackquery"><i class="anchor-icon"></i></a>answerCallbackQuery</h4>
-<p>Use this method to send answers to callback queries sent from <a href="/bots/features#inline-keyboards">inline keyboards</a>. The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, <em>True</em> is returned.</p>
+<p>Use this method to send answers to callback queries sent from <a href="/bots/features#inline-keyboards">inline keyboards</a> or <a href="#richmessage">rich messages</a>. The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, <em>True</em> is returned.</p>
 <blockquote>
 <p>Alternatively, the user can be redirected to the specified Game URL. For this option to work, you must first create a game for your bot via <a href="https://t.me/botfather">@BotFather</a> and accept the terms. Otherwise, you may use links like <code>t.me/your_bot?start=XXXX</code> that open your bot with a parameter.</p>
 </blockquote>
@@ -16090,6 +16175,111 @@ pre-formatted fixed-width code block written in the Python programming language
 <td>Array of Integer</td>
 <td>Optional</td>
 <td>A JSON-serialized list of up to 10 identifiers of users who will have access to the bot in addition to its owner. Ignored if <em>is_access_restricted</em> is <em>False</em>.</td>
+</tr>
+</tbody>
+</table>
+<h4>
+<a class="anchor" name="setmysettings" href="#setmysettings"><i class="anchor-icon"></i></a>setMySettings</h4>
+<p>Use this method to change settings of the bot. Settings that aren't specified remain unchanged. Returns <em>True</em> on success.</p>
+<table class="table">
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>supports_inline_queries</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Pass <em>True</em> to enable <a href="#inline-mode">inline mode</a> for the bot or <em>False</em> to disable it</td>
+</tr>
+<tr>
+<td>inline_query_placeholder</td>
+<td>String</td>
+<td>Optional</td>
+<td>New placeholder for inline queries, which is shown in the input field after the bot's username. Pass an empty string to use the default placeholder.</td>
+</tr>
+<tr>
+<td>needs_inline_query_location</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Pass <em>True</em> to request the location of the user with every inline query to the bot or <em>False</em> to stop requesting it</td>
+</tr>
+<tr>
+<td>inline_feedback_share_denominator</td>
+<td>Integer</td>
+<td>Optional</td>
+<td>Denominator of the share of <a href="#choseninlineresult">chosen inline results</a> received by the bot; the bot receives 1 out of <em>inline_feedback_share_denominator</em> chosen results. Must be one of 1, 10, 100, or 1000. Pass 0 to stop receiving chosen inline results.</td>
+</tr>
+<tr>
+<td>can_join_groups</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Pass <em>True</em> to allow adding the bot to groups or <em>False</em> to disallow it</td>
+</tr>
+<tr>
+<td>can_read_all_group_messages</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Pass <em>True</em> to disable <a href="/bots/features#privacy-mode">privacy mode</a> for the bot or <em>False</em> to enable it</td>
+</tr>
+<tr>
+<td>can_connect_to_business</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Pass <em>True</em> to allow connecting the bot to user accounts to manage them or <em>False</em> to disallow it</td>
+</tr>
+<tr>
+<td>can_manage_bots</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Pass <em>True</em> to allow creating other bots that will be controlled by the bot or <em>False</em> to disallow it</td>
+</tr>
+<tr>
+<td>supports_guest_queries</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Pass <em>True</em> to allow guest queries to the bot from chats it isn't a member of or <em>False</em> to disallow them</td>
+</tr>
+<tr>
+<td>supports_join_request_queries</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Pass <em>True</em> to allow assigning the bot to process join request queries or <em>False</em> to disallow it</td>
+</tr>
+<tr>
+<td>has_topics_enabled</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Pass <em>True</em> to enable forum topic mode in private chats with the bot or <em>False</em> to disable it</td>
+</tr>
+<tr>
+<td>allows_users_to_create_topics</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Pass <em>True</em> to allow users to create and delete topics in private chats with the bot or <em>False</em> to disallow it</td>
+</tr>
+<tr>
+<td>has_topic_sidebar</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Pass <em>True</em> to show topics in private chats with the bot in a sidebar or <em>False</em> to stop showing them in a sidebar</td>
+</tr>
+<tr>
+<td>can_communicate_with_bots</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Pass <em>True</em> to allow the bot to communicate with other bots in groups, private chats, and through business accounts or <em>False</em> to disallow it</td>
+</tr>
+<tr>
+<td>callback_query_mode</td>
+<td>String</td>
+<td>Optional</td>
+<td>Mode in which the bot receives <a href="#callbackquery">callback queries</a> from buttons in messages sent by the bot. Must be one of “default” (the field <em>message</em> is always used and contains an <a href="#inaccessiblemessage">InaccessibleMessage</a> if the message is inaccessible to the bot), “auto” (the field <em>inline_message_id</em> is used instead of the field <em>message</em> if the message is inaccessible to the bot; the field <em>message</em> can still contain an inaccessible message if the message has just been deleted), or “inline” (the field <em>inline_message_id</em> is always used instead of the field <em>message</em>).</td>
 </tr>
 </tbody>
 </table>
@@ -21274,8 +21464,9 @@ all the text above was on the same line
 <td>Type of the block, always “expandable_blockquote”</td>
 </tr>
 <tr>
-<td>text</td>
-<td><a href="#richtext">RichText</a></td>
+<td>blocks</td>
+<td>Array of <a href="#richblock">RichBlock</a>
+</td>
 <td>Content of the block</td>
 </tr>
 <tr>
@@ -22083,8 +22274,9 @@ all the text above was on the same line
 <td>Type of the block, always “expandable_blockquote”</td>
 </tr>
 <tr>
-<td>text</td>
-<td><a href="#richtext">RichText</a></td>
+<td>blocks</td>
+<td>Array of <a href="#inputrichblock">InputRichBlock</a>
+</td>
 <td>Content of the block</td>
 </tr>
 <tr>
@@ -22558,7 +22750,7 @@ all the text above was on the same line
 <h3>
 <a class="anchor" name="inline-mode" href="#inline-mode"><i class="anchor-icon"></i></a>Inline mode</h3>
 <p>The following methods and objects allow your bot to work in <a href="/bots/inline">inline mode</a>.<br>Please see our <a href="/bots/inline">Introduction to Inline bots</a> for more details.</p>
-<p>To enable this option, send the <code>/setinline</code> command to <a href="https://t.me/botfather">@BotFather</a> and provide the placeholder text that the user will see in the input field after typing your bot's name.</p>
+<p>To enable this option, send the <code>/setinline</code> command to <a href="https://t.me/botfather">@BotFather</a> and provide the placeholder text that the user will see in the input field after typing your bot's name, or use the parameters <em>supports_inline_queries</em> and <em>inline_query_placeholder</em> of the method <a href="#setmysettings">setMySettings</a>.</p>
 <h4>
 <a class="anchor" name="inlinequery" href="#inlinequery"><i class="anchor-icon"></i></a>InlineQuery</h4>
 <p>This object represents an incoming inline query. When the user sends an empty query, your bot could return some default or trending results.</p>
@@ -22601,7 +22793,8 @@ all the text above was on the same line
 <td>location</td>
 <td><a href="#location">Location</a></td>
 <td>
-<em>Optional</em>. Sender location, only for bots that request user location</td>
+<em>Optional</em>. Sender location, only for bots that enabled user location requests via <a href="https://t.me/botfather">@BotFather</a> or using the parameter <em>needs_inline_query_location</em> of the method <a href="#setmysettings">setMySettings</a>
+</td>
 </tr>
 </tbody>
 </table>
@@ -24804,7 +24997,8 @@ all the text above was on the same line
 <td>location</td>
 <td><a href="#location">Location</a></td>
 <td>
-<em>Optional</em>. Sender location, only for bots that require user location</td>
+<em>Optional</em>. Sender location, only for bots that enabled user location requests via <a href="https://t.me/botfather">@BotFather</a> or using the parameter <em>needs_inline_query_location</em> of the method <a href="#setmysettings">setMySettings</a>
+</td>
 </tr>
 <tr>
 <td>inline_message_id</td>
@@ -24819,7 +25013,7 @@ all the text above was on the same line
 </tr>
 </tbody>
 </table>
-<p><strong>Note:</strong> It is necessary to enable <a href="/bots/inline#collecting-feedback">inline feedback</a> via <a href="https://t.me/botfather">@BotFather</a> in order to receive these objects in updates.</p>
+<p><strong>Note:</strong> It is necessary to enable <a href="/bots/inline#collecting-feedback">inline feedback</a> via <a href="https://t.me/botfather">@BotFather</a> or using the parameter <em>inline_feedback_share_denominator</em> of the method <a href="#setmysettings">setMySettings</a> in order to receive these objects in updates.</p>
 <h3>
 <a class="anchor" name="payments" href="#payments"><i class="anchor-icon"></i></a>Payments</h3>
 <p>Your bot can accept payments from Telegram users. Please see the <a href="/bots/payments">introduction to payments</a> for more details on the process and how to set up payments for your bot.</p>

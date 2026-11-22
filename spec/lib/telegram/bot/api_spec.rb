@@ -82,7 +82,7 @@ RSpec.describe Telegram::Bot::Api, :vcr do
   describe '#getMe' do
     subject { api.getMe }
 
-    it { is_expected.to be_an_instance_of(Telegram::Bot::Types::User) }
+    it { is_expected.to be_an_instance_of(Telegram::Bot::Types::BotFullInfo) }
   end
 
   describe '#getMyName' do
@@ -331,6 +331,15 @@ RSpec.describe Telegram::Bot::Api, :vcr do
       it 'leaves scalars untouched' do
         expect(params).to include(text: 'hello', chat_id: 1)
       end
+    end
+  end
+
+  describe '#set_my_settings' do
+    it 'forwards settings and returns the boolean result' do
+      settings = { supports_inline_queries: false, has_topic_sidebar: true, callback_query_mode: 'inline' }
+      allow(api).to receive(:call).with('setMySettings', settings).and_return('ok' => true, 'result' => true)
+
+      expect(api.set_my_settings(**settings)).to be(true)
     end
   end
 end
